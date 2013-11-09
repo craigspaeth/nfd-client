@@ -18,7 +18,8 @@
 		"marked": "*",
 		"ua-parser": "*",
 		"node-mandrill": "*",
-		"sharify": "*"
+		"sharify": "*",
+    "newrelic": "*"
   },
 	"devDependencies": {
 		"zombie": "*",

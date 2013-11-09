@@ -7,6 +7,7 @@ module.exports =
            4000, 4500, 5000, 6000, 7000, 8000, 9000, 10000]
   MANDRILL_APIKEY: 'yFJt0L42xBWoJ-xGrE3XWw'
   MIXPANEL_KEY: '43b61ce4f9ba26bc8e87d44568af0622'
+  NEW_RELIC_LICENSE_KEY: '8337cb8875421195e07147b39f6d26ff8ab795d3' 
   HERO_UNITS: [
     {
       path: 'http://farm8.staticflickr.com/7216/7165051233_befdd890b8_b.jpg'
