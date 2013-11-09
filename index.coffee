@@ -1,3 +1,4 @@
+require 'newrelic'
 express = require 'express'
 { PORT, NODE_ENV, API_URL, MANDRILL_APIKEY } = config = require './config'
 { exec } = require 'child_process'
