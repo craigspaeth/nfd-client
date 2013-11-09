@@ -25,16 +25,14 @@ app.use sharify _.pick config,
   'PRICES'
   'MANDRILL_APIKEY'
   'MIXPANEL_KEY'
+  'HERO_UNITS'
 app.locals.accounting = accounting
   
 # Routes
 app.use uaMiddlware
-app.get '/', (req, res) ->
-  res.render 'home-page'
-app.get '/search*', (req, res) ->
-  res.render 'home-page'
-app.get '/about', (req, res) ->
-  res.render 'about-page'
+app.get '/', (req, res) -> res.render 'home-page'
+app.get '/search*', (req, res) -> res.render 'home-page'
+app.get '/about', (req, res) -> res.render 'about-page'
 app.post '/feedback', (req, res) ->
   mandrill '/messages/send',
     message:

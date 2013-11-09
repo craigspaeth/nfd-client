@@ -928,7 +928,7 @@ html.safari .filters-sort-select {
   margin-left: -25px;
 }
 #about-page-small-header {
-  background: url("/images/home-page-bgs/1.jpg") center 45%;
+  background-position: center 45%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;

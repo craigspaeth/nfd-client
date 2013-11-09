@@ -1,11 +1,12 @@
 extends ../layout/templates/index
 
 block content
-  #about-page-small-header
-    a#about-page-small-header-caption(
-      href='http://www.flickr.com/photos/wwarby/2230729988/sizes/o/',
-      target='_blank'
-    ) Photo by William Warby on Flickr
+  unit = sd.HERO_UNITS[4]
+  #about-page-small-header(
+    style="background-image: url('#{unit.path}')"
+  )
+    a#about-page-small-header-caption( href=unit.url, target='_blank' )
+      | Photo by William Warby on Flickr
   .about-page-copy
     include about.md
   #about-page-faq.about-page-copy
