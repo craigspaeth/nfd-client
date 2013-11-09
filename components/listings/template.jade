@@ -1,0 +1,38 @@
+.listings-container
+  .listings-before-spinner.loading-spinner
+    .loading-spinner-dot
+  if listings.length
+    ul.listings
+      for listing in listings
+        li
+          .listings-section-left
+            h1= listing.formattedRent()
+            h2.listings-bed-count
+              .listings-count-num= listing.bedsDisplay()
+              if listing.bedsDisplay() == 'S'
+                | studio
+              else
+                | bed
+            h2.listings-bath-count
+              .listings-count-num= listing.get('baths')  || '?'
+              | bath
+            if listing.get('location')
+              h3= listing.get('location').neighborhood || listing.get('location').name
+              h4= listing.get('location').formatted_address
+              h5( class=listing.listedAgoClass() ) Listed #{listing.listedAgo()}
+            a.rounded-button( target='_blank', href=listing.get('url') )
+              | See more on #{listing.sourceWebsiteName()}
+          .listings-section-middle
+            if listing.get('pictures').length
+              ul.listings-pictures
+                for url in listing.get('pictures')
+                  li
+                    img( src=url )
+            else
+              .listings-no-pictures No pictures
+    .listings-map
+    .listings-map-no-geo-cover Listing missing geo-coordinates
+    .listings-after-spinner.loading-spinner
+      .loading-spinner-dot
+  else
+    .listings-no-results No results. Try loosening up your filters.

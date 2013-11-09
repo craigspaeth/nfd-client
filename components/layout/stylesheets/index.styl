@@ -1,0 +1,81 @@
+@import './main-header'
+@import './form-elements'
+@import '../../stylus-lib'
+@import '../../home-page'
+@import '../../filters'
+@import '../../listings'
+@import '../../about-page'
+@import '../../feedback-modal'
+
+global-reset()
+
+body
+  color dark-gray-color
+  font-size default-font-size
+  museo()
+  line-height 1.4em
+  padding-top main-header-height
+*
+  box-sizing border-box
+a
+  color green-color
+  transition background-color 0.3s
+  &:hover
+    color hover-green-color
+strong
+  font-weight bold
+em
+  font-style italic
+.loading-spinner
+  width 40px
+  height @width
+  border-radius @width
+  border 3px solid green-color
+  .loading-spinner-dot
+    width 10px
+    height 42px
+    border-top 5px solid white
+    margin -3px auto 0 auto
+    animation spin 0.5s infinite
+    content '.'
+    color transparent
+
+// 
+// Embedded assets
+// 
+
+// Logo mark
+#main-header-logo
+  background-image url('/images/logo-mark.svg') !important
+  
+// Full logo
+#home-page-full-logo
+  background-image url('/images/full-logo.svg') !important
+#about-page-logo
+  background-image url('/images/full-logo-green.svg') !important
+  
+// Down carrot
+.filters-location-arrow
+  background-image url('/images/down-carrot.svg') !important
+
+// Down dash
+.filters-location-arrow.filters-location-arrow-expanded
+  background-image url('/images/down-dash.svg') !important
+  
+// Select arrows
+.rounded-select
+  background-image url('/images/select-arrows.svg') !important
+
+// Filters dropdown lip
+.filters-location-neighborhoods::after
+  background-image url('/images/up-arrow.svg') !important
+  
+// Social Media
+.main-header-social-media-facebook
+  background-image url('/images/facebook.svg') !important
+.main-header-social-media-twitter
+  background-image url('/images/twitter.svg') !important
+
+// Close modal
+#feedback-modal-close
+  background-image url('/images/modal-close.svg') !important

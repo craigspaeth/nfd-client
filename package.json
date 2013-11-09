@@ -1,0 +1,41 @@
+{
+  "name": "nfd-client",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "make s"
+  },
+  "dependencies": {
+    "express": "*",
+		"jade": "*",
+		"coffee-script": "*",
+		"underscore": "*",
+		"backbone": "*",
+		"superagent": "*",
+		"accounting": "*",
+		"numeral": "*",
+		"moment": "*",
+		"marked": "*",
+		"ua-parser": "*",
+		"node-mandrill": "*",
+		"sharify": "*"
+  },
+	"devDependencies": {
+		"zombie": "*",
+		"mocha": "*",
+		"should": "*",
+		"sinon": "*",
+		"nib": "*",
+		"browserify": "*",
+		"jadeify2": "*",
+		"caching-coffeeify": "*",
+		"stylus": "git://github.com/craigspaeth/stylus.git",
+		"zepto": "git://github.com/madrobby/zepto.git",
+		"jsdom": "*",
+		"rewire": "*",
+		"gmaps": "git://github.com/craigspaeth/gmaps.git",
+		"nodemon": "*",
+		"morpheus": "*",
+		"benv": "*"
+	}
+}

@@ -1,0 +1,145 @@
+@import '../stylus-lib'
+
+left-section-width = 200px
+middle-section-width = 360px
+map-width = 400px
+map-height = 400px
+li-bottom-margin = 80px
+locked-top-margin = 120px + main-header-height
+column-gap = 20px
+
+@keyframes spin
+  0%
+    transform rotate(0deg)
+    animation-timing-function linear
+  50%
+    transform rotate(180deg)
+    animation-timing-function linear
+  100%
+    transform rotate(360deg)
+    animation-timing-function linear
+
+.listings-container
+  position relative
+  width left-section-width + middle-section-width + map-width + (column-gap * 2)
+  margin 0 auto
+  &.listings-loading
+    ul, .listings-map, .listings-map-no-geo-cover
+      opacity 0
+    .listings-before-spinner
+      display block
+    .listings-no-results
+      display none
+  .listings-before-spinner
+    margin 100px auto 0 auto
+    display none
+  .listings-after-spinner
+    margin 400px auto
+    
+.listings
+  position relative
+  left -column-gap
+  
+.listings > li
+  clearfix()
+  margin-bottom li-bottom-margin
+  position relative
+  &.listings-li-locked
+    .listings-section-left
+      position fixed
+      top locked-top-margin
+  &.listings-li-bottom
+    .listings-section-left
+      bottom 0
+      top inherit
+
+.listings-section-left
+  position absolute
+  top 0
+
+.listings-section-middle
+  width middle-section-width
+  min-height 500px
+  margin-left left-section-width + column-gap
+  img
+    width 100%
+    display block
+    margin-bottom 5px
+
+.listings-section-left
+  width left-section-width
+  h1
+    font-size 48px
+    margin 12px 0 30px 0
+  h2
+    font-size 16px
+    margin 5px 0
+  h3
+    font-weight bold
+    margin 20px 0 5px 0
+  h4, h5
+    font-size 13px
+  h5
+    margin-bottom 20px
+  button
+    display block
+    padding 15px 0
+    margin 5px 0
+    width 100%
+    
+.listings-count-num
+  width 40px
+  height @width
+  border-radius @width
+  line-height @width - 3px
+  text-align center
+  border 1px solid
+  display inline-block
+  font-size 20px
+  font-weight bold
+  margin-right 7px
+
+.listings-bed-count
+  color green-color
+
+.listings-bath-count
+  color blue-color
+  
+.listings-map
+.listings-map-no-geo-cover
+  height map-height
+  width map-width
+  position absolute
+  top 0
+  margin-left left-section-width + middle-section-width + (column-gap * 2)  
+  position fixed !important
+  top locked-top-margin
+.listings-map
+  background #eee
+.listings-map-no-geo-cover
+  text-align center
+  color white
+  line-height map-height
+  background-color rgba(0,0,0,0.8)
+  display none
+  
+.listings-listed-ago-good
+  color hover-green-color
+.listings-listed-ago-medium
+  color warn-orange-color
+.listings-listed-ago-bad
+  color red-color
+  
+.listings-no-pictures
+  background #eee
+  color #aaa
+  height 500px
+  width 100%
+  line-height @height
+  font-size 18px
+  text-align center
+  
+.listings-no-results
+  text-align center
+  font-size 18px
+  margin 100px 0

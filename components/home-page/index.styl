@@ -1,0 +1,79 @@
+@import '../stylus-lib'
+
+filters-container-adjustment = -250px
+
+#home-page-hero-unit
+  width 100%
+  text-align center
+  position relative
+  background black
+  h1
+    font-weight light
+    font-size 38px
+    text-align center
+    color white
+    margin-bottom 40px
+
+#home-page-hero-unit-img-container
+  opacity 0
+
+#home-page-hero-unit-img
+  position fixed
+  top 0
+  left 0
+  width 100%
+  height 100%
+  z-index 0
+  background-size cover
+  background-position-y top
+
+#home-page-filters-container
+  position absolute
+  width 100%
+  top 50%
+  margin-top filters-container-adjustment
+  
+#home-page-filters
+  display inline-block
+  background rgba(255, 255, 255, 0.95)
+  padding 20px
+  border-radius 5px
+  &.home-page-filters-fixed
+    position fixed
+    top 0
+    left 0
+    width 100%
+    z-index 2
+    background-color #f6f6f6
+    margin-top main-header-height
+    border-radius 0
+    padding 10px 0 5px 0
+    .filters
+      margin auto
+    #home-page-filters-search-button
+      display none
+    .filters-count
+      display block
+
+#home-page-filters-search-button
+  display block
+  width 100%
+  margin-top 13px
+  background-color green-color
+  padding 13px 0
+  &:hover, &:active
+    background-color hover-green-color
+    
+#home-page-listings-container
+  padding-top 40px
+  position relative
+  background white
+  
+#home-page-hero-unit-caption
+  bottom 80px
+  right 40px
+  color rgba(255,255,255,0.7)
+  z-index 2
+  font-size 12px
+  text-decoration none
+  position absolute

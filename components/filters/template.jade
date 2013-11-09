@@ -1,0 +1,66 @@
+mixin neighborhood-group(group)
+  ul
+    lh
+      label
+        input.filters-location-neighborhoods-checkall( type='checkbox' )
+        = group
+    if sd.NEIGHBORHOODS[group]
+      ul.filter-location-neighborhoods-group
+        for neighborhood in sd.NEIGHBORHOODS[group]
+          li
+            label
+              input.filters-location-neighborhoods-check( type='checkbox', value=neighborhood )
+              = neighborhood
+
+.filters
+  label
+    h3 Max Rent
+    select.rounded-select.filters-max-rent
+      option( value='' ) --
+      for price in sd.PRICES
+        option( value=price )
+          = accounting.formatMoney(price, '$', 0)
+  label
+    h3 Bedrooms
+    ul.rounded-tabs.filters-bedroom-tabs.rounded-tabs-active
+      li.rounded-tabs-active( data-val=0 ) S+
+      li( data-val=1 ) 1+
+      li( data-val=2 ) 2+
+      li( data-val=3 ) 3+
+      li( data-val=4 ) 4+
+  label
+    h3 Bathrooms
+    ul.rounded-tabs.filters-bathroom-tabs.rounded-tabs-active
+      li.rounded-tabs-active( data-val=1 ) 1+
+      li( data-val=1.5 ) 1.5+
+      li( data-val=2 ) 2+
+      li( data-val=2.5 ) 2.5+
+      li( data-val=3 ) 3+
+  label
+    h3 Location
+    button.filters-location-button.rounded-button
+      span.filters-location-text Select some neighborhoods
+      .filters-location-arrow
+  .filters-location-neighborhoods
+    mixin neighborhood-group('Downtown')
+    mixin neighborhood-group('Uptown')
+    mixin neighborhood-group('Midtown')
+    mixin neighborhood-group('North Brooklyn')
+    mixin neighborhood-group('South Brooklyn')
+    mixin neighborhood-group('Queens')
+    mixin neighborhood-group('Bronx')
+    mixin neighborhood-group('Staten Island')
+    button.rounded-button.filters-close Done
+  label
+    h3 Sort
+    select.rounded-select.filters-sort-select
+      option( value='' ) --
+      option( value='size' ) Size
+      option( value='rent' ) Price
+      option( value='newest', selected=true ) Newest
+.filters-count
+  | Showing 
+  span.filters-count-count 1000
+  |  of 
+  span.filters-count-total 2000
+  |  listings

@@ -1,0 +1,60 @@
+@import '../../stylus-lib'
+
+nav-border = 1px solid hover-green-color
+
+.typekit-badge
+  display none !important
+
+#main-header
+  background-color green-color
+  color white
+  width 100%
+  top 0
+  left 0
+  position fixed
+  z-index 3
+  height 57px
+  nav
+    display inline-block
+    vertical-align top
+    border-left nav-border
+    float left
+    a
+      color white
+      display inline-block
+      text-decoration none
+      padding 18px
+      transition background-color 0.3s
+      border-right nav-border
+      &:first-child
+        padding-left 18px
+      &:hover
+        background-color hover-green-color
+    
+#main-header-logo
+  background no-repeat
+  background-size contain
+  display inline-block
+  margin 13px 25px 0 10px
+  padding 5px 0 5px 40px
+  color white
+  font-weight bold
+  text-decoration none
+  float left
+  small 
+    font-weight normal
+    text-transform uppercase
+    position relative
+    font-size 10px
+    top -4px
+    left 7px
+
+#main-header-social-media
+  float right
+  a
+    background no-repeat center center
+    height 22px
+    width @height
+    float right
+    background-size contain
+    margin 16px 20px 0 0

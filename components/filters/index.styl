@@ -1,0 +1,171 @@
+@import '../stylus-lib'
+
+rounded-tabs-default()
+  border-color light-gray-border-color
+  color #aaa
+  background-color transparent
+  li
+    border-color light-gray-border-color
+
+previous-rounded-tabs(color, selector)
+  &{selector}
+    li
+      border-color color 
+      background-color color
+      color rgba(255,255,255,0.2)
+      transition background-color 0.3s
+      &{selector}
+        border-color color
+        background-color color
+        color white
+        & ~ li
+          rounded-tabs-default()
+          
+previous-rounded-tabs-important(color, selector)
+  &{selector}
+    li
+      border-color color !important
+      background-color color !important
+      color rgba(255,255,255,0.2) !important
+      transition background-color 0.3s
+      &{selector}
+        border-color color !important
+        background-color color !important
+        color white !important
+        & ~ li
+          border-color light-gray-border-color !important
+          color #aaa !important
+          background-color transparent !important
+          li
+            border-color light-gray-border-color !important
+
+tabs-slider-widget(color)
+  previous-rounded-tabs(color, ':hover')
+  previous-rounded-tabs(color, '.rounded-tabs-active')
+  &:hover
+    previous-rounded-tabs-important(color, ':hover')
+
+.filters
+  position relative
+  width container-width
+  label
+    display inline-block
+    margin-right 10px
+    vertical-align top
+    text-align left
+    &:last-child
+      margin-right 0
+  h3
+    font-size 11px
+    text-transform uppercase
+    letter-spacing 1px
+    margin-bottom 10px
+  .rounded-tabs
+    rounded-tabs-default()
+
+.filters-bedroom-tabs
+  tabs-slider-widget(green-color)
+.filters-bathroom-tabs
+  tabs-slider-widget(blue-color)
+  
+.filters-location-button
+  font-size 12px
+  font-weight normal
+  width 210px
+  padding 7px 14px 8px 14px
+  border 1px solid light-gray-border-color
+  color dark-gray-color
+  background-color transparent
+  &:hover, &:focus, &:active
+    background-color transparent
+    color dark-gray-color
+  .filters-location-arrow
+    padding 5px 6px
+    display inline-block
+    margin-left 10px
+    position relative
+    top 3px
+    float right
+  
+.filters-location-neighborhoods
+  display none
+  line-height 2em
+  padding 4px 10px
+  background rgba(60,60,60,0.99)
+  color white
+  top 72px
+  left 0
+  position absolute
+  width 100%
+  border-radius default-border-radius
+  font-size 12px
+  z-index 2
+  text-align left
+  &::after
+    content '.'
+    color transparent
+    background no-repeat center center
+    background-size 100%
+    width 15px
+    position absolute
+    top -15px
+    right 220px
+  input[type=checkbox]
+    margin-right 11px
+  > ul
+    display inline-block
+    vertical-align top
+    width 20%
+    padding 15px
+    lh
+      text-transform uppercase
+      color #777
+      font-weight bold
+      letter-spacing 2px
+      border-bottom 1px solid rgba(255,255,255,0.1)
+      margin-bottom 10px
+      font-size 11px
+      display block
+  [type=checkbox]
+    margin 0    
+  .filter-location-neighborhoods-group
+    overflow scroll
+    height 157px
+  
+.filters-count
+  margin-top 5px
+  font-size 11px
+  display none
+  .filters-count-count
+    font-weight bold
+    
+.filters-max-rent
+  width 180px
+
+.filters-sort-select
+  width 131px
+
+.filters-close
+  position absolute
+  right 15px
+  bottom @right
+  padding 5px 25px
+  font-size 13px
+  background-color transparent
+  border 1px solid #ccc
+  &:hover, &:focus, &:active
+    background-color transparent
+  
+html.firefox
+  .filters-location-button
+    padding 6px 12px 7px
+  .filters-location-arrow
+    top 4px
+  .rounded-tabs li
+    padding 5px 13px 5px
+  .rounded-select
+    background-image none !important
+    padding 7px 8px 7px 8px
+html.safari
+  .filters-sort-select
+    width 128px

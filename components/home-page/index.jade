@@ -1,0 +1,16 @@
+extends ../layout/templates/index
+
+block content
+  #home-page-hero-unit
+    #home-page-hero-unit-img-container
+      #home-page-hero-unit-img
+    #home-page-filters-container
+      h1 Find no fee apartments in New York City.
+      br
+      #home-page-filters
+        include ../filters/template
+        button#home-page-filters-search-button.rounded-button Search
+    a#home-page-hero-unit-caption( target='_blank' ) Photo by 
+      span#home-page-hero-unit-caption-author
+      |  on Flickr
+  #home-page-listings-container

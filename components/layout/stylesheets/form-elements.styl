@@ -1,0 +1,67 @@
+@import '../../stylus-lib'
+
+.rounded-tabs
+  font-size 12px
+  li
+    display inline-block
+    border-right 1px solid dark-gray-color
+    padding 4px 13px 3px 13px
+    cursor pointer
+    border-top 1px solid dark-gray-color
+    border-bottom @border-top
+    &:first-child
+      border-top-left-radius default-border-radius
+      border-bottom-left-radius default-border-radius
+      border-left @border-top
+    &:last-child
+      border-right 0
+      margin-right 0
+      border-top-right-radius default-border-radius
+      border-bottom-right-radius default-border-radius
+      border-right @border-top
+      
+.rounded-button
+  background green-color
+  padding 10px
+  museo()
+  font-weight bold
+  font-size default-font-size
+  border 0
+  border-radius  default-border-radius
+  color white
+  margin 0
+  transition background-color 0.3s
+  cursor pointer
+  display block
+  text-decoration none
+  text-align center
+  &:hover, &:active, &:focus
+    background-color hover-green-color
+    outline none
+    color white
+    
+.rounded-select
+  border 1px solid dark-gray-color
+  border-radius default-border-radius
+  font-size 12px
+  appearance none
+  padding 7px 30px 7px 8px
+  margin 0
+  border-color light-gray-border-color
+  background transparent no-repeat right center
+  background-size 20px
+  cursor pointer
+  color dark-gray-color
+  &:hover, &:active, &:focus
+    outline none
+    
+.box-input
+  border 1px solid light-gray-border-color
+  padding 7px
+  museo()
+  margin 0
+  font-size default-font-size
+  transition border-color 0.3s
+  &:active, &:focus
+    outline none
+    border-color green-color
