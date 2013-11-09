@@ -12,9 +12,16 @@ test:
 assets:
 	rm -rf public/assets/
 	mkdir public/assets
-	$(BIN)/stylus components/layout/stylesheets/index.styl -o public/assets/
-	$(BIN)/browserify components/layout/client.coffee -t caching-coffeeify -t jadeify2 > public/assets/index.js
-
+	$(foreach file, $(shell find assets -name '*.coffee' | cut -d '.' -f 1), \
+		$(BIN)/browserify $(file).coffee -t jadeify2 -t caching-coffeeify > public/$(file).js; \
+		$(BIN)/uglifyjs public/$(file).js > public/$(file).min.js; \
+		gzip -f public/$(file).min.js; \
+	)
+	$(BIN)/stylus assets -o public/assets --inline --include public/
+	$(foreach file, $(shell find assets -name '*.styl' | cut -d '.' -f 1), \
+		$(BIN)/sqwish public/$(file).css -o public/$(file).min.css; \
+		gzip -f public/$(file).min.css; \
+	)
 commit: assets
 	git add .
 	git commit -a -m 'deploying...'
@@ -26,4 +33,4 @@ deploy-staging: commit
 deploy-production: commit
 	git push git@heroku.com:nfd-client-production.git master
 
-.PHONY: test
+.PHONY: test assets

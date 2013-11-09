@@ -36,6 +36,9 @@
 		"gmaps": "git://github.com/craigspaeth/gmaps.git",
 		"nodemon": "*",
 		"morpheus": "*",
-		"benv": "*"
+		"benv": "*",
+    "browserify-dev-middleware": "*",
+    "sqwish": "*",
+    "uglify-js": "*"
 	}
 }

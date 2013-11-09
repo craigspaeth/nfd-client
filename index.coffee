@@ -8,6 +8,7 @@ uaMiddlware = require './components/user-agent/middleware'
 mandrill = require('node-mandrill')(MANDRILL_APIKEY)
 sharify = require 'sharify'
 _ = require 'underscore'
+path = require 'path'
 
 app = module.exports = express()
 
@@ -17,7 +18,6 @@ app.set 'view engine', 'jade'
 app.use express.logger('dev')
 app.use express.favicon()
 app.use express.bodyParser()
-app.use(require './lib/asset-middleware') if NODE_ENV is 'development'
 app.use express.static __dirname + '/public'
 app.use sharify _.pick config,
   'API_URL'
@@ -27,6 +27,14 @@ app.use sharify _.pick config,
   'MIXPANEL_KEY'
   'HERO_UNITS'
 app.locals.accounting = accounting
+
+if NODE_ENV is 'development'
+  app.use require("stylus").middleware
+    src: path.resolve(__dirname, "../../")
+    dest: path.resolve(__dirname, "../../public")
+  app.use require("browserify-dev-middleware")
+    src: path.resolve(__dirname, "../../")
+    transforms: [require("jadeify2"), require('caching-coffeeify')]
   
 # Routes
 app.use uaMiddlware

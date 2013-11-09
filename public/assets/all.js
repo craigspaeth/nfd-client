@@ -1,5 +1,12 @@
 ;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function() {
+  require('../components/layout/client.coffee');
+
+}).call(this);
+
+
+},{"../components/layout/client.coffee":7}],2:[function(require,module,exports){
+(function() {
   var Backbone, Listings, ListingsParams, sd, _, _ref,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
@@ -61,7 +68,7 @@
 }).call(this);
 
 
-},{"../models/listing.coffee":11,"../models/listings-params.coffee":12,"backbone":14,"sharify":23,"underscore":24}],2:[function(require,module,exports){
+},{"../models/listing.coffee":12,"../models/listings-params.coffee":13,"backbone":15,"sharify":24,"underscore":25}],3:[function(require,module,exports){
 (function() {
   module.exports.init = function() {
     var $modal;
@@ -98,7 +105,7 @@
 }).call(this);
 
 
-},{}],3:[function(require,module,exports){
+},{}],4:[function(require,module,exports){
 (function() {
   var Backbone, FiltersView, numeral, _, _ref,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -222,7 +229,7 @@
 }).call(this);
 
 
-},{"backbone":14,"numeral":22,"underscore":24}],4:[function(require,module,exports){
+},{"backbone":15,"numeral":23,"underscore":25}],5:[function(require,module,exports){
 (function() {
   var Backbone, HomepageRouter, querystring, _, _ref,
     __hasProp = {}.hasOwnProperty,
@@ -261,7 +268,7 @@
 }).call(this);
 
 
-},{"backbone":14,"querystring":16,"underscore":24}],5:[function(require,module,exports){
+},{"backbone":15,"querystring":17,"underscore":25}],6:[function(require,module,exports){
 (function() {
   var BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -401,7 +408,7 @@
 }).call(this);
 
 
-},{"../../collections/listings.coffee":1,"../filters/view.coffee":3,"../listings/view.coffee":8,"./router.coffee":4,"backbone":14,"gmaps":18,"sharify":23,"underscore":24}],6:[function(require,module,exports){
+},{"../../collections/listings.coffee":2,"../filters/view.coffee":4,"../listings/view.coffee":9,"./router.coffee":5,"backbone":15,"gmaps":19,"sharify":24,"underscore":25}],7:[function(require,module,exports){
 (function() {
   var Backbone, HomepageView, feedbackModal, sd;
 
@@ -432,7 +439,7 @@
 }).call(this);
 
 
-},{"../../lib/zepto/index.coffee":9,"../feedback-modal/client.coffee":2,"../home-page/view.coffee":5,"backbone":14,"sharify":23}],7:[function(require,module,exports){
+},{"../../lib/zepto/index.coffee":10,"../feedback-modal/client.coffee":3,"../home-page/view.coffee":6,"backbone":15,"sharify":24}],8:[function(require,module,exports){
 var jade = require('jade/lib/runtime.js');module.exports = function anonymous(locals) {
 var buf = [];
 var locals_ = (locals || {}),listings = locals_.listings;buf.push("<div class=\"listings-container\"><div class=\"listings-before-spinner loading-spinner\"><div class=\"loading-spinner-dot\"></div></div>");
@@ -561,7 +568,7 @@ buf.push("<div class=\"listings-no-results\">No results. Try loosening up your f
 }
 buf.push("</div>");;return buf.join("");
 }
-},{"jade/lib/runtime.js":19}],8:[function(require,module,exports){
+},{"jade/lib/runtime.js":20}],9:[function(require,module,exports){
 (function() {
   var Backbone, FIXED_FILTER_HEIGHT, ListingsView, MARGIN_SIZE, morpheus, template, _, _ref,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -779,7 +786,7 @@ buf.push("</div>");;return buf.join("");
 }).call(this);
 
 
-},{"./template.jade":7,"backbone":14,"gmaps":18,"morpheus":21,"underscore":24}],9:[function(require,module,exports){
+},{"./template.jade":8,"backbone":15,"gmaps":19,"morpheus":22,"underscore":25}],10:[function(require,module,exports){
 var global=self;(function() {
   if (typeof global !== "undefined" && global !== null) {
     if (global.window == null) {
@@ -812,7 +819,7 @@ var global=self;(function() {
 }).call(this);
 
 
-},{"../../node_modules/zepto/src/ajax.js":25,"../../node_modules/zepto/src/detect.js":26,"../../node_modules/zepto/src/event.js":27,"../../node_modules/zepto/src/form.js":28,"../../node_modules/zepto/src/fx.js":29,"../../node_modules/zepto/src/touch.js":30,"../../node_modules/zepto/src/zepto.js":31,"./infinite_scroll.coffee":10}],10:[function(require,module,exports){
+},{"../../node_modules/zepto/src/ajax.js":26,"../../node_modules/zepto/src/detect.js":27,"../../node_modules/zepto/src/event.js":28,"../../node_modules/zepto/src/form.js":29,"../../node_modules/zepto/src/fx.js":30,"../../node_modules/zepto/src/touch.js":31,"../../node_modules/zepto/src/zepto.js":32,"./infinite_scroll.coffee":11}],11:[function(require,module,exports){
 (function() {
   var onScroll,
     _this = this;
@@ -838,7 +845,7 @@ var global=self;(function() {
 }).call(this);
 
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 (function() {
   var Backbone, Listing, accounting, moment, sd, url, _ref,
     __hasProp = {}.hasOwnProperty,
@@ -925,7 +932,7 @@ var global=self;(function() {
 }).call(this);
 
 
-},{"accounting":13,"backbone":14,"moment":20,"sharify":23,"url":17}],12:[function(require,module,exports){
+},{"accounting":14,"backbone":15,"moment":21,"sharify":24,"url":18}],13:[function(require,module,exports){
 (function() {
   var Backbone, ListingsParams, querystring, _ref,
     __hasProp = {}.hasOwnProperty,
@@ -962,7 +969,7 @@ var global=self;(function() {
 }).call(this);
 
 
-},{"backbone":14,"querystring":16}],13:[function(require,module,exports){
+},{"backbone":15,"querystring":17}],14:[function(require,module,exports){
 /*!
  * accounting.js v0.3.2
  * Copyright 2011, Joss Crowcroft
@@ -1375,7 +1382,7 @@ var global=self;(function() {
 	// Root will be `window` in browser or `global` on the server:
 }(this));
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 //     Backbone.js 1.0.0
 
 //     (c) 2010-2013 Jeremy Ashkenas, DocumentCloud Inc.
@@ -2948,10 +2955,10 @@ var global=self;(function() {
 
 }).call(this);
 
-},{"underscore":24}],15:[function(require,module,exports){
+},{"underscore":25}],16:[function(require,module,exports){
 // nothing to see here... no file methods for the browser
 
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 
 /**
  * Object#toString() ref for stringify().
@@ -3270,7 +3277,7 @@ function decode(str) {
   }
 }
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 var punycode = { encode : function (s) { return s } };
 
 exports.parse = urlParse;
@@ -3876,7 +3883,7 @@ function parseHost(host) {
   return out;
 }
 
-},{"querystring":16}],18:[function(require,module,exports){
+},{"querystring":17}],19:[function(require,module,exports){
 /*!
  * GMaps.js v0.4.5
  * http://hpneo.github.com/gmaps/
@@ -5859,7 +5866,7 @@ if (!Array.prototype.indexOf) {
       return -1;
   }
 }
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 
 /*!
  * Jade - runtime
@@ -6060,7 +6067,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
   throw err;
 };
 
-},{"fs":15}],20:[function(require,module,exports){
+},{"fs":16}],21:[function(require,module,exports){
 //! moment.js
 //! version : 2.2.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -7837,7 +7844,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /*!
   * Morpheus - A Brilliant Animator
   * https://github.com/ded/morpheus - (c) Dustin Diaz 2011
@@ -8241,7 +8248,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
 });
 
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /*!
  * numeral.js
  * version : 1.5.0
@@ -8784,7 +8791,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 module.exports = function(data) {
   
   // Immediately store and export initial shared data
@@ -8814,7 +8821,7 @@ module.exports.data = {};
 if (typeof window != 'undefined' && window.__sharifyData) {
   module.exports.data = window.__sharifyData;
 }
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 //     Underscore.js 1.5.1
 //     http://underscorejs.org
 //     (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -10062,7 +10069,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
 }).call(this);
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 //     Zepto.js
 //     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
@@ -10383,7 +10390,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   }
 })(Zepto)
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 //     Zepto.js
 //     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
@@ -10446,7 +10453,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
 })(Zepto)
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 //     Zepto.js
 //     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
@@ -10696,7 +10703,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
 })(Zepto)
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 //     Zepto.js
 //     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
@@ -10738,7 +10745,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
 })(Zepto)
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 //     Zepto.js
 //     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
@@ -10842,7 +10849,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   testEl = null
 })(Zepto)
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 //     Zepto.js
 //     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
@@ -10959,7 +10966,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   })
 })(Zepto)
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 //     Zepto.js
 //     (c) 2010-2012 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
@@ -11753,5 +11760,5 @@ var Zepto = (function() {
 window.Zepto = Zepto
 window.$ === undefined && (window.$ = Zepto)
 
-},{}]},{},[6])
+},{}]},{},[1])
 ;
