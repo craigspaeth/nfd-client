@@ -74,7 +74,6 @@
       return $modal.hide();
     });
     $modal.find('form').on('submit', function() {
-      console.log('submit');
       $.ajax({
         url: '/feedback',
         type: 'POST',
