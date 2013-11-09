@@ -23,7 +23,8 @@ commit: assets
 deploy-staging: commit
 	git push git@heroku.com:nfd-client-staging.git master
 
-deploy-production: commit
+deploy-production:
+	make commit
 	git push git@heroku.com:nfd-client-production.git master
 
 .PHONY: test
