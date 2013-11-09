@@ -1,11 +1,11 @@
 express = require 'express'
-{ PORT, NODE_ENV, API_URL, MANDRILL_KEY } = config = require './config'
+{ PORT, NODE_ENV, API_URL, MANDRILL_APIKEY } = config = require './config'
 { exec } = require 'child_process'
 sd = require('sharify').data
 request = require 'superagent'
 accounting = require 'accounting'
 uaMiddlware = require './components/user-agent/middleware'
-mandrill = require('node-mandrill')(MANDRILL_KEY)
+mandrill = require('node-mandrill')(MANDRILL_APIKEY)
 sharify = require 'sharify'
 _ = require 'underscore'
 
@@ -23,7 +23,7 @@ app.use sharify _.pick config,
   'API_URL'
   'NODE_ENV'
   'PRICES'
-  'MANDRILL_KEY'
+  'MANDRILL_APIKEY'
   'MIXPANEL_KEY'
 app.locals.accounting = accounting
   
