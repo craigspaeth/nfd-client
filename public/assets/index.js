@@ -263,7 +263,7 @@
 
 },{"backbone":14,"querystring":16,"underscore":24}],5:[function(require,module,exports){
 (function() {
-  var BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HERO_UNITS, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, _, _ref,
+  var BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -280,48 +280,11 @@
 
   FiltersRouter = require('./router.coffee');
 
+  sd = require('sharify').data;
+
   BELOW_FOLD_PEAK = 0;
 
   START_HERO_UNIT_OPACITY = 0.4;
-
-  HERO_UNITS = [
-    {
-      path: 'http://farm8.staticflickr.com/7216/7165051233_befdd890b8_b.jpg',
-      url: 'http://www.flickr.com/photos/jnarber/7165051233/in/photolist-bV9L76-fhEdXi-8RR5BR-7xMBVN-cQwRpN-dkJxg5-djX4sB-azxoTY-azuJFg-azxoB9-7FgPBB-bCa6Zo-afSNR4-8Zq6oa-8Zq6jF-8Zta8s-8ZtabY-euWgxT-dTAJh5-9DUf7b-9DRUox-bWF2AZ-9DT8AH-bHVDEM-9n8VLS-euZn6Y-euWfpi-euZo11-cmw3oo-cmw2Pj-cmvnSC-cmvvB3-cmv6Vw-cmw15b-cmvLVs-cmv8Eh-cmvZyq-cmvapd-cmvL9Y-9DRUyk-9DRSzP-9DZimC-dHLu7j/',
-      author: 'Jared Narber',
-      pos: 'top'
-    }, {
-      path: 'http://farm7.staticflickr.com/6052/6279775284_97cf791721_b.jpg',
-      url: 'http://www.flickr.com/photos/edrost88/6279775284/sizes/o/',
-      author: 'Erik Drost',
-      pos: 'center'
-    }, {
-      path: 'http://farm1.staticflickr.com/41/104838613_d2b262878e_b.jpg',
-      url: 'http://www.flickr.com/photos/jul/104838613/',
-      author: 'Julien Menichini',
-      pos: 'center'
-    }, {
-      path: 'http://farm4.staticflickr.com/3587/3584915920_1d68337526_o.jpg',
-      url: 'http://www.flickr.com/photos/sidelife/3584915920/sizes/o/',
-      author: 'Arsenie Coseac',
-      pos: 'center'
-    }, {
-      path: 'http://farm3.staticflickr.com/2571/4061232914_0241752ed1_b.jpg',
-      url: 'http://www.flickr.com/photos/sackerman519/4061232914/',
-      author: 'Sarah Ackerman',
-      pos: 'bottom'
-    }, {
-      path: 'http://farm8.staticflickr.com/7110/7038011669_f822cf6750_b.jpg',
-      url: 'http://www.flickr.com/photos/99472898@N00/7038011669/in/photolist-bHVDEM-9n8VLS-euZo11-euWgxT-cmw3oo-cmw2Pj-cmvnSC-9DZimC-arX3XD-arXc5r-arXpfi-arX8iz-arZsou-arZGoo-arZ8ny-arWZpk-arWCJ4-arWSw6-arZwxN-arWGqP-arX71D-arZhDU-arZaSU-arZmcu-9uYc9R-arZWJU-arWzRg-c6p1DN-dTM5oD-avTYLK-7QrmKr',
-      author: 'Kenny Louie',
-      pos: 'top'
-    }, {
-      path: 'http://farm2.staticflickr.com/1390/853546651_41ff333849_b.jpg',
-      url: 'http://www.flickr.com/photos/jenniferwoodardmaderazo/853546651/',
-      author: 'Jennifer Woodard Maderazo',
-      pos: 'bottom'
-    }
-  ];
 
   module.exports = HomepageView = (function(_super) {
     __extends(HomepageView, _super);
@@ -368,7 +331,7 @@
 
     HomepageView.prototype.loadHeroUnit = function() {
       var bgImg, heroUnit;
-      heroUnit = HERO_UNITS[_.random(0, HERO_UNITS.length - 1)];
+      heroUnit = sd.HERO_UNITS[_.random(0, sd.HERO_UNITS.length - 1)];
       bgImg = new Image;
       bgImg.src = heroUnit.path;
       this.$('#home-page-hero-unit-caption-author').text(heroUnit.author);
@@ -438,7 +401,7 @@
 }).call(this);
 
 
-},{"../../collections/listings.coffee":1,"../filters/view.coffee":3,"../listings/view.coffee":8,"./router.coffee":4,"backbone":14,"gmaps":18,"underscore":24}],6:[function(require,module,exports){
+},{"../../collections/listings.coffee":1,"../filters/view.coffee":3,"../listings/view.coffee":8,"./router.coffee":4,"backbone":14,"gmaps":18,"sharify":23,"underscore":24}],6:[function(require,module,exports){
 (function() {
   var Backbone, HomepageView, feedbackModal, sd;
 
