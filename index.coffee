@@ -36,7 +36,6 @@ app.get '/search*', (req, res) ->
 app.get '/about', (req, res) ->
   res.render 'about-page'
 app.post '/feedback', (req, res) ->
-  console.log 'sending', req.body
   mandrill '/messages/send',
     message:
       to: [{ email: 'nofeedigs@gmail.com' }]
@@ -44,7 +43,6 @@ app.post '/feedback', (req, res) ->
       subject: "Feedback"
       text: req.body.body
   , (err, resp) ->
-    console.log arguments
     return req.next err if err
     res.send resp
 

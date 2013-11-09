@@ -9,7 +9,6 @@ module.exports.init = ->
   
   # Submitting the form sends an email
   $modal.find('form').on 'submit', ->
-    console.log 'submit'
     $.ajax(
       url: '/feedback'
       type: 'POST'
