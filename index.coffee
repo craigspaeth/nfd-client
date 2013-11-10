@@ -31,10 +31,10 @@ app.locals.accounting = accounting
 
 if NODE_ENV is 'development'
   app.use require("stylus").middleware
-    src: path.resolve(__dirname, "../../")
-    dest: path.resolve(__dirname, "../../public")
+    src: path.resolve(__dirname, "./")
+    dest: path.resolve(__dirname, "./public")
   app.use require("browserify-dev-middleware")
-    src: path.resolve(__dirname, "../../")
+    src: path.resolve(__dirname, "./")
     transforms: [require("jadeify2"), require('caching-coffeeify')]
   
 # Routes

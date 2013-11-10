@@ -878,7 +878,9 @@ var global=self;(function() {
     };
 
     Listing.prototype.sourceWebsiteName = function() {
-      switch (url.parse(this.get('url')).hostname) {
+      var hostname;
+      hostname = url.parse(this.get('url')).hostname;
+      switch (hostname) {
         case 'streeteasy.com':
           return 'Street Easy';
         case 'www.nybits.com':
@@ -891,8 +893,12 @@ var global=self;(function() {
           return 'Trulia';
         case 'www.renthop.com':
           return 'RentHop';
+        case 'www.9300realty.com':
+          return '9300 Realty';
+        case 'http://www.iconrealtymgmt.com/':
+          return 'Icon Realty';
         default:
-          return 'Unknown';
+          return hostname;
       }
     };
 
