@@ -12,8 +12,8 @@ module.exports = class Listing extends Backbone.Model
     accounting.formatMoney @get('rent'), '$', 0
   
   sourceWebsiteName: ->
-    hostname = url.parse(@get 'url').hostname
-    switch hostname
+    host = url.parse(@get 'url').host
+    switch host
       when 'streeteasy.com' then 'Street Easy'
       when 'www.nybits.com' then 'NYBits'
       when 'www.urbanedgeny.com' then 'Urban Edge'
@@ -22,7 +22,7 @@ module.exports = class Listing extends Backbone.Model
       when 'www.renthop.com' then 'RentHop'
       when 'www.9300realty.com' then '9300 Realty'
       when 'http://www.iconrealtymgmt.com/' then 'Icon Realty'
-      else hostname
+      else host
         
   hasGeoPoints: ->
     @get('location')?.lng? and @get('location')?.lat?
