@@ -1,448 +1,429 @@
-;(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-(function() {
-  require('../components/layout/client.coffee');
-
-}).call(this);
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+require('../components/layout/client.coffee');
 
 
 },{"../components/layout/client.coffee":7}],2:[function(require,module,exports){
-(function() {
-  var Backbone, Listings, ListingsParams, sd, _, _ref,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var Backbone, Listings, ListingsParams, sd, _, _ref,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  Backbone = require('backbone');
+Backbone = require('backbone');
 
-  sd = require('sharify').data;
+sd = require('sharify').data;
 
-  _ = require('underscore');
+_ = require('underscore');
 
-  ListingsParams = require('../models/listings-params.coffee');
+ListingsParams = require('../models/listings-params.coffee');
 
-  module.exports = Listings = (function(_super) {
-    __extends(Listings, _super);
+module.exports = Listings = (function(_super) {
+  __extends(Listings, _super);
 
-    function Listings() {
-      this.fetch = __bind(this.fetch, this);
-      _ref = Listings.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
+  function Listings() {
+    this.fetch = __bind(this.fetch, this);
+    _ref = Listings.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
 
-    Listings.prototype.url = function() {
-      return "" + sd.API_URL + "/listings";
-    };
+  Listings.prototype.url = function() {
+    return "" + sd.API_URL + "/listings";
+  };
 
-    Listings.prototype.initialize = function() {
-      var _this = this;
-      this.model = require('../models/listing.coffee');
-      this.params = new ListingsParams;
-      return this.params.on('change', function() {
-        _this.trigger('requestReset');
-        return _this.fetch({
-          reset: true
-        });
+  Listings.prototype.initialize = function() {
+    var _this = this;
+    this.model = require('../models/listing.coffee');
+    this.params = new ListingsParams;
+    return this.params.on('change', function() {
+      _this.trigger('requestReset');
+      return _this.fetch({
+        reset: true
       });
-    };
-
-    Listings.prototype.fetch = function(options) {
-      var opts;
-      if (options == null) {
-        options = {};
-      }
-      opts = _.extend(options, {
-        data: _.extend(this.params.toJSON(), options.data)
-      });
-      return Listings.__super__.fetch.call(this, opts);
-    };
-
-    Listings.prototype.parse = function(res) {
-      this.total = res.total, this.count = res.count;
-      return res.results;
-    };
-
-    return Listings;
-
-  })(Backbone.Collection);
-
-}).call(this);
-
-
-},{"../models/listing.coffee":12,"../models/listings-params.coffee":13,"backbone":15,"sharify":24,"underscore":25}],3:[function(require,module,exports){
-(function() {
-  module.exports.init = function() {
-    var $modal;
-    $modal = $('#feedback-modal-bg');
-    $modal.click(function(e) {
-      var _ref;
-      if ((_ref = $(e.target).attr('id')) !== 'feedback-modal-bg' && _ref !== 'feedback-modal-close') {
-        return;
-      }
-      return $modal.hide();
-    });
-    $modal.find('form').on('submit', function() {
-      $.ajax({
-        url: '/feedback',
-        type: 'POST',
-        data: {
-          email: $modal.find('[type=email]').val(),
-          body: $modal.find('textarea').val()
-        },
-        success: function() {
-          return console.log(arguments);
-        }
-      });
-      $modal.hide();
-      return false;
-    });
-    return $('[href=feedback]').click(function() {
-      $modal.show();
-      $modal.find('input').first().focus();
-      return false;
     });
   };
 
-}).call(this);
+  Listings.prototype.fetch = function(options) {
+    var opts;
+    if (options == null) {
+      options = {};
+    }
+    opts = _.extend(options, {
+      data: _.extend(this.params.toJSON(), options.data)
+    });
+    return Listings.__super__.fetch.call(this, opts);
+  };
+
+  Listings.prototype.parse = function(res) {
+    this.total = res.total, this.count = res.count;
+    return res.results;
+  };
+
+  return Listings;
+
+})(Backbone.Collection);
+
+
+},{"../models/listing.coffee":12,"../models/listings-params.coffee":13,"backbone":15,"sharify":27,"underscore":28}],3:[function(require,module,exports){
+module.exports.init = function() {
+  var $modal;
+  $modal = $('#feedback-modal-bg');
+  $modal.click(function(e) {
+    var _ref;
+    if ((_ref = $(e.target).attr('id')) !== 'feedback-modal-bg' && _ref !== 'feedback-modal-close') {
+      return;
+    }
+    return $modal.hide();
+  });
+  $modal.find('form').on('submit', function() {
+    $.ajax({
+      url: '/feedback',
+      type: 'POST',
+      data: {
+        email: $modal.find('[type=email]').val(),
+        body: $modal.find('textarea').val()
+      },
+      success: function() {
+        return console.log(arguments);
+      }
+    });
+    $modal.hide();
+    return false;
+  });
+  return $('[href=feedback]').click(function() {
+    $modal.show();
+    $modal.find('input').first().focus();
+    return false;
+  });
+};
 
 
 },{}],4:[function(require,module,exports){
-(function() {
-  var Backbone, FiltersView, numeral, _, _ref,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var Backbone, FiltersView, numeral, _, _ref,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  _ = require('underscore');
+_ = require('underscore');
 
-  Backbone = require('backbone');
+Backbone = require('backbone');
 
-  numeral = require('numeral');
+numeral = require('numeral');
 
-  module.exports = FiltersView = (function(_super) {
-    __extends(FiltersView, _super);
+module.exports = FiltersView = (function(_super) {
+  __extends(FiltersView, _super);
 
-    function FiltersView() {
-      this.closeNeighborhoodsPopover = __bind(this.closeNeighborhoodsPopover, this);
-      this.renderCounts = __bind(this.renderCounts, this);
-      this.render = __bind(this.render, this);
-      _ref = FiltersView.__super__.constructor.apply(this, arguments);
-      return _ref;
+  function FiltersView() {
+    this.closeNeighborhoodsPopover = __bind(this.closeNeighborhoodsPopover, this);
+    this.renderCounts = __bind(this.renderCounts, this);
+    this.render = __bind(this.render, this);
+    _ref = FiltersView.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  FiltersView.prototype.initialize = function() {
+    this.params = this.collection.params;
+    this.params.on('change', this.render);
+    this.collection.on('sync', this.renderCounts);
+    return $(document).on('click', this.closeNeighborhoodsPopover);
+  };
+
+  FiltersView.prototype.render = function() {
+    var neighborhood, numSelected, _i, _len, _ref1, _results;
+    this.$('select option').prop('selected', false);
+    this.$(".filters-max-rent option[value='" + (this.params.get('rent-max')) + "']").prop('selected', true);
+    this.$(".filters-sort-select option[value='" + (this.params.get('sort')) + "']").prop('selected', true);
+    this.$('.rounded-tabs li').removeClass('rounded-tabs-active');
+    this.$(".filters-bedroom-tabs li[data-val='" + (this.params.get('bed-min')) + "']").addClass('rounded-tabs-active');
+    this.$(".filters-bathroom-tabs li[data-val='" + (this.params.get('bath-min')) + "']").addClass('rounded-tabs-active');
+    numSelected = this.params.get('neighborhoods').length;
+    this.$('.filters-location-text').html(numSelected > 0 ? "Selected " + numSelected + " neighborhood" + (numSelected === 1 ? '' : 's') : "Select some neighborhoods");
+    _ref1 = this.params.get('neighborhoods');
+    _results = [];
+    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+      neighborhood = _ref1[_i];
+      _results.push(this.$(".filters-location-neighborhoods-check[value=\"" + neighborhood + "\"]").prop('checked', true));
     }
+    return _results;
+  };
 
-    FiltersView.prototype.initialize = function() {
-      this.params = this.collection.params;
-      this.params.on('change', this.render);
-      this.collection.on('sync', this.renderCounts);
-      return $(document).on('click', this.closeNeighborhoodsPopover);
-    };
+  FiltersView.prototype.renderCounts = function() {
+    this.$('.filters-count-count').html(numeral(this.collection.count).format('0,0'));
+    return this.$('.filters-count-total').html(numeral(this.collection.total).format('0,0'));
+  };
 
-    FiltersView.prototype.render = function() {
-      var neighborhood, numSelected, _i, _len, _ref1, _results;
-      this.$('select option').prop('selected', false);
-      this.$(".filters-max-rent option[value='" + (this.params.get('rent-max')) + "']").prop('selected', true);
-      this.$(".filters-sort-select option[value='" + (this.params.get('sort')) + "']").prop('selected', true);
-      this.$('.rounded-tabs li').removeClass('rounded-tabs-active');
-      this.$(".filters-bedroom-tabs li[data-val='" + (this.params.get('bed-min')) + "']").addClass('rounded-tabs-active');
-      this.$(".filters-bathroom-tabs li[data-val='" + (this.params.get('bath-min')) + "']").addClass('rounded-tabs-active');
-      numSelected = this.params.get('neighborhoods').length;
-      this.$('.filters-location-text').html(numSelected > 0 ? "Selected " + numSelected + " neighborhood" + (numSelected === 1 ? '' : 's') : "Select some neighborhoods");
-      _ref1 = this.params.get('neighborhoods');
-      _results = [];
-      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-        neighborhood = _ref1[_i];
-        _results.push(this.$(".filters-location-neighborhoods-check[value=\"" + neighborhood + "\"]").prop('checked', true));
-      }
-      return _results;
-    };
-
-    FiltersView.prototype.renderCounts = function() {
-      this.$('.filters-count-count').html(numeral(this.collection.count).format('0,0'));
-      return this.$('.filters-count-total').html(numeral(this.collection.total).format('0,0'));
-    };
-
-    FiltersView.prototype.closeNeighborhoodsPopover = function(e) {
-      var clickingButton, clickingPopover, expanded;
-      expanded = $('.filters-location-arrow').hasClass('filters-location-arrow-expanded');
-      clickingPopover = $(e.target).closest('.filters-location-neighborhoods').length;
-      clickingButton = $(e.target).closest('.filters-location-button').length;
-      if (!expanded || clickingPopover || clickingButton) {
-        return;
-      }
-      this.$('.filters-location-neighborhoods').hide();
-      return this.$('.filters-location-arrow').removeClass('filters-location-arrow-expanded');
-    };
-
-    FiltersView.prototype.events = {
-      'change .filters-max-rent': 'setRent',
-      'click .filters-bedroom-tabs li': 'setBedrooms',
-      'click .filters-bathroom-tabs li': 'setBathrooms',
-      'click .filters-location-neighborhoods-check': 'setNeighborhoods',
-      'change .filters-sort-select': 'setSort',
-      'click .filters-location-button': 'toggleNeighborhoodsPopover',
-      'click .filters-close': 'toggleNeighborhoodsPopover',
-      'change .filters-location-neighborhoods-checkall': 'toggleNeighborhoodGroup'
-    };
-
-    FiltersView.prototype.setRent = function(e) {
-      this.params.set('rent-max', $(e.target).val());
-      return false;
-    };
-
-    FiltersView.prototype.setBedrooms = function(e) {
-      this.params.set('bed-min', $(e.target).data('val'));
-      return false;
-    };
-
-    FiltersView.prototype.setBathrooms = function(e) {
-      this.params.set('bath-min', $(e.target).data('val'));
-      return false;
-    };
-
-    FiltersView.prototype.setNeighborhoods = function() {
-      return this.params.set('neighborhoods', this.$('.filters-location-neighborhoods-check:checked').map(function() {
-        return $(this).val();
-      }).toArray());
-    };
-
-    FiltersView.prototype.setSort = function(e) {
-      this.params.set('sort', $(e.target).val());
-      return false;
-    };
-
-    FiltersView.prototype.toggleNeighborhoodsPopover = function(e) {
-      this.$('.filters-location-neighborhoods').toggle();
-      return this.$('.filters-location-arrow').toggleClass('filters-location-arrow-expanded');
-    };
-
-    FiltersView.prototype.toggleNeighborhoodGroup = function(e) {
-      var $checkboxes, checkAll;
-      checkAll = $(e.target).prop('checked');
-      $checkboxes = $(e.target).closest('ul').find('.filters-location-neighborhoods-check');
-      $checkboxes.prop('checked', checkAll);
-      return this.setNeighborhoods();
-    };
-
-    return FiltersView;
-
-  })(Backbone.View);
-
-}).call(this);
-
-
-},{"backbone":15,"numeral":23,"underscore":25}],5:[function(require,module,exports){
-(function() {
-  var Backbone, HomepageRouter, querystring, _, _ref,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  _ = require('underscore');
-
-  Backbone = require('backbone');
-
-  querystring = require('querystring');
-
-  module.exports = HomepageRouter = (function(_super) {
-    __extends(HomepageRouter, _super);
-
-    function HomepageRouter() {
-      _ref = HomepageRouter.__super__.constructor.apply(this, arguments);
-      return _ref;
+  FiltersView.prototype.closeNeighborhoodsPopover = function(e) {
+    var clickingButton, clickingPopover, expanded;
+    expanded = $('.filters-location-arrow').hasClass('filters-location-arrow-expanded');
+    clickingPopover = $(e.target).closest('.filters-location-neighborhoods').length;
+    clickingButton = $(e.target).closest('.filters-location-button').length;
+    if (!expanded || clickingPopover || clickingButton) {
+      return;
     }
+    this.$('.filters-location-neighborhoods').hide();
+    return this.$('.filters-location-arrow').removeClass('filters-location-arrow-expanded');
+  };
 
-    HomepageRouter.prototype.initialize = function(opts) {
-      return this.listings = opts.listings, opts;
-    };
+  FiltersView.prototype.events = {
+    'change .filters-max-rent': 'setRent',
+    'click .filters-bedroom-tabs li': 'setBedrooms',
+    'click .filters-bathroom-tabs li': 'setBathrooms',
+    'click .filters-location-neighborhoods-check': 'setNeighborhoods',
+    'change .filters-sort-select': 'setSort',
+    'click .filters-location-button': 'toggleNeighborhoodsPopover',
+    'click .filters-close': 'toggleNeighborhoodsPopover',
+    'change .filters-location-neighborhoods-checkall': 'toggleNeighborhoodGroup'
+  };
 
-    HomepageRouter.prototype.routes = {
-      'search/*queryString': 'search'
-    };
+  FiltersView.prototype.setRent = function(e) {
+    this.params.set('rent-max', $(e.target).val());
+    return false;
+  };
 
-    HomepageRouter.prototype.search = function(queryString) {
-      return this.listings.params.set(querystring.parse(queryString));
-    };
+  FiltersView.prototype.setBedrooms = function(e) {
+    this.params.set('bed-min', $(e.target).data('val'));
+    return false;
+  };
 
-    return HomepageRouter;
+  FiltersView.prototype.setBathrooms = function(e) {
+    this.params.set('bath-min', $(e.target).data('val'));
+    return false;
+  };
 
-  })(Backbone.Router);
+  FiltersView.prototype.setNeighborhoods = function() {
+    return this.params.set('neighborhoods', this.$('.filters-location-neighborhoods-check:checked').map(function() {
+      return $(this).val();
+    }).toArray());
+  };
 
-}).call(this);
+  FiltersView.prototype.setSort = function(e) {
+    this.params.set('sort', $(e.target).val());
+    return false;
+  };
 
+  FiltersView.prototype.toggleNeighborhoodsPopover = function(e) {
+    this.$('.filters-location-neighborhoods').toggle();
+    return this.$('.filters-location-arrow').toggleClass('filters-location-arrow-expanded');
+  };
 
-},{"backbone":15,"querystring":17,"underscore":25}],6:[function(require,module,exports){
-(function() {
-  var BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+  FiltersView.prototype.toggleNeighborhoodGroup = function(e) {
+    var $checkboxes, checkAll;
+    checkAll = $(e.target).prop('checked');
+    $checkboxes = $(e.target).closest('ul').find('.filters-location-neighborhoods-check');
+    $checkboxes.prop('checked', checkAll);
+    return this.setNeighborhoods();
+  };
 
-  _ = require('underscore');
+  return FiltersView;
 
-  Backbone = require('backbone');
-
-  Listings = require('../../collections/listings.coffee');
-
-  FiltersView = require('../filters/view.coffee');
-
-  ListingsView = require('../listings/view.coffee');
-
-  FiltersRouter = require('./router.coffee');
-
-  sd = require('sharify').data;
-
-  BELOW_FOLD_PEAK = 0;
-
-  START_HERO_UNIT_OPACITY = 0.4;
-
-  module.exports = HomepageView = (function(_super) {
-    __extends(HomepageView, _super);
-
-    function HomepageView() {
-      this.onScroll = __bind(this.onScroll, this);
-      this.resizeHeroUnit = __bind(this.resizeHeroUnit, this);
-      this.navigate = __bind(this.navigate, this);
-      _ref = HomepageView.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
-
-    HomepageView.prototype.el = 'body';
-
-    HomepageView.prototype.initialize = function() {
-      this.$window = $(window);
-      this.listings = new Listings;
-      this.router = new FiltersRouter({
-        pushState: true,
-        listings: this.listings
-      });
-      this.filtersView = new FiltersView({
-        collection: this.listings,
-        el: this.$('#home-page-filters')
-      });
-      this.listingsView = new ListingsView({
-        collection: this.listings,
-        el: this.$('#home-page-listings-container'),
-        GMaps: this.options.GMaps || (require('gmaps'), GMaps)
-      });
-      this.$window.on('scroll.homepagefx', this.onScroll);
-      this.$window.on('resize.homepagefx', this.resizeHeroUnit);
-      this.listings.params.on('change', this.navigate);
-      this.resizeHeroUnit();
-      this.onScroll();
-      return this.loadHeroUnit();
-    };
-
-    HomepageView.prototype.navigate = function() {
-      return this.router.navigate("/search/" + (this.listings.params.toQuerystring()), {
-        trigger: true
-      });
-    };
-
-    HomepageView.prototype.loadHeroUnit = function() {
-      var bgImg, heroUnit;
-      heroUnit = sd.HERO_UNITS[_.random(0, sd.HERO_UNITS.length - 1)];
-      bgImg = new Image;
-      bgImg.src = heroUnit.path;
-      this.$('#home-page-hero-unit-caption-author').text(heroUnit.author);
-      this.$('#home-page-hero-unit-caption').attr('href', heroUnit.url);
-      this.$('#home-page-hero-unit-img').css({
-        "background-image": "url(" + heroUnit.path + ")"
-      });
-      return bgImg.onload = function() {
-        return setTimeout(function() {
-          return this.$('#home-page-hero-unit-img-container').animate({
-            opacity: START_HERO_UNIT_OPACITY
-          }, 1500, 'cubic-bezier(0.215, 0.610, 0.355, 1.000)', function() {
-            return $(this).addClass('home-page-hero-unit-loaded');
-          });
-        }, 500);
-      };
-    };
-
-    HomepageView.prototype.resizeHeroUnit = function() {
-      var height;
-      height = this.$window.height() - BELOW_FOLD_PEAK;
-      this.$('#home-page-hero-unit').height(height);
-      return this.$('#home-page-listings-container').css({
-        "min-height": height
-      });
-    };
-
-    HomepageView.prototype.onScroll = function() {
-      if (this.$window.scrollTop() < 0) {
-        return;
-      }
-      this.transitionHeroUnitOpacity();
-      return this.popLockFilters();
-    };
-
-    HomepageView.prototype.popLockFilters = function() {
-      this.$('#home-page-filters').removeClass('home-page-filters-fixed');
-      if (!(this.$window.scrollTop() > this.$('#home-page-filters').offset().top)) {
-        return;
-      }
-      return this.$('#home-page-filters').addClass('home-page-filters-fixed');
-    };
-
-    HomepageView.prototype.transitionHeroUnitOpacity = function() {
-      var percentBetween;
-      if (!this.$('#home-page-hero-unit-img-container').hasClass('home-page-hero-unit-loaded')) {
-        return;
-      }
-      percentBetween = this.$window.scrollTop() / (this.$window.height() - BELOW_FOLD_PEAK);
-      return this.$('#home-page-hero-unit-img-container').css({
-        opacity: Math.min(START_HERO_UNIT_OPACITY, 1 - (percentBetween + 0.2))
-      });
-    };
-
-    HomepageView.prototype.events = {
-      'click #home-page-filters-search-button': 'onClickSearch'
-    };
-
-    HomepageView.prototype.onClickSearch = function() {
-      return this.listingsView.scrollToTop();
-    };
-
-    return HomepageView;
-
-  })(Backbone.View);
-
-}).call(this);
+})(Backbone.View);
 
 
-},{"../../collections/listings.coffee":2,"../filters/view.coffee":4,"../listings/view.coffee":9,"./router.coffee":5,"backbone":15,"gmaps":19,"sharify":24,"underscore":25}],7:[function(require,module,exports){
-(function() {
-  var Backbone, HomepageView, feedbackModal, sd;
+},{"backbone":15,"numeral":26,"underscore":28}],5:[function(require,module,exports){
+var Backbone, HomepageRouter, querystring, _, _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  require('../../lib/zepto/index.coffee');
+_ = require('underscore');
 
-  Backbone = require('backbone');
+Backbone = require('backbone');
 
-  sd = require('sharify').data;
+querystring = require('querystring');
 
-  HomepageView = require('../home-page/view.coffee');
+module.exports = HomepageRouter = (function(_super) {
+  __extends(HomepageRouter, _super);
 
-  feedbackModal = require('../feedback-modal/client.coffee');
+  function HomepageRouter() {
+    _ref = HomepageRouter.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
 
-  $(function() {
-    Backbone.$ = $;
-    mixpanel.track('Viewed page', {
-      path: location.pathname
+  HomepageRouter.prototype.initialize = function(opts) {
+    return this.listings = opts.listings, opts;
+  };
+
+  HomepageRouter.prototype.routes = {
+    'search/*queryString': 'search'
+  };
+
+  HomepageRouter.prototype.search = function(queryString) {
+    return this.listings.params.set(querystring.parse(queryString));
+  };
+
+  return HomepageRouter;
+
+})(Backbone.Router);
+
+
+},{"backbone":15,"querystring":20,"underscore":28}],6:[function(require,module,exports){
+var BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('underscore');
+
+Backbone = require('backbone');
+
+Listings = require('../../collections/listings.coffee');
+
+FiltersView = require('../filters/view.coffee');
+
+ListingsView = require('../listings/view.coffee');
+
+FiltersRouter = require('./router.coffee');
+
+sd = require('sharify').data;
+
+BELOW_FOLD_PEAK = 0;
+
+START_HERO_UNIT_OPACITY = 0.4;
+
+module.exports = HomepageView = (function(_super) {
+  __extends(HomepageView, _super);
+
+  function HomepageView() {
+    this.onScroll = __bind(this.onScroll, this);
+    this.resizeHeroUnit = __bind(this.resizeHeroUnit, this);
+    this.navigate = __bind(this.navigate, this);
+    _ref = HomepageView.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  HomepageView.prototype.el = 'body';
+
+  HomepageView.prototype.initialize = function() {
+    this.$window = $(window);
+    this.listings = new Listings;
+    this.router = new FiltersRouter({
+      pushState: true,
+      listings: this.listings
     });
-    feedbackModal.init();
-    if (location.pathname.match(new RegExp('^/$|^/search.*'))) {
-      window.view = new HomepageView;
-      return Backbone.history.start({
-        pushState: true
-      });
+    this.filtersView = new FiltersView({
+      collection: this.listings,
+      el: this.$('#home-page-filters')
+    });
+    this.listingsView = new ListingsView({
+      collection: this.listings,
+      el: this.$('#home-page-listings-container'),
+      GMaps: this.options.GMaps || (require('gmaps'), GMaps)
+    });
+    this.$window.on('scroll.homepagefx', this.onScroll);
+    this.$window.on('resize.homepagefx', this.resizeHeroUnit);
+    this.listings.params.on('change', this.navigate);
+    this.resizeHeroUnit();
+    this.onScroll();
+    return this.loadHeroUnit();
+  };
+
+  HomepageView.prototype.navigate = function() {
+    return this.router.navigate("/search/" + (this.listings.params.toQuerystring()), {
+      trigger: true
+    });
+  };
+
+  HomepageView.prototype.loadHeroUnit = function() {
+    var bgImg, heroUnit;
+    heroUnit = sd.HERO_UNITS[_.random(0, sd.HERO_UNITS.length - 1)];
+    bgImg = new Image;
+    bgImg.src = heroUnit.path;
+    this.$('#home-page-hero-unit-caption-author').text(heroUnit.author);
+    this.$('#home-page-hero-unit-caption').attr('href', heroUnit.url);
+    this.$('#home-page-hero-unit-img').css({
+      "background-image": "url(" + heroUnit.path + ")"
+    });
+    return bgImg.onload = function() {
+      return setTimeout(function() {
+        return this.$('#home-page-hero-unit-img-container').animate({
+          opacity: START_HERO_UNIT_OPACITY
+        }, 1500, 'cubic-bezier(0.215, 0.610, 0.355, 1.000)', function() {
+          return $(this).addClass('home-page-hero-unit-loaded');
+        });
+      }, 500);
+    };
+  };
+
+  HomepageView.prototype.resizeHeroUnit = function() {
+    var height;
+    height = this.$window.height() - BELOW_FOLD_PEAK;
+    this.$('#home-page-hero-unit').height(height);
+    return this.$('#home-page-listings-container').css({
+      "min-height": height
+    });
+  };
+
+  HomepageView.prototype.onScroll = function() {
+    if (this.$window.scrollTop() < 0) {
+      return;
     }
+    this.transitionHeroUnitOpacity();
+    return this.popLockFilters();
+  };
+
+  HomepageView.prototype.popLockFilters = function() {
+    this.$('#home-page-filters').removeClass('home-page-filters-fixed');
+    if (!(this.$window.scrollTop() > this.$('#home-page-filters').offset().top)) {
+      return;
+    }
+    return this.$('#home-page-filters').addClass('home-page-filters-fixed');
+  };
+
+  HomepageView.prototype.transitionHeroUnitOpacity = function() {
+    var percentBetween;
+    if (!this.$('#home-page-hero-unit-img-container').hasClass('home-page-hero-unit-loaded')) {
+      return;
+    }
+    percentBetween = this.$window.scrollTop() / (this.$window.height() - BELOW_FOLD_PEAK);
+    return this.$('#home-page-hero-unit-img-container').css({
+      opacity: Math.min(START_HERO_UNIT_OPACITY, 1 - (percentBetween + 0.2))
+    });
+  };
+
+  HomepageView.prototype.events = {
+    'click #home-page-filters-search-button': 'onClickSearch'
+  };
+
+  HomepageView.prototype.onClickSearch = function() {
+    return this.listingsView.scrollToTop();
+  };
+
+  return HomepageView;
+
+})(Backbone.View);
+
+
+},{"../../collections/listings.coffee":2,"../filters/view.coffee":4,"../listings/view.coffee":9,"./router.coffee":5,"backbone":15,"gmaps":22,"sharify":27,"underscore":28}],7:[function(require,module,exports){
+var Backbone, HomepageView, feedbackModal, sd;
+
+require('../../lib/zepto/index.coffee');
+
+Backbone = require('backbone');
+
+sd = require('sharify').data;
+
+HomepageView = require('../home-page/view.coffee');
+
+feedbackModal = require('../feedback-modal/client.coffee');
+
+$(function() {
+  Backbone.$ = $;
+  mixpanel.track('Viewed page', {
+    path: location.pathname
   });
+  feedbackModal.init();
+  if (location.pathname.match(new RegExp('^/$|^/search.*'))) {
+    window.view = new HomepageView;
+    return Backbone.history.start({
+      pushState: true
+    });
+  }
+});
 
-}).call(this);
 
-
-},{"../../lib/zepto/index.coffee":10,"../feedback-modal/client.coffee":3,"../home-page/view.coffee":6,"backbone":15,"sharify":24}],8:[function(require,module,exports){
-var jade = require('jade/lib/runtime.js');module.exports = function anonymous(locals) {
+},{"../../lib/zepto/index.coffee":10,"../feedback-modal/client.coffee":3,"../home-page/view.coffee":6,"backbone":15,"sharify":27}],8:[function(require,module,exports){
+var jade = require('jade/lib/runtime.js');module.exports = function template(locals) {
 var buf = [];
-var locals_ = (locals || {}),listings = locals_.listings;buf.push("<div class=\"listings-container\"><div class=\"listings-before-spinner loading-spinner\"><div class=\"loading-spinner-dot\"></div></div>");
+var jade_mixins = {};
+var locals_ = (locals || {}),listings = locals_.listings;
+buf.push("<div class=\"listings-container\"><div class=\"listings-before-spinner loading-spinner\"><div class=\"loading-spinner-dot\"></div></div>");
 if ( listings.length)
 {
 buf.push("<ul class=\"listings\">");
@@ -466,9 +447,9 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade.interp = listing.get('baths')  || '?') ? "" : jade.interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade.interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade.interp)) + "</h3><h4>" + (jade.escape(null == (jade.interp = listing.get('location').formatted_address) ? "" : jade.interp)) + "</h4><h5" + (jade.attrs({ "class": [(listing.listedAgoClass())] }, {"class":true})) + ">Listed " + (jade.escape((jade.interp = listing.listedAgo()) == null ? '' : jade.interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade.interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade.interp)) + "</h3><h4>" + (jade.escape(null == (jade.interp = listing.get('location').formatted_address) ? "" : jade.interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade.interp = listing.listedAgo()) == null ? '' : jade.interp)) + "</h5>");
 }
-buf.push("<a" + (jade.attrs({ 'target':('_blank'), 'href':(listing.get('url')), "class": [('rounded-button')] }, {"target":true,"href":true})) + ">See more on " + (jade.escape((jade.interp = listing.sourceWebsiteName()) == null ? '' : jade.interp)) + "</a></div><div class=\"listings-section-middle\">");
+buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade.interp = listing.sourceWebsiteName()) == null ? '' : jade.interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
 {
 buf.push("<ul class=\"listings-pictures\">");
@@ -480,7 +461,7 @@ buf.push("<ul class=\"listings-pictures\">");
     for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
       var url = $$obj[$index];
 
-buf.push("<li><img" + (jade.attrs({ 'src':(url) }, {"src":true})) + "/></li>");
+buf.push("<li><img" + (jade.attr("src", url, true, false)) + "/></li>");
     }
 
   } else {
@@ -488,7 +469,7 @@ buf.push("<li><img" + (jade.attrs({ 'src':(url) }, {"src":true})) + "/></li>");
     for (var $index in $$obj) {
       $$l++;      var url = $$obj[$index];
 
-buf.push("<li><img" + (jade.attrs({ 'src':(url) }, {"src":true})) + "/></li>");
+buf.push("<li><img" + (jade.attr("src", url, true, false)) + "/></li>");
     }
 
   }
@@ -520,9 +501,9 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade.interp = listing.get('baths')  || '?') ? "" : jade.interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade.interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade.interp)) + "</h3><h4>" + (jade.escape(null == (jade.interp = listing.get('location').formatted_address) ? "" : jade.interp)) + "</h4><h5" + (jade.attrs({ "class": [(listing.listedAgoClass())] }, {"class":true})) + ">Listed " + (jade.escape((jade.interp = listing.listedAgo()) == null ? '' : jade.interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade.interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade.interp)) + "</h3><h4>" + (jade.escape(null == (jade.interp = listing.get('location').formatted_address) ? "" : jade.interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade.interp = listing.listedAgo()) == null ? '' : jade.interp)) + "</h5>");
 }
-buf.push("<a" + (jade.attrs({ 'target':('_blank'), 'href':(listing.get('url')), "class": [('rounded-button')] }, {"target":true,"href":true})) + ">See more on " + (jade.escape((jade.interp = listing.sourceWebsiteName()) == null ? '' : jade.interp)) + "</a></div><div class=\"listings-section-middle\">");
+buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade.interp = listing.sourceWebsiteName()) == null ? '' : jade.interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
 {
 buf.push("<ul class=\"listings-pictures\">");
@@ -534,7 +515,7 @@ buf.push("<ul class=\"listings-pictures\">");
     for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
       var url = $$obj[$index];
 
-buf.push("<li><img" + (jade.attrs({ 'src':(url) }, {"src":true})) + "/></li>");
+buf.push("<li><img" + (jade.attr("src", url, true, false)) + "/></li>");
     }
 
   } else {
@@ -542,7 +523,7 @@ buf.push("<li><img" + (jade.attrs({ 'src':(url) }, {"src":true})) + "/></li>");
     for (var $index in $$obj) {
       $$l++;      var url = $$obj[$index];
 
-buf.push("<li><img" + (jade.attrs({ 'src':(url) }, {"src":true})) + "/></li>");
+buf.push("<li><img" + (jade.attr("src", url, true, false)) + "/></li>");
     }
 
   }
@@ -568,414 +549,405 @@ buf.push("<div class=\"listings-no-results\">No results. Try loosening up your f
 }
 buf.push("</div>");;return buf.join("");
 }
-},{"jade/lib/runtime.js":20}],9:[function(require,module,exports){
-(function() {
-  var Backbone, FIXED_FILTER_HEIGHT, ListingsView, MARGIN_SIZE, morpheus, template, _, _ref,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+},{"jade/lib/runtime.js":23}],9:[function(require,module,exports){
+var Backbone, FIXED_FILTER_HEIGHT, ListingsView, MARGIN_SIZE, morpheus, template, _, _ref,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  _ = require('underscore');
+_ = require('underscore');
 
-  Backbone = require('backbone');
+Backbone = require('backbone');
 
-  template = function() {
-    return require('./template.jade').apply(null, arguments);
-  };
+template = function() {
+  return require('./template.jade').apply(null, arguments);
+};
 
-  morpheus = require('morpheus');
+morpheus = require('morpheus');
 
-  FIXED_FILTER_HEIGHT = 160;
+FIXED_FILTER_HEIGHT = 160;
 
-  MARGIN_SIZE = 20;
+MARGIN_SIZE = 20;
 
-  module.exports = ListingsView = (function(_super) {
-    __extends(ListingsView, _super);
+module.exports = ListingsView = (function(_super) {
+  __extends(ListingsView, _super);
 
-    function ListingsView() {
-      this.onScroll = __bind(this.onScroll, this);
-      this.onSync = __bind(this.onSync, this);
-      this.render = __bind(this.render, this);
-      this.nextPage = __bind(this.nextPage, this);
-      this.scrollToTop = __bind(this.scrollToTop, this);
-      this.onRequestReset = __bind(this.onRequestReset, this);
-      _ref = ListingsView.__super__.constructor.apply(this, arguments);
-      return _ref;
-    }
-
-    ListingsView.prototype.initialize = function() {
-      this.GMaps = this.options.GMaps || require('gmaps');
-      this.$window = $(window);
-      this.page = 0;
-      this.$el.infiniteScroll(this.nextPage);
-      this.collection.on('sync', this.onSync);
-      this.collection.on('requestReset', this.onRequestReset);
-      return this.$window.on('scroll', this.onScroll);
-    };
-
-    ListingsView.prototype.onRequestReset = function() {
-      this.$('.listings-container').addClass('listings-loading');
-      if (this.$window.scrollTop() <= this.listingsTop()) {
-        return;
-      }
-      return this.scrollToTop(false);
-    };
-
-    ListingsView.prototype.scrollToTop = function(animate) {
-      var listingsTop, startTop,
-        _this = this;
-      if (animate == null) {
-        animate = true;
-      }
-      startTop = this.$window.scrollTop();
-      listingsTop = this.listingsTop();
-      if (animate) {
-        return morpheus.tween(700, function(pos) {
-          return $('body')[0].scrollTop = (listingsTop - startTop) * pos + startTop;
-        });
-      } else {
-        return $('body')[0].scrollTop = listingsTop;
-      }
-    };
-
-    ListingsView.prototype.listingsTop = function() {
-      return this.$el.offset().top - (FIXED_FILTER_HEIGHT + this.$('#main-header').height()) + MARGIN_SIZE + 5;
-    };
-
-    ListingsView.prototype.nextPage = function() {
-      if (this.finishedPaging) {
-        return this.$('.listings-after-spinner').hide();
-      }
-      this.$('.listings-after-spinner').show();
-      this.page++;
-      return this.collection.fetch({
-        data: {
-          page: this.page
-        },
-        remove: false
-      });
-    };
-
-    ListingsView.prototype.render = function() {
-      this.$el.html(template({
-        listings: this.collection.models
-      }));
-      this.renderMap();
-      return this.onScroll();
-    };
-
-    ListingsView.prototype.onSync = function(col, res) {
-      var _ref1;
-      this.$('.listings-container').removeClass('listings-loading');
-      this.finishedPaging = ((_ref1 = res.results) != null ? _ref1.length : void 0) === 0;
-      return this.render();
-    };
-
-    ListingsView.prototype.onScroll = function() {
-      this.setScrollRefs();
-      this.popLockInfo();
-      this.popLockMap();
-      return this.focusOnCurrentListing();
-    };
-
-    ListingsView.prototype.setScrollRefs = function() {
-      var el, _i, _len, _ref1;
-      _ref1 = this.$('.listings > li').toArray().reverse();
-      for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
-        el = _ref1[_i];
-        if (this.$window.scrollTop() + FIXED_FILTER_HEIGHT + MARGIN_SIZE > $(el).offset().top) {
-          this.$currentLi = $(el);
-          this.currentListing = this.collection.at(this.$currentLi.index());
-          return;
-        }
-      }
-      this.$currentLi = null;
-      return this.currentListing = null;
-    };
-
-    ListingsView.prototype.popLockInfo = function() {
-      var imagesBottom, infoBottom, reachedBottom, _ref1;
-      this.$('.listings > li').removeClass('listings-li-locked listings-li-bottom');
-      if (!((_ref1 = this.$currentLi) != null ? _ref1.length : void 0)) {
-        return;
-      }
-      infoBottom = this.$currentLi.find('.listings-section-left').height() + this.$window.scrollTop() + FIXED_FILTER_HEIGHT;
-      imagesBottom = (this.$currentLi.offset().top + this.$currentLi.height()) - MARGIN_SIZE;
-      reachedBottom = infoBottom > imagesBottom;
-      return this.$currentLi.addClass("listings-li-" + (reachedBottom ? 'bottom' : 'locked'));
-    };
-
-    ListingsView.prototype.popLockMap = function() {
-      var _ref1, _ref2;
-      if ((_ref1 = this.$currentLi) != null ? _ref1.length : void 0) {
-        this.$('.listings-map').show();
-      } else {
-        this.$('.listings-map, .listings-map-no-geo-cover').hide();
-      }
-      if ((_ref2 = this.currentListing) != null ? _ref2.hasGeoPoints() : void 0) {
-        return this.$('.listings-map-no-geo-cover').hide();
-      } else if (this.currentListing != null) {
-        return this.$('.listings-map-no-geo-cover').show();
-      }
-    };
-
-    ListingsView.prototype.renderMap = function() {
-      var opts, _ref1, _ref2,
-        _this = this;
-      opts = {
-        div: this.$('.listings-map')[0]
-      };
-      opts = _.extend(opts, this.collection.first().hasGeoPoints() ? {
-        lat: (_ref1 = this.collection.first().get('location')) != null ? _ref1.lat : void 0,
-        lng: (_ref2 = this.collection.first().get('location')) != null ? _ref2.lng : void 0
-      } : {
-        lat: 0,
-        lng: 0
-      });
-      this.gmap = new this.GMaps(opts);
-      this.gmap.addStyle({
-        mapTypeId: 'map_style',
-        styledMapName: 'Styled Map',
-        styles: [
-          {
-            stylers: [
-              {
-                saturation: -70
-              }, {
-                lightness: 30
-              }
-            ]
-          }, {
-            featureType: 'road',
-            stylers: [
-              {
-                lightness: 30
-              }
-            ]
-          }
-        ]
-      });
-      this.gmap.setStyle('map_style');
-      return this.collection.each(function(listing) {
-        var _ref3, _ref4;
-        if (!(listing != null ? listing.hasGeoPoints() : void 0)) {
-          return;
-        }
-        return _this.gmap.addMarker({
-          lat: (_ref3 = listing.get('location')) != null ? _ref3.lat : void 0,
-          lng: (_ref4 = listing.get('location')) != null ? _ref4.lng : void 0,
-          title: listing.get('location').name,
-          icon: '/images/map-marker.png'
-        });
-      });
-    };
-
-    ListingsView.prototype.focusOnCurrentListing = function() {
-      var _ref1;
-      if (!((this.gmap != null) && ((_ref1 = this.currentListing) != null ? _ref1.hasGeoPoints() : void 0))) {
-        return;
-      }
-      this.gmap.setCenter(this.currentListing.get('location').lat, this.currentListing.get('location').lng);
-      return this.gmap.setZoom(14);
-    };
-
-    return ListingsView;
-
-  })(Backbone.View);
-
-}).call(this);
-
-
-},{"./template.jade":8,"backbone":15,"gmaps":19,"morpheus":22,"underscore":25}],10:[function(require,module,exports){
-var global=self;(function() {
-  if (typeof global !== "undefined" && global !== null) {
-    if (global.window == null) {
-      global.window = {};
-    }
+  function ListingsView() {
+    this.onScroll = __bind(this.onScroll, this);
+    this.onSync = __bind(this.onSync, this);
+    this.render = __bind(this.render, this);
+    this.nextPage = __bind(this.nextPage, this);
+    this.scrollToTop = __bind(this.scrollToTop, this);
+    this.onRequestReset = __bind(this.onRequestReset, this);
+    _ref = ListingsView.__super__.constructor.apply(this, arguments);
+    return _ref;
   }
 
-  require('../../node_modules/zepto/src/zepto.js');
-
-  if (typeof global !== "undefined" && global !== null) {
-    global.Zepto = typeof global !== "undefined" && global !== null ? global.$ = window.Zepto : void 0;
-  }
-
-  require('../../node_modules/zepto/src/event.js');
-
-  require('../../node_modules/zepto/src/detect.js');
-
-  require('../../node_modules/zepto/src/fx.js');
-
-  require('../../node_modules/zepto/src/ajax.js');
-
-  require('../../node_modules/zepto/src/form.js');
-
-  require('../../node_modules/zepto/src/touch.js');
-
-  require('./infinite_scroll.coffee');
-
-  module.exports = Zepto;
-
-}).call(this);
-
-
-},{"../../node_modules/zepto/src/ajax.js":26,"../../node_modules/zepto/src/detect.js":27,"../../node_modules/zepto/src/event.js":28,"../../node_modules/zepto/src/form.js":29,"../../node_modules/zepto/src/fx.js":30,"../../node_modules/zepto/src/touch.js":31,"../../node_modules/zepto/src/zepto.js":32,"./infinite_scroll.coffee":11}],11:[function(require,module,exports){
-(function() {
-  var onScroll,
-    _this = this;
-
-  $.fn.infiniteScroll = function(callback) {
-    $(window).on('infiniteScroll', callback);
-    return $(window).on('scroll', onScroll);
+  ListingsView.prototype.initialize = function() {
+    this.GMaps = this.options.GMaps || require('gmaps');
+    this.$window = $(window);
+    this.page = 0;
+    this.$el.infiniteScroll(this.nextPage);
+    this.collection.on('sync', this.onSync);
+    this.collection.on('requestReset', this.onRequestReset);
+    return this.$window.on('scroll', this.onScroll);
   };
 
-  onScroll = module.exports = function() {
-    var offset, reachedBottom, viewPortBottom;
-    if ($.active !== 0) {
+  ListingsView.prototype.onRequestReset = function() {
+    this.$('.listings-container').addClass('listings-loading');
+    if (this.$window.scrollTop() <= this.listingsTop()) {
       return;
     }
-    offset = $(window).height() / 2;
-    viewPortBottom = $(window).scrollTop() + $(window).height();
-    reachedBottom = viewPortBottom >= $(document).height() - offset;
-    if (reachedBottom) {
-      return $(window).trigger('infiniteScroll');
+    return this.scrollToTop(false);
+  };
+
+  ListingsView.prototype.scrollToTop = function(animate) {
+    var listingsTop, startTop,
+      _this = this;
+    if (animate == null) {
+      animate = true;
+    }
+    startTop = this.$window.scrollTop();
+    listingsTop = this.listingsTop();
+    if (animate) {
+      return morpheus.tween(700, function(pos) {
+        return $('body')[0].scrollTop = (listingsTop - startTop) * pos + startTop;
+      });
+    } else {
+      return $('body')[0].scrollTop = listingsTop;
     }
   };
 
-}).call(this);
+  ListingsView.prototype.listingsTop = function() {
+    return this.$el.offset().top - (FIXED_FILTER_HEIGHT + this.$('#main-header').height()) + MARGIN_SIZE + 5;
+  };
+
+  ListingsView.prototype.nextPage = function() {
+    if (this.finishedPaging) {
+      return this.$('.listings-after-spinner').hide();
+    }
+    this.$('.listings-after-spinner').show();
+    this.page++;
+    return this.collection.fetch({
+      data: {
+        page: this.page
+      },
+      remove: false
+    });
+  };
+
+  ListingsView.prototype.render = function() {
+    this.$el.html(template({
+      listings: this.collection.models
+    }));
+    this.renderMap();
+    return this.onScroll();
+  };
+
+  ListingsView.prototype.onSync = function(col, res) {
+    var _ref1;
+    this.$('.listings-container').removeClass('listings-loading');
+    this.finishedPaging = ((_ref1 = res.results) != null ? _ref1.length : void 0) === 0;
+    return this.render();
+  };
+
+  ListingsView.prototype.onScroll = function() {
+    this.setScrollRefs();
+    this.popLockInfo();
+    this.popLockMap();
+    return this.focusOnCurrentListing();
+  };
+
+  ListingsView.prototype.setScrollRefs = function() {
+    var el, _i, _len, _ref1;
+    _ref1 = this.$('.listings > li').toArray().reverse();
+    for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
+      el = _ref1[_i];
+      if (this.$window.scrollTop() + FIXED_FILTER_HEIGHT + MARGIN_SIZE > $(el).offset().top) {
+        this.$currentLi = $(el);
+        this.currentListing = this.collection.at(this.$currentLi.index());
+        return;
+      }
+    }
+    this.$currentLi = null;
+    return this.currentListing = null;
+  };
+
+  ListingsView.prototype.popLockInfo = function() {
+    var imagesBottom, infoBottom, reachedBottom, _ref1;
+    this.$('.listings > li').removeClass('listings-li-locked listings-li-bottom');
+    if (!((_ref1 = this.$currentLi) != null ? _ref1.length : void 0)) {
+      return;
+    }
+    infoBottom = this.$currentLi.find('.listings-section-left').height() + this.$window.scrollTop() + FIXED_FILTER_HEIGHT;
+    imagesBottom = (this.$currentLi.offset().top + this.$currentLi.height()) - MARGIN_SIZE;
+    reachedBottom = infoBottom > imagesBottom;
+    return this.$currentLi.addClass("listings-li-" + (reachedBottom ? 'bottom' : 'locked'));
+  };
+
+  ListingsView.prototype.popLockMap = function() {
+    var _ref1, _ref2;
+    if ((_ref1 = this.$currentLi) != null ? _ref1.length : void 0) {
+      this.$('.listings-map').show();
+    } else {
+      this.$('.listings-map, .listings-map-no-geo-cover').hide();
+    }
+    if ((_ref2 = this.currentListing) != null ? _ref2.hasGeoPoints() : void 0) {
+      return this.$('.listings-map-no-geo-cover').hide();
+    } else if (this.currentListing != null) {
+      return this.$('.listings-map-no-geo-cover').show();
+    }
+  };
+
+  ListingsView.prototype.renderMap = function() {
+    var opts, _ref1, _ref2,
+      _this = this;
+    opts = {
+      div: this.$('.listings-map')[0]
+    };
+    opts = _.extend(opts, this.collection.first().hasGeoPoints() ? {
+      lat: (_ref1 = this.collection.first().get('location')) != null ? _ref1.lat : void 0,
+      lng: (_ref2 = this.collection.first().get('location')) != null ? _ref2.lng : void 0
+    } : {
+      lat: 0,
+      lng: 0
+    });
+    this.gmap = new this.GMaps(opts);
+    this.gmap.addStyle({
+      mapTypeId: 'map_style',
+      styledMapName: 'Styled Map',
+      styles: [
+        {
+          stylers: [
+            {
+              saturation: -70
+            }, {
+              lightness: 30
+            }
+          ]
+        }, {
+          featureType: 'road',
+          stylers: [
+            {
+              lightness: 30
+            }
+          ]
+        }
+      ]
+    });
+    this.gmap.setStyle('map_style');
+    return this.collection.each(function(listing) {
+      var _ref3, _ref4;
+      if (!(listing != null ? listing.hasGeoPoints() : void 0)) {
+        return;
+      }
+      return _this.gmap.addMarker({
+        lat: (_ref3 = listing.get('location')) != null ? _ref3.lat : void 0,
+        lng: (_ref4 = listing.get('location')) != null ? _ref4.lng : void 0,
+        title: listing.get('location').name,
+        icon: '/images/map-marker.png'
+      });
+    });
+  };
+
+  ListingsView.prototype.focusOnCurrentListing = function() {
+    var _ref1;
+    if (!((this.gmap != null) && ((_ref1 = this.currentListing) != null ? _ref1.hasGeoPoints() : void 0))) {
+      return;
+    }
+    this.gmap.setCenter(this.currentListing.get('location').lat, this.currentListing.get('location').lng);
+    return this.gmap.setZoom(14);
+  };
+
+  return ListingsView;
+
+})(Backbone.View);
+
+
+},{"./template.jade":8,"backbone":15,"gmaps":22,"morpheus":25,"underscore":28}],10:[function(require,module,exports){
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};if (typeof global !== "undefined" && global !== null) {
+  if (global.window == null) {
+    global.window = {};
+  }
+}
+
+require('../../node_modules/zepto/src/zepto.js');
+
+if (typeof global !== "undefined" && global !== null) {
+  global.Zepto = typeof global !== "undefined" && global !== null ? global.$ = window.Zepto : void 0;
+}
+
+require('../../node_modules/zepto/src/event.js');
+
+require('../../node_modules/zepto/src/detect.js');
+
+require('../../node_modules/zepto/src/fx.js');
+
+require('../../node_modules/zepto/src/ajax.js');
+
+require('../../node_modules/zepto/src/form.js');
+
+require('../../node_modules/zepto/src/touch.js');
+
+require('./infinite_scroll.coffee');
+
+module.exports = Zepto;
+
+
+},{"../../node_modules/zepto/src/ajax.js":29,"../../node_modules/zepto/src/detect.js":30,"../../node_modules/zepto/src/event.js":31,"../../node_modules/zepto/src/form.js":32,"../../node_modules/zepto/src/fx.js":33,"../../node_modules/zepto/src/touch.js":34,"../../node_modules/zepto/src/zepto.js":35,"./infinite_scroll.coffee":11}],11:[function(require,module,exports){
+var onScroll,
+  _this = this;
+
+$.fn.infiniteScroll = function(callback) {
+  $(window).on('infiniteScroll', callback);
+  return $(window).on('scroll', onScroll);
+};
+
+onScroll = module.exports = function() {
+  var offset, reachedBottom, viewPortBottom;
+  if ($.active !== 0) {
+    return;
+  }
+  offset = $(window).height() / 2;
+  viewPortBottom = $(window).scrollTop() + $(window).height();
+  reachedBottom = viewPortBottom >= $(document).height() - offset;
+  if (reachedBottom) {
+    return $(window).trigger('infiniteScroll');
+  }
+};
 
 
 },{}],12:[function(require,module,exports){
-(function() {
-  var Backbone, Listing, accounting, moment, sd, url, _ref,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+var Backbone, Listing, accounting, moment, parse, sd, _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  Backbone = require('backbone');
+Backbone = require('backbone');
 
-  sd = require('sharify').data;
+sd = require('sharify').data;
 
-  accounting = require('accounting');
+accounting = require('accounting');
 
-  url = require('url');
+parse = require('url').parse;
 
-  moment = require('moment');
+moment = require('moment');
 
-  module.exports = Listing = (function(_super) {
-    __extends(Listing, _super);
+module.exports = Listing = (function(_super) {
+  __extends(Listing, _super);
 
-    function Listing() {
-      _ref = Listing.__super__.constructor.apply(this, arguments);
-      return _ref;
+  function Listing() {
+    _ref = Listing.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  Listing.prototype.urlRoot = function() {
+    return "" + sd.API_URL + "/listings";
+  };
+
+  Listing.prototype.formattedRent = function() {
+    return accounting.formatMoney(this.get('rent'), '$', 0);
+  };
+
+  Listing.prototype.sourceWebsiteName = function() {
+    var hostname;
+    return 'moo';
+    hostname = parse(this.get('url')).hostname;
+    console.log(parse(this.get('url')), 'moooo');
+    switch (hostname) {
+      case 'streeteasy.com':
+        return 'Street Easy';
+      case 'www.nybits.com':
+        return 'NYBits';
+      case 'www.urbanedgeny.com':
+        return 'Urban Edge';
+      case 'apartable.com':
+        return 'Apartable';
+      case 'trulia.com':
+        return 'Trulia';
+      case 'www.renthop.com':
+        return 'RentHop';
+      case 'www.9300realty.com':
+        return '9300 Realty';
+      case 'http://www.iconrealtymgmt.com/':
+        return 'Icon Realty';
+      case 'www.nofeerentals.com':
+        return 'Nofeerentals';
+      case 'gonofee.com':
+        return 'go no fee';
+      default:
+        return hostname;
     }
+  };
 
-    Listing.prototype.urlRoot = function() {
-      return "" + sd.API_URL + "/listings";
-    };
+  Listing.prototype.hasGeoPoints = function() {
+    var _ref1, _ref2;
+    return (((_ref1 = this.get('location')) != null ? _ref1.lng : void 0) != null) && (((_ref2 = this.get('location')) != null ? _ref2.lat : void 0) != null);
+  };
 
-    Listing.prototype.formattedRent = function() {
-      return accounting.formatMoney(this.get('rent'), '$', 0);
-    };
-
-    Listing.prototype.sourceWebsiteName = function() {
-      var hostname;
-      hostname = url.parse(this.get('url')).hostname;
-      switch (hostname) {
-        case 'streeteasy.com':
-          return 'Street Easy';
-        case 'www.nybits.com':
-          return 'NYBits';
-        case 'www.urbanedgeny.com':
-          return 'Urban Edge';
-        case 'apartable.com':
-          return 'Apartable';
-        case 'trulia.com':
-          return 'Trulia';
-        case 'www.renthop.com':
-          return 'RentHop';
-        case 'www.9300realty.com':
-          return '9300 Realty';
-        case 'http://www.iconrealtymgmt.com/':
-          return 'Icon Realty';
-        default:
-          return hostname;
-      }
-    };
-
-    Listing.prototype.hasGeoPoints = function() {
-      var _ref1, _ref2;
-      return (((_ref1 = this.get('location')) != null ? _ref1.lng : void 0) != null) && (((_ref2 = this.get('location')) != null ? _ref2.lat : void 0) != null);
-    };
-
-    Listing.prototype.bedsDisplay = function() {
-      if (this.get('beds') === 0) {
-        return 'S';
-      } else {
-        return this.get('beds') || '?';
-      }
-    };
-
-    Listing.prototype.listedAgo = function() {
-      return moment(this.get('dateScraped')).fromNow();
-    };
-
-    Listing.prototype.listedAgoClass = function() {
-      var daysAgo;
-      daysAgo = moment().diff(this.get('dateScraped'), 'days');
-      if (daysAgo < 3) {
-        return 'listings-listed-ago-good';
-      } else if (daysAgo < 7) {
-        return 'listings-listed-ago-medium';
-      } else {
-        return 'listings-listed-ago-bad';
-      }
-    };
-
-    return Listing;
-
-  })(Backbone.Model);
-
-}).call(this);
-
-
-},{"accounting":14,"backbone":15,"moment":21,"sharify":24,"url":18}],13:[function(require,module,exports){
-(function() {
-  var Backbone, ListingsParams, querystring, _ref,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  Backbone = require('backbone');
-
-  querystring = require('querystring');
-
-  module.exports = ListingsParams = (function(_super) {
-    __extends(ListingsParams, _super);
-
-    function ListingsParams() {
-      _ref = ListingsParams.__super__.constructor.apply(this, arguments);
-      return _ref;
+  Listing.prototype.bedsDisplay = function() {
+    if (this.get('beds') === 0) {
+      return 'S';
+    } else {
+      return this.get('beds') || '?';
     }
+  };
 
-    ListingsParams.prototype.defaults = {
-      size: 10,
-      neighborhoods: [],
-      sort: 'newest',
-      'bed-min': 0,
-      'bath-min': 1
-    };
+  Listing.prototype.listedAgo = function() {
+    return moment(this.get('dateScraped')).fromNow();
+  };
 
-    ListingsParams.prototype.toQuerystring = function() {
-      return querystring.stringify(this.toJSON());
-    };
+  Listing.prototype.listedAgoClass = function() {
+    var daysAgo;
+    daysAgo = moment().diff(this.get('dateScraped'), 'days');
+    if (daysAgo < 3) {
+      return 'listings-listed-ago-good';
+    } else if (daysAgo < 7) {
+      return 'listings-listed-ago-medium';
+    } else {
+      return 'listings-listed-ago-bad';
+    }
+  };
 
-    return ListingsParams;
+  return Listing;
 
-  })(Backbone.Model);
-
-}).call(this);
+})(Backbone.Model);
 
 
-},{"backbone":15,"querystring":17}],14:[function(require,module,exports){
+},{"accounting":14,"backbone":15,"moment":24,"sharify":27,"url":21}],13:[function(require,module,exports){
+var Backbone, ListingsParams, querystring, _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
+
+querystring = require('querystring');
+
+module.exports = ListingsParams = (function(_super) {
+  __extends(ListingsParams, _super);
+
+  function ListingsParams() {
+    _ref = ListingsParams.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  ListingsParams.prototype.defaults = {
+    size: 10,
+    neighborhoods: [],
+    sort: 'newest',
+    'bed-min': 0,
+    'bath-min': 1
+  };
+
+  ListingsParams.prototype.toQuerystring = function() {
+    return querystring.stringify(this.toJSON());
+  };
+
+  return ListingsParams;
+
+})(Backbone.Model);
+
+
+},{"backbone":15,"querystring":20}],14:[function(require,module,exports){
 /*!
  * accounting.js v0.3.2
  * Copyright 2011, Joss Crowcroft
@@ -1389,9 +1361,10 @@ var global=self;(function() {
 }(this));
 
 },{}],15:[function(require,module,exports){
-//     Backbone.js 1.0.0
+//     Backbone.js 1.1.0
 
-//     (c) 2010-2013 Jeremy Ashkenas, DocumentCloud Inc.
+//     (c) 2010-2011 Jeremy Ashkenas, DocumentCloud Inc.
+//     (c) 2011-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Backbone may be freely distributed under the MIT license.
 //     For all details and documentation:
 //     http://backbonejs.org
@@ -1425,7 +1398,7 @@ var global=self;(function() {
   }
 
   // Current version of the library. Keep in sync with `package.json`.
-  Backbone.VERSION = '1.0.0';
+  Backbone.VERSION = '1.1.0';
 
   // Require Underscore, if we're on the server, and it's not already present.
   var _ = root._;
@@ -1443,7 +1416,7 @@ var global=self;(function() {
   };
 
   // Turn on `emulateHTTP` to support legacy HTTP servers. Setting this option
-  // will fake `"PUT"` and `"DELETE"` requests via the `_method` parameter and
+  // will fake `"PATCH"`, `"PUT"` and `"DELETE"` requests via the `_method` parameter and
   // set a `X-Http-Method-Override` header.
   Backbone.emulateHTTP = false;
 
@@ -1502,7 +1475,6 @@ var global=self;(function() {
         this._events = {};
         return this;
       }
-
       names = name ? [name] : _.keys(this._events);
       for (i = 0, l = names.length; i < l; i++) {
         name = names[i];
@@ -1542,14 +1514,15 @@ var global=self;(function() {
     // Tell this object to stop listening to either specific events ... or
     // to every object it's currently listening to.
     stopListening: function(obj, name, callback) {
-      var listeners = this._listeners;
-      if (!listeners) return this;
-      var deleteListener = !name && !callback;
-      if (typeof name === 'object') callback = this;
-      if (obj) (listeners = {})[obj._listenerId] = obj;
-      for (var id in listeners) {
-        listeners[id].off(name, callback, this);
-        if (deleteListener) delete this._listeners[id];
+      var listeningTo = this._listeningTo;
+      if (!listeningTo) return this;
+      var remove = !name && !callback;
+      if (!callback && typeof name === 'object') callback = this;
+      if (obj) (listeningTo = {})[obj._listenId] = obj;
+      for (var id in listeningTo) {
+        obj = listeningTo[id];
+        obj.off(name, callback, this);
+        if (remove || _.isEmpty(obj._events)) delete this._listeningTo[id];
       }
       return this;
     }
@@ -1606,10 +1579,10 @@ var global=self;(function() {
   // listening to.
   _.each(listenMethods, function(implementation, method) {
     Events[method] = function(obj, name, callback) {
-      var listeners = this._listeners || (this._listeners = {});
-      var id = obj._listenerId || (obj._listenerId = _.uniqueId('l'));
-      listeners[id] = obj;
-      if (typeof name === 'object') callback = this;
+      var listeningTo = this._listeningTo || (this._listeningTo = {});
+      var id = obj._listenId || (obj._listenId = _.uniqueId('l'));
+      listeningTo[id] = obj;
+      if (!callback && typeof name === 'object') callback = this;
       obj[implementation](name, callback, this);
       return this;
     };
@@ -1634,23 +1607,17 @@ var global=self;(function() {
   // Create a new model with the specified attributes. A client id (`cid`)
   // is automatically generated and assigned for you.
   var Model = Backbone.Model = function(attributes, options) {
-    var defaults;
     var attrs = attributes || {};
     options || (options = {});
     this.cid = _.uniqueId('c');
     this.attributes = {};
-    _.extend(this, _.pick(options, modelOptions));
+    if (options.collection) this.collection = options.collection;
     if (options.parse) attrs = this.parse(attrs, options) || {};
-    if (defaults = _.result(this, 'defaults')) {
-      attrs = _.defaults({}, attrs, defaults);
-    }
+    attrs = _.defaults({}, attrs, _.result(this, 'defaults'));
     this.set(attrs, options);
     this.changed = {};
     this.initialize.apply(this, arguments);
   };
-
-  // A list of options to be attached directly to the model, if provided.
-  var modelOptions = ['url', 'urlRoot', 'collection'];
 
   // Attach all inheritable methods to the Model prototype.
   _.extend(Model.prototype, Events, {
@@ -1847,13 +1814,16 @@ var global=self;(function() {
         (attrs = {})[key] = val;
       }
 
-      // If we're not waiting and attributes exist, save acts as `set(attr).save(null, opts)`.
-      if (attrs && (!options || !options.wait) && !this.set(attrs, options)) return false;
-
       options = _.extend({validate: true}, options);
 
-      // Do not persist invalid models.
-      if (!this._validate(attrs, options)) return false;
+      // If we're not waiting and attributes exist, save acts as
+      // `set(attr).save(null, opts)` with validation. Otherwise, check if
+      // the model will be valid when the attributes, if any, are set.
+      if (attrs && !options.wait) {
+        if (!this.set(attrs, options)) return false;
+      } else {
+        if (!this._validate(attrs, options)) return false;
+      }
 
       // Set temporary attributes if `{wait: true}`.
       if (attrs && options.wait) {
@@ -1954,7 +1924,7 @@ var global=self;(function() {
       attrs = _.extend({}, this.attributes, attrs);
       var error = this.validationError = this.validate(attrs, options) || null;
       if (!error) return true;
-      this.trigger('invalid', this, error, _.extend(options || {}, {validationError: error}));
+      this.trigger('invalid', this, error, _.extend(options, {validationError: error}));
       return false;
     }
 
@@ -1987,7 +1957,6 @@ var global=self;(function() {
   // its models in sort order, as they're added and removed.
   var Collection = Backbone.Collection = function(models, options) {
     options || (options = {});
-    if (options.url) this.url = options.url;
     if (options.model) this.model = options.model;
     if (options.comparator !== void 0) this.comparator = options.comparator;
     this._reset();
@@ -1997,7 +1966,7 @@ var global=self;(function() {
 
   // Default options for `Collection#set`.
   var setOptions = {add: true, remove: true, merge: true};
-  var addOptions = {add: true, merge: false, remove: false};
+  var addOptions = {add: true, remove: false};
 
   // Define the Collection's inheritable methods.
   _.extend(Collection.prototype, Events, {
@@ -2023,16 +1992,17 @@ var global=self;(function() {
 
     // Add a model, or list of models to the set.
     add: function(models, options) {
-      return this.set(models, _.defaults(options || {}, addOptions));
+      return this.set(models, _.extend({merge: false}, options, addOptions));
     },
 
     // Remove a model, or a list of models from the set.
     remove: function(models, options) {
-      models = _.isArray(models) ? models.slice() : [models];
+      var singular = !_.isArray(models);
+      models = singular ? [models] : _.clone(models);
       options || (options = {});
       var i, l, index, model;
       for (i = 0, l = models.length; i < l; i++) {
-        model = this.get(models[i]);
+        model = models[i] = this.get(models[i]);
         if (!model) continue;
         delete this._byId[model.id];
         delete this._byId[model.cid];
@@ -2045,7 +2015,7 @@ var global=self;(function() {
         }
         this._removeReference(model);
       }
-      return this;
+      return singular ? models[0] : models;
     },
 
     // Update a collection by `set`-ing a new list of models, adding new ones,
@@ -2053,31 +2023,45 @@ var global=self;(function() {
     // already exist in the collection, as necessary. Similar to **Model#set**,
     // the core operation for updating the data contained by the collection.
     set: function(models, options) {
-      options = _.defaults(options || {}, setOptions);
+      options = _.defaults({}, options, setOptions);
       if (options.parse) models = this.parse(models, options);
-      if (!_.isArray(models)) models = models ? [models] : [];
-      var i, l, model, attrs, existing, sort;
+      var singular = !_.isArray(models);
+      models = singular ? (models ? [models] : []) : _.clone(models);
+      var i, l, id, model, attrs, existing, sort;
       var at = options.at;
+      var targetModel = this.model;
       var sortable = this.comparator && (at == null) && options.sort !== false;
       var sortAttr = _.isString(this.comparator) ? this.comparator : null;
       var toAdd = [], toRemove = [], modelMap = {};
+      var add = options.add, merge = options.merge, remove = options.remove;
+      var order = !sortable && add && remove ? [] : false;
 
       // Turn bare objects into model references, and prevent invalid models
       // from being added.
       for (i = 0, l = models.length; i < l; i++) {
-        if (!(model = this._prepareModel(models[i], options))) continue;
+        attrs = models[i];
+        if (attrs instanceof Model) {
+          id = model = attrs;
+        } else {
+          id = attrs[targetModel.prototype.idAttribute];
+        }
 
         // If a duplicate is found, prevent it from being added and
         // optionally merge it into the existing model.
-        if (existing = this.get(model)) {
-          if (options.remove) modelMap[existing.cid] = true;
-          if (options.merge) {
-            existing.set(model.attributes, options);
+        if (existing = this.get(id)) {
+          if (remove) modelMap[existing.cid] = true;
+          if (merge) {
+            attrs = attrs === model ? model.attributes : attrs;
+            if (options.parse) attrs = existing.parse(attrs, options);
+            existing.set(attrs, options);
             if (sortable && !sort && existing.hasChanged(sortAttr)) sort = true;
           }
+          models[i] = existing;
 
-        // This is a new model, push it to the `toAdd` list.
-        } else if (options.add) {
+        // If this is a new, valid model, push it to the `toAdd` list.
+        } else if (add) {
+          model = models[i] = this._prepareModel(attrs, options);
+          if (!model) continue;
           toAdd.push(model);
 
           // Listen to added models' events, and index models for lookup by
@@ -2086,10 +2070,11 @@ var global=self;(function() {
           this._byId[model.cid] = model;
           if (model.id != null) this._byId[model.id] = model;
         }
+        if (order) order.push(existing || model);
       }
 
       // Remove nonexistent models if appropriate.
-      if (options.remove) {
+      if (remove) {
         for (i = 0, l = this.length; i < l; ++i) {
           if (!modelMap[(model = this.models[i]).cid]) toRemove.push(model);
         }
@@ -2097,29 +2082,35 @@ var global=self;(function() {
       }
 
       // See if sorting is needed, update `length` and splice in new models.
-      if (toAdd.length) {
+      if (toAdd.length || (order && order.length)) {
         if (sortable) sort = true;
         this.length += toAdd.length;
         if (at != null) {
-          splice.apply(this.models, [at, 0].concat(toAdd));
+          for (i = 0, l = toAdd.length; i < l; i++) {
+            this.models.splice(at + i, 0, toAdd[i]);
+          }
         } else {
-          push.apply(this.models, toAdd);
+          if (order) this.models.length = 0;
+          var orderedModels = order || toAdd;
+          for (i = 0, l = orderedModels.length; i < l; i++) {
+            this.models.push(orderedModels[i]);
+          }
         }
       }
 
       // Silently sort the collection if appropriate.
       if (sort) this.sort({silent: true});
 
-      if (options.silent) return this;
-
-      // Trigger `add` events.
-      for (i = 0, l = toAdd.length; i < l; i++) {
-        (model = toAdd[i]).trigger('add', model, this, options);
+      // Unless silenced, it's time to fire all appropriate add/sort events.
+      if (!options.silent) {
+        for (i = 0, l = toAdd.length; i < l; i++) {
+          (model = toAdd[i]).trigger('add', model, this, options);
+        }
+        if (sort || (order && order.length)) this.trigger('sort', this, options);
       }
-
-      // Trigger `sort` if the collection was sorted.
-      if (sort) this.trigger('sort', this, options);
-      return this;
+      
+      // Return the added (or merged) model (or models).
+      return singular ? models[0] : models;
     },
 
     // When you have more items than you want to add or remove individually,
@@ -2133,16 +2124,14 @@ var global=self;(function() {
       }
       options.previousModels = this.models;
       this._reset();
-      this.add(models, _.extend({silent: true}, options));
+      models = this.add(models, _.extend({silent: true}, options));
       if (!options.silent) this.trigger('reset', this, options);
-      return this;
+      return models;
     },
 
     // Add a model to the end of the collection.
     push: function(model, options) {
-      model = this._prepareModel(model, options);
-      this.add(model, _.extend({at: this.length}, options));
-      return model;
+      return this.add(model, _.extend({at: this.length}, options));
     },
 
     // Remove a model from the end of the collection.
@@ -2154,9 +2143,7 @@ var global=self;(function() {
 
     // Add a model to the beginning of the collection.
     unshift: function(model, options) {
-      model = this._prepareModel(model, options);
-      this.add(model, _.extend({at: 0}, options));
-      return model;
+      return this.add(model, _.extend({at: 0}, options));
     },
 
     // Remove a model from the beginning of the collection.
@@ -2167,14 +2154,14 @@ var global=self;(function() {
     },
 
     // Slice out a sub-array of models from the collection.
-    slice: function(begin, end) {
-      return this.models.slice(begin, end);
+    slice: function() {
+      return slice.apply(this.models, arguments);
     },
 
     // Get a model from the set by id.
     get: function(obj) {
       if (obj == null) return void 0;
-      return this._byId[obj.id != null ? obj.id : obj.cid || obj];
+      return this._byId[obj.id] || this._byId[obj.cid] || this._byId[obj];
     },
 
     // Get the model at the given index.
@@ -2218,16 +2205,6 @@ var global=self;(function() {
       return this;
     },
 
-    // Figure out the smallest index at which a model should be inserted so as
-    // to maintain order.
-    sortedIndex: function(model, value, context) {
-      value || (value = this.comparator);
-      var iterator = _.isFunction(value) ? value : function(model) {
-        return model.get(value);
-      };
-      return _.sortedIndex(this.models, model, iterator, context);
-    },
-
     // Pluck an attribute from each model in the collection.
     pluck: function(attr) {
       return _.invoke(this.models, 'get', attr);
@@ -2260,7 +2237,7 @@ var global=self;(function() {
       if (!options.wait) this.add(model, options);
       var collection = this;
       var success = options.success;
-      options.success = function(resp) {
+      options.success = function(model, resp, options) {
         if (options.wait) collection.add(model, options);
         if (success) success(model, resp, options);
       };
@@ -2294,14 +2271,12 @@ var global=self;(function() {
         if (!attrs.collection) attrs.collection = this;
         return attrs;
       }
-      options || (options = {});
+      options = options ? _.clone(options) : {};
       options.collection = this;
       var model = new this.model(attrs, options);
-      if (!model._validate(attrs, options)) {
-        this.trigger('invalid', this, attrs, options);
-        return false;
-      }
-      return model;
+      if (!model.validationError) return model;
+      this.trigger('invalid', this, model.validationError, options);
+      return false;
     },
 
     // Internal method to sever a model's ties to a collection.
@@ -2333,8 +2308,8 @@ var global=self;(function() {
     'inject', 'reduceRight', 'foldr', 'find', 'detect', 'filter', 'select',
     'reject', 'every', 'all', 'some', 'any', 'include', 'contains', 'invoke',
     'max', 'min', 'toArray', 'size', 'first', 'head', 'take', 'initial', 'rest',
-    'tail', 'drop', 'last', 'without', 'indexOf', 'shuffle', 'lastIndexOf',
-    'isEmpty', 'chain'];
+    'tail', 'drop', 'last', 'without', 'difference', 'indexOf', 'shuffle',
+    'lastIndexOf', 'isEmpty', 'chain'];
 
   // Mix in each Underscore method as a proxy to `Collection#models`.
   _.each(methods, function(method) {
@@ -2373,7 +2348,8 @@ var global=self;(function() {
   // if an existing element is not provided...
   var View = Backbone.View = function(options) {
     this.cid = _.uniqueId('view');
-    this._configure(options || {});
+    options || (options = {});
+    _.extend(this, _.pick(options, viewOptions));
     this._ensureElement();
     this.initialize.apply(this, arguments);
     this.delegateEvents();
@@ -2392,7 +2368,7 @@ var global=self;(function() {
     tagName: 'div',
 
     // jQuery delegate for element lookup, scoped to DOM elements within the
-    // current view. This should be prefered to global lookups where possible.
+    // current view. This should be preferred to global lookups where possible.
     $: function(selector) {
       return this.$el.find(selector);
     },
@@ -2432,7 +2408,7 @@ var global=self;(function() {
     //
     //     {
     //       'mousedown .title':  'edit',
-    //       'click .button':     'save'
+    //       'click .button':     'save',
     //       'click .open':       function(e) { ... }
     //     }
     //
@@ -2468,16 +2444,6 @@ var global=self;(function() {
     undelegateEvents: function() {
       this.$el.off('.delegateEvents' + this.cid);
       return this;
-    },
-
-    // Performs the initial configuration of a View with a set of options.
-    // Keys with special meaning *(e.g. model, collection, id, className)* are
-    // attached directly to the view.  See `viewOptions` for an exhaustive
-    // list.
-    _configure: function(options) {
-      if (this.options) options = _.extend({}, _.result(this, 'options'), options);
-      _.extend(this, _.pick(options, viewOptions));
-      this.options = options;
     },
 
     // Ensure that the View has a DOM element to render into.
@@ -2565,8 +2531,7 @@ var global=self;(function() {
     // If we're sending a `PATCH` request, and we're in an old Internet Explorer
     // that still has ActiveX enabled by default, override jQuery to use that
     // for XHR instead. Remove this line when jQuery supports `PATCH` on IE8.
-    if (params.type === 'PATCH' && window.ActiveXObject &&
-          !(window.external && window.external.msActiveXFilteringEnabled)) {
+    if (params.type === 'PATCH' && noXhrPatch) {
       params.xhr = function() {
         return new ActiveXObject("Microsoft.XMLHTTP");
       };
@@ -2577,6 +2542,8 @@ var global=self;(function() {
     model.trigger('request', model, xhr, options);
     return xhr;
   };
+
+  var noXhrPatch = typeof window !== 'undefined' && !!window.ActiveXObject && !(window.XMLHttpRequest && (new XMLHttpRequest).dispatchEvent);
 
   // Map from CRUD to HTTP for our default `Backbone.sync` implementation.
   var methodMap = {
@@ -2666,7 +2633,7 @@ var global=self;(function() {
     _routeToRegExp: function(route) {
       route = route.replace(escapeRegExp, '\\$&')
                    .replace(optionalParam, '(?:$1)?')
-                   .replace(namedParam, function(match, optional){
+                   .replace(namedParam, function(match, optional) {
                      return optional ? match : '([^\/]+)';
                    })
                    .replace(splatParam, '(.*?)');
@@ -2716,6 +2683,9 @@ var global=self;(function() {
   // Cached regex for removing a trailing slash.
   var trailingSlash = /\/$/;
 
+  // Cached regex for stripping urls of hash and query.
+  var pathStripper = /[?#].*$/;
+
   // Has the history handling already been started?
   History.started = false;
 
@@ -2740,7 +2710,7 @@ var global=self;(function() {
         if (this._hasPushState || !this._wantsHashChange || forcePushState) {
           fragment = this.location.pathname;
           var root = this.root.replace(trailingSlash, '');
-          if (!fragment.indexOf(root)) fragment = fragment.substr(root.length);
+          if (!fragment.indexOf(root)) fragment = fragment.slice(root.length);
         } else {
           fragment = this.getHash();
         }
@@ -2756,7 +2726,7 @@ var global=self;(function() {
 
       // Figure out the initial configuration. Do we need an iframe?
       // Is pushState desired ... is it available?
-      this.options          = _.extend({}, {root: '/'}, this.options, options);
+      this.options          = _.extend({root: '/'}, this.options, options);
       this.root             = this.options.root;
       this._wantsHashChange = this.options.hashChange !== false;
       this._wantsPushState  = !!this.options.pushState;
@@ -2789,19 +2759,25 @@ var global=self;(function() {
       var loc = this.location;
       var atRoot = loc.pathname.replace(/[^\/]$/, '$&/') === this.root;
 
-      // If we've started off with a route from a `pushState`-enabled browser,
-      // but we're currently in a browser that doesn't support it...
-      if (this._wantsHashChange && this._wantsPushState && !this._hasPushState && !atRoot) {
-        this.fragment = this.getFragment(null, true);
-        this.location.replace(this.root + this.location.search + '#' + this.fragment);
-        // Return immediately as browser will do redirect to new url
-        return true;
+      // Transition from hashChange to pushState or vice versa if both are
+      // requested.
+      if (this._wantsHashChange && this._wantsPushState) {
 
-      // Or if we've started out with a hash-based route, but we're currently
-      // in a browser where it could be `pushState`-based instead...
-      } else if (this._wantsPushState && this._hasPushState && atRoot && loc.hash) {
-        this.fragment = this.getHash().replace(routeStripper, '');
-        this.history.replaceState({}, document.title, this.root + this.fragment + loc.search);
+        // If we've started off with a route from a `pushState`-enabled
+        // browser, but we're currently in a browser that doesn't support it...
+        if (!this._hasPushState && !atRoot) {
+          this.fragment = this.getFragment(null, true);
+          this.location.replace(this.root + this.location.search + '#' + this.fragment);
+          // Return immediately as browser will do redirect to new url
+          return true;
+
+        // Or if we've started out with a hash-based route, but we're currently
+        // in a browser where it could be `pushState`-based instead...
+        } else if (this._hasPushState && atRoot && loc.hash) {
+          this.fragment = this.getHash().replace(routeStripper, '');
+          this.history.replaceState({}, document.title, this.root + this.fragment + loc.search);
+        }
+
       }
 
       if (!this.options.silent) return this.loadUrl();
@@ -2830,21 +2806,20 @@ var global=self;(function() {
       }
       if (current === this.fragment) return false;
       if (this.iframe) this.navigate(current);
-      this.loadUrl() || this.loadUrl(this.getHash());
+      this.loadUrl();
     },
 
     // Attempt to load the current URL fragment. If a route succeeds with a
     // match, returns `true`. If no defined routes matches the fragment,
     // returns `false`.
-    loadUrl: function(fragmentOverride) {
-      var fragment = this.fragment = this.getFragment(fragmentOverride);
-      var matched = _.any(this.handlers, function(handler) {
+    loadUrl: function(fragment) {
+      fragment = this.fragment = this.getFragment(fragment);
+      return _.any(this.handlers, function(handler) {
         if (handler.route.test(fragment)) {
           handler.callback(fragment);
           return true;
         }
       });
-      return matched;
     },
 
     // Save a fragment into the hash history, or replace the URL state if the
@@ -2856,11 +2831,18 @@ var global=self;(function() {
     // you wish to modify the current URL without adding an entry to the history.
     navigate: function(fragment, options) {
       if (!History.started) return false;
-      if (!options || options === true) options = {trigger: options};
-      fragment = this.getFragment(fragment || '');
+      if (!options || options === true) options = {trigger: !!options};
+
+      var url = this.root + (fragment = this.getFragment(fragment || ''));
+
+      // Strip the fragment of the query and hash for matching.
+      fragment = fragment.replace(pathStripper, '');
+
       if (this.fragment === fragment) return;
       this.fragment = fragment;
-      var url = this.root + fragment;
+
+      // Don't include a trailing slash on the root.
+      if (fragment === '' && url !== '/') url = url.slice(0, -1);
 
       // If pushState is available, we use it to set the fragment as a real URL.
       if (this._hasPushState) {
@@ -2883,7 +2865,7 @@ var global=self;(function() {
       } else {
         return this.location.assign(url);
       }
-      if (options.trigger) this.loadUrl(fragment);
+      if (options.trigger) return this.loadUrl(fragment);
     },
 
     // Update the hash location, either replacing the current entry, or adding
@@ -2951,7 +2933,7 @@ var global=self;(function() {
   };
 
   // Wrap an optional error callback with a fallback error event.
-  var wrapError = function (model, options) {
+  var wrapError = function(model, options) {
     var error = options.error;
     options.error = function(resp) {
       if (error) error(model, resp, options);
@@ -2961,362 +2943,746 @@ var global=self;(function() {
 
 }).call(this);
 
-},{"underscore":25}],16:[function(require,module,exports){
-// nothing to see here... no file methods for the browser
+},{"underscore":28}],16:[function(require,module,exports){
 
 },{}],17:[function(require,module,exports){
+var global=typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {};/*! http://mths.be/punycode v1.2.3 by @mathias */
+;(function(root) {
 
-/**
- * Object#toString() ref for stringify().
- */
+	/** Detect free variables */
+	var freeExports = typeof exports == 'object' && exports;
+	var freeModule = typeof module == 'object' && module &&
+		module.exports == freeExports && module;
+	var freeGlobal = typeof global == 'object' && global;
+	if (freeGlobal.global === freeGlobal || freeGlobal.window === freeGlobal) {
+		root = freeGlobal;
+	}
 
-var toString = Object.prototype.toString;
+	/**
+	 * The `punycode` object.
+	 * @name punycode
+	 * @type Object
+	 */
+	var punycode,
 
-/**
- * Array#indexOf shim.
- */
+	/** Highest positive signed 32-bit float value */
+	maxInt = 2147483647, // aka. 0x7FFFFFFF or 2^31-1
 
-var indexOf = typeof Array.prototype.indexOf === 'function'
-  ? function(arr, el) { return arr.indexOf(el); }
-  : function(arr, el) {
-      for (var i = 0; i < arr.length; i++) {
-        if (arr[i] === el) return i;
+	/** Bootstring parameters */
+	base = 36,
+	tMin = 1,
+	tMax = 26,
+	skew = 38,
+	damp = 700,
+	initialBias = 72,
+	initialN = 128, // 0x80
+	delimiter = '-', // '\x2D'
+
+	/** Regular expressions */
+	regexPunycode = /^xn--/,
+	regexNonASCII = /[^ -~]/, // unprintable ASCII chars + non-ASCII chars
+	regexSeparators = /\x2E|\u3002|\uFF0E|\uFF61/g, // RFC 3490 separators
+
+	/** Error messages */
+	errors = {
+		'overflow': 'Overflow: input needs wider integers to process',
+		'not-basic': 'Illegal input >= 0x80 (not a basic code point)',
+		'invalid-input': 'Invalid input'
+	},
+
+	/** Convenience shortcuts */
+	baseMinusTMin = base - tMin,
+	floor = Math.floor,
+	stringFromCharCode = String.fromCharCode,
+
+	/** Temporary variable */
+	key;
+
+	/*--------------------------------------------------------------------------*/
+
+	/**
+	 * A generic error utility function.
+	 * @private
+	 * @param {String} type The error type.
+	 * @returns {Error} Throws a `RangeError` with the applicable error message.
+	 */
+	function error(type) {
+		throw RangeError(errors[type]);
+	}
+
+	/**
+	 * A generic `Array#map` utility function.
+	 * @private
+	 * @param {Array} array The array to iterate over.
+	 * @param {Function} callback The function that gets called for every array
+	 * item.
+	 * @returns {Array} A new array of values returned by the callback function.
+	 */
+	function map(array, fn) {
+		var length = array.length;
+		while (length--) {
+			array[length] = fn(array[length]);
+		}
+		return array;
+	}
+
+	/**
+	 * A simple `Array#map`-like wrapper to work with domain name strings.
+	 * @private
+	 * @param {String} domain The domain name.
+	 * @param {Function} callback The function that gets called for every
+	 * character.
+	 * @returns {Array} A new string of characters returned by the callback
+	 * function.
+	 */
+	function mapDomain(string, fn) {
+		return map(string.split(regexSeparators), fn).join('.');
+	}
+
+	/**
+	 * Creates an array containing the numeric code points of each Unicode
+	 * character in the string. While JavaScript uses UCS-2 internally,
+	 * this function will convert a pair of surrogate halves (each of which
+	 * UCS-2 exposes as separate characters) into a single code point,
+	 * matching UTF-16.
+	 * @see `punycode.ucs2.encode`
+	 * @see <http://mathiasbynens.be/notes/javascript-encoding>
+	 * @memberOf punycode.ucs2
+	 * @name decode
+	 * @param {String} string The Unicode input string (UCS-2).
+	 * @returns {Array} The new array of code points.
+	 */
+	function ucs2decode(string) {
+		var output = [],
+		    counter = 0,
+		    length = string.length,
+		    value,
+		    extra;
+		while (counter < length) {
+			value = string.charCodeAt(counter++);
+			if (value >= 0xD800 && value <= 0xDBFF && counter < length) {
+				// high surrogate, and there is a next character
+				extra = string.charCodeAt(counter++);
+				if ((extra & 0xFC00) == 0xDC00) { // low surrogate
+					output.push(((value & 0x3FF) << 10) + (extra & 0x3FF) + 0x10000);
+				} else {
+					// unmatched surrogate; only append this code unit, in case the next
+					// code unit is the high surrogate of a surrogate pair
+					output.push(value);
+					counter--;
+				}
+			} else {
+				output.push(value);
+			}
+		}
+		return output;
+	}
+
+	/**
+	 * Creates a string based on an array of numeric code points.
+	 * @see `punycode.ucs2.decode`
+	 * @memberOf punycode.ucs2
+	 * @name encode
+	 * @param {Array} codePoints The array of numeric code points.
+	 * @returns {String} The new Unicode string (UCS-2).
+	 */
+	function ucs2encode(array) {
+		return map(array, function(value) {
+			var output = '';
+			if (value > 0xFFFF) {
+				value -= 0x10000;
+				output += stringFromCharCode(value >>> 10 & 0x3FF | 0xD800);
+				value = 0xDC00 | value & 0x3FF;
+			}
+			output += stringFromCharCode(value);
+			return output;
+		}).join('');
+	}
+
+	/**
+	 * Converts a basic code point into a digit/integer.
+	 * @see `digitToBasic()`
+	 * @private
+	 * @param {Number} codePoint The basic numeric code point value.
+	 * @returns {Number} The numeric value of a basic code point (for use in
+	 * representing integers) in the range `0` to `base - 1`, or `base` if
+	 * the code point does not represent a value.
+	 */
+	function basicToDigit(codePoint) {
+		if (codePoint - 48 < 10) {
+			return codePoint - 22;
+		}
+		if (codePoint - 65 < 26) {
+			return codePoint - 65;
+		}
+		if (codePoint - 97 < 26) {
+			return codePoint - 97;
+		}
+		return base;
+	}
+
+	/**
+	 * Converts a digit/integer into a basic code point.
+	 * @see `basicToDigit()`
+	 * @private
+	 * @param {Number} digit The numeric value of a basic code point.
+	 * @returns {Number} The basic code point whose value (when used for
+	 * representing integers) is `digit`, which needs to be in the range
+	 * `0` to `base - 1`. If `flag` is non-zero, the uppercase form is
+	 * used; else, the lowercase form is used. The behavior is undefined
+	 * if `flag` is non-zero and `digit` has no uppercase form.
+	 */
+	function digitToBasic(digit, flag) {
+		//  0..25 map to ASCII a..z or A..Z
+		// 26..35 map to ASCII 0..9
+		return digit + 22 + 75 * (digit < 26) - ((flag != 0) << 5);
+	}
+
+	/**
+	 * Bias adaptation function as per section 3.4 of RFC 3492.
+	 * http://tools.ietf.org/html/rfc3492#section-3.4
+	 * @private
+	 */
+	function adapt(delta, numPoints, firstTime) {
+		var k = 0;
+		delta = firstTime ? floor(delta / damp) : delta >> 1;
+		delta += floor(delta / numPoints);
+		for (/* no initialization */; delta > baseMinusTMin * tMax >> 1; k += base) {
+			delta = floor(delta / baseMinusTMin);
+		}
+		return floor(k + (baseMinusTMin + 1) * delta / (delta + skew));
+	}
+
+	/**
+	 * Converts a Punycode string of ASCII-only symbols to a string of Unicode
+	 * symbols.
+	 * @memberOf punycode
+	 * @param {String} input The Punycode string of ASCII-only symbols.
+	 * @returns {String} The resulting string of Unicode symbols.
+	 */
+	function decode(input) {
+		// Don't use UCS-2
+		var output = [],
+		    inputLength = input.length,
+		    out,
+		    i = 0,
+		    n = initialN,
+		    bias = initialBias,
+		    basic,
+		    j,
+		    index,
+		    oldi,
+		    w,
+		    k,
+		    digit,
+		    t,
+		    length,
+		    /** Cached calculation results */
+		    baseMinusT;
+
+		// Handle the basic code points: let `basic` be the number of input code
+		// points before the last delimiter, or `0` if there is none, then copy
+		// the first basic code points to the output.
+
+		basic = input.lastIndexOf(delimiter);
+		if (basic < 0) {
+			basic = 0;
+		}
+
+		for (j = 0; j < basic; ++j) {
+			// if it's not a basic code point
+			if (input.charCodeAt(j) >= 0x80) {
+				error('not-basic');
+			}
+			output.push(input.charCodeAt(j));
+		}
+
+		// Main decoding loop: start just after the last delimiter if any basic code
+		// points were copied; start at the beginning otherwise.
+
+		for (index = basic > 0 ? basic + 1 : 0; index < inputLength; /* no final expression */) {
+
+			// `index` is the index of the next character to be consumed.
+			// Decode a generalized variable-length integer into `delta`,
+			// which gets added to `i`. The overflow checking is easier
+			// if we increase `i` as we go, then subtract off its starting
+			// value at the end to obtain `delta`.
+			for (oldi = i, w = 1, k = base; /* no condition */; k += base) {
+
+				if (index >= inputLength) {
+					error('invalid-input');
+				}
+
+				digit = basicToDigit(input.charCodeAt(index++));
+
+				if (digit >= base || digit > floor((maxInt - i) / w)) {
+					error('overflow');
+				}
+
+				i += digit * w;
+				t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
+
+				if (digit < t) {
+					break;
+				}
+
+				baseMinusT = base - t;
+				if (w > floor(maxInt / baseMinusT)) {
+					error('overflow');
+				}
+
+				w *= baseMinusT;
+
+			}
+
+			out = output.length + 1;
+			bias = adapt(i - oldi, out, oldi == 0);
+
+			// `i` was supposed to wrap around from `out` to `0`,
+			// incrementing `n` each time, so we'll fix that now:
+			if (floor(i / out) > maxInt - n) {
+				error('overflow');
+			}
+
+			n += floor(i / out);
+			i %= out;
+
+			// Insert `n` at position `i` of the output
+			output.splice(i++, 0, n);
+
+		}
+
+		return ucs2encode(output);
+	}
+
+	/**
+	 * Converts a string of Unicode symbols to a Punycode string of ASCII-only
+	 * symbols.
+	 * @memberOf punycode
+	 * @param {String} input The string of Unicode symbols.
+	 * @returns {String} The resulting Punycode string of ASCII-only symbols.
+	 */
+	function encode(input) {
+		var n,
+		    delta,
+		    handledCPCount,
+		    basicLength,
+		    bias,
+		    j,
+		    m,
+		    q,
+		    k,
+		    t,
+		    currentValue,
+		    output = [],
+		    /** `inputLength` will hold the number of code points in `input`. */
+		    inputLength,
+		    /** Cached calculation results */
+		    handledCPCountPlusOne,
+		    baseMinusT,
+		    qMinusT;
+
+		// Convert the input in UCS-2 to Unicode
+		input = ucs2decode(input);
+
+		// Cache the length
+		inputLength = input.length;
+
+		// Initialize the state
+		n = initialN;
+		delta = 0;
+		bias = initialBias;
+
+		// Handle the basic code points
+		for (j = 0; j < inputLength; ++j) {
+			currentValue = input[j];
+			if (currentValue < 0x80) {
+				output.push(stringFromCharCode(currentValue));
+			}
+		}
+
+		handledCPCount = basicLength = output.length;
+
+		// `handledCPCount` is the number of code points that have been handled;
+		// `basicLength` is the number of basic code points.
+
+		// Finish the basic string - if it is not empty - with a delimiter
+		if (basicLength) {
+			output.push(delimiter);
+		}
+
+		// Main encoding loop:
+		while (handledCPCount < inputLength) {
+
+			// All non-basic code points < n have been handled already. Find the next
+			// larger one:
+			for (m = maxInt, j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+				if (currentValue >= n && currentValue < m) {
+					m = currentValue;
+				}
+			}
+
+			// Increase `delta` enough to advance the decoder's <n,i> state to <m,0>,
+			// but guard against overflow
+			handledCPCountPlusOne = handledCPCount + 1;
+			if (m - n > floor((maxInt - delta) / handledCPCountPlusOne)) {
+				error('overflow');
+			}
+
+			delta += (m - n) * handledCPCountPlusOne;
+			n = m;
+
+			for (j = 0; j < inputLength; ++j) {
+				currentValue = input[j];
+
+				if (currentValue < n && ++delta > maxInt) {
+					error('overflow');
+				}
+
+				if (currentValue == n) {
+					// Represent delta as a generalized variable-length integer
+					for (q = delta, k = base; /* no condition */; k += base) {
+						t = k <= bias ? tMin : (k >= bias + tMax ? tMax : k - bias);
+						if (q < t) {
+							break;
+						}
+						qMinusT = q - t;
+						baseMinusT = base - t;
+						output.push(
+							stringFromCharCode(digitToBasic(t + qMinusT % baseMinusT, 0))
+						);
+						q = floor(qMinusT / baseMinusT);
+					}
+
+					output.push(stringFromCharCode(digitToBasic(q, 0)));
+					bias = adapt(delta, handledCPCountPlusOne, handledCPCount == basicLength);
+					delta = 0;
+					++handledCPCount;
+				}
+			}
+
+			++delta;
+			++n;
+
+		}
+		return output.join('');
+	}
+
+	/**
+	 * Converts a Punycode string representing a domain name to Unicode. Only the
+	 * Punycoded parts of the domain name will be converted, i.e. it doesn't
+	 * matter if you call it on a string that has already been converted to
+	 * Unicode.
+	 * @memberOf punycode
+	 * @param {String} domain The Punycode domain name to convert to Unicode.
+	 * @returns {String} The Unicode representation of the given Punycode
+	 * string.
+	 */
+	function toUnicode(domain) {
+		return mapDomain(domain, function(string) {
+			return regexPunycode.test(string)
+				? decode(string.slice(4).toLowerCase())
+				: string;
+		});
+	}
+
+	/**
+	 * Converts a Unicode string representing a domain name to Punycode. Only the
+	 * non-ASCII parts of the domain name will be converted, i.e. it doesn't
+	 * matter if you call it with a domain that's already in ASCII.
+	 * @memberOf punycode
+	 * @param {String} domain The domain name to convert, as a Unicode string.
+	 * @returns {String} The Punycode representation of the given domain name.
+	 */
+	function toASCII(domain) {
+		return mapDomain(domain, function(string) {
+			return regexNonASCII.test(string)
+				? 'xn--' + encode(string)
+				: string;
+		});
+	}
+
+	/*--------------------------------------------------------------------------*/
+
+	/** Define the public API */
+	punycode = {
+		/**
+		 * A string representing the current Punycode.js version number.
+		 * @memberOf punycode
+		 * @type String
+		 */
+		'version': '1.2.3',
+		/**
+		 * An object of methods to convert from JavaScript's internal character
+		 * representation (UCS-2) to Unicode code points, and back.
+		 * @see <http://mathiasbynens.be/notes/javascript-encoding>
+		 * @memberOf punycode
+		 * @type Object
+		 */
+		'ucs2': {
+			'decode': ucs2decode,
+			'encode': ucs2encode
+		},
+		'decode': decode,
+		'encode': encode,
+		'toASCII': toASCII,
+		'toUnicode': toUnicode
+	};
+
+	/** Expose `punycode` */
+	// Some AMD build optimizers, like r.js, check for specific condition patterns
+	// like the following:
+	if (
+		typeof define == 'function' &&
+		typeof define.amd == 'object' &&
+		define.amd
+	) {
+		define(function() {
+			return punycode;
+		});
+	}	else if (freeExports && !freeExports.nodeType) {
+		if (freeModule) { // in Node.js or RingoJS v0.8.0+
+			freeModule.exports = punycode;
+		} else { // in Narwhal or RingoJS v0.7.0-
+			for (key in punycode) {
+				punycode.hasOwnProperty(key) && (freeExports[key] = punycode[key]);
+			}
+		}
+	} else { // in Rhino or a web browser
+		root.punycode = punycode;
+	}
+
+}(this));
+
+},{}],18:[function(require,module,exports){
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+'use strict';
+
+// If obj.hasOwnProperty has been overridden, then calling
+// obj.hasOwnProperty(prop) will break.
+// See: https://github.com/joyent/node/issues/1707
+function hasOwnProperty(obj, prop) {
+  return Object.prototype.hasOwnProperty.call(obj, prop);
+}
+
+module.exports = function(qs, sep, eq, options) {
+  sep = sep || '&';
+  eq = eq || '=';
+  var obj = {};
+
+  if (typeof qs !== 'string' || qs.length === 0) {
+    return obj;
+  }
+
+  var regexp = /\+/g;
+  qs = qs.split(sep);
+
+  var maxKeys = 1000;
+  if (options && typeof options.maxKeys === 'number') {
+    maxKeys = options.maxKeys;
+  }
+
+  var len = qs.length;
+  // maxKeys <= 0 means that we should not limit keys count
+  if (maxKeys > 0 && len > maxKeys) {
+    len = maxKeys;
+  }
+
+  for (var i = 0; i < len; ++i) {
+    var x = qs[i].replace(regexp, '%20'),
+        idx = x.indexOf(eq),
+        kstr, vstr, k, v;
+
+    if (idx >= 0) {
+      kstr = x.substr(0, idx);
+      vstr = x.substr(idx + 1);
+    } else {
+      kstr = x;
+      vstr = '';
+    }
+
+    k = decodeURIComponent(kstr);
+    v = decodeURIComponent(vstr);
+
+    if (!hasOwnProperty(obj, k)) {
+      obj[k] = v;
+    } else if (isArray(obj[k])) {
+      obj[k].push(v);
+    } else {
+      obj[k] = [obj[k], v];
+    }
+  }
+
+  return obj;
+};
+
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
+};
+
+},{}],19:[function(require,module,exports){
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+'use strict';
+
+var stringifyPrimitive = function(v) {
+  switch (typeof v) {
+    case 'string':
+      return v;
+
+    case 'boolean':
+      return v ? 'true' : 'false';
+
+    case 'number':
+      return isFinite(v) ? v : '';
+
+    default:
+      return '';
+  }
+};
+
+module.exports = function(obj, sep, eq, name) {
+  sep = sep || '&';
+  eq = eq || '=';
+  if (obj === null) {
+    obj = undefined;
+  }
+
+  if (typeof obj === 'object') {
+    return map(objectKeys(obj), function(k) {
+      var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
+      if (isArray(obj[k])) {
+        return obj[k].map(function(v) {
+          return ks + encodeURIComponent(stringifyPrimitive(v));
+        }).join(sep);
+      } else {
+        return ks + encodeURIComponent(stringifyPrimitive(obj[k]));
       }
-      return -1;
-    };
+    }).join(sep);
 
-/**
- * Array.isArray shim.
- */
+  }
 
-var isArray = Array.isArray || function(arr) {
-  return toString.call(arr) == '[object Array]';
+  if (!name) return '';
+  return encodeURIComponent(stringifyPrimitive(name)) + eq +
+         encodeURIComponent(stringifyPrimitive(obj));
 };
 
-/**
- * Object.keys shim.
- */
-
-var objectKeys = Object.keys || function(obj) {
-  var ret = [];
-  for (var key in obj) ret.push(key);
-  return ret;
+var isArray = Array.isArray || function (xs) {
+  return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-/**
- * Array#forEach shim.
- */
+function map (xs, f) {
+  if (xs.map) return xs.map(f);
+  var res = [];
+  for (var i = 0; i < xs.length; i++) {
+    res.push(f(xs[i], i));
+  }
+  return res;
+}
 
-var forEach = typeof Array.prototype.forEach === 'function'
-  ? function(arr, fn) { return arr.forEach(fn); }
-  : function(arr, fn) {
-      for (var i = 0; i < arr.length; i++) fn(arr[i]);
-    };
-
-/**
- * Array#reduce shim.
- */
-
-var reduce = function(arr, fn, initial) {
-  if (typeof arr.reduce === 'function') return arr.reduce(fn, initial);
-  var res = initial;
-  for (var i = 0; i < arr.length; i++) res = fn(res, arr[i]);
+var objectKeys = Object.keys || function (obj) {
+  var res = [];
+  for (var key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) res.push(key);
+  }
   return res;
 };
 
-/**
- * Cache non-integer test regexp.
- */
+},{}],20:[function(require,module,exports){
+'use strict';
 
-var isint = /^[0-9]+$/;
+exports.decode = exports.parse = require('./decode');
+exports.encode = exports.stringify = require('./encode');
 
-function promote(parent, key) {
-  if (parent[key].length == 0) return parent[key] = {};
-  var t = {};
-  for (var i in parent[key]) t[i] = parent[key][i];
-  parent[key] = t;
-  return t;
-}
+},{"./decode":18,"./encode":19}],21:[function(require,module,exports){
+/*jshint strict:true node:true es5:true onevar:true laxcomma:true laxbreak:true eqeqeq:true immed:true latedef:true*/
+(function () {
+  "use strict";
 
-function parse(parts, parent, key, val) {
-  var part = parts.shift();
-  // end
-  if (!part) {
-    if (isArray(parent[key])) {
-      parent[key].push(val);
-    } else if ('object' == typeof parent[key]) {
-      parent[key] = val;
-    } else if ('undefined' == typeof parent[key]) {
-      parent[key] = val;
-    } else {
-      parent[key] = [parent[key], val];
-    }
-    // array
-  } else {
-    var obj = parent[key] = parent[key] || [];
-    if (']' == part) {
-      if (isArray(obj)) {
-        if ('' != val) obj.push(val);
-      } else if ('object' == typeof obj) {
-        obj[objectKeys(obj).length] = val;
-      } else {
-        obj = parent[key] = [parent[key], val];
-      }
-      // prop
-    } else if (~indexOf(part, ']')) {
-      part = part.substr(0, part.length - 1);
-      if (!isint.test(part) && isArray(obj)) obj = promote(parent, key);
-      parse(parts, obj, part, val);
-      // key
-    } else {
-      if (!isint.test(part) && isArray(obj)) obj = promote(parent, key);
-      parse(parts, obj, part, val);
-    }
-  }
-}
+// Copyright Joyent, Inc. and other Node contributors.
+//
+// Permission is hereby granted, free of charge, to any person obtaining a
+// copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the
+// following conditions:
+//
+// The above copyright notice and this permission notice shall be included
+// in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+// USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-/**
- * Merge parent key/val pair.
- */
-
-function merge(parent, key, val){
-  if (~indexOf(key, ']')) {
-    var parts = key.split('[')
-      , len = parts.length
-      , last = len - 1;
-    parse(parts, parent, 'base', val);
-    // optimize
-  } else {
-    if (!isint.test(key) && isArray(parent.base)) {
-      var t = {};
-      for (var k in parent.base) t[k] = parent.base[k];
-      parent.base = t;
-    }
-    set(parent.base, key, val);
-  }
-
-  return parent;
-}
-
-/**
- * Parse the given obj.
- */
-
-function parseObject(obj){
-  var ret = { base: {} };
-  forEach(objectKeys(obj), function(name){
-    merge(ret, name, obj[name]);
-  });
-  return ret.base;
-}
-
-/**
- * Parse the given str.
- */
-
-function parseString(str){
-  return reduce(String(str).split('&'), function(ret, pair){
-    var eql = indexOf(pair, '=')
-      , brace = lastBraceInKey(pair)
-      , key = pair.substr(0, brace || eql)
-      , val = pair.substr(brace || eql, pair.length)
-      , val = val.substr(indexOf(val, '=') + 1, val.length);
-
-    // ?foo
-    if ('' == key) key = pair, val = '';
-    if ('' == key) return ret;
-
-    return merge(ret, decode(key), decode(val));
-  }, { base: {} }).base;
-}
-
-/**
- * Parse the given query `str` or `obj`, returning an object.
- *
- * @param {String} str | {Object} obj
- * @return {Object}
- * @api public
- */
-
-exports.parse = function(str){
-  if (null == str || '' == str) return {};
-  return 'object' == typeof str
-    ? parseObject(str)
-    : parseString(str);
-};
-
-/**
- * Turn the given `obj` into a query string
- *
- * @param {Object} obj
- * @return {String}
- * @api public
- */
-
-var stringify = exports.stringify = function(obj, prefix) {
-  if (isArray(obj)) {
-    return stringifyArray(obj, prefix);
-  } else if ('[object Object]' == toString.call(obj)) {
-    return stringifyObject(obj, prefix);
-  } else if ('string' == typeof obj) {
-    return stringifyString(obj, prefix);
-  } else {
-    return prefix + '=' + encodeURIComponent(String(obj));
-  }
-};
-
-/**
- * Stringify the given `str`.
- *
- * @param {String} str
- * @param {String} prefix
- * @return {String}
- * @api private
- */
-
-function stringifyString(str, prefix) {
-  if (!prefix) throw new TypeError('stringify expects an object');
-  return prefix + '=' + encodeURIComponent(str);
-}
-
-/**
- * Stringify the given `arr`.
- *
- * @param {Array} arr
- * @param {String} prefix
- * @return {String}
- * @api private
- */
-
-function stringifyArray(arr, prefix) {
-  var ret = [];
-  if (!prefix) throw new TypeError('stringify expects an object');
-  for (var i = 0; i < arr.length; i++) {
-    ret.push(stringify(arr[i], prefix + '[' + i + ']'));
-  }
-  return ret.join('&');
-}
-
-/**
- * Stringify the given `obj`.
- *
- * @param {Object} obj
- * @param {String} prefix
- * @return {String}
- * @api private
- */
-
-function stringifyObject(obj, prefix) {
-  var ret = []
-    , keys = objectKeys(obj)
-    , key;
-
-  for (var i = 0, len = keys.length; i < len; ++i) {
-    key = keys[i];
-    if (null == obj[key]) {
-      ret.push(encodeURIComponent(key) + '=');
-    } else {
-      ret.push(stringify(obj[key], prefix
-        ? prefix + '[' + encodeURIComponent(key) + ']'
-        : encodeURIComponent(key)));
-    }
-  }
-
-  return ret.join('&');
-}
-
-/**
- * Set `obj`'s `key` to `val` respecting
- * the weird and wonderful syntax of a qs,
- * where "foo=bar&foo=baz" becomes an array.
- *
- * @param {Object} obj
- * @param {String} key
- * @param {String} val
- * @api private
- */
-
-function set(obj, key, val) {
-  var v = obj[key];
-  if (undefined === v) {
-    obj[key] = val;
-  } else if (isArray(v)) {
-    v.push(val);
-  } else {
-    obj[key] = [v, val];
-  }
-}
-
-/**
- * Locate last brace in `str` within the key.
- *
- * @param {String} str
- * @return {Number}
- * @api private
- */
-
-function lastBraceInKey(str) {
-  var len = str.length
-    , brace
-    , c;
-  for (var i = 0; i < len; ++i) {
-    c = str[i];
-    if (']' == c) brace = false;
-    if ('[' == c) brace = true;
-    if ('=' == c && !brace) return i;
-  }
-}
-
-/**
- * Decode `str`.
- *
- * @param {String} str
- * @return {String}
- * @api private
- */
-
-function decode(str) {
-  try {
-    return decodeURIComponent(str.replace(/\+/g, ' '));
-  } catch (err) {
-    return str;
-  }
-}
-
-},{}],18:[function(require,module,exports){
-var punycode = { encode : function (s) { return s } };
+var punycode = require('punycode');
 
 exports.parse = urlParse;
 exports.resolve = urlResolve;
 exports.resolveObject = urlResolveObject;
 exports.format = urlFormat;
 
-function arrayIndexOf(array, subject) {
-    for (var i = 0, j = array.length; i < j; i++) {
-        if(array[i] == subject) return i;
-    }
-    return -1;
-}
-
-var objectKeys = Object.keys || function objectKeys(object) {
-    if (object !== Object(object)) throw new TypeError('Invalid object');
-    var keys = [];
-    for (var key in object) if (object.hasOwnProperty(key)) keys[keys.length] = key;
-    return keys;
-}
-
 // Reference: RFC 3986, RFC 1808, RFC 2396
 
 // define these here so at least they only have to be
 // compiled once on the first module load.
 var protocolPattern = /^([a-z0-9.+-]+:)/i,
-    portPattern = /:[0-9]+$/,
+    portPattern = /:[0-9]*$/,
+
     // RFC 2396: characters reserved for delimiting URLs.
+    // We actually just auto-escape these.
     delims = ['<', '>', '"', '`', ' ', '\r', '\n', '\t'],
+
     // RFC 2396: characters not allowed for various reasons.
-    unwise = ['{', '}', '|', '\\', '^', '~', '[', ']', '`'].concat(delims),
+    unwise = ['{', '}', '|', '\\', '^', '~', '`'].concat(delims),
+
     // Allowed by RFCs, but cause of XSS attacks.  Always escape these.
-    autoEscape = ['\''],
+    autoEscape = ['\''].concat(delims),
     // Characters that are never ever allowed in a hostname.
     // Note that any invalid chars are also handled, but these
     // are the ones that are *expected* to be seen, so we fast-path
@@ -3374,13 +3740,9 @@ function urlParse(url, parseQueryString, slashesDenoteHost) {
   var out = {},
       rest = url;
 
-  // cut off any delimiters.
-  // This is to support parse stuff like "<http://foo.com>"
-  for (var i = 0, l = rest.length; i < l; i++) {
-    if (arrayIndexOf(delims, rest.charAt(i)) === -1) break;
-  }
-  if (i !== 0) rest = rest.substr(i);
-
+  // trim before proceeding.
+  // This is to support parse stuff like "  http://foo.com  \n"
+  rest = rest.trim();
 
   var proto = protocolPattern.exec(rest);
   if (proto) {
@@ -3412,28 +3774,30 @@ function urlParse(url, parseQueryString, slashesDenoteHost) {
     // to the left of the first @ sign, unless some non-auth character
     // comes *before* the @-sign.
     // URLs are obnoxious.
-    var atSign = arrayIndexOf(rest, '@');
+    var atSign = rest.indexOf('@');
     if (atSign !== -1) {
+      var auth = rest.slice(0, atSign);
+
       // there *may be* an auth
       var hasAuth = true;
       for (var i = 0, l = nonAuthChars.length; i < l; i++) {
-        var index = arrayIndexOf(rest, nonAuthChars[i]);
-        if (index !== -1 && index < atSign) {
+        if (auth.indexOf(nonAuthChars[i]) !== -1) {
           // not a valid auth.  Something like http://foo.com/bar@baz/
           hasAuth = false;
           break;
         }
       }
+
       if (hasAuth) {
         // pluck off the auth portion.
-        out.auth = rest.substr(0, atSign);
+        out.auth = decodeURIComponent(auth);
         rest = rest.substr(atSign + 1);
       }
     }
 
     var firstNonHost = -1;
     for (var i = 0, l = nonHostChars.length; i < l; i++) {
-      var index = arrayIndexOf(rest, nonHostChars[i]);
+      var index = rest.indexOf(nonHostChars[i]);
       if (index !== -1 &&
           (firstNonHost < 0 || index < firstNonHost)) firstNonHost = index;
     }
@@ -3448,7 +3812,7 @@ function urlParse(url, parseQueryString, slashesDenoteHost) {
 
     // pull out port.
     var p = parseHost(out.host);
-    var keys = objectKeys(p);
+    var keys = Object.keys(p);
     for (var i = 0, l = keys.length; i < l; i++) {
       var key = keys[i];
       out[key] = p[key];
@@ -3458,10 +3822,15 @@ function urlParse(url, parseQueryString, slashesDenoteHost) {
     // so even if it's empty, it has to be present.
     out.hostname = out.hostname || '';
 
+    // if hostname begins with [ and ends with ]
+    // assume that it's an IPv6 address.
+    var ipv6Hostname = out.hostname[0] === '[' &&
+        out.hostname[out.hostname.length - 1] === ']';
+
     // validate a little.
     if (out.hostname.length > hostnameMaxLen) {
       out.hostname = '';
-    } else {
+    } else if (!ipv6Hostname) {
       var hostparts = out.hostname.split(/\./);
       for (var i = 0, l = hostparts.length; i < l; i++) {
         var part = hostparts[i];
@@ -3500,22 +3869,32 @@ function urlParse(url, parseQueryString, slashesDenoteHost) {
     // hostnames are always lower case.
     out.hostname = out.hostname.toLowerCase();
 
-    // IDNA Support: Returns a puny coded representation of "domain".
-    // It only converts the part of the domain name that
-    // has non ASCII characters. I.e. it dosent matter if
-    // you call it with a domain that already is in ASCII.
-    var domainArray = out.hostname.split('.');
-    var newOut = [];
-    for (var i = 0; i < domainArray.length; ++i) {
-      var s = domainArray[i];
-      newOut.push(s.match(/[^A-Za-z0-9_-]/) ?
-          'xn--' + punycode.encode(s) : s);
+    if (!ipv6Hostname) {
+      // IDNA Support: Returns a puny coded representation of "domain".
+      // It only converts the part of the domain name that
+      // has non ASCII characters. I.e. it dosent matter if
+      // you call it with a domain that already is in ASCII.
+      var domainArray = out.hostname.split('.');
+      var newOut = [];
+      for (var i = 0; i < domainArray.length; ++i) {
+        var s = domainArray[i];
+        newOut.push(s.match(/[^A-Za-z0-9_-]/) ?
+            'xn--' + punycode.encode(s) : s);
+      }
+      out.hostname = newOut.join('.');
     }
-    out.hostname = newOut.join('.');
 
     out.host = (out.hostname || '') +
         ((out.port) ? ':' + out.port : '');
     out.href += out.host;
+
+    // strip [ and ] from the hostname
+    if (ipv6Hostname) {
+      out.hostname = out.hostname.substr(1, out.hostname.length - 2);
+      if (rest[0] !== '/') {
+        rest = '/' + rest;
+      }
+    }
   }
 
   // now rest is set to the post-host stuff.
@@ -3533,27 +3912,17 @@ function urlParse(url, parseQueryString, slashesDenoteHost) {
       }
       rest = rest.split(ae).join(esc);
     }
-
-    // Now make sure that delims never appear in a url.
-    var chop = rest.length;
-    for (var i = 0, l = delims.length; i < l; i++) {
-      var c = arrayIndexOf(rest, delims[i]);
-      if (c !== -1) {
-        chop = Math.min(c, chop);
-      }
-    }
-    rest = rest.substr(0, chop);
   }
 
 
   // chop off from the tail first.
-  var hash = arrayIndexOf(rest, '#');
+  var hash = rest.indexOf('#');
   if (hash !== -1) {
     // got a fragment string.
     out.hash = rest.substr(hash);
     rest = rest.slice(0, hash);
   }
-  var qm = arrayIndexOf(rest, '?');
+  var qm = rest.indexOf('?');
   if (qm !== -1) {
     out.search = rest.substr(qm);
     out.query = rest.substr(qm + 1);
@@ -3593,29 +3962,34 @@ function urlFormat(obj) {
 
   var auth = obj.auth || '';
   if (auth) {
-    auth = auth.split('@').join('%40');
-    for (var i = 0, l = nonAuthChars.length; i < l; i++) {
-      var nAC = nonAuthChars[i];
-      auth = auth.split(nAC).join(encodeURIComponent(nAC));
-    }
+    auth = encodeURIComponent(auth);
+    auth = auth.replace(/%3A/i, ':');
     auth += '@';
   }
 
   var protocol = obj.protocol || '',
-      host = (obj.host !== undefined) ? auth + obj.host :
-          obj.hostname !== undefined ? (
-              auth + obj.hostname +
-              (obj.port ? ':' + obj.port : '')
-          ) :
-          false,
       pathname = obj.pathname || '',
-      query = obj.query &&
-              ((typeof obj.query === 'object' &&
-                objectKeys(obj.query).length) ?
-                 querystring.stringify(obj.query) :
-                 '') || '',
-      search = obj.search || (query && ('?' + query)) || '',
-      hash = obj.hash || '';
+      hash = obj.hash || '',
+      host = false,
+      query = '';
+
+  if (obj.host !== undefined) {
+    host = auth + obj.host;
+  } else if (obj.hostname !== undefined) {
+    host = auth + (obj.hostname.indexOf(':') === -1 ?
+        obj.hostname :
+        '[' + obj.hostname + ']');
+    if (obj.port) {
+      host += ':' + obj.port;
+    }
+  }
+
+  if (obj.query && typeof obj.query === 'object' &&
+      Object.keys(obj.query).length) {
+    query = querystring.stringify(obj.query);
+  }
+
+  var search = obj.search || (query && ('?' + query)) || '';
 
   if (protocol && protocol.substr(-1) !== ':') protocol += ':';
 
@@ -3771,7 +4145,7 @@ function urlResolveObject(source, relative) {
       //occationaly the auth can get stuck only in host
       //this especialy happens in cases like
       //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
-      var authInHost = source.host && arrayIndexOf(source.host, '@') > 0 ?
+      var authInHost = source.host && source.host.indexOf('@') > 0 ?
                        source.host.split('@') : false;
       if (authInHost) {
         source.auth = authInHost.shift();
@@ -3851,7 +4225,7 @@ function urlResolveObject(source, relative) {
     //occationaly the auth can get stuck only in host
     //this especialy happens in cases like
     //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
-    var authInHost = source.host && arrayIndexOf(source.host, '@') > 0 ?
+    var authInHost = source.host && source.host.indexOf('@') > 0 ?
                      source.host.split('@') : false;
     if (authInHost) {
       source.auth = authInHost.shift();
@@ -3882,14 +4256,18 @@ function parseHost(host) {
   var port = portPattern.exec(host);
   if (port) {
     port = port[0];
-    out.port = port.substr(1);
+    if (port !== ':') {
+      out.port = port.substr(1);
+    }
     host = host.substr(0, host.length - port.length);
   }
   if (host) out.hostname = host;
   return out;
 }
 
-},{"querystring":17}],19:[function(require,module,exports){
+}());
+
+},{"punycode":17,"querystring":20}],22:[function(require,module,exports){
 /*!
  * GMaps.js v0.4.5
  * http://hpneo.github.com/gmaps/
@@ -5872,39 +6250,8 @@ if (!Array.prototype.indexOf) {
       return -1;
   }
 }
-},{}],20:[function(require,module,exports){
-
-/*!
- * Jade - runtime
- * Copyright(c) 2010 TJ Holowaychuk <tj@vision-media.ca>
- * MIT Licensed
- */
-
-/**
- * Lame Array.isArray() polyfill for now.
- */
-
-if (!Array.isArray) {
-  Array.isArray = function(arr){
-    return '[object Array]' == Object.prototype.toString.call(arr);
-  };
-}
-
-/**
- * Lame Object.keys() polyfill for now.
- */
-
-if (!Object.keys) {
-  Object.keys = function(obj){
-    var arr = [];
-    for (var key in obj) {
-      if (obj.hasOwnProperty(key)) {
-        arr.push(key);
-      }
-    }
-    return arr;
-  }
-}
+},{}],23:[function(require,module,exports){
+'use strict';
 
 /**
  * Merge two attribute objects giving precedence
@@ -5919,6 +6266,13 @@ if (!Object.keys) {
  */
 
 exports.merge = function merge(a, b) {
+  if (arguments.length === 1) {
+    var attrs = a[0];
+    for (var i = 1; i < a.length; i++) {
+      attrs = merge(attrs, a[i]);
+    }
+    return attrs;
+  }
   var ac = a['class'];
   var bc = b['class'];
 
@@ -5956,12 +6310,60 @@ function nulls(val) {
  *
  * @param {*} val
  * @return {String}
- * @api private
  */
-
+exports.joinClasses = joinClasses;
 function joinClasses(val) {
   return Array.isArray(val) ? val.map(joinClasses).filter(nulls).join(' ') : val;
 }
+
+/**
+ * Render the given classes.
+ *
+ * @param {Array} classes
+ * @param {Array.<Boolean>} escaped
+ * @return {String}
+ */
+exports.cls = function cls(classes, escaped) {
+  var buf = [];
+  for (var i = 0; i < classes.length; i++) {
+    if (escaped && escaped[i]) {
+      buf.push(exports.escape(joinClasses([classes[i]])));
+    } else {
+      buf.push(joinClasses(classes[i]));
+    }
+  }
+  var text = joinClasses(buf);
+  if (text.length) {
+    return ' class="' + text + '"';
+  } else {
+    return '';
+  }
+};
+
+/**
+ * Render the given attribute.
+ *
+ * @param {String} key
+ * @param {String} val
+ * @param {Boolean} escaped
+ * @param {Boolean} terse
+ * @return {String}
+ */
+exports.attr = function attr(key, val, escaped, terse) {
+  if ('boolean' == typeof val || null == val) {
+    if (val) {
+      return ' ' + (terse ? key : key + '="' + key + '"');
+    } else {
+      return '';
+    }
+  } else if (0 == key.indexOf('data') && 'string' != typeof val) {
+    return ' ' + key + "='" + JSON.stringify(val).replace(/'/g, '&apos;') + "'";
+  } else if (escaped) {
+    return ' ' + key + '="' + exports.escape(val) + '"';
+  } else {
+    return ' ' + key + '="' + val + '"';
+  }
+};
 
 /**
  * Render the given attributes object.
@@ -5969,50 +6371,28 @@ function joinClasses(val) {
  * @param {Object} obj
  * @param {Object} escaped
  * @return {String}
- * @api private
  */
+exports.attrs = function attrs(obj, terse){
+  var buf = [];
 
-exports.attrs = function attrs(obj, escaped){
-  var buf = []
-    , terse = obj.terse;
+  var keys = Object.keys(obj);
 
-  delete obj.terse;
-  var keys = Object.keys(obj)
-    , len = keys.length;
-
-  if (len) {
-    buf.push('');
-    for (var i = 0; i < len; ++i) {
+  if (keys.length) {
+    for (var i = 0; i < keys.length; ++i) {
       var key = keys[i]
         , val = obj[key];
 
-      if ('boolean' == typeof val || null == val) {
-        if (val) {
-          terse
-            ? buf.push(key)
-            : buf.push(key + '="' + key + '"');
+      if ('class' == key) {
+        if (val = joinClasses(val)) {
+          buf.push(' ' + key + '="' + val + '"');
         }
-      } else if (0 == key.indexOf('data') && 'string' != typeof val) {
-        buf.push(key + "='" + JSON.stringify(val) + "'");
-      } else if ('class' == key) {
-        if (escaped && escaped[key]){
-          if (val = exports.escape(joinClasses(val))) {
-            buf.push(key + '="' + val + '"');
-          }
-        } else {
-          if (val = joinClasses(val)) {
-            buf.push(key + '="' + val + '"');
-          }
-        }
-      } else if (escaped && escaped[key]) {
-        buf.push(key + '="' + exports.escape(val) + '"');
       } else {
-        buf.push(key + '="' + val + '"');
+        buf.push(exports.attr(key, val, false, terse));
       }
     }
   }
 
-  return buf.join(' ');
+  return buf.join('');
 };
 
 /**
@@ -6073,9 +6453,9 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
   throw err;
 };
 
-},{"fs":16}],21:[function(require,module,exports){
+},{"fs":16}],24:[function(require,module,exports){
 //! moment.js
-//! version : 2.2.1
+//! version : 2.5.0
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -6087,41 +6467,71 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     ************************************/
 
     var moment,
-        VERSION = "2.2.1",
-        round = Math.round, i,
+        VERSION = "2.5.0",
+        global = this,
+        round = Math.round,
+        i,
+
+        YEAR = 0,
+        MONTH = 1,
+        DATE = 2,
+        HOUR = 3,
+        MINUTE = 4,
+        SECOND = 5,
+        MILLISECOND = 6,
+
         // internal storage for language config files
         languages = {},
 
         // check for nodeJS
-        hasModule = (typeof module !== 'undefined' && module.exports),
+        hasModule = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined'),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
-        aspNetTimeSpanJsonRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)\:(\d+)\.?(\d{3})?/,
+        aspNetTimeSpanJsonRegex = /(\-)?(?:(\d*)\.)?(\d+)\:(\d+)(?:\:(\d+)\.?(\d{3})?)?/,
+
+        // from http://docs.closure-library.googlecode.com/git/closure_goog_date_date.js.source.html
+        // somewhat more in line with 4.4.3.2 2004 spec, but allows decimal anywhere
+        isoDurationRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|SS?S?|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing token regexes
         parseTokenOneOrTwoDigits = /\d\d?/, // 0 - 99
         parseTokenOneToThreeDigits = /\d{1,3}/, // 0 - 999
-        parseTokenThreeDigits = /\d{3}/, // 000 - 999
-        parseTokenFourDigits = /\d{1,4}/, // 0 - 9999
-        parseTokenSixDigits = /[+\-]?\d{1,6}/, // -999,999 - 999,999
+        parseTokenOneToFourDigits = /\d{1,4}/, // 0 - 9999
+        parseTokenOneToSixDigits = /[+\-]?\d{1,6}/, // -999,999 - 999,999
+        parseTokenDigits = /\d+/, // nonzero number of digits
         parseTokenWord = /[0-9]*['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]+|[\u0600-\u06FF\/]+(\s*?[\u0600-\u06FF]+){1,2}/i, // any word (or two) characters or numbers including two/three word month in arabic.
-        parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/i, // +00:00 -00:00 +0000 -0000 or Z
-        parseTokenT = /T/i, // T (ISO seperator)
+        parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/gi, // +00:00 -00:00 +0000 -0000 or Z
+        parseTokenT = /T/i, // T (ISO separator)
         parseTokenTimestampMs = /[\+\-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
 
-        // preliminary iso regex
-        // 0000-00-00 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000
-        isoRegex = /^\s*\d{4}-\d\d-\d\d((T| )(\d\d(:\d\d(:\d\d(\.\d\d?\d?)?)?)?)?([\+\-]\d\d:?\d\d)?)?/,
+        //strict parsing regexes
+        parseTokenOneDigit = /\d/, // 0 - 9
+        parseTokenTwoDigits = /\d\d/, // 00 - 99
+        parseTokenThreeDigits = /\d{3}/, // 000 - 999
+        parseTokenFourDigits = /\d{4}/, // 0000 - 9999
+        parseTokenSixDigits = /[+\-]?\d{6}/, // -999,999 - 999,999
+
+        // iso 8601 regex
+        // 0000-00-00 0000-W00 or 0000-W00-0 + T + 00 or 00:00 or 00:00:00 or 00:00:00.000 + +00:00 or +0000 or +00)
+        isoRegex = /^\s*\d{4}-(?:(\d\d-\d\d)|(W\d\d$)|(W\d\d-\d)|(\d\d\d))((T| )(\d\d(:\d\d(:\d\d(\.\d+)?)?)?)?([\+\-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
+
         isoFormat = 'YYYY-MM-DDTHH:mm:ssZ',
+
+        isoDates = [
+            'YYYY-MM-DD',
+            'GGGG-[W]WW',
+            'GGGG-[W]WW-E',
+            'YYYY-DDD'
+        ],
 
         // iso time formats and regexes
         isoTimes = [
-            ['HH:mm:ss.S', /(T| )\d\d:\d\d:\d\d\.\d{1,3}/],
+            ['HH:mm:ss.SSSS', /(T| )\d\d:\d\d:\d\d\.\d{1,3}/],
             ['HH:mm:ss', /(T| )\d\d:\d\d:\d\d/],
             ['HH:mm', /(T| )\d\d:\d\d/],
             ['HH', /(T| )\d\d/]
@@ -6148,10 +6558,24 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             m : 'minute',
             h : 'hour',
             d : 'day',
+            D : 'date',
             w : 'week',
-            W : 'isoweek',
+            W : 'isoWeek',
             M : 'month',
-            y : 'year'
+            y : 'year',
+            DDD : 'dayOfYear',
+            e : 'weekday',
+            E : 'isoWeekday',
+            gg: 'weekYear',
+            GG: 'isoWeekYear'
+        },
+
+        camelFunctions = {
+            dayofyear : 'dayOfYear',
+            isoweekday : 'isoWeekday',
+            isoweek : 'isoWeek',
+            weekyear : 'weekYear',
+            isoweekyear : 'isoWeekYear'
         },
 
         // format function strings
@@ -6204,6 +6628,10 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             YYYYY : function () {
                 return leftZeroFill(this.year(), 5);
             },
+            YYYYYY : function () {
+                var y = this.year(), sign = y >= 0 ? '+' : '-';
+                return sign + leftZeroFill(Math.abs(y), 6);
+            },
             gg   : function () {
                 return leftZeroFill(this.weekYear() % 100, 2);
             },
@@ -6247,12 +6675,15 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                 return this.seconds();
             },
             S    : function () {
-                return ~~(this.milliseconds() / 100);
+                return toInt(this.milliseconds() / 100);
             },
             SS   : function () {
-                return leftZeroFill(~~(this.milliseconds() / 10), 2);
+                return leftZeroFill(toInt(this.milliseconds() / 10), 2);
             },
             SSS  : function () {
+                return leftZeroFill(this.milliseconds(), 3);
+            },
+            SSSS : function () {
                 return leftZeroFill(this.milliseconds(), 3);
             },
             Z    : function () {
@@ -6262,7 +6693,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(a / 60), 2) + ":" + leftZeroFill(~~a % 60, 2);
+                return b + leftZeroFill(toInt(a / 60), 2) + ":" + leftZeroFill(toInt(a) % 60, 2);
             },
             ZZ   : function () {
                 var a = -this.zone(),
@@ -6271,7 +6702,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                     a = -a;
                     b = "-";
                 }
-                return b + leftZeroFill(~~(10 * a / 6), 4);
+                return b + leftZeroFill(toInt(a / 60), 2) + leftZeroFill(toInt(a) % 60, 2);
             },
             z : function () {
                 return this.zoneAbbr();
@@ -6281,8 +6712,13 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             },
             X    : function () {
                 return this.unix();
+            },
+            Q : function () {
+                return this.quarter();
             }
-        };
+        },
+
+        lists = ['months', 'monthsShort', 'weekdays', 'weekdaysShort', 'weekdaysMin'];
 
     function padToken(func, count) {
         return function (a) {
@@ -6316,22 +6752,21 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
     // Moment prototype object
     function Moment(config) {
+        checkOverflow(config);
         extend(this, config);
     }
 
     // Duration Constructor
     function Duration(duration) {
-        var years = duration.years || duration.year || duration.y || 0,
-            months = duration.months || duration.month || duration.M || 0,
-            weeks = duration.weeks || duration.week || duration.w || 0,
-            days = duration.days || duration.day || duration.d || 0,
-            hours = duration.hours || duration.hour || duration.h || 0,
-            minutes = duration.minutes || duration.minute || duration.m || 0,
-            seconds = duration.seconds || duration.second || duration.s || 0,
-            milliseconds = duration.milliseconds || duration.millisecond || duration.ms || 0;
-
-        // store reference to input for deterministic cloning
-        this._input = duration;
+        var normalizedInput = normalizeObjectUnits(duration),
+            years = normalizedInput.year || 0,
+            months = normalizedInput.month || 0,
+            weeks = normalizedInput.week || 0,
+            days = normalizedInput.day || 0,
+            hours = normalizedInput.hour || 0,
+            minutes = normalizedInput.minute || 0,
+            seconds = normalizedInput.second || 0,
+            milliseconds = normalizedInput.millisecond || 0;
 
         // representation for dateAddRemove
         this._milliseconds = +milliseconds +
@@ -6353,7 +6788,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         this._bubble();
     }
 
-
     /************************************
         Helpers
     ************************************/
@@ -6365,6 +6799,15 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                 a[i] = b[i];
             }
         }
+
+        if (b.hasOwnProperty("toString")) {
+            a.toString = b.toString;
+        }
+
+        if (b.hasOwnProperty("valueOf")) {
+            a.valueOf = b.valueOf;
+        }
+
         return a;
     }
 
@@ -6378,12 +6821,14 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
     // left zero fill a number
     // see http://jsperf.com/left-zero-filling for performance comparison
-    function leftZeroFill(number, targetLength) {
-        var output = number + '';
+    function leftZeroFill(number, targetLength, forceSign) {
+        var output = Math.abs(number) + '',
+            sign = number >= 0;
+
         while (output.length < targetLength) {
             output = '0' + output;
         }
-        return output;
+        return (sign ? (forceSign ? '+' : '') : '-') + output;
     }
 
     // helper function for _.addTime and _.subtractTime
@@ -6423,14 +6868,20 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         return Object.prototype.toString.call(input) === '[object Array]';
     }
 
+    function isDate(input) {
+        return  Object.prototype.toString.call(input) === '[object Date]' ||
+                input instanceof Date;
+    }
+
     // compare two arrays, return the number of differences
-    function compareArrays(array1, array2) {
+    function compareArrays(array1, array2, dontConvert) {
         var len = Math.min(array1.length, array2.length),
             lengthDiff = Math.abs(array1.length - array2.length),
             diffs = 0,
             i;
         for (i = 0; i < len; i++) {
-            if (~~array1[i] !== ~~array2[i]) {
+            if ((dontConvert && array1[i] !== array2[i]) ||
+                (!dontConvert && toInt(array1[i]) !== toInt(array2[i]))) {
                 diffs++;
             }
         }
@@ -6438,9 +6889,162 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 
     function normalizeUnits(units) {
-        return units ? unitAliases[units] || units.toLowerCase().replace(/(.)s$/, '$1') : units;
+        if (units) {
+            var lowered = units.toLowerCase().replace(/(.)s$/, '$1');
+            units = unitAliases[units] || camelFunctions[lowered] || lowered;
+        }
+        return units;
     }
 
+    function normalizeObjectUnits(inputObject) {
+        var normalizedInput = {},
+            normalizedProp,
+            prop;
+
+        for (prop in inputObject) {
+            if (inputObject.hasOwnProperty(prop)) {
+                normalizedProp = normalizeUnits(prop);
+                if (normalizedProp) {
+                    normalizedInput[normalizedProp] = inputObject[prop];
+                }
+            }
+        }
+
+        return normalizedInput;
+    }
+
+    function makeList(field) {
+        var count, setter;
+
+        if (field.indexOf('week') === 0) {
+            count = 7;
+            setter = 'day';
+        }
+        else if (field.indexOf('month') === 0) {
+            count = 12;
+            setter = 'month';
+        }
+        else {
+            return;
+        }
+
+        moment[field] = function (format, index) {
+            var i, getter,
+                method = moment.fn._lang[field],
+                results = [];
+
+            if (typeof format === 'number') {
+                index = format;
+                format = undefined;
+            }
+
+            getter = function (i) {
+                var m = moment().utc().set(setter, i);
+                return method.call(moment.fn._lang, m, format || '');
+            };
+
+            if (index != null) {
+                return getter(index);
+            }
+            else {
+                for (i = 0; i < count; i++) {
+                    results.push(getter(i));
+                }
+                return results;
+            }
+        };
+    }
+
+    function toInt(argumentForCoercion) {
+        var coercedNumber = +argumentForCoercion,
+            value = 0;
+
+        if (coercedNumber !== 0 && isFinite(coercedNumber)) {
+            if (coercedNumber >= 0) {
+                value = Math.floor(coercedNumber);
+            } else {
+                value = Math.ceil(coercedNumber);
+            }
+        }
+
+        return value;
+    }
+
+    function daysInMonth(year, month) {
+        return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
+    }
+
+    function daysInYear(year) {
+        return isLeapYear(year) ? 366 : 365;
+    }
+
+    function isLeapYear(year) {
+        return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+    }
+
+    function checkOverflow(m) {
+        var overflow;
+        if (m._a && m._pf.overflow === -2) {
+            overflow =
+                m._a[MONTH] < 0 || m._a[MONTH] > 11 ? MONTH :
+                m._a[DATE] < 1 || m._a[DATE] > daysInMonth(m._a[YEAR], m._a[MONTH]) ? DATE :
+                m._a[HOUR] < 0 || m._a[HOUR] > 23 ? HOUR :
+                m._a[MINUTE] < 0 || m._a[MINUTE] > 59 ? MINUTE :
+                m._a[SECOND] < 0 || m._a[SECOND] > 59 ? SECOND :
+                m._a[MILLISECOND] < 0 || m._a[MILLISECOND] > 999 ? MILLISECOND :
+                -1;
+
+            if (m._pf._overflowDayOfYear && (overflow < YEAR || overflow > DATE)) {
+                overflow = DATE;
+            }
+
+            m._pf.overflow = overflow;
+        }
+    }
+
+    function initializeParsingFlags(config) {
+        config._pf = {
+            empty : false,
+            unusedTokens : [],
+            unusedInput : [],
+            overflow : -2,
+            charsLeftOver : 0,
+            nullInput : false,
+            invalidMonth : null,
+            invalidFormat : false,
+            userInvalidated : false,
+            iso: false
+        };
+    }
+
+    function isValid(m) {
+        if (m._isValid == null) {
+            m._isValid = !isNaN(m._d.getTime()) &&
+                m._pf.overflow < 0 &&
+                !m._pf.empty &&
+                !m._pf.invalidMonth &&
+                !m._pf.nullInput &&
+                !m._pf.invalidFormat &&
+                !m._pf.userInvalidated;
+
+            if (m._strict) {
+                m._isValid = m._isValid &&
+                    m._pf.charsLeftOver === 0 &&
+                    m._pf.unusedTokens.length === 0;
+            }
+        }
+        return m._isValid;
+    }
+
+    function normalizeLanguage(key) {
+        return key ? key.toLowerCase().replace('_', '-') : key;
+    }
+
+    // Return a moment from input, that is local/utc/zone equivalent to model.
+    function makeAs(input, model) {
+        return model._isUTC ? moment(input).zone(model._offset || 0) :
+            moment(input).local();
+    }
 
     /************************************
         Languages
@@ -6616,9 +7220,15 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         week : function (mom) {
             return weekOfYear(mom, this._week.dow, this._week.doy).week;
         },
+
         _week : {
             dow : 0, // Sunday is the first day of the week.
             doy : 6  // The week that contains Jan 1st is the first week of the year.
+        },
+
+        _invalidDate: 'Invalid date',
+        invalidDate: function () {
+            return this._invalidDate;
         }
     });
 
@@ -6647,20 +7257,52 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     // definition for 'en', so long as 'en' has already been loaded using
     // moment.lang.
     function getLangDefinition(key) {
+        var i = 0, j, lang, next, split,
+            get = function (k) {
+                if (!languages[k] && hasModule) {
+                    try {
+                        require('./lang/' + k);
+                    } catch (e) { }
+                }
+                return languages[k];
+            };
+
         if (!key) {
             return moment.fn._lang;
         }
-        if (!languages[key] && hasModule) {
-            try {
-                require('./lang/' + key);
-            } catch (e) {
-                // call with no params to set to default
-                return moment.fn._lang;
-            }
-        }
-        return languages[key] || moment.fn._lang;
-    }
 
+        if (!isArray(key)) {
+            //short-circuit everything else
+            lang = get(key);
+            if (lang) {
+                return lang;
+            }
+            key = [key];
+        }
+
+        //pick the language from the array
+        //try ['en-au', 'en-gb'] as 'en-au', 'en-gb', 'en', as in move through the list trying each
+        //substring from most specific to least, but move to the next array item if it's a more specific variant than the current root
+        while (i < key.length) {
+            split = normalizeLanguage(key[i]).split('-');
+            j = split.length;
+            next = normalizeLanguage(key[i + 1]);
+            next = next ? next.split('-') : null;
+            while (j > 0) {
+                lang = get(split.slice(0, j).join('-'));
+                if (lang) {
+                    return lang;
+                }
+                if (next && next.length >= j && compareArrays(split, next, true) >= j - 1) {
+                    //the next array item is better than a shallower substring of this one
+                    break;
+                }
+                j--;
+            }
+            i++;
+        }
+        return moment.fn._lang;
+    }
 
     /************************************
         Formatting
@@ -6668,7 +7310,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
 
     function removeFormattingTokens(input) {
-        if (input.match(/\[.*\]/)) {
+        if (input.match(/\[[\s\S]/)) {
             return input.replace(/^\[|\]$/g, "");
         }
         return input.replace(/\\/g, "");
@@ -6697,6 +7339,10 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     // format date using native date object
     function formatMoment(m, format) {
 
+        if (!m.isValid()) {
+            return m.lang().invalidDate();
+        }
+
         format = expandFormat(format, m.lang());
 
         if (!formatFunctions[format]) {
@@ -6713,9 +7359,11 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             return lang.longDateFormat(input) || input;
         }
 
-        while (i-- && (localFormattingTokens.lastIndex = 0,
-                    localFormattingTokens.test(format))) {
+        localFormattingTokens.lastIndex = 0;
+        while (i >= 0 && localFormattingTokens.test(format)) {
             format = format.replace(localFormattingTokens, replaceLongDateFormatTokens);
+            localFormattingTokens.lastIndex = 0;
+            i -= 1;
         }
 
         return format;
@@ -6729,18 +7377,28 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
     // get the regex to find the next token
     function getParseRegexForToken(token, config) {
+        var a, strict = config._strict;
         switch (token) {
         case 'DDDD':
             return parseTokenThreeDigits;
         case 'YYYY':
-            return parseTokenFourDigits;
+        case 'GGGG':
+        case 'gggg':
+            return strict ? parseTokenFourDigits : parseTokenOneToFourDigits;
+        case 'YYYYYY':
         case 'YYYYY':
-            return parseTokenSixDigits;
+        case 'GGGGG':
+        case 'ggggg':
+            return strict ? parseTokenSixDigits : parseTokenOneToSixDigits;
         case 'S':
+            if (strict) { return parseTokenOneDigit; }
+            /* falls through */
         case 'SS':
+            if (strict) { return parseTokenTwoDigits; }
+            /* falls through */
         case 'SSS':
         case 'DDD':
-            return parseTokenOneToThreeDigits;
+            return strict ? parseTokenThreeDigits : parseTokenOneToThreeDigits;
         case 'MMM':
         case 'MMMM':
         case 'dd':
@@ -6757,13 +7415,20 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             return parseTokenTimezone;
         case 'T':
             return parseTokenT;
+        case 'SSSS':
+            return parseTokenDigits;
         case 'MM':
         case 'DD':
         case 'YY':
+        case 'GG':
+        case 'gg':
         case 'HH':
         case 'hh':
         case 'mm':
         case 'ss':
+        case 'ww':
+        case 'WW':
+            return strict ? parseTokenTwoDigits : parseTokenOneOrTwoDigits;
         case 'M':
         case 'D':
         case 'd':
@@ -6771,16 +7436,23 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         case 'h':
         case 'm':
         case 's':
-            return parseTokenOneOrTwoDigits;
+        case 'w':
+        case 'W':
+        case 'e':
+        case 'E':
+            return strict ? parseTokenOneDigit : parseTokenOneOrTwoDigits;
         default :
-            return new RegExp(token.replace('\\', ''));
+            a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), "i"));
+            return a;
         }
     }
 
     function timezoneMinutesFromString(string) {
-        var tzchunk = (parseTokenTimezone.exec(string) || [])[0],
-            parts = (tzchunk + '').match(parseTimezoneChunker) || ['-', 0, 0],
-            minutes = +(parts[1] * 60) + ~~parts[2];
+        string = string || "";
+        var possibleTzMatches = (string.match(parseTokenTimezone) || []),
+            tzChunk = possibleTzMatches[possibleTzMatches.length - 1] || [],
+            parts = (tzChunk + '').match(parseTimezoneChunker) || ['-', 0, 0],
+            minutes = +(parts[1] * 60) + toInt(parts[2]);
 
         return parts[0] === '+' ? -minutes : minutes;
     }
@@ -6794,7 +7466,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         case 'M' : // fall through to MM
         case 'MM' :
             if (input != null) {
-                datePartArray[1] = ~~input - 1;
+                datePartArray[MONTH] = toInt(input) - 1;
             }
             break;
         case 'MMM' : // fall through to MMMM
@@ -6802,33 +7474,34 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             a = getLangDefinition(config._l).monthsParse(input);
             // if we didn't find a month name, mark the date as invalid.
             if (a != null) {
-                datePartArray[1] = a;
+                datePartArray[MONTH] = a;
             } else {
-                config._isValid = false;
+                config._pf.invalidMonth = input;
             }
             break;
         // DAY OF MONTH
         case 'D' : // fall through to DD
         case 'DD' :
             if (input != null) {
-                datePartArray[2] = ~~input;
+                datePartArray[DATE] = toInt(input);
             }
             break;
         // DAY OF YEAR
         case 'DDD' : // fall through to DDDD
         case 'DDDD' :
             if (input != null) {
-                datePartArray[1] = 0;
-                datePartArray[2] = ~~input;
+                config._dayOfYear = toInt(input);
             }
+
             break;
         // YEAR
         case 'YY' :
-            datePartArray[0] = ~~input + (~~input > 68 ? 1900 : 2000);
+            datePartArray[YEAR] = toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :
-            datePartArray[0] = ~~input;
+        case 'YYYYYY' :
+            datePartArray[YEAR] = toInt(input);
             break;
         // AM / PM
         case 'a' : // fall through to A
@@ -6840,23 +7513,24 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         case 'HH' : // fall through to hh
         case 'h' : // fall through to hh
         case 'hh' :
-            datePartArray[3] = ~~input;
+            datePartArray[HOUR] = toInt(input);
             break;
         // MINUTE
         case 'm' : // fall through to mm
         case 'mm' :
-            datePartArray[4] = ~~input;
+            datePartArray[MINUTE] = toInt(input);
             break;
         // SECOND
         case 's' : // fall through to ss
         case 'ss' :
-            datePartArray[5] = ~~input;
+            datePartArray[SECOND] = toInt(input);
             break;
         // MILLISECOND
         case 'S' :
         case 'SS' :
         case 'SSS' :
-            datePartArray[6] = ~~ (('0.' + input) * 1000);
+        case 'SSSS' :
+            datePartArray[MILLISECOND] = toInt(('0.' + input) * 1000);
             break;
         // UNIX TIMESTAMP WITH MS
         case 'X':
@@ -6868,11 +7542,29 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             config._useUTC = true;
             config._tzm = timezoneMinutesFromString(input);
             break;
-        }
-
-        // if the input is null, the date is not valid
-        if (input == null) {
-            config._isValid = false;
+        case 'w':
+        case 'ww':
+        case 'W':
+        case 'WW':
+        case 'd':
+        case 'dd':
+        case 'ddd':
+        case 'dddd':
+        case 'e':
+        case 'E':
+            token = token.substr(0, 1);
+            /* falls through */
+        case 'gg':
+        case 'gggg':
+        case 'GG':
+        case 'GGGG':
+        case 'GGGGG':
+            token = token.substr(0, 2);
+            if (input) {
+                config._w = config._w || {};
+                config._w[token] = input;
+            }
+            break;
         }
     }
 
@@ -6880,11 +7572,59 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     // the array should mirror the parameters below
     // note: all values past the year are optional and will default to the lowest possible value.
     // [year, month, day , hour, minute, second, millisecond]
-    function dateFromArray(config) {
-        var i, date, input = [], currentDate;
+    function dateFromConfig(config) {
+        var i, date, input = [], currentDate,
+            yearToUse, fixYear, w, temp, lang, weekday, week;
 
         if (config._d) {
             return;
+        }
+
+        currentDate = currentDateArray(config);
+
+        //compute day of the year from weeks and weekdays
+        if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
+            fixYear = function (val) {
+                var int_val = parseInt(val, 10);
+                return val ?
+                  (val.length < 3 ? (int_val > 68 ? 1900 + int_val : 2000 + int_val) : int_val) :
+                  (config._a[YEAR] == null ? moment().weekYear() : config._a[YEAR]);
+            };
+
+            w = config._w;
+            if (w.GG != null || w.W != null || w.E != null) {
+                temp = dayOfYearFromWeeks(fixYear(w.GG), w.W || 1, w.E, 4, 1);
+            }
+            else {
+                lang = getLangDefinition(config._l);
+                weekday = w.d != null ?  parseWeekday(w.d, lang) :
+                  (w.e != null ?  parseInt(w.e, 10) + lang._week.dow : 0);
+
+                week = parseInt(w.w, 10) || 1;
+
+                //if we're parsing 'd', then the low day numbers may be next week
+                if (w.d != null && weekday < lang._week.dow) {
+                    week++;
+                }
+
+                temp = dayOfYearFromWeeks(fixYear(w.gg), week, weekday, lang._week.doy, lang._week.dow);
+            }
+
+            config._a[YEAR] = temp.year;
+            config._dayOfYear = temp.dayOfYear;
+        }
+
+        //if the day of the year is set, figure out what it is
+        if (config._dayOfYear) {
+            yearToUse = config._a[YEAR] == null ? currentDate[YEAR] : config._a[YEAR];
+
+            if (config._dayOfYear > daysInYear(yearToUse)) {
+                config._pf._overflowDayOfYear = true;
+            }
+
+            date = makeUTCDate(yearToUse, 0, config._dayOfYear);
+            config._a[MONTH] = date.getUTCMonth();
+            config._a[DATE] = date.getUTCDate();
         }
 
         // Default to current date.
@@ -6892,7 +7632,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         // * if day of month is given, default month and year
         // * if month is given, default only year
         // * if year is given, don't default anything
-        currentDate = currentDateArray(config);
         for (i = 0; i < 3 && config._a[i] == null; ++i) {
             config._a[i] = input[i] = currentDate[i];
         }
@@ -6903,40 +7642,31 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         }
 
         // add the offsets to the time to be parsed so that we can have a clean array for checking isValid
-        input[3] += ~~((config._tzm || 0) / 60);
-        input[4] += ~~((config._tzm || 0) % 60);
+        input[HOUR] += toInt((config._tzm || 0) / 60);
+        input[MINUTE] += toInt((config._tzm || 0) % 60);
 
-        date = new Date(0);
-
-        if (config._useUTC) {
-            date.setUTCFullYear(input[0], input[1], input[2]);
-            date.setUTCHours(input[3], input[4], input[5], input[6]);
-        } else {
-            date.setFullYear(input[0], input[1], input[2]);
-            date.setHours(input[3], input[4], input[5], input[6]);
-        }
-
-        config._d = date;
+        config._d = (config._useUTC ? makeUTCDate : makeDate).apply(null, input);
     }
 
     function dateFromObject(config) {
-        var o = config._i;
+        var normalizedInput;
 
         if (config._d) {
             return;
         }
 
+        normalizedInput = normalizeObjectUnits(config._i);
         config._a = [
-            o.years || o.year || o.y,
-            o.months || o.month || o.M,
-            o.days || o.day || o.d,
-            o.hours || o.hour || o.h,
-            o.minutes || o.minute || o.m,
-            o.seconds || o.second || o.s,
-            o.milliseconds || o.millisecond || o.ms
+            normalizedInput.year,
+            normalizedInput.month,
+            normalizedInput.day,
+            normalizedInput.hour,
+            normalizedInput.minute,
+            normalizedInput.second,
+            normalizedInput.millisecond
         ];
 
-        dateFromArray(config);
+        dateFromConfig(config);
     }
 
     function currentDateArray(config) {
@@ -6954,74 +7684,116 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
     // date from string and format string
     function makeDateFromStringAndFormat(config) {
+
+        config._a = [];
+        config._pf.empty = true;
+
         // This array is used to make a Date, either with `new Date` or `Date.UTC`
         var lang = getLangDefinition(config._l),
             string = '' + config._i,
-            i, parsedInput, tokens;
+            i, parsedInput, tokens, token, skipped,
+            stringLength = string.length,
+            totalParsedInputLength = 0;
 
-        tokens = expandFormat(config._f, lang).match(formattingTokens);
-
-        config._a = [];
+        tokens = expandFormat(config._f, lang).match(formattingTokens) || [];
 
         for (i = 0; i < tokens.length; i++) {
-            parsedInput = (getParseRegexForToken(tokens[i], config).exec(string) || [])[0];
+            token = tokens[i];
+            parsedInput = (string.match(getParseRegexForToken(token, config)) || [])[0];
             if (parsedInput) {
+                skipped = string.substr(0, string.indexOf(parsedInput));
+                if (skipped.length > 0) {
+                    config._pf.unusedInput.push(skipped);
+                }
                 string = string.slice(string.indexOf(parsedInput) + parsedInput.length);
+                totalParsedInputLength += parsedInput.length;
             }
-            // don't parse if its not a known token
-            if (formatTokenFunctions[tokens[i]]) {
-                addTimeToArrayFromToken(tokens[i], parsedInput, config);
+            // don't parse if it's not a known token
+            if (formatTokenFunctions[token]) {
+                if (parsedInput) {
+                    config._pf.empty = false;
+                }
+                else {
+                    config._pf.unusedTokens.push(token);
+                }
+                addTimeToArrayFromToken(token, parsedInput, config);
+            }
+            else if (config._strict && !parsedInput) {
+                config._pf.unusedTokens.push(token);
             }
         }
 
-        // add remaining unparsed input to the string
-        if (string) {
-            config._il = string;
+        // add remaining unparsed input length to the string
+        config._pf.charsLeftOver = stringLength - totalParsedInputLength;
+        if (string.length > 0) {
+            config._pf.unusedInput.push(string);
         }
 
         // handle am pm
-        if (config._isPm && config._a[3] < 12) {
-            config._a[3] += 12;
+        if (config._isPm && config._a[HOUR] < 12) {
+            config._a[HOUR] += 12;
         }
         // if is 12 am, change hours to 0
-        if (config._isPm === false && config._a[3] === 12) {
-            config._a[3] = 0;
+        if (config._isPm === false && config._a[HOUR] === 12) {
+            config._a[HOUR] = 0;
         }
-        // return
-        dateFromArray(config);
+
+        dateFromConfig(config);
+        checkOverflow(config);
+    }
+
+    function unescapeFormat(s) {
+        return s.replace(/\\(\[)|\\(\])|\[([^\]\[]*)\]|\\(.)/g, function (matched, p1, p2, p3, p4) {
+            return p1 || p2 || p3 || p4;
+        });
+    }
+
+    // Code from http://stackoverflow.com/questions/3561493/is-there-a-regexp-escape-function-in-javascript
+    function regexpEscape(s) {
+        return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
     }
 
     // date from string and array of format strings
     function makeDateFromStringAndArray(config) {
         var tempConfig,
-            tempMoment,
             bestMoment,
 
-            scoreToBeat = 99,
+            scoreToBeat,
             i,
             currentScore;
 
+        if (config._f.length === 0) {
+            config._pf.invalidFormat = true;
+            config._d = new Date(NaN);
+            return;
+        }
+
         for (i = 0; i < config._f.length; i++) {
+            currentScore = 0;
             tempConfig = extend({}, config);
+            initializeParsingFlags(tempConfig);
             tempConfig._f = config._f[i];
             makeDateFromStringAndFormat(tempConfig);
-            tempMoment = new Moment(tempConfig);
 
-            currentScore = compareArrays(tempConfig._a, tempMoment.toArray());
-
-            // if there is any input that was not parsed
-            // add a penalty for that format
-            if (tempMoment._il) {
-                currentScore += tempMoment._il.length;
+            if (!isValid(tempConfig)) {
+                continue;
             }
 
-            if (currentScore < scoreToBeat) {
+            // if there is any input that was not parsed add a penalty for that format
+            currentScore += tempConfig._pf.charsLeftOver;
+
+            //or tokens
+            currentScore += tempConfig._pf.unusedTokens.length * 10;
+
+            tempConfig._pf.score = currentScore;
+
+            if (scoreToBeat == null || currentScore < scoreToBeat) {
                 scoreToBeat = currentScore;
-                bestMoment = tempMoment;
+                bestMoment = tempConfig;
             }
         }
 
-        extend(config, bestMoment);
+        extend(config, bestMoment || tempConfig);
     }
 
     // date from iso format
@@ -7031,19 +7803,26 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             match = isoRegex.exec(string);
 
         if (match) {
-            // match[2] should be "T" or undefined
-            config._f = 'YYYY-MM-DD' + (match[2] || " ");
+            config._pf.iso = true;
+            for (i = 4; i > 0; i--) {
+                if (match[i]) {
+                    // match[5] should be "T" or undefined
+                    config._f = isoDates[i - 1] + (match[6] || " ");
+                    break;
+                }
+            }
             for (i = 0; i < 4; i++) {
                 if (isoTimes[i][1].exec(string)) {
                     config._f += isoTimes[i][0];
                     break;
                 }
             }
-            if (parseTokenTimezone.exec(string)) {
-                config._f += " Z";
+            if (string.match(parseTokenTimezone)) {
+                config._f += "Z";
             }
             makeDateFromStringAndFormat(config);
-        } else {
+        }
+        else {
             config._d = new Date(string);
         }
     }
@@ -7060,8 +7839,8 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             makeDateFromString(config);
         } else if (isArray(input)) {
             config._a = input.slice(0);
-            dateFromArray(config);
-        } else if (input instanceof Date) {
+            dateFromConfig(config);
+        } else if (isDate(input)) {
             config._d = new Date(+input);
         } else if (typeof(input) === 'object') {
             dateFromObject(config);
@@ -7070,6 +7849,40 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         }
     }
 
+    function makeDate(y, m, d, h, M, s, ms) {
+        //can't just apply() to create a date:
+        //http://stackoverflow.com/questions/181348/instantiating-a-javascript-object-by-calling-prototype-constructor-apply
+        var date = new Date(y, m, d, h, M, s, ms);
+
+        //the date constructor doesn't accept years < 1970
+        if (y < 1970) {
+            date.setFullYear(y);
+        }
+        return date;
+    }
+
+    function makeUTCDate(y) {
+        var date = new Date(Date.UTC.apply(null, arguments));
+        if (y < 1970) {
+            date.setUTCFullYear(y);
+        }
+        return date;
+    }
+
+    function parseWeekday(input, language) {
+        if (typeof input === 'string') {
+            if (!isNaN(input)) {
+                input = parseInt(input, 10);
+            }
+            else {
+                input = language.weekdaysParse(input);
+                if (typeof input !== 'number') {
+                    return null;
+                }
+            }
+        }
+        return input;
+    }
 
     /************************************
         Relative Time
@@ -7137,6 +7950,23 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         };
     }
 
+    //http://en.wikipedia.org/wiki/ISO_week_date#Calculating_a_date_given_the_year.2C_week_number_and_weekday
+    function dayOfYearFromWeeks(year, week, weekday, firstDayOfWeekOfYear, firstDayOfWeek) {
+        // The only solid way to create an iso date from year is to use
+        // a string format (Date.UTC handles only years > 1900). Don't ask why
+        // it doesn't need Z at the end.
+        var d = new Date(leftZeroFill(year, 6, true) + '-01-01').getUTCDay(),
+            daysToAdd, dayOfYear;
+
+        weekday = weekday != null ? weekday : firstDayOfWeek;
+        daysToAdd = firstDayOfWeek - d + (d > firstDayOfWeekOfYear ? 7 : 0);
+        dayOfYear = 7 * (week - 1) + (weekday - firstDayOfWeek) + daysToAdd + 1;
+
+        return {
+            year: dayOfYear > 0 ? year : year - 1,
+            dayOfYear: dayOfYear > 0 ?  dayOfYear : daysInYear(year - 1) + dayOfYear
+        };
+    }
 
     /************************************
         Top Level Functions
@@ -7146,8 +7976,12 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         var input = config._i,
             format = config._f;
 
-        if (input === null || input === '') {
-            return null;
+        if (typeof config._pf === 'undefined') {
+            initializeParsingFlags(config);
+        }
+
+        if (input === null) {
+            return moment.invalid({nullInput: true});
         }
 
         if (typeof input === 'string') {
@@ -7156,6 +7990,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
         if (moment.isMoment(input)) {
             config = extend({}, input);
+
             config._d = new Date(+input._d);
         } else if (format) {
             if (isArray(format)) {
@@ -7170,24 +8005,38 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         return new Moment(config);
     }
 
-    moment = function (input, format, lang) {
+    moment = function (input, format, lang, strict) {
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
         return makeMoment({
             _i : input,
             _f : format,
             _l : lang,
+            _strict : strict,
             _isUTC : false
         });
     };
 
     // creating with utc
-    moment.utc = function (input, format, lang) {
-        return makeMoment({
+    moment.utc = function (input, format, lang, strict) {
+        var m;
+
+        if (typeof(lang) === "boolean") {
+            strict = lang;
+            lang = undefined;
+        }
+        m = makeMoment({
             _useUTC : true,
             _isUTC : true,
             _l : lang,
             _i : input,
-            _f : format
+            _f : format,
+            _strict : strict
         }).utc();
+
+        return m;
     };
 
     // creating with unix timestamp (in seconds)
@@ -7197,34 +8046,60 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
     // duration
     moment.duration = function (input, key) {
-        var isDuration = moment.isDuration(input),
-            isNumber = (typeof input === 'number'),
-            duration = (isDuration ? input._input : (isNumber ? {} : input)),
-            matched = aspNetTimeSpanJsonRegex.exec(input),
+        var duration = input,
+            // matching against regexp is expensive, do it on demand
+            match = null,
             sign,
-            ret;
+            ret,
+            parseIso;
 
-        if (isNumber) {
+        if (moment.isDuration(input)) {
+            duration = {
+                ms: input._milliseconds,
+                d: input._days,
+                M: input._months
+            };
+        } else if (typeof input === 'number') {
+            duration = {};
             if (key) {
                 duration[key] = input;
             } else {
                 duration.milliseconds = input;
             }
-        } else if (matched) {
-            sign = (matched[1] === "-") ? -1 : 1;
+        } else if (!!(match = aspNetTimeSpanJsonRegex.exec(input))) {
+            sign = (match[1] === "-") ? -1 : 1;
             duration = {
                 y: 0,
-                d: ~~matched[2] * sign,
-                h: ~~matched[3] * sign,
-                m: ~~matched[4] * sign,
-                s: ~~matched[5] * sign,
-                ms: ~~matched[6] * sign
+                d: toInt(match[DATE]) * sign,
+                h: toInt(match[HOUR]) * sign,
+                m: toInt(match[MINUTE]) * sign,
+                s: toInt(match[SECOND]) * sign,
+                ms: toInt(match[MILLISECOND]) * sign
+            };
+        } else if (!!(match = isoDurationRegex.exec(input))) {
+            sign = (match[1] === "-") ? -1 : 1;
+            parseIso = function (inp) {
+                // We'd normally use ~~inp for this, but unfortunately it also
+                // converts floats to ints.
+                // inp may be undefined, so careful calling replace on it.
+                var res = inp && parseFloat(inp.replace(',', '.'));
+                // apply sign while we're at it
+                return (isNaN(res) ? 0 : res) * sign;
+            };
+            duration = {
+                y: parseIso(match[2]),
+                M: parseIso(match[3]),
+                d: parseIso(match[4]),
+                h: parseIso(match[5]),
+                m: parseIso(match[6]),
+                s: parseIso(match[7]),
+                w: parseIso(match[8])
             };
         }
 
         ret = new Duration(duration);
 
-        if (isDuration && input.hasOwnProperty('_lang')) {
+        if (moment.isDuration(input) && input.hasOwnProperty('_lang')) {
             ret._lang = input._lang;
         }
 
@@ -7245,20 +8120,20 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     // no arguments are passed in, it will simply return the current global
     // language key.
     moment.lang = function (key, values) {
+        var r;
         if (!key) {
             return moment.fn._lang._abbr;
         }
-        key = key.toLowerCase();
-        key = key.replace('_', '-');
         if (values) {
-            loadLang(key, values);
+            loadLang(normalizeLanguage(key), values);
         } else if (values === null) {
             unloadLang(key);
             key = 'en';
         } else if (!languages[key]) {
             getLangDefinition(key);
         }
-        moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
+        r = moment.duration.fn._lang = moment.fn._lang = getLangDefinition(key);
+        return r._abbr;
     };
 
     // returns language data
@@ -7279,6 +8154,29 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         return obj instanceof Duration;
     };
 
+    for (i = lists.length - 1; i >= 0; --i) {
+        makeList(lists[i]);
+    }
+
+    moment.normalizeUnits = function (units) {
+        return normalizeUnits(units);
+    };
+
+    moment.invalid = function (flags) {
+        var m = moment.utc(NaN);
+        if (flags != null) {
+            extend(m._pf, flags);
+        }
+        else {
+            m._pf.userInvalidated = true;
+        }
+
+        return m;
+    };
+
+    moment.parseZone = function (input) {
+        return moment(input).parseZone();
+    };
 
     /************************************
         Moment Prototype
@@ -7300,7 +8198,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         },
 
         toString : function () {
-            return this.format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
+            return this.clone().lang('en').format("ddd MMM DD YYYY HH:mm:ss [GMT]ZZ");
         },
 
         toDate : function () {
@@ -7308,7 +8206,12 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         },
 
         toISOString : function () {
-            return formatMoment(moment(this).utc(), 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+            var m = moment(this).utc();
+            if (0 < m.year() && m.year() <= 9999) {
+                return formatMoment(m, 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+            } else {
+                return formatMoment(m, 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]');
+            }
         },
 
         toArray : function () {
@@ -7325,22 +8228,24 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         },
 
         isValid : function () {
-            if (this._isValid == null) {
-                if (this._a) {
-                    this._isValid = !compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray());
-                } else {
-                    this._isValid = !isNaN(this._d.getTime());
-                }
+            return isValid(this);
+        },
+
+        isDSTShifted : function () {
+
+            if (this._a) {
+                return this.isValid() && compareArrays(this._a, (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray()) > 0;
             }
-            return !!this._isValid;
+
+            return false;
+        },
+
+        parsingFlags : function () {
+            return extend({}, this._pf);
         },
 
         invalidAt: function () {
-            var i, arr1 = this._a, arr2 = (this._isUTC ? moment.utc(this._a) : moment(this._a)).toArray();
-            for (i = 6; i >= 0 && arr1[i] === arr2[i]; --i) {
-                // empty loop body
-            }
-            return i;
+            return this._pf.overflow;
         },
 
         utc : function () {
@@ -7383,7 +8288,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         },
 
         diff : function (input, units, asFloat) {
-            var that = this._isUTC ? moment(input).zone(this._offset || 0) : moment(input).local(),
+            var that = makeAs(input, this),
                 zoneDiff = (this.zone() - that.zone()) * 6e4,
                 diff, output;
 
@@ -7425,19 +8330,21 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         },
 
         calendar : function () {
-            var diff = this.diff(moment().zone(this.zone()).startOf('day'), 'days', true),
+            // We want to compare the start of today, vs this.
+            // Getting start-of-today depends on whether we're zone'd or not.
+            var sod = makeAs(moment(), this).startOf('day'),
+                diff = this.diff(sod, 'days', true),
                 format = diff < -6 ? 'sameElse' :
-                diff < -1 ? 'lastWeek' :
-                diff < 0 ? 'lastDay' :
-                diff < 1 ? 'sameDay' :
-                diff < 2 ? 'nextDay' :
-                diff < 7 ? 'nextWeek' : 'sameElse';
+                    diff < -1 ? 'lastWeek' :
+                    diff < 0 ? 'lastDay' :
+                    diff < 1 ? 'sameDay' :
+                    diff < 2 ? 'nextDay' :
+                    diff < 7 ? 'nextWeek' : 'sameElse';
             return this.format(this.lang().calendar(format, this));
         },
 
         isLeapYear : function () {
-            var year = this.year();
-            return (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+            return isLeapYear(this.year());
         },
 
         isDST : function () {
@@ -7448,12 +8355,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         day : function (input) {
             var day = this._isUTC ? this._d.getUTCDay() : this._d.getDay();
             if (input != null) {
-                if (typeof input === 'string') {
-                    input = this.lang().weekdaysParse(input);
-                    if (typeof input !== 'number') {
-                        return this;
-                    }
-                }
+                input = parseWeekday(input, this.lang());
                 return this.add({ d : input - day });
             } else {
                 return day;
@@ -7496,7 +8398,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                 this.date(1);
                 /* falls through */
             case 'week':
-            case 'isoweek':
+            case 'isoWeek':
             case 'day':
                 this.hours(0);
                 /* falls through */
@@ -7514,7 +8416,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             // weeks are a special case
             if (units === 'week') {
                 this.weekday(0);
-            } else if (units === 'isoweek') {
+            } else if (units === 'isoWeek') {
                 this.isoWeekday(1);
             }
 
@@ -7523,7 +8425,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
         endOf: function (units) {
             units = normalizeUnits(units);
-            return this.startOf(units).add((units === 'isoweek' ? 'week' : units), 1).subtract('ms', 1);
+            return this.startOf(units).add((units === 'isoWeek' ? 'week' : units), 1).subtract('ms', 1);
         },
 
         isAfter: function (input, units) {
@@ -7537,8 +8439,8 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         },
 
         isSame: function (input, units) {
-            units = typeof units !== 'undefined' ? units : 'millisecond';
-            return +this.clone().startOf(units) === +moment(input).startOf(units);
+            units = units || 'ms';
+            return +this.clone().startOf(units) === +makeAs(input, this).startOf(units);
         },
 
         min: function (other) {
@@ -7579,6 +8481,15 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             return this._isUTC ? "Coordinated Universal Time" : "";
         },
 
+        parseZone : function () {
+            if (this._tzm) {
+                this.zone(this._tzm);
+            } else if (typeof this._i === 'string') {
+                this.zone(this._i);
+            }
+            return this;
+        },
+
         hasAlignedHourOffset : function (input) {
             if (!input) {
                 input = 0;
@@ -7591,12 +8502,16 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         },
 
         daysInMonth : function () {
-            return moment.utc([this.year(), this.month() + 1, 0]).date();
+            return daysInMonth(this.year(), this.month());
         },
 
         dayOfYear : function (input) {
             var dayOfYear = round((moment(this).startOf('day') - moment(this).startOf('year')) / 864e5) + 1;
             return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
+        },
+
+        quarter : function () {
+            return Math.ceil((this.month() + 1.0) / 3.0);
         },
 
         weekYear : function (input) {
@@ -7620,7 +8535,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         },
 
         weekday : function (input) {
-            var weekday = (this._d.getDay() + 7 - this.lang()._week.dow) % 7;
+            var weekday = (this.day() + 7 - this.lang()._week.dow) % 7;
             return input == null ? weekday : this.add("d", input - weekday);
         },
 
@@ -7633,12 +8548,15 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
         get : function (units) {
             units = normalizeUnits(units);
-            return this[units.toLowerCase()]();
+            return this[units]();
         },
 
         set : function (units, value) {
             units = normalizeUnits(units);
-            this[units.toLowerCase()](value);
+            if (typeof this[units] === 'function') {
+                this[units](value);
+            }
+            return this;
         },
 
         // If passed a language key, it will set the language for this
@@ -7730,7 +8648,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             return this._milliseconds +
               this._days * 864e5 +
               (this._months % 12) * 2592e6 +
-              ~~(this._months / 12) * 31536e6;
+              toInt(this._months / 12) * 31536e6;
         },
 
         humanize : function (withSuffix) {
@@ -7779,7 +8697,33 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             return this['as' + units.charAt(0).toUpperCase() + units.slice(1) + 's']();
         },
 
-        lang : moment.fn.lang
+        lang : moment.fn.lang,
+
+        toIsoString : function () {
+            // inspired by https://github.com/dordille/moment-isoduration/blob/master/moment.isoduration.js
+            var years = Math.abs(this.years()),
+                months = Math.abs(this.months()),
+                days = Math.abs(this.days()),
+                hours = Math.abs(this.hours()),
+                minutes = Math.abs(this.minutes()),
+                seconds = Math.abs(this.seconds() + this.milliseconds() / 1000);
+
+            if (!this.asSeconds()) {
+                // this is the same as C#'s (Noda) and python (isodate)...
+                // but not other JS (goog.date)
+                return 'P0D';
+            }
+
+            return (this.asSeconds() < 0 ? '-' : '') +
+                'P' +
+                (years ? years + 'Y' : '') +
+                (months ? months + 'M' : '') +
+                (days ? days + 'D' : '') +
+                ((hours || minutes || seconds) ? 'T' : '') +
+                (hours ? hours + 'H' : '') +
+                (minutes ? minutes + 'M' : '') +
+                (seconds ? seconds + 'S' : '');
+        }
     });
 
     function makeDurationGetter(name) {
@@ -7816,7 +8760,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     moment.lang('en', {
         ordinal : function (number) {
             var b = number % 10,
-                output = (~~ (number % 100 / 10) === 1) ? 'th' :
+                output = (toInt(number % 100 / 10) === 1) ? 'th' :
                 (b === 1) ? 'st' :
                 (b === 2) ? 'nd' :
                 (b === 3) ? 'rd' : 'th';
@@ -7830,27 +8774,51 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         Exposing Moment
     ************************************/
 
+    function makeGlobal(deprecate) {
+        var warned = false, local_moment = moment;
+        /*global ender:false */
+        if (typeof ender !== 'undefined') {
+            return;
+        }
+        // here, `this` means `window` in the browser, or `global` on the server
+        // add `moment` as a global object via a string identifier,
+        // for Closure Compiler "advanced" mode
+        if (deprecate) {
+            global.moment = function () {
+                if (!warned && console && console.warn) {
+                    warned = true;
+                    console.warn(
+                            "Accessing Moment through the global scope is " +
+                            "deprecated, and will be removed in an upcoming " +
+                            "release.");
+                }
+                return local_moment.apply(null, arguments);
+            };
+            extend(global.moment, local_moment);
+        } else {
+            global['moment'] = moment;
+        }
+    }
 
     // CommonJS module is defined
     if (hasModule) {
         module.exports = moment;
-    }
-    /*global ender:false */
-    if (typeof ender === 'undefined') {
-        // here, `this` means `window` in the browser, or `global` on the server
-        // add `moment` as a global object via a string identifier,
-        // for Closure Compiler "advanced" mode
-        this['moment'] = moment;
-    }
-    /*global define:false */
-    if (typeof define === "function" && define.amd) {
-        define("moment", [], function () {
+        makeGlobal(true);
+    } else if (typeof define === "function" && define.amd) {
+        define("moment", function (require, exports, module) {
+            if (module.config && module.config() && module.config().noGlobal !== true) {
+                // If user provided noGlobal, he is aware of global
+                makeGlobal(module.config().noGlobal === undefined);
+            }
+
             return moment;
         });
+    } else {
+        makeGlobal();
     }
 }).call(this);
 
-},{}],22:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /*!
   * Morpheus - A Brilliant Animator
   * https://github.com/ded/morpheus - (c) Dustin Diaz 2011
@@ -7867,6 +8835,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     , perf = win.performance
     , perfNow = perf && (perf.now || perf.webkitNow || perf.msNow || perf.mozNow)
     , now = perfNow ? function () { return perfNow.call(perf) } : function () { return +new Date() }
+    , fixTs = false // feature detected below
     , html = doc.documentElement
     , thousand = 1000
     , rgbOhex = /^rgb\(|#/
@@ -7942,6 +8911,12 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
       }
   }()
 
+  frame(function(timestamp) {
+    // feature-detect if rAF and now() are of the same scale (epoch or high-res),
+    // if not, we have to do a timestamp fix on each frame
+    fixTs = timestamp > 1e12 != now() > 1e12
+  })
+
   var children = []
 
   function has(array, elem, i) {
@@ -7953,9 +8928,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
   function render(timestamp) {
     var i, count = children.length
-    // if we're using a high res timer, make sure timestamp is not the old epoch-based value.
-    // http://updates.html5rocks.com/2012/05/requestAnimationFrame-API-now-with-sub-millisecond-precision
-    if (perfNow && timestamp > 1e12) timestamp = now()
+    if (fixTs) timestamp = now()
     for (i = count; i--;) {
       children[i](timestamp)
     }
@@ -8254,10 +9227,10 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
 });
 
-},{}],23:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /*!
  * numeral.js
- * version : 1.5.0
+ * version : 1.5.3
  * author : Adam Draper
  * license : MIT
  * http://adamwdraper.github.com/Numeral-js/
@@ -8270,7 +9243,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     ************************************/
 
     var numeral,
-        VERSION = '1.5.0',
+        VERSION = '1.5.3',
         // internal storage for language config files
         languages = {},
         currentLanguage = 'en',
@@ -8287,7 +9260,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
     // Numeral prototype object
     function Numeral (number) {
-        this._n = number;
+        this._value = number;
     }
 
     /**
@@ -8296,13 +9269,14 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
      * Fixes binary rounding issues (eg. (0.615).toFixed(2) === '0.61') that present
      * problems for accounting- and finance-related software.
      */
-    function toFixed (value, precision, optionals) {
+    function toFixed (value, precision, roundingFunction, optionals) {
         var power = Math.pow(10, precision),
             optionalsRegExp,
             output;
-
+            
+        //roundingFunction = (roundingFunction !== undefined ? roundingFunction : Math.round);
         // Multiply up by precision, round accurately, then divide and use native toFixed():
-        output = (Math.round(value * power) / power).toFixed(precision);
+        output = (roundingFunction(value * power) / power).toFixed(precision);
 
         if (optionals) {
             optionalsRegExp = new RegExp('0{1,' + optionals + '}$');
@@ -8317,18 +9291,18 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     ************************************/
 
     // determine what type of formatting we need to do
-    function formatNumeral (n, format) {
+    function formatNumeral (n, format, roundingFunction) {
         var output;
 
         // figure out what kind of format we are dealing with
         if (format.indexOf('$') > -1) { // currency!!!!!
-            output = formatCurrency(n, format);
+            output = formatCurrency(n, format, roundingFunction);
         } else if (format.indexOf('%') > -1) { // percentage
-            output = formatPercentage(n, format);
+            output = formatPercentage(n, format, roundingFunction);
         } else if (format.indexOf(':') > -1) { // time
             output = formatTime(n, format);
         } else { // plain ol' numbers or bytes
-            output = formatNumber(n, format);
+            output = formatNumber(n._value, format, roundingFunction);
         }
 
         // return string
@@ -8347,10 +9321,10 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             power;
 
         if (string.indexOf(':') > -1) {
-            n._n = unformatTime(string);
+            n._value = unformatTime(string);
         } else {
             if (string === zeroFormat) {
-                n._n = 0;
+                n._value = 0;
             } else {
                 if (languages[currentLanguage].delimiters.decimal !== '.') {
                     string = string.replace(/\./g,'').replace(languages[currentLanguage].delimiters.decimal, '.');
@@ -8372,18 +9346,21 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                 }
 
                 // do some math to create our number
-                n._n = ((bytesMultiplier) ? bytesMultiplier : 1) * ((stringOriginal.match(thousandRegExp)) ? Math.pow(10, 3) : 1) * ((stringOriginal.match(millionRegExp)) ? Math.pow(10, 6) : 1) * ((stringOriginal.match(billionRegExp)) ? Math.pow(10, 9) : 1) * ((stringOriginal.match(trillionRegExp)) ? Math.pow(10, 12) : 1) * ((string.indexOf('%') > -1) ? 0.01 : 1) * (((string.split('-').length + Math.min(string.split('(').length-1, string.split(')').length-1)) % 2)? 1: -1) * Number(string.replace(/[^0-9\.]+/g, ''));
+                n._value = ((bytesMultiplier) ? bytesMultiplier : 1) * ((stringOriginal.match(thousandRegExp)) ? Math.pow(10, 3) : 1) * ((stringOriginal.match(millionRegExp)) ? Math.pow(10, 6) : 1) * ((stringOriginal.match(billionRegExp)) ? Math.pow(10, 9) : 1) * ((stringOriginal.match(trillionRegExp)) ? Math.pow(10, 12) : 1) * ((string.indexOf('%') > -1) ? 0.01 : 1) * (((string.split('-').length + Math.min(string.split('(').length-1, string.split(')').length-1)) % 2)? 1: -1) * Number(string.replace(/[^0-9\.]+/g, ''));
 
                 // round if we are talking about bytes
-                n._n = (bytesMultiplier) ? Math.ceil(n._n) : n._n;
+                n._value = (bytesMultiplier) ? Math.ceil(n._value) : n._value;
             }
         }
-        return n._n;
+        return n._value;
     }
 
-    function formatCurrency (n, format) {
-        var prependSymbol = format.indexOf('$') <= 1 ? true : false,
+    function formatCurrency (n, format, roundingFunction) {
+        var symbolIndex = format.indexOf('$'),
+            openParenIndex = format.indexOf('('),
+            minusSignIndex = format.indexOf('-'),
             space = '',
+            spliceIndex,
             output;
 
         // check for space before or after currency
@@ -8398,13 +9375,18 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         }
 
         // format the number
-        output = formatNumeral(n, format);
+        output = formatNumber(n._value, format, roundingFunction);
 
         // position the symbol
-        if (prependSymbol) {
+        if (symbolIndex <= 1) {
             if (output.indexOf('(') > -1 || output.indexOf('-') > -1) {
                 output = output.split('');
-                output.splice(1, 0, languages[currentLanguage].currency.symbol + space);
+                spliceIndex = 1;
+                if (symbolIndex < openParenIndex || symbolIndex < minusSignIndex){
+                    // the symbol appears before the "(" or "-"
+                    spliceIndex = 0;
+                }
+                output.splice(spliceIndex, 0, languages[currentLanguage].currency.symbol + space);
                 output = output.join('');
             } else {
                 output = languages[currentLanguage].currency.symbol + space + output;
@@ -8422,9 +9404,10 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         return output;
     }
 
-    function formatPercentage (n, format) {
+    function formatPercentage (n, format, roundingFunction) {
         var space = '',
-            output;
+            output,
+            value = n._value * 100;
 
         // check for space before %
         if (format.indexOf(' %') > -1) {
@@ -8434,8 +9417,8 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             format = format.replace('%', '');
         }
 
-        n._n = n._n * 100;
-        output = formatNumeral(n, format);
+        output = formatNumber(value, format, roundingFunction);
+        
         if (output.indexOf(')') > -1 ) {
             output = output.split('');
             output.splice(-1, 0, space + '%');
@@ -8443,13 +9426,14 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         } else {
             output = output + space + '%';
         }
+
         return output;
     }
 
     function formatTime (n) {
-        var hours = Math.floor(n._n/60/60),
-            minutes = Math.floor((n._n - (hours * 60 * 60))/60),
-            seconds = Math.round(n._n - (hours * 60 * 60) - (minutes * 60));
+        var hours = Math.floor(n._value/60/60),
+            minutes = Math.floor((n._value - (hours * 60 * 60))/60),
+            seconds = Math.round(n._value - (hours * 60 * 60) - (minutes * 60));
         return hours + ':' + ((minutes < 10) ? '0' + minutes : minutes) + ':' + ((seconds < 10) ? '0' + seconds : seconds);
     }
 
@@ -8473,14 +9457,19 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         return Number(seconds);
     }
 
-    function formatNumber (n, format) {
+    function formatNumber (value, format, roundingFunction) {
         var negP = false,
             signed = false,
             optDec = false,
             abbr = '',
+            abbrK = false, // force abbreviation to thousands
+            abbrM = false, // force abbreviation to millions
+            abbrB = false, // force abbreviation to billions
+            abbrT = false, // force abbreviation to trillions
+            abbrForce = false, // force abbreviation
             bytes = '',
             ord = '',
-            abs = Math.abs(n._n),
+            abs = Math.abs(value),
             suffixes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
             min,
             max,
@@ -8492,7 +9481,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             neg = false;
 
         // check if number is zero and a custom zero format has been set
-        if (n._n === 0 && zeroFormat !== null) {
+        if (value === 0 && zeroFormat !== null) {
             return zeroFormat;
         } else {
             // see if we should use parentheses for negative number or if we should prefix with a sign
@@ -8507,6 +9496,13 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
             // see if abbreviation is wanted
             if (format.indexOf('a') > -1) {
+                // check if abbreviation is specified
+                abbrK = format.indexOf('aK') >= 0;
+                abbrM = format.indexOf('aM') >= 0;
+                abbrB = format.indexOf('aB') >= 0;
+                abbrT = format.indexOf('aT') >= 0;
+                abbrForce = abbrK || abbrM || abbrB || abbrT;
+
                 // check for space before abbreviation
                 if (format.indexOf(' a') > -1) {
                     abbr = ' ';
@@ -8515,22 +9511,22 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                     format = format.replace('a', '');
                 }
 
-                if (abs >= Math.pow(10, 12)) {
+                if (abs >= Math.pow(10, 12) && !abbrForce || abbrT) {
                     // trillion
                     abbr = abbr + languages[currentLanguage].abbreviations.trillion;
-                    n._n = n._n / Math.pow(10, 12);
-                } else if (abs < Math.pow(10, 12) && abs >= Math.pow(10, 9)) {
+                    value = value / Math.pow(10, 12);
+                } else if (abs < Math.pow(10, 12) && abs >= Math.pow(10, 9) && !abbrForce || abbrB) {
                     // billion
                     abbr = abbr + languages[currentLanguage].abbreviations.billion;
-                    n._n = n._n / Math.pow(10, 9);
-                } else if (abs < Math.pow(10, 9) && abs >= Math.pow(10, 6)) {
+                    value = value / Math.pow(10, 9);
+                } else if (abs < Math.pow(10, 9) && abs >= Math.pow(10, 6) && !abbrForce || abbrM) {
                     // million
                     abbr = abbr + languages[currentLanguage].abbreviations.million;
-                    n._n = n._n / Math.pow(10, 6);
-                } else if (abs < Math.pow(10, 6) && abs >= Math.pow(10, 3)) {
+                    value = value / Math.pow(10, 6);
+                } else if (abs < Math.pow(10, 6) && abs >= Math.pow(10, 3) && !abbrForce || abbrK) {
                     // thousand
                     abbr = abbr + languages[currentLanguage].abbreviations.thousand;
-                    n._n = n._n / Math.pow(10, 3);
+                    value = value / Math.pow(10, 3);
                 }
             }
 
@@ -8548,10 +9544,10 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                     min = Math.pow(1024, power);
                     max = Math.pow(1024, power+1);
 
-                    if (n._n >= min && n._n < max) {
+                    if (value >= min && value < max) {
                         bytes = bytes + suffixes[power];
                         if (min > 0) {
-                            n._n = n._n / min;
+                            value = value / min;
                         }
                         break;
                     }
@@ -8568,7 +9564,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                     format = format.replace('o', '');
                 }
 
-                ord = ord + languages[currentLanguage].ordinal(n._n);
+                ord = ord + languages[currentLanguage].ordinal(value);
             }
 
             if (format.indexOf('[.]') > -1) {
@@ -8576,7 +9572,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                 format = format.replace('[.]', '.');
             }
 
-            w = n._n.toString().split('.')[0];
+            w = value.toString().split('.')[0];
             precision = format.split('.')[1];
             thousands = format.indexOf(',');
 
@@ -8584,9 +9580,9 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                 if (precision.indexOf('[') > -1) {
                     precision = precision.replace(']', '');
                     precision = precision.split('[');
-                    d = toFixed(n._n, (precision[0].length + precision[1].length), precision[1].length);
+                    d = toFixed(value, (precision[0].length + precision[1].length), roundingFunction, precision[1].length);
                 } else {
-                    d = toFixed(n._n, precision.length);
+                    d = toFixed(value, precision.length, roundingFunction);
                 }
 
                 w = d.split('.')[0];
@@ -8601,7 +9597,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                     d = '';
                 }
             } else {
-                w = toFixed(n._n, null);
+                w = toFixed(value, null, roundingFunction);
             }
 
             // format number
@@ -8667,6 +9663,21 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
         return numeral;
     };
+    
+    // This function provides access to the loaded language data.  If
+    // no arguments are passed in, it will simply return the current
+    // global language object.
+    numeral.languageData = function (key) {
+        if (!key) {
+            return languages[currentLanguage];
+        }
+        
+        if (!languages[key]) {
+            throw new Error('Unknown language : ' + key);
+        }
+        
+        return languages[key];
+    };
 
     numeral.language('en', {
         delimiters: {
@@ -8707,6 +9718,89 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         languages[key] = values;
     }
 
+    /************************************
+        Floating-point helpers
+    ************************************/
+
+    // The floating-point helper functions and implementation
+    // borrows heavily from sinful.js: http://guipn.github.io/sinful.js/
+
+    /**
+     * Array.prototype.reduce for browsers that don't support it
+     * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce#Compatibility
+     */
+    if ('function' !== typeof Array.prototype.reduce) {
+        Array.prototype.reduce = function (callback, opt_initialValue) {
+            'use strict';
+            
+            if (null === this || 'undefined' === typeof this) {
+                // At the moment all modern browsers, that support strict mode, have
+                // native implementation of Array.prototype.reduce. For instance, IE8
+                // does not support strict mode, so this check is actually useless.
+                throw new TypeError('Array.prototype.reduce called on null or undefined');
+            }
+            
+            if ('function' !== typeof callback) {
+                throw new TypeError(callback + ' is not a function');
+            }
+
+            var index,
+                value,
+                length = this.length >>> 0,
+                isValueSet = false;
+
+            if (1 < arguments.length) {
+                value = opt_initialValue;
+                isValueSet = true;
+            }
+
+            for (index = 0; length > index; ++index) {
+                if (this.hasOwnProperty(index)) {
+                    if (isValueSet) {
+                        value = callback(value, this[index], index, this);
+                    } else {
+                        value = this[index];
+                        isValueSet = true;
+                    }
+                }
+            }
+
+            if (!isValueSet) {
+                throw new TypeError('Reduce of empty array with no initial value');
+            }
+
+            return value;
+        };
+    }
+
+    
+    /**
+     * Computes the multiplier necessary to make x >= 1,
+     * effectively eliminating miscalculations caused by
+     * finite precision.
+     */
+    function multiplier(x) {
+        var parts = x.toString().split('.');
+        if (parts.length < 2) {
+            return 1;
+        }
+        return Math.pow(10, parts[1].length);
+    }
+
+    /**
+     * Given a variable number of arguments, returns the maximum
+     * multiplier that must be used to normalize an operation involving
+     * all of them.
+     */
+    function correctionFactor() {
+        var args = Array.prototype.slice.call(arguments);
+        return args.reduce(function (prev, next) {
+            var mp = multiplier(prev),
+                mn = multiplier(next);
+        return mp > mn ? mp : mn;
+        }, -Infinity);
+    }        
+
 
     /************************************
         Numeral Prototype
@@ -8719,55 +9813,72 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             return numeral(this);
         },
 
-        format : function (inputString) {
-            return formatNumeral(this, inputString ? inputString : defaultFormat);
+        format : function (inputString, roundingFunction) {
+            return formatNumeral(this, 
+                  inputString ? inputString : defaultFormat, 
+                  (roundingFunction !== undefined) ? roundingFunction : Math.round
+              );
         },
 
         unformat : function (inputString) {
+            if (Object.prototype.toString.call(inputString) === '[object Number]') { 
+                return inputString; 
+            }
             return unformatNumeral(this, inputString ? inputString : defaultFormat);
         },
 
         value : function () {
-            return this._n;
+            return this._value;
         },
 
         valueOf : function () {
-            return this._n;
+            return this._value;
         },
 
         set : function (value) {
-            this._n = Number(value);
+            this._value = Number(value);
             return this;
         },
 
         add : function (value) {
-            this._n = this._n + Number(value);
+            var corrFactor = correctionFactor.call(null, this._value, value);
+            function cback(accum, curr, currI, O) {
+                return accum + corrFactor * curr;
+            }
+            this._value = [this._value, value].reduce(cback, 0) / corrFactor;
             return this;
         },
 
         subtract : function (value) {
-            this._n = this._n - Number(value);
+            var corrFactor = correctionFactor.call(null, this._value, value);
+            function cback(accum, curr, currI, O) {
+                return accum - corrFactor * curr;
+            }
+            this._value = [value].reduce(cback, this._value * corrFactor) / corrFactor;            
             return this;
         },
 
         multiply : function (value) {
-            this._n = this._n * Number(value);
+            function cback(accum, curr, currI, O) {
+                var corrFactor = correctionFactor(accum, curr);
+                return (accum * corrFactor) * (curr * corrFactor) /
+                    (corrFactor * corrFactor);
+            }
+            this._value = [this._value, value].reduce(cback, 1);
             return this;
         },
 
         divide : function (value) {
-            this._n = this._n / Number(value);
+            function cback(accum, curr, currI, O) {
+                var corrFactor = correctionFactor(accum, curr);
+                return (accum * corrFactor) / (curr * corrFactor);
+            }
+            this._value = [this._value, value].reduce(cback);            
             return this;
         },
 
         difference : function (value) {
-            var difference = this._n - Number(value);
-
-            if (difference < 0) {
-                difference = -difference;
-            }
-
-            return difference;
+            return Math.abs(numeral(this._value).subtract(value).value());
         }
 
     };
@@ -8797,38 +9908,47 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],24:[function(require,module,exports){
-module.exports = function(data) {
+},{}],27:[function(require,module,exports){
+// Middleware that injects the shared data and sharify script
+module.exports = function(req, res, next) {
   
-  // Immediately store and export initial shared data
-  for(var key in data) {
-    module.exports.data[key] = data[key];
-  }
-  
-  // Middleware that injects the shared data into res.locals under "sd"
-  return function(req, res, next) {
-    res.locals.sd = {};
-    for(var key in module.exports.data) {
-      res.locals.sd[key] = module.exports.data[key];
-    }
-    res.locals.sharifyScript = function() {
-      return '<script type="text/javascript">' + 
-               'window.__sharifyData = ' + JSON.stringify(res.locals.sd) + ';' +
+  // Clone the "constant" sharify data for the request so 
+  // request-level data isn't shared across the server potentially
+  // exposing sensitive data.
+  var data = {};
+  for(var key in module.exports.data) {
+    data[key] = module.exports.data[key];
+  };
+
+  // Inject a sharify object into locals for `= sharify.data` and `= sharify.script()`
+  res.locals.sharify = {
+    data: data,
+    script: function() {
+      return '<script type="text/javascript">' +
+               'window.__sharifyData = ' + JSON.stringify(data) + ';' +
              '</script>';
     }
-    next();
   };
+
+  // Alias the sharify short-hand for convience
+  res.locals.sd = res.locals.sharify.data;
+
+  next();
 };
 
+// The shared hash of data
 module.exports.data = {};
 
 // When required on the client via browserify, run this snippet that reads the
-// bootstrapped data and injects it into this module.
-if (typeof window != 'undefined' && window.__sharifyData) {
-  module.exports.data = window.__sharifyData;
-}
-},{}],25:[function(require,module,exports){
-//     Underscore.js 1.5.1
+// sharify.script data and injects it into this module.
+var bootstrapOnClient = module.exports.bootstrapOnClient = function() {
+  if (typeof window != 'undefined' && window.__sharifyData) {
+    module.exports.data = window.__sharifyData;
+  }
+};
+bootstrapOnClient();
+},{}],28:[function(require,module,exports){
+//     Underscore.js 1.5.2
 //     http://underscorejs.org
 //     (c) 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 //     Underscore may be freely distributed under the MIT license.
@@ -8838,7 +9958,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   // Baseline setup
   // --------------
 
-  // Establish the root object, `window` in the browser, or `global` on the server.
+  // Establish the root object, `window` in the browser, or `exports` on the server.
   var root = this;
 
   // Save the previous value of the `_` variable.
@@ -8895,7 +10015,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   }
 
   // Current version.
-  _.VERSION = '1.5.1';
+  _.VERSION = '1.5.2';
 
   // Collection Functions
   // --------------------
@@ -8908,14 +10028,13 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     if (nativeForEach && obj.forEach === nativeForEach) {
       obj.forEach(iterator, context);
     } else if (obj.length === +obj.length) {
-      for (var i = 0, l = obj.length; i < l; i++) {
+      for (var i = 0, length = obj.length; i < length; i++) {
         if (iterator.call(context, obj[i], i, obj) === breaker) return;
       }
     } else {
-      for (var key in obj) {
-        if (_.has(obj, key)) {
-          if (iterator.call(context, obj[key], key, obj) === breaker) return;
-        }
+      var keys = _.keys(obj);
+      for (var i = 0, length = keys.length; i < length; i++) {
+        if (iterator.call(context, obj[keys[i]], keys[i], obj) === breaker) return;
       }
     }
   };
@@ -9114,7 +10233,8 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     return result.value;
   };
 
-  // Shuffle an array.
+  // Shuffle an array, using the modern version of the 
+  // [Fisher-Yates shuffle](http://en.wikipedia.org/wiki/Fisher–Yates_shuffle).
   _.shuffle = function(obj) {
     var rand;
     var index = 0;
@@ -9127,6 +10247,16 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     return shuffled;
   };
 
+  // Sample **n** random values from an array.
+  // If **n** is not specified, returns a single random element from the array.
+  // The internal `guard` argument allows it to work with `map`.
+  _.sample = function(obj, n, guard) {
+    if (arguments.length < 2 || guard) {
+      return obj[_.random(obj.length - 1)];
+    }
+    return _.shuffle(obj).slice(0, Math.max(0, n));
+  };
+
   // An internal function to generate lookup iterators.
   var lookupIterator = function(value) {
     return _.isFunction(value) ? value : function(obj){ return obj[value]; };
@@ -9137,9 +10267,9 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     var iterator = lookupIterator(value);
     return _.pluck(_.map(obj, function(value, index, list) {
       return {
-        value : value,
-        index : index,
-        criteria : iterator.call(context, value, index, list)
+        value: value,
+        index: index,
+        criteria: iterator.call(context, value, index, list)
       };
     }).sort(function(left, right) {
       var a = left.criteria;
@@ -9148,38 +10278,41 @@ if (typeof window != 'undefined' && window.__sharifyData) {
         if (a > b || a === void 0) return 1;
         if (a < b || b === void 0) return -1;
       }
-      return left.index < right.index ? -1 : 1;
+      return left.index - right.index;
     }), 'value');
   };
 
   // An internal function used for aggregate "group by" operations.
-  var group = function(obj, value, context, behavior) {
-    var result = {};
-    var iterator = lookupIterator(value == null ? _.identity : value);
-    each(obj, function(value, index) {
-      var key = iterator.call(context, value, index, obj);
-      behavior(result, key, value);
-    });
-    return result;
+  var group = function(behavior) {
+    return function(obj, value, context) {
+      var result = {};
+      var iterator = value == null ? _.identity : lookupIterator(value);
+      each(obj, function(value, index) {
+        var key = iterator.call(context, value, index, obj);
+        behavior(result, key, value);
+      });
+      return result;
+    };
   };
 
   // Groups the object's values by a criterion. Pass either a string attribute
   // to group by, or a function that returns the criterion.
-  _.groupBy = function(obj, value, context) {
-    return group(obj, value, context, function(result, key, value) {
-      (_.has(result, key) ? result[key] : (result[key] = [])).push(value);
-    });
-  };
+  _.groupBy = group(function(result, key, value) {
+    (_.has(result, key) ? result[key] : (result[key] = [])).push(value);
+  });
+
+  // Indexes the object's values by a criterion, similar to `groupBy`, but for
+  // when you know that your index values will be unique.
+  _.indexBy = group(function(result, key, value) {
+    result[key] = value;
+  });
 
   // Counts instances of an object that group by a certain criterion. Pass
   // either a string attribute to count by, or a function that returns the
   // criterion.
-  _.countBy = function(obj, value, context) {
-    return group(obj, value, context, function(result, key) {
-      if (!_.has(result, key)) result[key] = 0;
-      result[key]++;
-    });
-  };
+  _.countBy = group(function(result, key) {
+    _.has(result, key) ? result[key]++ : result[key] = 1;
+  });
 
   // Use a comparator function to figure out the smallest index at which
   // an object should be inserted so as to maintain order. Uses binary search.
@@ -9216,7 +10349,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   // allows it to work with `_.map`.
   _.first = _.head = _.take = function(array, n, guard) {
     if (array == null) return void 0;
-    return (n != null) && !guard ? slice.call(array, 0, n) : array[0];
+    return (n == null) || guard ? array[0] : slice.call(array, 0, n);
   };
 
   // Returns everything but the last entry of the array. Especially useful on
@@ -9231,10 +10364,10 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   // values in the array. The **guard** check allows it to work with `_.map`.
   _.last = function(array, n, guard) {
     if (array == null) return void 0;
-    if ((n != null) && !guard) {
-      return slice.call(array, Math.max(array.length - n, 0));
-    } else {
+    if ((n == null) || guard) {
       return array[array.length - 1];
+    } else {
+      return slice.call(array, Math.max(array.length - n, 0));
     }
   };
 
@@ -9266,7 +10399,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     return output;
   };
 
-  // Return a completely flattened version of an array.
+  // Flatten out an array, either recursively (by default), or just one level.
   _.flatten = function(array, shallow) {
     return flatten(array, shallow, []);
   };
@@ -9338,7 +10471,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   _.object = function(list, values) {
     if (list == null) return {};
     var result = {};
-    for (var i = 0, l = list.length; i < l; i++) {
+    for (var i = 0, length = list.length; i < length; i++) {
       if (values) {
         result[list[i]] = values[i];
       } else {
@@ -9356,17 +10489,17 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   // for **isSorted** to use binary search.
   _.indexOf = function(array, item, isSorted) {
     if (array == null) return -1;
-    var i = 0, l = array.length;
+    var i = 0, length = array.length;
     if (isSorted) {
       if (typeof isSorted == 'number') {
-        i = (isSorted < 0 ? Math.max(0, l + isSorted) : isSorted);
+        i = (isSorted < 0 ? Math.max(0, length + isSorted) : isSorted);
       } else {
         i = _.sortedIndex(array, item);
         return array[i] === item ? i : -1;
       }
     }
     if (nativeIndexOf && array.indexOf === nativeIndexOf) return array.indexOf(item, isSorted);
-    for (; i < l; i++) if (array[i] === item) return i;
+    for (; i < length; i++) if (array[i] === item) return i;
     return -1;
   };
 
@@ -9392,11 +10525,11 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     }
     step = arguments[2] || 1;
 
-    var len = Math.max(Math.ceil((stop - start) / step), 0);
+    var length = Math.max(Math.ceil((stop - start) / step), 0);
     var idx = 0;
-    var range = new Array(len);
+    var range = new Array(length);
 
-    while(idx < len) {
+    while(idx < length) {
       range[idx++] = start;
       start += step;
     }
@@ -9508,17 +10641,24 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   // N milliseconds. If `immediate` is passed, trigger the function on the
   // leading edge, instead of the trailing.
   _.debounce = function(func, wait, immediate) {
-    var result;
-    var timeout = null;
+    var timeout, args, context, timestamp, result;
     return function() {
-      var context = this, args = arguments;
+      context = this;
+      args = arguments;
+      timestamp = new Date();
       var later = function() {
-        timeout = null;
-        if (!immediate) result = func.apply(context, args);
+        var last = (new Date()) - timestamp;
+        if (last < wait) {
+          timeout = setTimeout(later, wait - last);
+        } else {
+          timeout = null;
+          if (!immediate) result = func.apply(context, args);
+        }
       };
       var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
+      if (!timeout) {
+        timeout = setTimeout(later, wait);
+      }
       if (callNow) result = func.apply(context, args);
       return result;
     };
@@ -9584,22 +10724,33 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
   // Retrieve the values of an object's properties.
   _.values = function(obj) {
-    var values = [];
-    for (var key in obj) if (_.has(obj, key)) values.push(obj[key]);
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var values = new Array(length);
+    for (var i = 0; i < length; i++) {
+      values[i] = obj[keys[i]];
+    }
     return values;
   };
 
   // Convert an object into a list of `[key, value]` pairs.
   _.pairs = function(obj) {
-    var pairs = [];
-    for (var key in obj) if (_.has(obj, key)) pairs.push([key, obj[key]]);
+    var keys = _.keys(obj);
+    var length = keys.length;
+    var pairs = new Array(length);
+    for (var i = 0; i < length; i++) {
+      pairs[i] = [keys[i], obj[keys[i]]];
+    }
     return pairs;
   };
 
   // Invert the keys and values of an object. The values must be serializable.
   _.invert = function(obj) {
     var result = {};
-    for (var key in obj) if (_.has(obj, key)) result[obj[key]] = key;
+    var keys = _.keys(obj);
+    for (var i = 0, length = keys.length; i < length; i++) {
+      result[obj[keys[i]]] = keys[i];
+    }
     return result;
   };
 
@@ -9883,8 +11034,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
       '<': '&lt;',
       '>': '&gt;',
       '"': '&quot;',
-      "'": '&#x27;',
-      '/': '&#x2F;'
+      "'": '&#x27;'
     }
   };
   entityMap.unescape = _.invert(entityMap.escape);
@@ -9915,7 +11065,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
   // Add your own custom functions to the Underscore object.
   _.mixin = function(obj) {
-    each(_.functions(obj), function(name){
+    each(_.functions(obj), function(name) {
       var func = _[name] = obj[name];
       _.prototype[name] = function() {
         var args = [this._wrapped];
@@ -10075,9 +11225,9 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
 }).call(this);
 
-},{}],26:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 //     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
+//     (c) 2010-2013 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 ;(function($){
@@ -10096,7 +11246,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   function triggerAndReturn(context, eventName, data) {
     var event = $.Event(eventName)
     $(context).trigger(event, data)
-    return !event.defaultPrevented
+    return !event.isDefaultPrevented()
   }
 
   // trigger an Ajax "global" event
@@ -10123,17 +11273,19 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
     triggerGlobal(settings, context, 'ajaxSend', [xhr, settings])
   }
-  function ajaxSuccess(data, xhr, settings) {
+  function ajaxSuccess(data, xhr, settings, deferred) {
     var context = settings.context, status = 'success'
     settings.success.call(context, data, status, xhr)
+    if (deferred) deferred.resolveWith(context, [data, status, xhr])
     triggerGlobal(settings, context, 'ajaxSuccess', [xhr, settings, data])
     ajaxComplete(status, xhr, settings)
   }
   // type: "timeout", "error", "abort", "parsererror"
-  function ajaxError(error, type, xhr, settings) {
+  function ajaxError(error, type, xhr, settings, deferred) {
     var context = settings.context
     settings.error.call(context, xhr, type, error)
-    triggerGlobal(settings, context, 'ajaxError', [xhr, settings, error])
+    if (deferred) deferred.rejectWith(context, [xhr, type, error])
+    triggerGlobal(settings, context, 'ajaxError', [xhr, settings, error || type])
     ajaxComplete(type, xhr, settings)
   }
   // status: "success", "notmodified", "error", "timeout", "abort", "parsererror"
@@ -10147,41 +11299,50 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   // Empty function, used as default callback
   function empty() {}
 
-  $.ajaxJSONP = function(options){
+  $.ajaxJSONP = function(options, deferred){
     if (!('type' in options)) return $.ajax(options)
 
     var _callbackName = options.jsonpCallback,
       callbackName = ($.isFunction(_callbackName) ?
         _callbackName() : _callbackName) || ('jsonp' + (++jsonpID)),
       script = document.createElement('script'),
-      cleanup = function() {
-        clearTimeout(abortTimeout)
-        $(script).remove()
-        delete window[callbackName]
-      },
-      abort = function(type){
-        cleanup()
-        // In case of manual abort or timeout, keep an empty function as callback
-        // so that the SCRIPT tag that eventually loads won't result in an error.
-        if (!type || type == 'timeout') window[callbackName] = empty
-        ajaxError(null, type || 'abort', xhr, options)
+      originalCallback = window[callbackName],
+      responseData,
+      abort = function(errorType) {
+        $(script).triggerHandler('error', errorType || 'abort')
       },
       xhr = { abort: abort }, abortTimeout
 
+    if (deferred) deferred.promise(xhr)
+
+    $(script).on('load error', function(e, errorType){
+      clearTimeout(abortTimeout)
+      $(script).off().remove()
+
+      if (e.type == 'error' || !responseData) {
+        ajaxError(null, errorType || 'error', xhr, options, deferred)
+      } else {
+        ajaxSuccess(responseData[0], xhr, options, deferred)
+      }
+
+      window[callbackName] = originalCallback
+      if (responseData && $.isFunction(originalCallback))
+        originalCallback(responseData[0])
+
+      originalCallback = responseData = undefined
+    })
+
     if (ajaxBeforeSend(xhr, options) === false) {
       abort('abort')
-      return false
+      return xhr
     }
 
-    window[callbackName] = function(data){
-      cleanup()
-      ajaxSuccess(data, xhr, options)
+    window[callbackName] = function(){
+      responseData = arguments
     }
-
-    script.onerror = function() { abort('error') }
 
     script.src = options.url.replace(/=\?/, '=' + callbackName)
-    $('head').append(script)
+    document.head.appendChild(script)
 
     if (options.timeout > 0) abortTimeout = setTimeout(function(){
       abort('timeout')
@@ -10210,8 +11371,9 @@ if (typeof window != 'undefined' && window.__sharifyData) {
       return new window.XMLHttpRequest()
     },
     // MIME types mapping
+    // IIS returns Javascript as "application/x-javascript"
     accepts: {
-      script: 'text/javascript, application/javascript',
+      script: 'text/javascript, application/javascript, application/x-javascript',
       json:   jsonType,
       xml:    'application/xml, text/xml',
       html:   htmlType,
@@ -10245,11 +11407,12 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     if (options.processData && options.data && $.type(options.data) != "string")
       options.data = $.param(options.data, options.traditional)
     if (options.data && (!options.type || options.type.toUpperCase() == 'GET'))
-      options.url = appendQuery(options.url, options.data)
+      options.url = appendQuery(options.url, options.data), options.data = undefined
   }
 
   $.ajax = function(options){
-    var settings = $.extend({}, options || {})
+    var settings = $.extend({}, options || {}),
+        deferred = $.Deferred && $.Deferred()
     for (key in $.ajaxSettings) if (settings[key] === undefined) settings[key] = $.ajaxSettings[key]
 
     ajaxStart(settings)
@@ -10266,31 +11429,38 @@ if (typeof window != 'undefined' && window.__sharifyData) {
       if (!hasPlaceholder)
         settings.url = appendQuery(settings.url,
           settings.jsonp ? (settings.jsonp + '=?') : settings.jsonp === false ? '' : 'callback=?')
-      return $.ajaxJSONP(settings)
+      return $.ajaxJSONP(settings, deferred)
     }
 
     var mime = settings.accepts[dataType],
-        baseHeaders = { },
+        headers = { },
+        setHeader = function(name, value) { headers[name.toLowerCase()] = [name, value] },
         protocol = /^([\w-]+:)\/\//.test(settings.url) ? RegExp.$1 : window.location.protocol,
-        xhr = settings.xhr(), abortTimeout
+        xhr = settings.xhr(),
+        nativeSetHeader = xhr.setRequestHeader,
+        abortTimeout
 
-    if (!settings.crossDomain) baseHeaders['X-Requested-With'] = 'XMLHttpRequest'
-    if (mime) {
-      baseHeaders['Accept'] = mime
+    if (deferred) deferred.promise(xhr)
+
+    if (!settings.crossDomain) setHeader('X-Requested-With', 'XMLHttpRequest')
+    setHeader('Accept', mime || '*/*')
+    if (mime = settings.mimeType || mime) {
       if (mime.indexOf(',') > -1) mime = mime.split(',', 2)[0]
       xhr.overrideMimeType && xhr.overrideMimeType(mime)
     }
     if (settings.contentType || (settings.contentType !== false && settings.data && settings.type.toUpperCase() != 'GET'))
-      baseHeaders['Content-Type'] = (settings.contentType || 'application/x-www-form-urlencoded')
-    settings.headers = $.extend(baseHeaders, settings.headers || {})
+      setHeader('Content-Type', settings.contentType || 'application/x-www-form-urlencoded')
+
+    if (settings.headers) for (name in settings.headers) setHeader(name, settings.headers[name])
+    xhr.setRequestHeader = setHeader
 
     xhr.onreadystatechange = function(){
       if (xhr.readyState == 4) {
-        xhr.onreadystatechange = empty;
+        xhr.onreadystatechange = empty
         clearTimeout(abortTimeout)
         var result, error = false
         if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304 || (xhr.status == 0 && protocol == 'file:')) {
-          dataType = dataType || mimeToDataType(xhr.getResponseHeader('content-type'))
+          dataType = dataType || mimeToDataType(settings.mimeType || xhr.getResponseHeader('content-type'))
           result = xhr.responseText
 
           try {
@@ -10300,28 +11470,31 @@ if (typeof window != 'undefined' && window.__sharifyData) {
             else if (dataType == 'json') result = blankRE.test(result) ? null : $.parseJSON(result)
           } catch (e) { error = e }
 
-          if (error) ajaxError(error, 'parsererror', xhr, settings)
-          else ajaxSuccess(result, xhr, settings)
+          if (error) ajaxError(error, 'parsererror', xhr, settings, deferred)
+          else ajaxSuccess(result, xhr, settings, deferred)
         } else {
-          ajaxError(null, xhr.status ? 'error' : 'abort', xhr, settings)
+          ajaxError(xhr.statusText || null, xhr.status ? 'error' : 'abort', xhr, settings, deferred)
         }
       }
     }
 
-    var async = 'async' in settings ? settings.async : true
-    xhr.open(settings.type, settings.url, async)
-
-    for (name in settings.headers) xhr.setRequestHeader(name, settings.headers[name])
-
     if (ajaxBeforeSend(xhr, settings) === false) {
       xhr.abort()
-      return false
+      ajaxError(null, 'abort', xhr, settings, deferred)
+      return xhr
     }
+
+    if (settings.xhrFields) for (name in settings.xhrFields) xhr[name] = settings.xhrFields[name]
+
+    var async = 'async' in settings ? settings.async : true
+    xhr.open(settings.type, settings.url, async, settings.username, settings.password)
+
+    for (name in headers) nativeSetHeader.apply(xhr, headers[name])
 
     if (settings.timeout > 0) abortTimeout = setTimeout(function(){
         xhr.onreadystatechange = empty
         xhr.abort()
-        ajaxError(null, 'timeout', xhr, settings)
+        ajaxError(null, 'timeout', xhr, settings, deferred)
       }, settings.timeout)
 
     // avoid sending empty string (#319)
@@ -10375,10 +11548,11 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   var escape = encodeURIComponent
 
   function serialize(params, obj, traditional, scope){
-    var type, array = $.isArray(obj)
+    var type, array = $.isArray(obj), hash = $.isPlainObject(obj)
     $.each(obj, function(key, value) {
       type = $.type(value)
-      if (scope) key = traditional ? scope : scope + '[' + (array ? '' : key) + ']'
+      if (scope) key = traditional ? scope :
+        scope + '[' + (hash || type == 'object' || type == 'array' ? key : '') + ']'
       // handle data in serializeArray() format
       if (!scope && array) params.add(value.name, value.value)
       // recurse into nested objects
@@ -10396,16 +11570,16 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   }
 })(Zepto)
 
-},{}],27:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 //     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
+//     (c) 2010-2013 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 ;(function($){
   function detect(ua){
     var os = this.os = {}, browser = this.browser = {},
-      webkit = ua.match(/WebKit\/([\d.]+)/),
-      android = ua.match(/(Android)\s+([\d.]+)/),
+      webkit = ua.match(/Web[kK]it[\/]{0,1}([\d.]+)/),
+      android = ua.match(/(Android);?[\s\/]+([\d.]+)?/),
       ipad = ua.match(/(iPad).*OS\s([\d_]+)/),
       ipod = ua.match(/(iPod)(.*OS\s([\d_]+))?/),
       iphone = !ipad && ua.match(/(iPhone\sOS)\s([\d_]+)/),
@@ -10419,8 +11593,10 @@ if (typeof window != 'undefined' && window.__sharifyData) {
       playbook = ua.match(/PlayBook/),
       chrome = ua.match(/Chrome\/([\d.]+)/) || ua.match(/CriOS\/([\d.]+)/),
       firefox = ua.match(/Firefox\/([\d.]+)/),
+      ie = ua.match(/MSIE ([\d.]+)/),
       safari = webkit && ua.match(/Mobile\//) && !chrome,
-      webview = ua.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/) && !chrome
+      webview = ua.match(/(iPhone|iPod|iPad).*AppleWebKit(?!.*Safari)/) && !chrome,
+      ie = ua.match(/MSIE\s([\d.]+)/)
 
     // Todo: clean this up with a better OS/browser seperation:
     // - discern (more) between multiple browsers on android
@@ -10445,12 +11621,16 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     if (!silk && os.android && ua.match(/Kindle Fire/)) browser.silk = true
     if (chrome) browser.chrome = true, browser.version = chrome[1]
     if (firefox) browser.firefox = true, browser.version = firefox[1]
+    if (ie) browser.ie = true, browser.version = ie[1]
     if (safari && (ua.match(/Safari/) || !!os.ios)) browser.safari = true
     if (webview) browser.webview = true
+    if (ie) browser.ie = true, browser.version = ie[1]
 
-    os.tablet = !!(ipad || playbook || (android && !ua.match(/Mobile/)) || (firefox && ua.match(/Tablet/)))
+    os.tablet = !!(ipad || playbook || (android && !ua.match(/Mobile/)) ||
+      (firefox && ua.match(/Tablet/)) || (ie && !ua.match(/Phone/) && ua.match(/Touch/)))
     os.phone  = !!(!os.tablet && !os.ipod && (android || iphone || webos || blackberry || bb10 ||
-      (chrome && ua.match(/Android/)) || (chrome && ua.match(/CriOS\/([\d.]+)/)) || (firefox && ua.match(/Mobile/))))
+      (chrome && ua.match(/Android/)) || (chrome && ua.match(/CriOS\/([\d.]+)/)) ||
+      (firefox && ua.match(/Mobile/)) || (ie && ua.match(/Touch/))))
   }
 
   detect.call($, navigator.userAgent)
@@ -10459,13 +11639,20 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
 })(Zepto)
 
-},{}],28:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 //     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
+//     (c) 2010-2013 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 ;(function($){
-  var $$ = $.zepto.qsa, handlers = {}, _zid = 1, specialEvents={},
+  var $$ = $.zepto.qsa, _zid = 1, undefined,
+      slice = Array.prototype.slice,
+      isFunction = $.isFunction,
+      isString = function(obj){ return typeof obj == 'string' },
+      handlers = {},
+      specialEvents={},
+      focusinSupported = 'onfocusin' in window,
+      focus = { focus: 'focusin', blur: 'focusout' },
       hover = { mouseenter: 'mouseover', mouseleave: 'mouseout' }
 
   specialEvents.click = specialEvents.mousedown = specialEvents.mouseup = specialEvents.mousemove = 'MouseEvents'
@@ -10492,24 +11679,20 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)')
   }
 
-  function eachEvent(events, fn, iterator){
-    if ($.type(events) != "string") $.each(events, iterator)
-    else events.split(/\s/).forEach(function(type){ iterator(type, fn) })
-  }
-
   function eventCapture(handler, captureSetting) {
     return handler.del &&
-      (handler.e == 'focus' || handler.e == 'blur') ||
+      (!focusinSupported && (handler.e in focus)) ||
       !!captureSetting
   }
 
   function realEvent(type) {
-    return hover[type] || type
+    return hover[type] || (focusinSupported && focus[type]) || type
   }
 
-  function add(element, events, fn, selector, getDelegate, capture){
+  function add(element, events, fn, data, selector, delegator, capture){
     var id = zid(element), set = (handlers[id] || (handlers[id] = []))
-    eachEvent(events, fn, function(event, fn){
+    events.split(/\s/).forEach(function(event){
+      if (event == 'ready') return $(document).ready(fn)
       var handler   = parse(event)
       handler.fn    = fn
       handler.sel   = selector
@@ -10519,23 +11702,28 @@ if (typeof window != 'undefined' && window.__sharifyData) {
         if (!related || (related !== this && !$.contains(this, related)))
           return handler.fn.apply(this, arguments)
       }
-      handler.del   = getDelegate && getDelegate(fn, event)
-      var callback  = handler.del || fn
-      handler.proxy = function (e) {
-        var result = callback.apply(element, [e].concat(e.data))
+      handler.del   = delegator
+      var callback  = delegator || fn
+      handler.proxy = function(e){
+        e = compatible(e)
+        if (e.isImmediatePropagationStopped()) return
+        e.data = data
+        var result = callback.apply(element, e._args == undefined ? [e] : [e].concat(e._args))
         if (result === false) e.preventDefault(), e.stopPropagation()
         return result
       }
       handler.i = set.length
       set.push(handler)
-      element.addEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
+      if ('addEventListener' in element)
+        element.addEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
     })
   }
   function remove(element, events, fn, selector, capture){
     var id = zid(element)
-    eachEvent(events || '', fn, function(event, fn){
+    ;(events || '').split(/\s/).forEach(function(event){
       findHandlers(element, event, fn, selector).forEach(function(handler){
         delete handlers[id][handler.i]
+      if ('removeEventListener' in element)
         element.removeEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
       })
     })
@@ -10544,91 +11732,70 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   $.event = { add: add, remove: remove }
 
   $.proxy = function(fn, context) {
-    if ($.isFunction(fn)) {
+    if (isFunction(fn)) {
       var proxyFn = function(){ return fn.apply(context, arguments) }
       proxyFn._zid = zid(fn)
       return proxyFn
-    } else if (typeof context == 'string') {
+    } else if (isString(context)) {
       return $.proxy(fn[context], fn)
     } else {
       throw new TypeError("expected function")
     }
   }
 
-  $.fn.bind = function(event, callback){
-    return this.each(function(){
-      add(this, event, callback)
-    })
+  $.fn.bind = function(event, data, callback){
+    return this.on(event, data, callback)
   }
   $.fn.unbind = function(event, callback){
-    return this.each(function(){
-      remove(this, event, callback)
-    })
+    return this.off(event, callback)
   }
-  $.fn.one = function(event, callback){
-    return this.each(function(i, element){
-      add(this, event, callback, null, function(fn, type){
-        return function(){
-          var result = fn.apply(element, arguments)
-          remove(element, type, fn)
-          return result
-        }
-      })
-    })
+  $.fn.one = function(event, selector, data, callback){
+    return this.on(event, selector, data, callback, 1)
   }
 
   var returnTrue = function(){return true},
       returnFalse = function(){return false},
-      ignoreProperties = /^([A-Z]|layer[XY]$)/,
+      ignoreProperties = /^([A-Z]|returnValue$|layer[XY]$)/,
       eventMethods = {
         preventDefault: 'isDefaultPrevented',
         stopImmediatePropagation: 'isImmediatePropagationStopped',
         stopPropagation: 'isPropagationStopped'
       }
+
+  function compatible(event, source) {
+    if (source || !event.isDefaultPrevented) {
+      source || (source = event)
+
+      $.each(eventMethods, function(name, predicate) {
+        var sourceMethod = source[name]
+        event[name] = function(){
+          this[predicate] = returnTrue
+          return sourceMethod && sourceMethod.apply(source, arguments)
+        }
+        event[predicate] = returnFalse
+      })
+
+      if (source.defaultPrevented !== undefined ? source.defaultPrevented :
+          'returnValue' in source ? source.returnValue === false :
+          source.getPreventDefault && source.getPreventDefault())
+        event.isDefaultPrevented = returnTrue
+    }
+    return event
+  }
+
   function createProxy(event) {
     var key, proxy = { originalEvent: event }
     for (key in event)
       if (!ignoreProperties.test(key) && event[key] !== undefined) proxy[key] = event[key]
 
-    $.each(eventMethods, function(name, predicate) {
-      proxy[name] = function(){
-        this[predicate] = returnTrue
-        return event[name].apply(event, arguments)
-      }
-      proxy[predicate] = returnFalse
-    })
-    return proxy
-  }
-
-  // emulates the 'defaultPrevented' property for browsers that have none
-  function fix(event) {
-    if (!('defaultPrevented' in event)) {
-      event.defaultPrevented = false
-      var prevent = event.preventDefault
-      event.preventDefault = function() {
-        this.defaultPrevented = true
-        prevent.call(this)
-      }
-    }
+    return compatible(proxy, event)
   }
 
   $.fn.delegate = function(selector, event, callback){
-    return this.each(function(i, element){
-      add(element, event, callback, selector, function(fn){
-        return function(e){
-          var evt, match = $(e.target).closest(selector, element).get(0)
-          if (match) {
-            evt = $.extend(createProxy(e), {currentTarget: match, liveFired: element})
-            return fn.apply(match, [evt].concat([].slice.call(arguments, 1)))
-          }
-        }
-      })
-    })
+    return this.on(event, selector, callback)
   }
   $.fn.undelegate = function(selector, event, callback){
-    return this.each(function(){
-      remove(this, event, callback, selector)
-    })
+    return this.off(event, selector, callback)
   }
 
   $.fn.live = function(event, callback){
@@ -10640,33 +11807,75 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     return this
   }
 
-  $.fn.on = function(event, selector, callback){
-    return !selector || $.isFunction(selector) ?
-      this.bind(event, selector || callback) : this.delegate(selector, event, callback)
+  $.fn.on = function(event, selector, data, callback, one){
+    var autoRemove, delegator, $this = this
+    if (event && !isString(event)) {
+      $.each(event, function(type, fn){
+        $this.on(type, selector, data, fn, one)
+      })
+      return $this
+    }
+
+    if (!isString(selector) && !isFunction(callback) && callback !== false)
+      callback = data, data = selector, selector = undefined
+    if (isFunction(data) || data === false)
+      callback = data, data = undefined
+
+    if (callback === false) callback = returnFalse
+
+    return $this.each(function(_, element){
+      if (one) autoRemove = function(e){
+        remove(element, e.type, callback)
+        return callback.apply(this, arguments)
+      }
+
+      if (selector) delegator = function(e){
+        var evt, match = $(e.target).closest(selector, element).get(0)
+        if (match && match !== element) {
+          evt = $.extend(createProxy(e), {currentTarget: match, liveFired: element})
+          return (autoRemove || callback).apply(match, [evt].concat(slice.call(arguments, 1)))
+        }
+      }
+
+      add(element, event, callback, data, selector, delegator || autoRemove)
+    })
   }
   $.fn.off = function(event, selector, callback){
-    return !selector || $.isFunction(selector) ?
-      this.unbind(event, selector || callback) : this.undelegate(selector, event, callback)
+    var $this = this
+    if (event && !isString(event)) {
+      $.each(event, function(type, fn){
+        $this.off(type, selector, fn)
+      })
+      return $this
+    }
+
+    if (!isString(selector) && !isFunction(callback) && callback !== false)
+      callback = selector, selector = undefined
+
+    if (callback === false) callback = returnFalse
+
+    return $this.each(function(){
+      remove(this, event, callback, selector)
+    })
   }
 
-  $.fn.trigger = function(event, data){
-    if (typeof event == 'string' || $.isPlainObject(event)) event = $.Event(event)
-    fix(event)
-    event.data = data
+  $.fn.trigger = function(event, args){
+    event = (isString(event) || $.isPlainObject(event)) ? $.Event(event) : compatible(event)
+    event._args = args
     return this.each(function(){
       // items in the collection might not be DOM elements
-      // (todo: possibly support events on plain old objects)
       if('dispatchEvent' in this) this.dispatchEvent(event)
+      else $(this).triggerHandler(event, args)
     })
   }
 
   // triggers event handlers on current element just as if an event occurred,
   // doesn't trigger an actual event, doesn't bubble
-  $.fn.triggerHandler = function(event, data){
+  $.fn.triggerHandler = function(event, args){
     var e, result
     this.each(function(i, element){
-      e = createProxy(typeof event == 'string' ? $.Event(event) : event)
-      e.data = data
+      e = createProxy(isString(event) ? $.Event(event) : event)
+      e._args = args
       e.target = element
       $.each(findHandlers(element, event.type || event), function(i, handler){
         result = handler.proxy(e)
@@ -10699,25 +11908,24 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   })
 
   $.Event = function(type, props) {
-    if (typeof type != 'string') props = type, type = props.type
+    if (!isString(type)) props = type, type = props.type
     var event = document.createEvent(specialEvents[type] || 'Events'), bubbles = true
     if (props) for (var name in props) (name == 'bubbles') ? (bubbles = !!props[name]) : (event[name] = props[name])
-    event.initEvent(type, bubbles, true, null, null, null, null, null, null, null, null, null, null, null, null)
-    event.isDefaultPrevented = function(){ return this.defaultPrevented }
-    return event
+    event.initEvent(type, bubbles, true)
+    return compatible(event)
   }
 
 })(Zepto)
 
-},{}],29:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 //     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
+//     (c) 2010-2013 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
-;(function ($) {
-  $.fn.serializeArray = function () {
+;(function($){
+  $.fn.serializeArray = function() {
     var result = [], el
-    $( Array.prototype.slice.call(this.get(0).elements) ).each(function () {
+    $([].slice.call(this.get(0).elements)).each(function(){
       el = $(this)
       var type = el.attr('type')
       if (this.nodeName.toLowerCase() != 'fieldset' &&
@@ -10731,48 +11939,47 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     return result
   }
 
-  $.fn.serialize = function () {
+  $.fn.serialize = function(){
     var result = []
-    this.serializeArray().forEach(function (elm) {
-      result.push( encodeURIComponent(elm.name) + '=' + encodeURIComponent(elm.value) )
+    this.serializeArray().forEach(function(elm){
+      result.push(encodeURIComponent(elm.name) + '=' + encodeURIComponent(elm.value))
     })
     return result.join('&')
   }
 
-  $.fn.submit = function (callback) {
+  $.fn.submit = function(callback) {
     if (callback) this.bind('submit', callback)
     else if (this.length) {
       var event = $.Event('submit')
       this.eq(0).trigger(event)
-      if (!event.defaultPrevented) this.get(0).submit()
+      if (!event.isDefaultPrevented()) this.get(0).submit()
     }
     return this
   }
 
 })(Zepto)
 
-},{}],30:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 //     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
+//     (c) 2010-2013 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 ;(function($, undefined){
   var prefix = '', eventPrefix, endEventName, endAnimationName,
-    vendors = { Webkit: 'webkit', Moz: '', O: 'o', ms: 'MS' },
+    vendors = { Webkit: 'webkit', Moz: '', O: 'o' },
     document = window.document, testEl = document.createElement('div'),
     supportedTransforms = /^((translate|rotate|scale)(X|Y|Z|3d)?|matrix(3d)?|perspective|skew(X|Y)?)$/i,
     transform,
-    transitionProperty, transitionDuration, transitionTiming,
-    animationName, animationDuration, animationTiming,
+    transitionProperty, transitionDuration, transitionTiming, transitionDelay,
+    animationName, animationDuration, animationTiming, animationDelay,
     cssReset = {}
 
-  function dasherize(str) { return downcase(str.replace(/([a-z])([A-Z])/, '$1-$2')) }
-  function downcase(str) { return str.toLowerCase() }
-  function normalizeEvent(name) { return eventPrefix ? eventPrefix + name : downcase(name) }
+  function dasherize(str) { return str.replace(/([a-z])([A-Z])/, '$1-$2').toLowerCase() }
+  function normalizeEvent(name) { return eventPrefix ? eventPrefix + name : name.toLowerCase() }
 
   $.each(vendors, function(vendor, event){
     if (testEl.style[vendor + 'TransitionProperty'] !== undefined) {
-      prefix = '-' + downcase(vendor) + '-'
+      prefix = '-' + vendor.toLowerCase() + '-'
       eventPrefix = event
       return false
     }
@@ -10781,9 +11988,11 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   transform = prefix + 'transform'
   cssReset[transitionProperty = prefix + 'transition-property'] =
   cssReset[transitionDuration = prefix + 'transition-duration'] =
+  cssReset[transitionDelay    = prefix + 'transition-delay'] =
   cssReset[transitionTiming   = prefix + 'transition-timing-function'] =
   cssReset[animationName      = prefix + 'animation-name'] =
   cssReset[animationDuration  = prefix + 'animation-duration'] =
+  cssReset[animationDelay     = prefix + 'animation-delay'] =
   cssReset[animationTiming    = prefix + 'animation-timing-function'] = ''
 
   $.fx = {
@@ -10794,25 +12003,33 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     animationEnd: normalizeEvent('AnimationEnd')
   }
 
-  $.fn.animate = function(properties, duration, ease, callback){
+  $.fn.animate = function(properties, duration, ease, callback, delay){
+    if ($.isFunction(duration))
+      callback = duration, ease = undefined, duration = undefined
+    if ($.isFunction(ease))
+      callback = ease, ease = undefined
     if ($.isPlainObject(duration))
-      ease = duration.easing, callback = duration.complete, duration = duration.duration
+      ease = duration.easing, callback = duration.complete, delay = duration.delay, duration = duration.duration
     if (duration) duration = (typeof duration == 'number' ? duration :
                     ($.fx.speeds[duration] || $.fx.speeds._default)) / 1000
-    return this.anim(properties, duration, ease, callback)
+    if (delay) delay = parseFloat(delay) / 1000
+    return this.anim(properties, duration, ease, callback, delay)
   }
 
-  $.fn.anim = function(properties, duration, ease, callback){
+  $.fn.anim = function(properties, duration, ease, callback, delay){
     var key, cssValues = {}, cssProperties, transforms = '',
-        that = this, wrappedCallback, endEvent = $.fx.transitionEnd
+        that = this, wrappedCallback, endEvent = $.fx.transitionEnd,
+        fired = false
 
-    if (duration === undefined) duration = 0.4
+    if (duration === undefined) duration = $.fx.speeds._default / 1000
+    if (delay === undefined) delay = 0
     if ($.fx.off) duration = 0
 
     if (typeof properties == 'string') {
       // keyframe animation
       cssValues[animationName] = properties
       cssValues[animationDuration] = duration + 's'
+      cssValues[animationDelay] = delay + 's'
       cssValues[animationTiming] = (ease || 'linear')
       endEvent = $.fx.animationEnd
     } else {
@@ -10826,6 +12043,7 @@ if (typeof window != 'undefined' && window.__sharifyData) {
       if (duration > 0 && typeof properties === 'object') {
         cssValues[transitionProperty] = cssProperties.join(', ')
         cssValues[transitionDuration] = duration + 's'
+        cssValues[transitionDelay] = delay + 's'
         cssValues[transitionTiming] = (ease || 'linear')
       }
     }
@@ -10834,11 +12052,22 @@ if (typeof window != 'undefined' && window.__sharifyData) {
       if (typeof event !== 'undefined') {
         if (event.target !== event.currentTarget) return // makes sure the event didn't bubble from "below"
         $(event.target).unbind(endEvent, wrappedCallback)
-      }
+      } else
+        $(this).unbind(endEvent, wrappedCallback) // triggered by setTimeout
+
+      fired = true
       $(this).css(cssReset)
       callback && callback.call(this)
     }
-    if (duration > 0) this.bind(endEvent, wrappedCallback)
+    if (duration > 0){
+      this.bind(endEvent, wrappedCallback)
+      // transitionEnd is not always firing on older Android phones
+      // so make sure it gets fired
+      setTimeout(function(){
+        if (fired) return
+        wrappedCallback.call(that)
+      }, (duration * 1000) + 25)
+    }
 
     // trigger page reflow so new elements can animate
     this.size() && this.get(0).clientLeft
@@ -10855,23 +12084,20 @@ if (typeof window != 'undefined' && window.__sharifyData) {
   testEl = null
 })(Zepto)
 
-},{}],31:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 //     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
+//     (c) 2010-2013 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 ;(function($){
   var touch = {},
-    touchTimeout, tapTimeout, swipeTimeout,
-    longTapDelay = 750, longTapTimeout
-
-  function parentIfText(node) {
-    return 'tagName' in node ? node : node.parentNode
-  }
+    touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
+    longTapDelay = 750,
+    gesture
 
   function swipeDirection(x1, x2, y1, y2) {
-    var xDelta = Math.abs(x1 - x2), yDelta = Math.abs(y1 - y2)
-    return xDelta >= yDelta ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
+    return Math.abs(x1 - x2) >=
+      Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
   }
 
   function longTap() {
@@ -10896,30 +12122,72 @@ if (typeof window != 'undefined' && window.__sharifyData) {
     touch = {}
   }
 
-  $(document).ready(function(){
-    var now, delta
+  function isPrimaryTouch(event){
+    return (event.pointerType == 'touch' ||
+      event.pointerType == event.MSPOINTER_TYPE_TOUCH)
+      && event.isPrimary
+  }
 
-    $(document.body)
-      .bind('touchstart', function(e){
+  function isPointerEventType(e, type){
+    return (e.type == 'pointer'+type ||
+      e.type.toLowerCase() == 'mspointer'+type)
+  }
+
+  $(document).ready(function(){
+    var now, delta, deltaX = 0, deltaY = 0, firstTouch, _isPointerType
+
+    if ('MSGesture' in window) {
+      gesture = new MSGesture()
+      gesture.target = document.body
+    }
+
+    $(document)
+      .bind('MSGestureEnd', function(e){
+        var swipeDirectionFromVelocity =
+          e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null;
+        if (swipeDirectionFromVelocity) {
+          touch.el.trigger('swipe')
+          touch.el.trigger('swipe'+ swipeDirectionFromVelocity)
+        }
+      })
+      .on('touchstart MSPointerDown pointerdown', function(e){
+        if((_isPointerType = isPointerEventType(e, 'down')) &&
+          !isPrimaryTouch(e)) return
+        firstTouch = _isPointerType ? e : e.touches[0]
+        if (e.touches && e.touches.length === 1 && touch.x2) {
+          // Clear out touch movement data if we have it sticking around
+          // This can occur if touchcancel doesn't fire due to preventDefault, etc.
+          touch.x2 = undefined
+          touch.y2 = undefined
+        }
         now = Date.now()
         delta = now - (touch.last || now)
-        touch.el = $(parentIfText(e.touches[0].target))
+        touch.el = $('tagName' in firstTouch.target ?
+          firstTouch.target : firstTouch.target.parentNode)
         touchTimeout && clearTimeout(touchTimeout)
-        touch.x1 = e.touches[0].pageX
-        touch.y1 = e.touches[0].pageY
+        touch.x1 = firstTouch.pageX
+        touch.y1 = firstTouch.pageY
         if (delta > 0 && delta <= 250) touch.isDoubleTap = true
         touch.last = now
         longTapTimeout = setTimeout(longTap, longTapDelay)
+        // adds the current touch contact for IE gesture recognition
+        if (gesture && _isPointerType) gesture.addPointer(e.pointerId);
       })
-      .bind('touchmove', function(e){
+      .on('touchmove MSPointerMove pointermove', function(e){
+        if((_isPointerType = isPointerEventType(e, 'move')) &&
+          !isPrimaryTouch(e)) return
+        firstTouch = _isPointerType ? e : e.touches[0]
         cancelLongTap()
-        touch.x2 = e.touches[0].pageX
-        touch.y2 = e.touches[0].pageY
-        if (Math.abs(touch.x1 - touch.x2) > 10)
-          e.preventDefault()
+        touch.x2 = firstTouch.pageX
+        touch.y2 = firstTouch.pageY
+
+        deltaX += Math.abs(touch.x1 - touch.x2)
+        deltaY += Math.abs(touch.y1 - touch.y2)
       })
-      .bind('touchend', function(e){
-         cancelLongTap()
+      .on('touchend MSPointerUp pointerup', function(e){
+        if((_isPointerType = isPointerEventType(e, 'up')) &&
+          !isPrimaryTouch(e)) return
+        cancelLongTap()
 
         // swipe
         if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
@@ -10933,59 +12201,71 @@ if (typeof window != 'undefined' && window.__sharifyData) {
 
         // normal tap
         else if ('last' in touch)
+          // don't fire tap when delta position changed by more than 30 pixels,
+          // for instance when moving to a point and back to origin
+          if (deltaX < 30 && deltaY < 30) {
+            // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
+            // ('tap' fires before 'scroll')
+            tapTimeout = setTimeout(function() {
 
-          // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
-          // ('tap' fires before 'scroll')
-          tapTimeout = setTimeout(function() {
+              // trigger universal 'tap' with the option to cancelTouch()
+              // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
+              var event = $.Event('tap')
+              event.cancelTouch = cancelAll
+              touch.el.trigger(event)
 
-            // trigger universal 'tap' with the option to cancelTouch()
-            // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
-            var event = $.Event('tap')
-            event.cancelTouch = cancelAll
-            touch.el.trigger(event)
-
-            // trigger double tap immediately
-            if (touch.isDoubleTap) {
-              touch.el.trigger('doubleTap')
-              touch = {}
-            }
-
-            // trigger single tap after 250ms of inactivity
-            else {
-              touchTimeout = setTimeout(function(){
-                touchTimeout = null
-                touch.el.trigger('singleTap')
+              // trigger double tap immediately
+              if (touch.isDoubleTap) {
+                if (touch.el) touch.el.trigger('doubleTap')
                 touch = {}
-              }, 250)
-            }
+              }
 
-          }, 0)
+              // trigger single tap after 250ms of inactivity
+              else {
+                touchTimeout = setTimeout(function(){
+                  touchTimeout = null
+                  if (touch.el) touch.el.trigger('singleTap')
+                  touch = {}
+                }, 250)
+              }
+            }, 0)
+          } else {
+            touch = {}
+          }
+          deltaX = deltaY = 0
 
       })
-      .bind('touchcancel', cancelAll)
+      // when the browser window loses focus,
+      // for example when a modal dialog is shown,
+      // cancel all ongoing events
+      .on('touchcancel MSPointerCancel pointercancel', cancelAll)
 
-    $(window).bind('scroll', cancelAll)
+    // scrolling the window indicates intention of the user
+    // to scroll, not tap or swipe, so cancel all ongoing events
+    $(window).on('scroll', cancelAll)
   })
 
-  ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown', 'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(m){
-    $.fn[m] = function(callback){ return this.bind(m, callback) }
+  ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
+    'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(eventName){
+    $.fn[eventName] = function(callback){ return this.on(eventName, callback) }
   })
 })(Zepto)
 
-},{}],32:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 //     Zepto.js
-//     (c) 2010-2012 Thomas Fuchs
+//     (c) 2010-2013 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
 var Zepto = (function() {
   var undefined, key, $, classList, emptyArray = [], slice = emptyArray.slice, filter = emptyArray.filter,
     document = window.document,
     elementDisplay = {}, classCache = {},
-    getComputedStyle = document.defaultView.getComputedStyle,
     cssNumber = { 'column-count': 1, 'columns': 1, 'font-weight': 1, 'line-height': 1,'opacity': 1, 'z-index': 1, 'zoom': 1 },
     fragmentRE = /^\s*<(\w+|!)[^>]*>/,
+    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
     tagExpanderRE = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,
     rootNodeRE = /^(?:body|html)$/i,
+    capitalRE = /([A-Z])/g,
 
     // special attributes that should be get/set via method calls
     methodAttributes = ['val', 'css', 'html', 'text', 'data', 'width', 'height', 'offset'],
@@ -11002,15 +12282,29 @@ var Zepto = (function() {
     readyRE = /complete|loaded|interactive/,
     classSelectorRE = /^\.([\w-]+)$/,
     idSelectorRE = /^#([\w-]*)$/,
-    tagSelectorRE = /^[\w-]+$/,
+    simpleSelectorRE = /^[\w-]*$/,
     class2type = {},
     toString = class2type.toString,
     zepto = {},
     camelize, uniq,
-    tempParent = document.createElement('div')
+    tempParent = document.createElement('div'),
+    propMap = {
+      'tabindex': 'tabIndex',
+      'readonly': 'readOnly',
+      'for': 'htmlFor',
+      'class': 'className',
+      'maxlength': 'maxLength',
+      'cellspacing': 'cellSpacing',
+      'cellpadding': 'cellPadding',
+      'rowspan': 'rowSpan',
+      'colspan': 'colSpan',
+      'usemap': 'useMap',
+      'frameborder': 'frameBorder',
+      'contenteditable': 'contentEditable'
+    }
 
   zepto.matches = function(element, selector) {
-    if (!element || element.nodeType !== 1) return false
+    if (!selector || !element || element.nodeType !== 1) return false
     var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
                           element.oMatchesSelector || element.matchesSelector
     if (matchesSelector) return matchesSelector.call(element, selector)
@@ -11032,7 +12326,7 @@ var Zepto = (function() {
   function isDocument(obj)   { return obj != null && obj.nodeType == obj.DOCUMENT_NODE }
   function isObject(obj)     { return type(obj) == "object" }
   function isPlainObject(obj) {
-    return isObject(obj) && !isWindow(obj) && obj.__proto__ == Object.prototype
+    return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype
   }
   function isArray(value) { return value instanceof Array }
   function likeArray(obj) { return typeof obj.length == 'number' }
@@ -11083,15 +12377,23 @@ var Zepto = (function() {
   // This function can be overriden in plugins for example to make
   // it compatible with browsers that don't support the DOM fully.
   zepto.fragment = function(html, name, properties) {
-    if (html.replace) html = html.replace(tagExpanderRE, "<$1></$2>")
-    if (name === undefined) name = fragmentRE.test(html) && RegExp.$1
-    if (!(name in containers)) name = '*'
+    var dom, nodes, container
 
-    var nodes, dom, container = containers[name]
-    container.innerHTML = '' + html
-    dom = $.each(slice.call(container.childNodes), function(){
-      container.removeChild(this)
-    })
+    // A special case optimization for a single tag
+    if (singleTagRE.test(html)) dom = $(document.createElement(RegExp.$1))
+
+    if (!dom) {
+      if (html.replace) html = html.replace(tagExpanderRE, "<$1></$2>")
+      if (name === undefined) name = fragmentRE.test(html) && RegExp.$1
+      if (!(name in containers)) name = '*'
+
+      container = containers[name]
+      container.innerHTML = '' + html
+      dom = $.each(slice.call(container.childNodes), function(){
+        container.removeChild(this)
+      })
+    }
+
     if (isPlainObject(properties)) {
       nodes = $(dom)
       $.each(properties, function(key, value) {
@@ -11099,6 +12401,7 @@ var Zepto = (function() {
         else nodes.attr(key, value)
       })
     }
+
     return dom
   }
 
@@ -11124,19 +12427,33 @@ var Zepto = (function() {
   // special cases).
   // This method can be overriden in plugins.
   zepto.init = function(selector, context) {
+    var dom
     // If nothing given, return an empty Zepto collection
     if (!selector) return zepto.Z()
+    // Optimize for string selectors
+    else if (typeof selector == 'string') {
+      selector = selector.trim()
+      // If it's a html fragment, create nodes from it
+      // Note: In both Chrome 21 and Firefox 15, DOM error 12
+      // is thrown if the fragment doesn't begin with <
+      if (selector[0] == '<' && fragmentRE.test(selector))
+        dom = zepto.fragment(selector, RegExp.$1, context), selector = null
+      // If there's a context, create a collection on that context first, and select
+      // nodes from there
+      else if (context !== undefined) return $(context).find(selector)
+      // If it's a CSS selector, use it to select nodes.
+      else dom = zepto.qsa(document, selector)
+    }
     // If a function is given, call it when the DOM is ready
     else if (isFunction(selector)) return $(document).ready(selector)
-    // If a Zepto collection is given, juts return it
+    // If a Zepto collection is given, just return it
     else if (zepto.isZ(selector)) return selector
     else {
-      var dom
       // normalize array if an array of nodes is given
       if (isArray(selector)) dom = compact(selector)
-      // Wrap DOM nodes. If a plain object is given, duplicate it.
+      // Wrap DOM nodes.
       else if (isObject(selector))
-        dom = [isPlainObject(selector) ? $.extend({}, selector) : selector], selector = null
+        dom = [selector], selector = null
       // If it's a html fragment, create nodes from it
       else if (fragmentRE.test(selector))
         dom = zepto.fragment(selector.trim(), RegExp.$1, context), selector = null
@@ -11145,9 +12462,9 @@ var Zepto = (function() {
       else if (context !== undefined) return $(context).find(selector)
       // And last but no least, if it's a CSS selector, use it to select nodes.
       else dom = zepto.qsa(document, selector)
-      // create a new Zepto collection from the nodes found
-      return zepto.Z(dom, selector)
     }
+    // create a new Zepto collection from the nodes found
+    return zepto.Z(dom, selector)
   }
 
   // `$` will be the base `Zepto` object. When calling this
@@ -11186,14 +12503,19 @@ var Zepto = (function() {
   // uses `document.querySelectorAll` and optimizes for some special cases, like `#id`.
   // This method can be overriden in plugins.
   zepto.qsa = function(element, selector){
-    var found
-    return (isDocument(element) && idSelectorRE.test(selector)) ?
-      ( (found = element.getElementById(RegExp.$1)) ? [found] : [] ) :
+    var found,
+        maybeID = selector[0] == '#',
+        maybeClass = !maybeID && selector[0] == '.',
+        nameOnly = maybeID || maybeClass ? selector.slice(1) : selector, // Ensure that a 1 char tag name still gets checked
+        isSimple = simpleSelectorRE.test(nameOnly)
+    return (isDocument(element) && isSimple && maybeID) ?
+      ( (found = element.getElementById(nameOnly)) ? [found] : [] ) :
       (element.nodeType !== 1 && element.nodeType !== 9) ? [] :
       slice.call(
-        classSelectorRE.test(selector) ? element.getElementsByClassName(RegExp.$1) :
-        tagSelectorRE.test(selector) ? element.getElementsByTagName(selector) :
-        element.querySelectorAll(selector)
+        isSimple && !maybeID ?
+          maybeClass ? element.getElementsByClassName(nameOnly) : // If it's simple, it could be a class
+          element.getElementsByTagName(selector) : // Or a tag
+          element.querySelectorAll(selector) // Or it's not simple, and we need to query all
       )
   }
 
@@ -11227,6 +12549,7 @@ var Zepto = (function() {
   // "null"  => null
   // "42"    => 42
   // "42.5"  => 42.5
+  // "08"    => "08"
   // JSON    => parse if valid
   // String  => self
   function deserializeValue(value) {
@@ -11236,7 +12559,7 @@ var Zepto = (function() {
         value == "true" ||
         ( value == "false" ? false :
           value == "null" ? null :
-          !isNaN(num = Number(value)) ? num :
+          !/^0/.test(value) && !isNaN(num = Number(value)) ? num :
           /^[\[\{]/.test(value) ? $.parseJSON(value) :
           value )
         : value
@@ -11332,7 +12655,9 @@ var Zepto = (function() {
     },
 
     ready: function(callback){
-      if (readyRE.test(document.readyState)) callback($)
+      // need to check if document.body exists for IE as that browser reports
+      // document ready when it hasn't yet created the body element
+      if (readyRE.test(document.readyState) && document.body) callback($)
       else document.addEventListener('DOMContentLoaded', function(){ callback($) }, false)
       return this
     },
@@ -11454,7 +12779,7 @@ var Zepto = (function() {
     },
     show: function(){
       return this.each(function(){
-        this.style.display == "none" && (this.style.display = null)
+        this.style.display == "none" && (this.style.display = '')
         if (getComputedStyle(this, '').getPropertyValue("display") == "none")
           this.style.display = defaultDisplay(this.nodeName)
       })
@@ -11524,7 +12849,7 @@ var Zepto = (function() {
     text: function(text){
       return arguments.length === 0 ?
         (this.length > 0 ? this[0].textContent : null) :
-        this.each(function(){ this.textContent = text })
+        this.each(function(){ this.textContent = (text === undefined) ? '' : ''+text })
     },
     attr: function(name, value){
       var result
@@ -11543,6 +12868,7 @@ var Zepto = (function() {
       return this.each(function(){ this.nodeType === 1 && setAttribute(this, name) })
     },
     prop: function(name, value){
+      name = propMap[name] || name
       return (value === undefined) ?
         (this[0] && this[0][name]) :
         this.each(function(idx){
@@ -11550,13 +12876,13 @@ var Zepto = (function() {
         })
     },
     data: function(name, value){
-      var data = this.attr('data-' + dasherize(name), value)
+      var data = this.attr('data-' + name.replace(capitalRE, '-$1').toLowerCase(), value)
       return data !== null ? deserializeValue(data) : undefined
     },
     val: function(value){
       return arguments.length === 0 ?
         (this[0] && (this[0].multiple ?
-           $(this[0]).find('option').filter(function(o){ return this.selected }).pluck('value') :
+           $(this[0]).find('option').filter(function(){ return this.selected }).pluck('value') :
            this[0].value)
         ) :
         this.each(function(idx){
@@ -11586,8 +12912,19 @@ var Zepto = (function() {
       }
     },
     css: function(property, value){
-      if (arguments.length < 2 && typeof property == 'string')
-        return this[0] && (this[0].style[camelize(property)] || getComputedStyle(this[0], '').getPropertyValue(property))
+      if (arguments.length < 2) {
+        var element = this[0], computedStyle = getComputedStyle(element, '')
+        if(!element) return
+        if (typeof property == 'string')
+          return element.style[camelize(property)] || computedStyle.getPropertyValue(property)
+        else if (isArray(property)) {
+          var props = {}
+          $.each(isArray(property) ? property: [property], function(_, prop){
+            props[prop] = (element.style[camelize(prop)] || computedStyle.getPropertyValue(prop))
+          })
+          return props
+        }
+      }
 
       var css = ''
       if (type(property) == 'string') {
@@ -11609,11 +12946,13 @@ var Zepto = (function() {
       return element ? this.indexOf($(element)[0]) : this.parent().children().indexOf(this[0])
     },
     hasClass: function(name){
+      if (!name) return false
       return emptyArray.some.call(this, function(el){
         return this.test(className(el))
       }, classRE(name))
     },
     addClass: function(name){
+      if (!name) return this
       return this.each(function(idx){
         classList = []
         var cls = className(this), newName = funcArg(this, name, idx, cls)
@@ -11634,6 +12973,7 @@ var Zepto = (function() {
       })
     },
     toggleClass: function(name, when){
+      if (!name) return this
       return this.each(function(idx){
         var $this = $(this), names = funcArg(this, name, idx, className(this))
         names.split(/\s+/g).forEach(function(klass){
@@ -11642,9 +12982,21 @@ var Zepto = (function() {
         })
       })
     },
-    scrollTop: function(){
+    scrollTop: function(value){
       if (!this.length) return
-      return ('scrollTop' in this[0]) ? this[0].scrollTop : this[0].scrollY
+      var hasScrollTop = 'scrollTop' in this[0]
+      if (value === undefined) return hasScrollTop ? this[0].scrollTop : this[0].pageYOffset
+      return this.each(hasScrollTop ?
+        function(){ this.scrollTop = value } :
+        function(){ this.scrollTo(this.scrollX, value) })
+    },
+    scrollLeft: function(value){
+      if (!this.length) return
+      var hasScrollLeft = 'scrollLeft' in this[0]
+      if (value === undefined) return hasScrollLeft ? this[0].scrollLeft : this[0].pageXOffset
+      return this.each(hasScrollLeft ?
+        function(){ this.scrollLeft = value } :
+        function(){ this.scrollTo(value, this.scrollY) })
     },
     position: function() {
       if (!this.length) return
@@ -11687,11 +13039,13 @@ var Zepto = (function() {
 
   // Generate the `width` and `height` functions
   ;['width', 'height'].forEach(function(dimension){
+    var dimensionProperty =
+      dimension.replace(/./, function(m){ return m[0].toUpperCase() })
+
     $.fn[dimension] = function(value){
-      var offset, el = this[0],
-        Dimension = dimension.replace(/./, function(m){ return m[0].toUpperCase() })
-      if (value === undefined) return isWindow(el) ? el['inner' + Dimension] :
-        isDocument(el) ? el.documentElement['offset' + Dimension] :
+      var offset, el = this[0]
+      if (value === undefined) return isWindow(el) ? el['inner' + dimensionProperty] :
+        isDocument(el) ? el.documentElement['scroll' + dimensionProperty] :
         (offset = this.offset()) && offset[dimension]
       else return this.each(function(idx){
         el = $(this)
@@ -11767,4 +13121,3 @@ window.Zepto = Zepto
 window.$ === undefined && (window.$ = Zepto)
 
 },{}]},{},[1])
-;

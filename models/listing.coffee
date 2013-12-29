@@ -1,7 +1,7 @@
 Backbone = require 'backbone'
 sd = require('sharify').data
 accounting = require 'accounting'
-url = require 'url'
+{ parse } = require 'url'
 moment = require 'moment'
 
 module.exports = class Listing extends Backbone.Model
@@ -12,18 +12,20 @@ module.exports = class Listing extends Backbone.Model
     accounting.formatMoney @get('rent'), '$', 0
   
   sourceWebsiteName: ->
-    hostname = url.parse(@get 'url').hostname
-    switch host
+    hostname = parse(@get 'url').hostname.replace 'www.', ''
+    switch hostname
       when 'streeteasy.com' then 'Street Easy'
-      when 'www.nybits.com' then 'NYBits'
-      when 'www.urbanedgeny.com' then 'Urban Edge'
+      when 'nybits.com' then 'NYBits'
+      when 'urbanedgeny.com' then 'Urban Edge'
       when 'apartable.com' then 'Apartable'
       when 'trulia.com' then 'Trulia'
-      when 'www.renthop.com' then 'RentHop'
-      when 'www.9300realty.com' then '9300 Realty'
-      when 'http://www.iconrealtymgmt.com/' then 'Icon Realty'
-      when 'www.nofeerentals.com' then 'Nofeerentals'
-      when 'gonofee.com' then 'go no fee'
+      when 'renthop.com' then 'RentHop'
+      when '9300realty.com' then '9300 Realty'
+      when 'iconrealtymgmt.com' then 'Icon Realty'
+      when 'nofeerentals.com' then 'Nofeerentals'
+      when 'gonofee.com' then 'Go No Fee'
+      when 'swmanagement.com' then 'S.W. Management'
+      when 'sublet.com' then 'Sublet.com'
       else hostname
         
   hasGeoPoints: ->

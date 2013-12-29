@@ -13,7 +13,7 @@ module.exports = class HomepageView extends Backbone.View
   
   el: 'body'
   
-  initialize: ->
+  initialize: (options) ->
     @$window = $ window
     @listings = new Listings
     @router = new FiltersRouter pushState: true, listings: @listings
@@ -23,7 +23,7 @@ module.exports = class HomepageView extends Backbone.View
     @listingsView = new ListingsView
       collection: @listings
       el: @$('#home-page-listings-container')
-      GMaps: @options.GMaps or (require('gmaps'); GMaps)
+      GMaps: options?.GMaps or (require('gmaps'); GMaps)
     @$window.on 'scroll.homepagefx', @onScroll
     @$window.on 'resize.homepagefx', @resizeHeroUnit
     @listings.params.on 'change', @navigate
