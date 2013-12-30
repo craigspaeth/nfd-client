@@ -9,7 +9,7 @@ MARGIN_SIZE = 20
 module.exports = class ListingsView extends Backbone.View
   
   initialize: (options) ->
-    @GMaps = options.GMaps or require 'gmaps'
+    @GMaps = options?.GMaps or require 'gmaps'
     @$window = $(window)
     @page = 0
     @$el.infiniteScroll @nextPage

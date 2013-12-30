@@ -2,7 +2,7 @@ clientenv = require '../helpers/clientenv.coffee'
 sinon = require 'sinon'
 Backbone = require 'backbone'
 
-describe 'HomepageView', ->
+xdescribe 'HomepageView', ->
   
   before (done) ->
     clientenv.setup 'layout/templates/index', =>

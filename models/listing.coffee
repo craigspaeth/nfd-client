@@ -26,6 +26,7 @@ module.exports = class Listing extends Backbone.Model
       when 'gonofee.com' then 'Go No Fee'
       when 'swmanagement.com' then 'S.W. Management'
       when 'sublet.com' then 'Sublet.com'
+      when 'realestate.nytimes.com' then 'NY Times'
       else hostname
         
   hasGeoPoints: ->

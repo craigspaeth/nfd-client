@@ -32,7 +32,7 @@ module.exports = class HomepageView extends Backbone.View
     @loadHeroUnit()
   
   navigate: =>
-    @router.navigate "/search/#{@listings.params.toQuerystring()}", trigger: true
+    @router.navigate "/search/#{@listings.params.toQuerystring()}"
   
   loadHeroUnit: ->
     heroUnit = sd.HERO_UNITS[_.random(0, sd.HERO_UNITS.length - 1)]
