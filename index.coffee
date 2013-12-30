@@ -5,7 +5,6 @@ express = require 'express'
 sd = require('sharify').data
 request = require 'superagent'
 accounting = require 'accounting'
-uaMiddlware = require './components/user-agent/middleware'
 mandrill = require('node-mandrill')(MANDRILL_APIKEY)
 sharify = require 'sharify'
 _ = require 'underscore'
@@ -50,7 +49,6 @@ if "development" is NODE_ENV
     transforms: [require("jadeify2"), require('caching-coffeeify')]
   
 # Routes
-app.use uaMiddlware
 app.get '/', (req, res) -> res.render 'home-page'
 app.get '/search*', (req, res) -> res.render 'home-page'
 app.get '/about', (req, res) -> res.render 'about-page'
