@@ -290,7 +290,7 @@ module.exports = HomepageView = (function(_super) {
 
   HomepageView.prototype.el = 'body';
 
-  HomepageView.prototype.initialize = function() {
+  HomepageView.prototype.initialize = function(options) {
     this.$window = $(window);
     this.listings = new Listings;
     this.router = new FiltersRouter({
@@ -304,7 +304,7 @@ module.exports = HomepageView = (function(_super) {
     this.listingsView = new ListingsView({
       collection: this.listings,
       el: this.$('#home-page-listings-container'),
-      GMaps: this.options.GMaps || (require('gmaps'), GMaps)
+      GMaps: (options != null ? options.GMaps : void 0) || (require('gmaps'), GMaps)
     });
     this.$window.on('scroll.homepagefx', this.onScroll);
     this.$window.on('resize.homepagefx', this.resizeHeroUnit);
@@ -315,9 +315,7 @@ module.exports = HomepageView = (function(_super) {
   };
 
   HomepageView.prototype.navigate = function() {
-    return this.router.navigate("/search/" + (this.listings.params.toQuerystring()), {
-      trigger: true
-    });
+    return this.router.navigate("/search/" + (this.listings.params.toQuerystring()));
   };
 
   HomepageView.prototype.loadHeroUnit = function() {
@@ -583,8 +581,8 @@ module.exports = ListingsView = (function(_super) {
     return _ref;
   }
 
-  ListingsView.prototype.initialize = function() {
-    this.GMaps = this.options.GMaps || require('gmaps');
+  ListingsView.prototype.initialize = function(options) {
+    this.GMaps = (options != null ? options.GMaps : void 0) || require('gmaps');
     this.$window = $(window);
     this.page = 0;
     this.$el.infiniteScroll(this.nextPage);
@@ -850,30 +848,34 @@ module.exports = Listing = (function(_super) {
 
   Listing.prototype.sourceWebsiteName = function() {
     var hostname;
-    return 'moo';
-    hostname = parse(this.get('url')).hostname;
-    console.log(parse(this.get('url')), 'moooo');
+    hostname = parse(this.get('url')).hostname.replace('www.', '');
     switch (hostname) {
       case 'streeteasy.com':
         return 'Street Easy';
-      case 'www.nybits.com':
+      case 'nybits.com':
         return 'NYBits';
-      case 'www.urbanedgeny.com':
+      case 'urbanedgeny.com':
         return 'Urban Edge';
       case 'apartable.com':
         return 'Apartable';
       case 'trulia.com':
         return 'Trulia';
-      case 'www.renthop.com':
+      case 'renthop.com':
         return 'RentHop';
-      case 'www.9300realty.com':
+      case '9300realty.com':
         return '9300 Realty';
-      case 'http://www.iconrealtymgmt.com/':
+      case 'iconrealtymgmt.com':
         return 'Icon Realty';
-      case 'www.nofeerentals.com':
+      case 'nofeerentals.com':
         return 'Nofeerentals';
       case 'gonofee.com':
-        return 'go no fee';
+        return 'Go No Fee';
+      case 'swmanagement.com':
+        return 'S.W. Management';
+      case 'sublet.com':
+        return 'Sublet.com';
+      case 'realestate.nytimes.com':
+        return 'NY Times';
       default:
         return hostname;
     }
