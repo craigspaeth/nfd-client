@@ -1,13 +1,12 @@
 extends ../layout/templates/index
 
 block content
-  unit = sd.HERO_UNITS[4]
   #about-page-small-header(
-    style="background-image: url('#{unit.path}')"
+    style="background-image: url('#{sd.HERO_UNITS[4].path}')"
   )
-    a#about-page-small-header-caption( href=unit.url, target='_blank' )
+    a#about-page-small-header-caption( href=sd.HERO_UNITS[4].url, target='_blank' )
       | Photo by William Warby on Flickr
   .about-page-copy
-    include about.md
+    include:md about.md
   #about-page-faq.about-page-copy
-    include faq.md
+    include:md faq.md
