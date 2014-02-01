@@ -578,24 +578,24 @@ html.safari .filters-sort-select {
   position: relative;
   left: -column-gap;
 }
-.listings > section {
+.listings-listing {
   zoom: 1;
   margin-bottom: 80px;
   position: relative;
 }
-.listings > section:before,
-.listings > section:after {
+.listings-listing:before,
+.listings-listing:after {
   content: "";
   display: table;
 }
-.listings > section:after {
+.listings-listing:after {
   clear: both;
 }
-.listings > section.listings-li-locked .listings-section-left {
+.listings-listing.listings-li-locked .listings-section-left {
   position: fixed;
   top: 177px;
 }
-.listings > section.listings-li-bottom .listings-section-left {
+.listings-listing.listings-li-bottom .listings-section-left {
   bottom: 0;
   top: inherit;
 }

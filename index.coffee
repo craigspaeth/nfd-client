@@ -46,7 +46,7 @@ if "development" is NODE_ENV
     dest: __dirname + "/public"
   app.use require("browserify-dev-middleware")
     src: __dirname
-    transforms: [require("jadeify2"), require('caching-coffeeify')]
+    transforms: [require("jadeify"), require('caching-coffeeify')]
   
 # Routes
 app.get '/', (req, res) -> res.render 'home-page'

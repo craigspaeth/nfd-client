@@ -1,4 +1,5 @@
-require '../../lib/zepto/index.coffee'
+window.$ = require 'jquery'
+require '../../lib/jquery.infinite-scroll.coffee'
 Backbone = require 'backbone'
 sd = require('sharify').data
 HomepageView = require '../home-page/view.coffee'

@@ -1,7 +1,6 @@
 _ = require 'underscore'
 Backbone = require 'backbone'
-template = -> require('./template.jade') arguments...
-morpheus = require 'morpheus'
+template = -> require('./templates/index.jade') arguments...
 
 FIXED_FILTER_HEIGHT = 160
 MARGIN_SIZE = 20
@@ -26,10 +25,9 @@ module.exports = class ListingsView extends Backbone.View
     startTop = @$window.scrollTop()
     listingsTop = @listingsTop()
     if animate
-      morpheus.tween 700, (pos) =>
-        $('body')[0].scrollTop = (listingsTop - startTop) * pos + startTop
+      $('body, html').animate { scrollTop: listingsTop }
     else
-      $('body')[0].scrollTop = listingsTop
+      $('body, html').scrollTop listingsTop
   
   listingsTop: ->
     @$el.offset().top - (FIXED_FILTER_HEIGHT + @$('#main-header').height()) + MARGIN_SIZE + 5
@@ -57,7 +55,7 @@ module.exports = class ListingsView extends Backbone.View
     @focusOnCurrentListing()
   
   setScrollRefs: ->
-    for el in @$('.listings > section').toArray().reverse()
+    for el in @$('.listings-listing').toArray().reverse()
       if @$window.scrollTop() + FIXED_FILTER_HEIGHT + MARGIN_SIZE > $(el).offset().top
         @$currentLi = $(el)
         @currentListing = @collection.at @$currentLi.index()
@@ -66,7 +64,7 @@ module.exports = class ListingsView extends Backbone.View
     @currentListing = null
         
   popLockInfo: ->
-    @$('.listings > section').removeClass('listings-li-locked listings-li-bottom')
+    @$('.listings-listing').removeClass('listings-li-locked listings-li-bottom')
     return unless @$currentLi?.length
     infoBottom = @$currentLi.find('.listings-section-left').height() + 
                  @$window.scrollTop() + FIXED_FILTER_HEIGHT

@@ -1,0 +1,18 @@
+.listings-container
+  .listings-before-spinner.loading-spinner
+    .loading-spinner-dot
+  if listings.length
+    .listings
+      for listing, i in listings
+        if i % 5 == 0
+          include ad
+        include listing
+
+    //- Listings map
+    .listings-map
+    .listings-map-no-geo-cover Listing missing geo-coordinates
+    .listings-after-spinner.loading-spinner
+      .loading-spinner-dot
+
+  else
+    .listings-no-results No results. Try loosening up your filters.

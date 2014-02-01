@@ -6,14 +6,11 @@ s:
 ss:
 	API_URL=http://staging.api.nofeedigs.com $(BIN)/coffee index.coffee
 
-test:
-	$(BIN)/mocha $(shell find test -name '*.coffee' -not -path 'test/helpers/*')
-
 assets:
 	rm -rf public/assets/
 	mkdir public/assets
 	$(foreach file, $(shell find assets -name '*.coffee' | cut -d '.' -f 1), \
-		$(BIN)/browserify $(file).coffee -t jadeify2 -t caching-coffeeify > public/$(file).js; \
+		$(BIN)/browserify $(file).coffee -t jadeify -t caching-coffeeify > public/$(file).js; \
 		$(BIN)/uglifyjs public/$(file).js > public/$(file).min.js; \
 		gzip -f public/$(file).min.js; \
 	)
