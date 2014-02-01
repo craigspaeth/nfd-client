@@ -424,16 +424,20 @@ var locals_ = (locals || {}),listings = locals_.listings;
 buf.push("<div class=\"listings-container\"><div class=\"listings-before-spinner loading-spinner\"><div class=\"loading-spinner-dot\"></div></div>");
 if ( listings.length)
 {
-buf.push("<ul class=\"listings\">");
+buf.push("<div class=\"listings\">");
 // iterate listings
 ;(function(){
   var $$obj = listings;
   if ('number' == typeof $$obj.length) {
 
-    for (var $index = 0, $$l = $$obj.length; $index < $$l; $index++) {
-      var listing = $$obj[$index];
+    for (var i = 0, $$l = $$obj.length; i < $$l; i++) {
+      var listing = $$obj[i];
 
-buf.push("<li><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade.interp = listing.formattedRent()) ? "" : jade.interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade.interp = listing.bedsDisplay()) ? "" : jade.interp)) + "</div>");
+if ( i % 5 == 0)
+{
+buf.push("<div class=\"listings-advertisement\"><script async=\"async\" src=\"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script><!-- inline--><ins style=\"display: inline-block; width: 728px; height: 90px;\" data-ad-client=\"ca-pub-8611301148795783\" data-ad-slot=\"4397497751\" class=\"adsbygoogle\"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});\n</script></div>");
+}
+buf.push("<section><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade.interp = listing.formattedRent()) ? "" : jade.interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade.interp = listing.bedsDisplay()) ? "" : jade.interp)) + "</div>");
 if ( listing.bedsDisplay() == 'S')
 {
 buf.push("studio");
@@ -479,15 +483,19 @@ else
 {
 buf.push("<div class=\"listings-no-pictures\">No pictures</div>");
 }
-buf.push("</div></li>");
+buf.push("</div></section>");
     }
 
   } else {
     var $$l = 0;
-    for (var $index in $$obj) {
-      $$l++;      var listing = $$obj[$index];
+    for (var i in $$obj) {
+      $$l++;      var listing = $$obj[i];
 
-buf.push("<li><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade.interp = listing.formattedRent()) ? "" : jade.interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade.interp = listing.bedsDisplay()) ? "" : jade.interp)) + "</div>");
+if ( i % 5 == 0)
+{
+buf.push("<div class=\"listings-advertisement\"><script async=\"async\" src=\"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script><!-- inline--><ins style=\"display: inline-block; width: 728px; height: 90px;\" data-ad-client=\"ca-pub-8611301148795783\" data-ad-slot=\"4397497751\" class=\"adsbygoogle\"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});\n</script></div>");
+}
+buf.push("<section><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade.interp = listing.formattedRent()) ? "" : jade.interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade.interp = listing.bedsDisplay()) ? "" : jade.interp)) + "</div>");
 if ( listing.bedsDisplay() == 'S')
 {
 buf.push("studio");
@@ -533,13 +541,13 @@ else
 {
 buf.push("<div class=\"listings-no-pictures\">No pictures</div>");
 }
-buf.push("</div></li>");
+buf.push("</div></section>");
     }
 
   }
 }).call(this);
 
-buf.push("</ul><div class=\"listings-map\"></div><div class=\"listings-map-no-geo-cover\">Listing missing geo-coordinates</div><div class=\"listings-after-spinner loading-spinner\"><div class=\"loading-spinner-dot\"></div></div>");
+buf.push("</div><div class=\"listings-map\"></div><div class=\"listings-map-no-geo-cover\">Listing missing geo-coordinates</div><div class=\"listings-after-spinner loading-spinner\"><div class=\"loading-spinner-dot\"></div></div>");
 }
 else
 {
@@ -658,7 +666,7 @@ module.exports = ListingsView = (function(_super) {
 
   ListingsView.prototype.setScrollRefs = function() {
     var el, _i, _len, _ref1;
-    _ref1 = this.$('.listings > li').toArray().reverse();
+    _ref1 = this.$('.listings > section').toArray().reverse();
     for (_i = 0, _len = _ref1.length; _i < _len; _i++) {
       el = _ref1[_i];
       if (this.$window.scrollTop() + FIXED_FILTER_HEIGHT + MARGIN_SIZE > $(el).offset().top) {
@@ -673,7 +681,7 @@ module.exports = ListingsView = (function(_super) {
 
   ListingsView.prototype.popLockInfo = function() {
     var imagesBottom, infoBottom, reachedBottom, _ref1;
-    this.$('.listings > li').removeClass('listings-li-locked listings-li-bottom');
+    this.$('.listings > section').removeClass('listings-li-locked listings-li-bottom');
     if (!((_ref1 = this.$currentLi) != null ? _ref1.length : void 0)) {
       return;
     }
