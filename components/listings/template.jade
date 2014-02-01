@@ -1,10 +1,27 @@
+
+
 .listings-container
   .listings-before-spinner.loading-spinner
     .loading-spinner-dot
   if listings.length
-    ul.listings
-      for listing in listings
-        li
+    .listings
+      for listing, i in listings
+        if i % 5 == 0
+
+          //- Advertisement
+          .listings-advertisement
+            script( async='async', src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js' )
+            // inline
+            ins.adsbygoogle(
+              style='display: inline-block; width: 728px; height: 90px;',
+              data-ad-client='ca-pub-8611301148795783',
+              data-ad-slot='4397497751'
+            )
+            script.
+              (adsbygoogle = window.adsbygoogle || []).push({});
+
+        //- Individual listing
+        section
           .listings-section-left
             h1= listing.formattedRent()
             h2.listings-bed-count
@@ -30,9 +47,12 @@
                     img( src=url )
             else
               .listings-no-pictures No pictures
+
+    //- Listings map
     .listings-map
     .listings-map-no-geo-cover Listing missing geo-coordinates
     .listings-after-spinner.loading-spinner
       .loading-spinner-dot
+
   else
     .listings-no-results No results. Try loosening up your filters.

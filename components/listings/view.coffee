@@ -57,7 +57,7 @@ module.exports = class ListingsView extends Backbone.View
     @focusOnCurrentListing()
   
   setScrollRefs: ->
-    for el in @$('.listings > li').toArray().reverse()
+    for el in @$('.listings > section').toArray().reverse()
       if @$window.scrollTop() + FIXED_FILTER_HEIGHT + MARGIN_SIZE > $(el).offset().top
         @$currentLi = $(el)
         @currentListing = @collection.at @$currentLi.index()
@@ -66,7 +66,7 @@ module.exports = class ListingsView extends Backbone.View
     @currentListing = null
         
   popLockInfo: ->
-    @$('.listings > li').removeClass('listings-li-locked listings-li-bottom')
+    @$('.listings > section').removeClass('listings-li-locked listings-li-bottom')
     return unless @$currentLi?.length
     infoBottom = @$currentLi.find('.listings-section-left').height() + 
                  @$window.scrollTop() + FIXED_FILTER_HEIGHT

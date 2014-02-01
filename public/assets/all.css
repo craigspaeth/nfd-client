@@ -578,24 +578,24 @@ html.safari .filters-sort-select {
   position: relative;
   left: -column-gap;
 }
-.listings > li {
+.listings > section {
   zoom: 1;
   margin-bottom: 80px;
   position: relative;
 }
-.listings > li:before,
-.listings > li:after {
+.listings > section:before,
+.listings > section:after {
   content: "";
   display: table;
 }
-.listings > li:after {
+.listings > section:after {
   clear: both;
 }
-.listings > li.listings-li-locked .listings-section-left {
+.listings > section.listings-li-locked .listings-section-left {
   position: fixed;
   top: 177px;
 }
-.listings > li.listings-li-bottom .listings-section-left {
+.listings > section.listings-li-bottom .listings-section-left {
   bottom: 0;
   top: inherit;
 }
@@ -702,6 +702,10 @@ html.safari .filters-sort-select {
   text-align: center;
   font-size: 18px;
   margin: 100px 0;
+}
+.listings-advertisement {
+  background: #f2f2f2;
+  margin: 30px 0;
 }
 @-moz-keyframes spin {
   0% {
