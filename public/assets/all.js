@@ -672,7 +672,7 @@ module.exports = ListingsView = (function(_super) {
       el = _ref1[_i];
       if (this.$window.scrollTop() + FIXED_FILTER_HEIGHT + MARGIN_SIZE > $(el).offset().top) {
         this.$currentLi = $(el);
-        this.currentListing = this.collection.at(this.$currentLi.index());
+        this.currentListing = this.collection.at(this.$currentLi.index() - 1);
         return;
       }
     }

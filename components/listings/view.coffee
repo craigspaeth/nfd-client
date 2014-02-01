@@ -58,7 +58,7 @@ module.exports = class ListingsView extends Backbone.View
     for el in @$('.listings-listing').toArray().reverse()
       if @$window.scrollTop() + FIXED_FILTER_HEIGHT + MARGIN_SIZE > $(el).offset().top
         @$currentLi = $(el)
-        @currentListing = @collection.at @$currentLi.index()
+        @currentListing = @collection.at @$currentLi.index() - 1
         return
     @$currentLi = null
     @currentListing = null
