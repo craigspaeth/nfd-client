@@ -42,6 +42,7 @@ module.exports = class ListingsView extends Backbone.View
     @$el.html template(listings: @collection.models)
     @renderMap()
     @onScroll()
+    @$('img').error -> $(@).parent().hide()
     
   onSync: (col, res) =>
     @$('.listings-container').removeClass('listings-loading')

@@ -4,7 +4,7 @@
   if listings.length
     .listings
       for listing, i in listings
-        if i % 5 == 0
+        if i % 5 == 0 && i != 0
           include ad
         include listing
 

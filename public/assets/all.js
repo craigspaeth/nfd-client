@@ -437,9 +437,9 @@ buf.push("<div class=\"listings\">");
     for (var i = 0, $$l = $$obj.length; i < $$l; i++) {
       var listing = $$obj[i];
 
-if ( i % 5 == 0)
+if ( i % 5 == 0 && i != 0)
 {
-buf.push("<div class=\"listings-advertisement\"><script async=\"async\" src=\"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script><!-- inline--><ins style=\"display: inline-block; width: 728px; height: 90px;\" data-ad-client=\"ca-pub-8611301148795783\" data-ad-slot=\"4397497751\" class=\"adsbygoogle\"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>");
+buf.push("<div class=\"listings-advertisement-container\"><h2 class=\"listings-advertisement-header\">Advertisement</h2><div class=\"listings-advertisement\"><script async=\"async\" src=\"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script><!-- inline-large--><ins style=\"display: inline-block; width:970px; height:90px\" data-ad-client=\"ca-pub-8611301148795783\" data-ad-slot=\"4105486158\" class=\"adsbygoogle\"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div>");
 }
 buf.push("<section class=\"listings-listing\"><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade.interp = listing.formattedRent()) ? "" : jade.interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade.interp = listing.bedsDisplay()) ? "" : jade.interp)) + "</div>");
 if ( listing.bedsDisplay() == 'S')
@@ -495,9 +495,9 @@ buf.push("</div></section>");
     for (var i in $$obj) {
       $$l++;      var listing = $$obj[i];
 
-if ( i % 5 == 0)
+if ( i % 5 == 0 && i != 0)
 {
-buf.push("<div class=\"listings-advertisement\"><script async=\"async\" src=\"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script><!-- inline--><ins style=\"display: inline-block; width: 728px; height: 90px;\" data-ad-client=\"ca-pub-8611301148795783\" data-ad-slot=\"4397497751\" class=\"adsbygoogle\"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div>");
+buf.push("<div class=\"listings-advertisement-container\"><h2 class=\"listings-advertisement-header\">Advertisement</h2><div class=\"listings-advertisement\"><script async=\"async\" src=\"//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js\"></script><!-- inline-large--><ins style=\"display: inline-block; width:970px; height:90px\" data-ad-client=\"ca-pub-8611301148795783\" data-ad-slot=\"4105486158\" class=\"adsbygoogle\"></ins><script>(adsbygoogle = window.adsbygoogle || []).push({});</script></div></div>");
 }
 buf.push("<section class=\"listings-listing\"><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade.interp = listing.formattedRent()) ? "" : jade.interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade.interp = listing.bedsDisplay()) ? "" : jade.interp)) + "</div>");
 if ( listing.bedsDisplay() == 'S')
@@ -648,7 +648,10 @@ module.exports = ListingsView = (function(_super) {
       listings: this.collection.models
     }));
     this.renderMap();
-    return this.onScroll();
+    this.onScroll();
+    return this.$('img').error(function() {
+      return $(this).parent().hide();
+    });
   };
 
   ListingsView.prototype.onSync = function(col, res) {
