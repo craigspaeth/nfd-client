@@ -4,7 +4,6 @@ left-section-width = 200px
 middle-section-width = 360px
 map-width = 400px
 map-height = 400px
-li-bottom-margin = 80px
 locked-top-margin = 120px + main-header-height
 column-gap = 20px
 
@@ -42,7 +41,6 @@ column-gap = 20px
   
 .listings-listing
   clearfix()
-  margin-bottom li-bottom-margin
   position relative
   &.listings-li-locked
     .listings-section-left
@@ -61,6 +59,8 @@ column-gap = 20px
   width middle-section-width
   min-height 500px
   margin-left left-section-width + column-gap
+  position relative
+  margin-bottom -5px
   img
     width 100%
     display block
@@ -145,24 +145,11 @@ column-gap = 20px
   margin 100px 0
 
 .listings-advertisement-container
-  padding 200px 0
-  margin 200px 0
+  padding 300px 0
   z-index 3
   background white
   position relative
   z-index 1
-  &::before, &::after
-    content '.'
-    color transparent
-    width 100%
-    height 200px
-    position absolute
-  &::before
-    background linear-gradient(top, transparent, white)
-    top -200px
-  &::after
-    bottom -200px
-    background linear-gradient(bottom, transparent, white)
 
 .listings-advertisement
   text-align center
