@@ -580,6 +580,7 @@ html.safari .filters-sort-select {
 }
 .listings-listing {
   zoom: 1;
+  margin-bottom: 80px;
   position: relative;
 }
 .listings-listing:before,
@@ -595,8 +596,11 @@ html.safari .filters-sort-select {
   top: 177px;
 }
 .listings-listing.listings-li-bottom .listings-section-left {
-  bottom: 0;
+  bottom: 5px;
   top: inherit;
+}
+.listings-listing.listings-listing-end {
+  margin-bottom: -5px;
 }
 .listings-section-left {
   position: absolute;
@@ -606,8 +610,6 @@ html.safari .filters-sort-select {
   width: 360px;
   min-height: 500px;
   margin-left: 220px;
-  position: relative;
-  margin-bottom: -5px;
 }
 .listings-section-middle img {
   width: 100%;
@@ -723,6 +725,17 @@ html.safari .filters-sort-select {
   letter-spacing: 1px;
   color: #aaa;
   text-transform: uppercase;
+}
+.listings-advertisement-placeholder {
+  width: 728px;
+  background: #f2f2f2;
+  height: 90px;
+  display: inline-block;
+  z-index: -1;
+  position: absolute;
+  left: 50%;
+  margin-left: -364px;
+  margin-top: 21px;
 }
 @-moz-keyframes spin {
   0% {

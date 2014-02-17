@@ -4,9 +4,13 @@
   if listings.length
     .listings
       for listing, i in listings
-        if i % 5 == 0 && i != 0
+        if i % 3 == 0 && i != 0
+          - var end = true;
+          include listing
           include ad
-        include listing
+        else
+          - var end = false;
+          include listing
 
     //- Listings map
     .listings-map

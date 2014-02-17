@@ -4,6 +4,7 @@ left-section-width = 200px
 middle-section-width = 360px
 map-width = 400px
 map-height = 400px
+li-bottom-margin = 80px
 locked-top-margin = 120px + main-header-height
 column-gap = 20px
 
@@ -41,6 +42,7 @@ column-gap = 20px
   
 .listings-listing
   clearfix()
+  margin-bottom li-bottom-margin
   position relative
   &.listings-li-locked
     .listings-section-left
@@ -48,8 +50,10 @@ column-gap = 20px
       top locked-top-margin
   &.listings-li-bottom
     .listings-section-left
-      bottom 0
+      bottom 5px
       top inherit
+  &.listings-listing-end
+    margin-bottom -5px
 
 .listings-section-left
   position absolute
@@ -59,8 +63,6 @@ column-gap = 20px
   width middle-section-width
   min-height 500px
   margin-left left-section-width + column-gap
-  position relative
-  margin-bottom -5px
   img
     width 100%
     display block
@@ -163,3 +165,14 @@ column-gap = 20px
   letter-spacing 1px
   color #aaa
   text-transform uppercase
+
+.listings-advertisement-placeholder
+  width 728px
+  background #f2f2f2
+  height 90px
+  display inline-block
+  z-index -1
+  position absolute
+  left 50%
+  margin-left -364px
+  margin-top 21px
