@@ -61,9 +61,9 @@ module.exports = class HomepageView extends Backbone.View
     @popLockFilters()
   
   popLockFilters: ->
-    @$('#home-page-filters').removeClass('home-page-filters-fixed')
+    @$('#home-page-filters, #main-header').removeClass('home-page-filters-fixed')
     return unless @$window.scrollTop() > @$('#home-page-filters').offset().top
-    @$('#home-page-filters').addClass('home-page-filters-fixed')
+    @$('#home-page-filters, #main-header').addClass('home-page-filters-fixed')
 
   transitionHeroUnitOpacity: ->
     return unless @$('#home-page-hero-unit-img-container').hasClass('home-page-hero-unit-loaded')

@@ -64,9 +64,9 @@ tabs-slider-widget(color)
     rounded-tabs-default()
 
 .filters-bedroom-tabs
-  tabs-slider-widget(green-color)
+  tabs-slider-widget(bed-color)
 .filters-bathroom-tabs
-  tabs-slider-widget(blue-color)
+  tabs-slider-widget(bath-color)
   
 .filters-location-button
   font-size 12px
@@ -139,11 +139,24 @@ tabs-slider-widget(color)
   .filters-count-count
     font-weight bold
     
-.filters-max-rent
-  width 180px
+// .filters-max-rent
+//   width 180px
 
-.filters-sort-select
-  width 131px
+// .filters-sort-select
+//   width 131px
+
+.filters-alerts
+  background url('/images/alert-bell.svg') center center no-repeat
+  background-size 40%
+  border 1px solid #ddd
+  padding 14px 26px
+  bottom 1px
+  position absolute
+  &:hover, &:active
+    background url('/images/alert-bell-w.svg') center center no-repeat
+    background-size 40%
+    background-color green-color
+    border-color green-color
 
 .filters-close
   position absolute

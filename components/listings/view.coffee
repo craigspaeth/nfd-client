@@ -121,4 +121,4 @@ module.exports = class ListingsView extends Backbone.View
   focusOnCurrentListing: ->
     return unless @gmap? and @currentListing?.hasGeoPoints()
     @gmap.setCenter @currentListing.get('location').lat, @currentListing.get('location').lng
-    @gmap.setZoom 14
+    @gmap.setZoom 16

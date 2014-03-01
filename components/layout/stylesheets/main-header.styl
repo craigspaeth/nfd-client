@@ -1,13 +1,12 @@
 @import '../../stylus-lib'
 
-nav-border = 1px solid hover-green-color
+nav-border-color = #ddd
+header-color = black
 
 .typekit-badge
   display none !important
 
 #main-header
-  background-color green-color
-  color white
   width 100%
   top 0
   left 0
@@ -17,27 +16,53 @@ nav-border = 1px solid hover-green-color
   nav
     display inline-block
     vertical-align top
-    border-left nav-border
     float left
     a
+      font-smoothing auto
       color white
       display inline-block
       text-decoration none
       padding 18px
       transition background-color 0.3s
-      border-right nav-border
+      border-right 1px solid nav-border-color
       &:first-child
         padding-left 18px
       &:hover
-        background-color hover-green-color
-    
+        background-color nav-border-color
+
+// Light header
+#main-header.home-page-filters-fixed
+  background-color main-header-bg-color
+  color header-color
+  a
+    color header-color
+  nav
+    border-left 1px solid nav-border-color
+    a
+      border-right 1px solid nav-border-color
+      &:hover
+        background-color black
+
+// Dark header
+#main-header
+  background-color #222
+#main-header, #main-header a, #main-header nav, #main-header a
+  color #eee
+#main-header
+  nav
+    border-left 1px solid black
+    a
+      border-right 1px solid black
+      &:hover
+        background-color black
+
 #main-header-logo
   background no-repeat
-  background-size contain
+  background-size 25%
   display inline-block
   margin 13px 25px 0 10px
   padding 5px 0 5px 40px
-  color white
+  color header-color
   font-weight bold
   text-decoration none
   float left
