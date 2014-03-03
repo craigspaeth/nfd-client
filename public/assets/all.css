@@ -270,9 +270,6 @@
 #home-page-filters.home-page-filters-fixed .filters-sort-label {
   margin-right: 10px;
 }
-#home-page-filters.home-page-filters-fixed .filters-alerts-label {
-  display: inline-block !important;
-}
 #home-page-filters.home-page-filters-fixed .filters {
   margin: auto;
 }
