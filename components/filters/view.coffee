@@ -9,6 +9,7 @@ module.exports = class FiltersView extends Backbone.View
     @params.on 'change', @render
     @collection.on 'sync', @renderCounts
     $(document).on 'click', @closeNeighborhoodsPopover
+    @hideAlertsPopover()
     
   render: =>
     # Select max rent & sort by
@@ -54,6 +55,9 @@ module.exports = class FiltersView extends Backbone.View
     'click .filters-location-button': 'toggleNeighborhoodsPopover'
     'click .filters-close': 'toggleNeighborhoodsPopover'
     'change .filters-location-neighborhoods-checkall': 'toggleNeighborhoodGroup'
+    'mouseover .filters-alerts': 'bounceAlertsPopover'
+    'mouseout .filters-alerts': 'hideAlertsPopover'
+    'click .filters-alerts': 'onFilterAlerts'
   
   setRent: (e) ->
     @params.set 'rent-max', $(e.target).val()
@@ -83,3 +87,20 @@ module.exports = class FiltersView extends Backbone.View
     $checkboxes = $(e.target).closest('ul').find('.filters-location-neighborhoods-check')
     $checkboxes.prop('checked', checkAll)
     @setNeighborhoods()
+
+  bounceAlertsPopover: (e) ->
+    @$('.filters-alerts-popover').show()
+      .animate({ _scale: 1, top: 72 }
+        step: (now) ->
+          $(this).css('-webkit-transform' , "scale(#{now / 72})");
+        easing: 'easeOutBack'
+        duration: 200
+      )
+
+  hideAlertsPopover: ->
+    @$('.filters-alerts-popover')
+      .css('-webkit-transform': 'scale(0.2)', _scale: 0.2, top: 10)
+      .hide()
+
+  onFilterAlerts: ->
+    $('#signup-modal').parent().show()

@@ -28,7 +28,6 @@
 		"jadeify": "*",
 		"caching-coffeeify": "*",
 		"stylus": "git://github.com/craigspaeth/stylus.git",
-		"jquery": "*",
 		"gmaps": "git://github.com/craigspaeth/gmaps.git",
     "browserify-dev-middleware": "*",
     "sqwish": "*",

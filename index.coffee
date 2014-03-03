@@ -49,9 +49,9 @@ if "development" is NODE_ENV
     transforms: [require("jadeify"), require('caching-coffeeify')]
   
 # Routes
-app.get '/', (req, res) -> res.render 'home-page'
+app.get '/', (req, res) -> res.render 'home-page', path: '/'
 app.get '/search*', (req, res) -> res.render 'home-page'
-app.get '/about', (req, res) -> res.render 'about-page'
+app.get '/about', (req, res) -> res.render 'about-page', path: '/about'
 app.post '/feedback', (req, res) ->
   mandrill '/messages/send',
     message:

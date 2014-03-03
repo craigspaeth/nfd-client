@@ -1,14 +1,16 @@
 // Logo mark
 #main-header-logo
-  background-image url('/images/logo-mark-w.svg') !important
+  background-image url('/images/logo-mark-w.svg')
 #main-header.home-page-filters-fixed #main-header-logo
-  background-image url("/images/logo-mark.svg")
+  background-image url("/images/logo-mark-g.svg")
+
+// Up triangle
+.filters-alerts-popover::after
+  background-image url("/images/up-triangle-g.svg")
 
 // Full logo
-#home-page-full-logo
-  background-image url('/images/full-logo.svg') !important
-#about-page-logo
-  background-image url('/images/full-logo-green.svg') !important
+#signup-modal-logo
+  background-image url('/images/full-logo-g.svg') !important
   
 // Down carrot
 .filters-location-arrow
@@ -28,10 +30,14 @@
   
 // Social Media
 .main-header-social-media-facebook
-  background-image url('/images/facebook.svg') !important
+  background-image url('/images/facebook-w.svg') !important
 .main-header-social-media-twitter
+  background-image url('/images/twitter-w.svg') !important
+#main-header.home-page-filters-fixed .main-header-social-media-facebook
+  background-image url('/images/facebook.svg') !important
+#main-header.home-page-filters-fixed .main-header-social-media-twitter
   background-image url('/images/twitter.svg') !important
 
 // Close modal
-#feedback-modal-close
+.modal-close
   background-image url('/images/modal-close.svg') !important

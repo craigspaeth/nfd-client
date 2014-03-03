@@ -1,12 +1,7 @@
 module.exports.init = ->
   
   $modal = $ '#feedback-modal-bg'
-  
-  # Hide modal on clicking close or off the window
-  $modal.click (e) ->
-    return unless $(e.target).attr('id') in ['feedback-modal-bg', 'feedback-modal-close']
-    $modal.hide()
-  
+
   # Submitting the form sends an email
   $modal.find('form').on 'submit', ->
     $.ajax(

@@ -79,8 +79,10 @@ module.exports = class ListingsView extends Backbone.View
     else
       @$('.listings-map, .listings-map-no-geo-cover').hide()
     if @currentListing?.hasGeoPoints()
+      @$('.listings-map').removeClass('listings-map-no-geo')
       @$('.listings-map-no-geo-cover').hide()
     else if @currentListing?
+      @$('.listings-map').addClass('listings-map-no-geo')
       @$('.listings-map-no-geo-cover').show()
   
   renderMap: ->
@@ -121,4 +123,4 @@ module.exports = class ListingsView extends Backbone.View
   focusOnCurrentListing: ->
     return unless @gmap? and @currentListing?.hasGeoPoints()
     @gmap.setCenter @currentListing.get('location').lat, @currentListing.get('location').lng
-    @gmap.setZoom 16
+    @gmap.setZoom 14

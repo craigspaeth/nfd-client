@@ -51,16 +51,17 @@ mixin neighborhood-group(group)
     mixin neighborhood-group('Bronx')
     mixin neighborhood-group('Staten Island')
     button.rounded-button.filters-close Done
-  label
+  label.filters-sort-label
     h3 Sort
     select.rounded-select.filters-sort-select
       option( value='' ) --
       option( value='size' ) Size
       option( value='rent' ) Price
       option( value='newest', selected=true ) Newest
-  label
+  label.filters-alerts-label
     h3 Alerts
     .rounded-button.filters-alerts
+    .filters-alerts-popover Get notified when new listings arrive.
 
 .filters-count
   | Showing 

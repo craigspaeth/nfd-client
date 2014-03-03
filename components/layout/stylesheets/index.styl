@@ -6,6 +6,8 @@
 @import '../../listings'
 @import '../../about-page'
 @import '../../feedback-modal'
+@import '../../modal'
+@import '../../signup-modal'
 @import './embedded'
 
 global-reset()
@@ -21,8 +23,11 @@ body
 a
   color green-color
   transition background-color 0.3s
+  cursor pointer
   &:hover
     color hover-green-color
+    text-decoration underline
+
 strong
   font-weight bold
 em
