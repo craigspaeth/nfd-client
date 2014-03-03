@@ -157,6 +157,7 @@
   background-color: #24a05a;
   outline: none;
   color: #fff;
+  text-decoration: none;
 }
 .rounded-select {
   border: 1px solid #282828;
