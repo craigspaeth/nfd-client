@@ -1,0 +1,21 @@
+#auth-modal-container.modal-container
+  #auth-modal.modal
+    button.modal-close
+    #auth-modal-logo
+    h2 Save thousands on broker’s fees.
+    h3 Sign up to recieve emails when new listings within your search criteria arrive.
+    #auth-modal-form-container
+      #auth-modal-left
+        h4 Sign up via social
+        button.rounded-button Facebook
+        button.rounded-button Google
+        button.rounded-button Twitter
+      #auth-modal-right
+        h4 Sign up via email
+        .auth-modal-error
+        form#auth-modal-signup-form
+          input.box-input( placeholder='Email', type='email' )
+          input.box-input( placeholder='Password', type='password' )
+          button.rounded-button( type='submit' ) Sign up
+    small Already have an account?&nbsp;
+      a Log in

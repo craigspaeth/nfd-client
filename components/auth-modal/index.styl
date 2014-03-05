@@ -1,4 +1,4 @@
-#signup-modal
+#auth-modal
   width 800px
   h2
     font-size 32px
@@ -10,14 +10,14 @@
     margin-bottom 5px
     color #777
 
-#signup-modal form
+#auth-modal-form-container
     clearfix()
     margin 30px 0
 
-#signup-modal small
+#auth-modal small
   font-size 13px
 
-#signup-modal-logo
+#auth-modal-logo
   width 80px
   height @width
   background center center no-repeat
@@ -26,7 +26,7 @@
   position relative
   top -15px
 
-#signup-modal-left
+#auth-modal-left
   float left
   border-right 1px solid light-gray-border-color
   padding-right 30px
@@ -35,10 +35,15 @@
     &:last-child
       margin-bottom 0
 
-#signup-modal-right
+#auth-modal-right
   float right
   padding-left 30px
 
-#signup-modal-left, #signup-modal-right
+#auth-modal-left, #auth-modal-right
   width 50%
   padding-bottom 25px
+
+.auth-modal-error
+  color red-color
+  margin 10px 0
+  font-size 13px

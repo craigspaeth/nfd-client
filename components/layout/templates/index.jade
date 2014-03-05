@@ -7,7 +7,7 @@ html( class=uaFamily )
     link( rel='icon', type='image/x-icon', href='/images/favicon.ico'  )
     block head
   body
-    header#main-header
+    header#main-header.main-header-home
       a#main-header-logo( class=(path == '/' ? ' main-header-active' : ''), href='/' )
         | NoFeeDigs
         small Beta
@@ -24,7 +24,7 @@ html( class=uaFamily )
           target='_blank'
         )
     include ../../feedback-modal/index
-    include ../../signup-modal/index
+    include ../../auth-modal/index
     block content
     #scripts
       != sharify.script()

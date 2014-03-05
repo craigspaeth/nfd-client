@@ -1,6 +1,7 @@
 _ = require 'underscore'
 Backbone = require 'backbone'
 numeral = require 'numeral'
+vent = require '../../lib/vent.coffee'
 
 module.exports = class FiltersView extends Backbone.View
   
@@ -103,4 +104,4 @@ module.exports = class FiltersView extends Backbone.View
       .hide()
 
   onFilterAlerts: ->
-    $('#signup-modal').parent().show()
+    vent.trigger 'auth-modal:open'

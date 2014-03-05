@@ -1,7 +1,8 @@
 @import '../../stylus-lib'
+@import '../../../node_modules/nib'
 
 nav-border-color = #ddd
-header-color = #666
+header-color = #555
 
 .typekit-badge
   display none !important
@@ -29,8 +30,8 @@ header-color = #666
         background-color nav-border-color
 
 // Light header
-#main-header.home-page-filters-fixed
-  background-color main-header-bg-color
+#main-header.main-header-home.home-page-filters-fixed
+  background main-header-bg-color
   #main-header-logo
     color green-color
   color header-color
@@ -44,16 +45,17 @@ header-color = #666
         background-color nav-border-color
 
 // Dark header
-#main-header
-  background-color #222
+#main-header.main-header-home
+  background transparent
   a
     color #ccc
   nav
-    border-left 1px solid black
+    border-left none
     a
-      border-right 1px solid black
+      border-right none
       &:hover
-        background-color black
+        color green-color
+        background transparent
 
 #main-header-logo
   background no-repeat
@@ -65,6 +67,7 @@ header-color = #666
   font-weight bold
   text-decoration none
   float left
+  transition color 0.3s
   small
     font-weight normal
     text-transform uppercase
