@@ -1,0 +1,18 @@
+header#main-header( class=(path == '/' ? ' main-header-home' : '') )
+  a#main-header-logo( class=(path == '/' ? ' main-header-active' : ''), href='/' )
+    | NoFeeDigs
+    small Beta
+  nav
+    a( class=(path == '/about' ? ' main-header-active' : ''), href='/about' ) About
+    a( href='feedback' ) Give Feedback
+    if user
+      a( href='/logout' ) Logout
+  #main-header-social-media
+    a.main-header-social-media-facebook(
+      href='https://www.facebook.com/nofeedigs',
+      target='_blank'
+    )
+    a.main-header-social-media-twitter(
+      href='https://twitter.com/nofeedigs',
+      target='_blank'
+    )

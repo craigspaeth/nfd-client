@@ -22,7 +22,7 @@
       
 .rounded-button
   background green-color
-  padding 10px
+  padding 10px 20px
   museo()
   font-weight bold
   font-size default-font-size
@@ -30,16 +30,26 @@
   border-radius  default-border-radius
   color white
   margin 0
-  transition background-color 0.3s
+  transition background-color 0.3s, color 0.3s
   cursor pointer
   display block
   text-decoration none
   text-align center
+  position relative
   &:hover, &:active, &:focus
     background-color hover-green-color
     outline none
     color white
     text-decoration none
+  &.is-loading
+    color transparent
+    &::before
+      content '.'
+      color transparent
+      spinner(20px, 3px)
+
+.rounded-button-error
+  background-color red-color
     
 .rounded-select
   border 1px solid dark-gray-color

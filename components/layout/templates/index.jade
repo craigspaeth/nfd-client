@@ -7,7 +7,7 @@ html( class=uaFamily )
     link( rel='icon', type='image/x-icon', href='/images/favicon.ico'  )
     block head
   body
-    header#main-header.main-header-home
+    header#main-header( class=(path == '/' ? ' main-header-home' : '') )
       a#main-header-logo( class=(path == '/' ? ' main-header-active' : ''), href='/' )
         | NoFeeDigs
         small Beta

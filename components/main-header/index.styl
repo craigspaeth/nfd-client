@@ -1,9 +1,6 @@
 @import '../../stylus-lib'
 @import '../../../node_modules/nib'
 
-nav-border-color = #ddd
-header-color = #555
-
 .typekit-badge
   display none !important
 
@@ -14,48 +11,23 @@ header-color = #555
   position fixed
   z-index 3
   height 57px
+  background green-color
   nav
     display inline-block
     vertical-align top
     float left
+    border-left 1px solid hover-green-color
     a
+      color white
       display inline-block
       text-decoration none
       padding 18px
       transition background-color 0.3s
-      border-right 1px solid nav-border-color
+      border-right 1px solid hover-green-color
       &:first-child
         padding-left 18px
       &:hover, &:active
-        background-color nav-border-color
-
-// Light header
-#main-header.main-header-home.home-page-filters-fixed
-  background main-header-bg-color
-  #main-header-logo
-    color green-color
-  color header-color
-  a
-    color header-color
-  nav
-    border-left 1px solid nav-border-color
-    a
-      border-right 1px solid nav-border-color
-      &:hover, &:active
-        background-color nav-border-color
-
-// Dark header
-#main-header.main-header-home
-  background transparent
-  a
-    color #ccc
-  nav
-    border-left none
-    a
-      border-right none
-      &:hover
-        color green-color
-        background transparent
+        background-color hover-green-color
 
 #main-header-logo
   background no-repeat
@@ -63,11 +35,10 @@ header-color = #555
   display inline-block
   margin 13px 25px 0 10px
   padding 5px 0 5px 40px
-  color header-color
+  color white
   font-weight bold
   text-decoration none
   float left
-  transition color 0.3s
   small
     font-weight normal
     text-transform uppercase
@@ -85,3 +56,34 @@ header-color = #555
     float right
     background-size contain
     margin 16px 20px 0 0
+
+.main-header-active
+  background-color hover-green-color
+
+// Light header
+#main-header.main-header-home.home-page-filters-fixed
+  background main-header-bg-color
+  color #555
+  #main-header-logo
+    color green-color
+  a
+    color #555
+  nav
+    border-left 1px solid #ddd
+    a
+      border-right 1px solid #ddd
+      &:hover, &:active
+        background-color #ddd
+
+// Dark header
+#main-header.main-header-home
+  background transparent
+  a
+    color #ccc
+  nav
+    border-left none
+    a
+      border-right none
+      &:hover
+        color green-color
+        background transparent

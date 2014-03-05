@@ -16,6 +16,31 @@ main-header-height = 57px
 main-header-bg-color = #eee
 container-width = 1000px
 
+@keyframes spin
+  0%
+    transform rotate(0deg)
+    animation-timing-function linear
+  50%
+    transform rotate(180deg)
+    animation-timing-function linear
+  100%
+    transform rotate(360deg)
+    animation-timing-function linear
+
+spinner(size, bwidth)
+  width size
+  height size
+  border-radius size
+  border bwidth solid white
+  border-left-color transparent
+  position absolute
+  left 50%
+  top 50%
+  margin-top ((-(size / 2)) - bwidth)
+  margin-left ((-(size / 2)) - bwidth)
+  animation spin 0.75s infinite
+
+
 museo()
   font-family museo-sans, Helvetica, sans-serif
   font-smoothing antialiased

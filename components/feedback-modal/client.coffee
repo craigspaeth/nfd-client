@@ -8,11 +8,11 @@ $('#feedback-modal-bg form').on 'submit', ->
       body: $('#feedback-modal-bg textarea').val()
     success: -> console.log arguments
   )
-  $modal.hide()
+  $('#feedback-modal-bg').hide()
   false
 
 # Clicking "Give Feedback opens the modal"
 $('[href=feedback]').click ->
-  $modal.show()
-  $modal.find('input').first().focus()
+  $('#feedback-modal-bg').show()
+  $('#feedback-modal-bg input').first().focus()
   false
