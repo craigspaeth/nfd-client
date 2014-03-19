@@ -26,5 +26,6 @@ commit: assets
 
 deploy: commit
 	git push git@heroku.com:nfd-client-production.git master
+	open http://nofeedigs.com/
 
 .PHONY: test assets
