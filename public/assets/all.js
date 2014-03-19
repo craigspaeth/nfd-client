@@ -2,7 +2,7 @@
 require('../components/layout/client.coffee');
 
 
-},{"../components/layout/client.coffee":7}],2:[function(require,module,exports){
+},{"../components/layout/client.coffee":8}],2:[function(require,module,exports){
 var Backbone, Listings, ListingsParams, sd, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -62,35 +62,127 @@ module.exports = Listings = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"../models/listing.coffee":12,"../models/listings-params.coffee":13,"backbone":15,"sharify":26,"underscore":27}],3:[function(require,module,exports){
-module.exports.init = function() {
-  var $modal;
-  $modal = $('#feedback-modal-bg');
-  $modal.find('form').on('submit', function() {
-    $.ajax({
-      url: '/feedback',
-      type: 'POST',
-      data: {
-        email: $modal.find('[type=email]').val(),
-        body: $modal.find('textarea').val()
+},{"../models/listing.coffee":14,"../models/listings-params.coffee":15,"backbone":18,"sharify":29,"underscore":30}],3:[function(require,module,exports){
+var AuthModal, Backbone, User, qs, vent, _, _ref,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('underscore');
+
+Backbone = require('backbone');
+
+vent = require('../../lib/vent.coffee');
+
+User = require('../../models/user.coffee');
+
+qs = require('querystring');
+
+module.exports = AuthModal = (function(_super) {
+  __extends(AuthModal, _super);
+
+  function AuthModal() {
+    this.onOpen = __bind(this.onOpen, this);
+    _ref = AuthModal.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  AuthModal.prototype.el = '#auth-modal-container';
+
+  AuthModal.prototype.initialize = function() {
+    return vent.on('auth-modal:open', this.onOpen);
+  };
+
+  AuthModal.prototype.onOpen = function(options) {
+    var _ref1,
+      _this = this;
+    if (options == null) {
+      options = {};
+    }
+    this.$el.show();
+    this.$el.attr('data-state', (_ref1 = options.state) != null ? _ref1 : 'signup');
+    return _.defer(function() {
+      return _this.$('input:visible').first().focus();
+    });
+  };
+
+  AuthModal.prototype.events = {
+    'submit #auth-modal-signup-form': 'signup',
+    'click #auth-modal-thank-you .rounded-button': 'closeThankYou',
+    'click #auth-modal-signup-link': 'signupMode',
+    'click #auth-modal-login-link': 'loginMode'
+  };
+
+  AuthModal.prototype.signup = function(e) {
+    var _this = this;
+    e.preventDefault();
+    new User(qs.parse(this.$('#auth-modal-signup-form').serialize())).save(null, {
+      success: function(user) {
+        _this.$('#auth-modal-thank-you-name').html(user.get('name'));
+        return _this.$el.attr('data-state', 'thank-you');
       },
-      success: function() {
-        return console.log(arguments);
+      error: function(m, xhr) {
+        _this.$('#auth-modal-right .auth-modal-error').html(xhr.responseJSON.error);
+        _this.$('#auth-modal-right button').addClass('rounded-button-error');
+        return setTimeout((function() {
+          return _this.$('#auth-modal-right button').removeClass('rounded-button-error');
+        }), 1000);
+      },
+      complete: function() {
+        return _this.$('#auth-modal-signup-form button').removeClass('is-loading');
       }
     });
-    $modal.hide();
-    return false;
-  });
-  return $('[href=feedback]').click(function() {
-    $modal.show();
-    $modal.find('input').first().focus();
-    return false;
-  });
-};
+    return this.$('#auth-modal-signup-form button').addClass('is-loading');
+  };
+
+  AuthModal.prototype.closeThankYou = function() {
+    this.$el.hide();
+    return this.$el.attr('data-state', '');
+  };
+
+  AuthModal.prototype.signupMode = function() {
+    return vent.trigger('auth-modal:open', {
+      state: 'signup'
+    });
+  };
+
+  AuthModal.prototype.loginMode = function() {
+    return vent.trigger('auth-modal:open', {
+      state: 'login'
+    });
+  };
+
+  return AuthModal;
+
+})(Backbone.View);
 
 
-},{}],4:[function(require,module,exports){
-var Backbone, FiltersView, numeral, _, _ref,
+},{"../../lib/vent.coffee":13,"../../models/user.coffee":16,"backbone":18,"querystring":23,"underscore":30}],4:[function(require,module,exports){
+$('#feedback-modal-bg form').on('submit', function() {
+  $.ajax({
+    url: '/feedback',
+    type: 'POST',
+    data: {
+      email: $('#feedback-modal-bg [type=email]').val(),
+      body: $('#feedback-modal-bg textarea').val()
+    },
+    success: function() {
+      return console.log(arguments);
+    }
+  });
+  $('#feedback-modal-bg').hide();
+  return false;
+});
+
+$('[href=feedback]').click(function() {
+  $('#feedback-modal-bg').show();
+  $('#feedback-modal-bg input').first().focus();
+  return false;
+});
+
+
+},{}],5:[function(require,module,exports){
+var Backbone, FiltersView, numeral, vent, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -100,6 +192,8 @@ _ = require('underscore');
 Backbone = require('backbone');
 
 numeral = require('numeral');
+
+vent = require('../../lib/vent.coffee');
 
 module.exports = FiltersView = (function(_super) {
   __extends(FiltersView, _super);
@@ -231,7 +325,7 @@ module.exports = FiltersView = (function(_super) {
   };
 
   FiltersView.prototype.onFilterAlerts = function() {
-    return $('#signup-modal').parent().show();
+    return vent.trigger('auth-modal:open');
   };
 
   return FiltersView;
@@ -239,7 +333,7 @@ module.exports = FiltersView = (function(_super) {
 })(Backbone.View);
 
 
-},{"backbone":15,"numeral":25,"underscore":27}],5:[function(require,module,exports){
+},{"../../lib/vent.coffee":13,"backbone":18,"numeral":28,"underscore":30}],6:[function(require,module,exports){
 var Backbone, HomepageRouter, querystring, _, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -275,7 +369,7 @@ module.exports = HomepageRouter = (function(_super) {
 })(Backbone.Router);
 
 
-},{"backbone":15,"querystring":20,"underscore":27}],6:[function(require,module,exports){
+},{"backbone":18,"querystring":23,"underscore":30}],7:[function(require,module,exports){
 var BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -410,10 +504,10 @@ module.exports = HomepageView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../collections/listings.coffee":2,"../filters/view.coffee":4,"../listings/view.coffee":9,"./router.coffee":5,"backbone":15,"gmaps":22,"sharify":26,"underscore":27}],7:[function(require,module,exports){
-var Backbone, HomepageView, feedbackModal, sd;
-
-require('../../lib/jquery.infinite-scroll.coffee');
+},{"../../collections/listings.coffee":2,"../filters/view.coffee":5,"../listings/view.coffee":10,"./router.coffee":6,"backbone":18,"gmaps":25,"sharify":29,"underscore":30}],8:[function(require,module,exports){
+var AuthModal, Backbone, HomepageView, InitRouter, sd, vent, _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Backbone = require('backbone');
 
@@ -421,26 +515,55 @@ sd = require('sharify').data;
 
 HomepageView = require('../home-page/view.coffee');
 
-feedbackModal = require('../feedback-modal/client.coffee');
+AuthModal = require('../auth-modal/view.coffee');
 
-require('../modal/client.coffee');
+vent = require('../../lib/vent.coffee');
+
+require('../../lib/jquery.infinite-scroll.coffee');
 
 $(function() {
   Backbone.$ = $;
   mixpanel.track('Viewed page', {
     path: location.pathname
   });
-  feedbackModal.init();
-  if (location.pathname.match(new RegExp('^/$|^/search.*'))) {
-    window.view = new HomepageView;
-    return Backbone.history.start({
-      pushState: true
+  require('../modal/client.coffee');
+  require('../feedback-modal/client.coffee');
+  $('[href*=login]').click(function() {
+    vent.trigger('auth-modal:open', {
+      state: 'login'
     });
-  }
+    return false;
+  });
+  new InitRouter;
+  return Backbone.history.start({
+    pushState: true
+  });
 });
 
+InitRouter = (function(_super) {
+  __extends(InitRouter, _super);
 
-},{"../../lib/jquery.infinite-scroll.coffee":11,"../feedback-modal/client.coffee":3,"../home-page/view.coffee":6,"../modal/client.coffee":10,"backbone":15,"sharify":26}],8:[function(require,module,exports){
+  function InitRouter() {
+    _ref = InitRouter.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  InitRouter.prototype.routes = {
+    '': 'home',
+    '/search*': 'home'
+  };
+
+  InitRouter.prototype.home = function() {
+    new AuthModal;
+    return new HomepageView;
+  };
+
+  return InitRouter;
+
+})(Backbone.Router);
+
+
+},{"../../lib/jquery.infinite-scroll.coffee":12,"../../lib/vent.coffee":13,"../auth-modal/view.coffee":3,"../feedback-modal/client.coffee":4,"../home-page/view.coffee":7,"../modal/client.coffee":11,"backbone":18,"sharify":29}],9:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -684,7 +807,7 @@ buf.push("<div class=\"listings-no-results\">No results. Try loosening up your f
 }
 buf.push("</div>");;return buf.join("");
 };
-},{"jade/runtime":23}],9:[function(require,module,exports){
+},{"jade/runtime":26}],10:[function(require,module,exports){
 var Backbone, FIXED_FILTER_HEIGHT, ListingsView, MARGIN_SIZE, template, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -901,7 +1024,7 @@ module.exports = ListingsView = (function(_super) {
 })(Backbone.View);
 
 
-},{"./templates/index.jade":8,"backbone":15,"gmaps":22,"underscore":27}],10:[function(require,module,exports){
+},{"./templates/index.jade":9,"backbone":18,"gmaps":25,"underscore":30}],11:[function(require,module,exports){
 $(document).on('click', '.modal-container', function(e) {
   if (!($(e.target).is('.modal-container') || $(e.target).is('.modal-close'))) {
     return;
@@ -910,7 +1033,7 @@ $(document).on('click', '.modal-container', function(e) {
 });
 
 
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 var onScroll,
   _this = this;
 
@@ -933,7 +1056,17 @@ onScroll = module.exports = function() {
 };
 
 
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
+var Backbone, _;
+
+_ = require('underscore');
+
+Backbone = require('backbone');
+
+module.exports = _.extend({}, Backbone.Events);
+
+
+},{"backbone":18,"underscore":30}],14:[function(require,module,exports){
 var Backbone, Listing, accounting, moment, parse, sd, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1033,7 +1166,7 @@ module.exports = Listing = (function(_super) {
 })(Backbone.Model);
 
 
-},{"accounting":14,"backbone":15,"moment":24,"sharify":26,"url":21}],13:[function(require,module,exports){
+},{"accounting":17,"backbone":18,"moment":27,"sharify":29,"url":24}],15:[function(require,module,exports){
 var Backbone, ListingsParams, querystring, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1067,7 +1200,39 @@ module.exports = ListingsParams = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":15,"querystring":20}],14:[function(require,module,exports){
+},{"backbone":18,"querystring":23}],16:[function(require,module,exports){
+var API_URL, Backbone, User, accounting, moment, parse, _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+Backbone = require('backbone');
+
+accounting = require('accounting');
+
+moment = require('moment');
+
+parse = require('url').parse;
+
+API_URL = require('sharify').data.API_URL;
+
+module.exports = User = (function(_super) {
+  __extends(User, _super);
+
+  function User() {
+    _ref = User.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  User.prototype.urlRoot = function() {
+    return "" + API_URL + "/users";
+  };
+
+  return User;
+
+})(Backbone.Model);
+
+
+},{"accounting":17,"backbone":18,"moment":27,"sharify":29,"url":24}],17:[function(require,module,exports){
 /*!
  * accounting.js v0.3.2
  * Copyright 2011, Joss Crowcroft
@@ -1480,7 +1645,7 @@ module.exports = ListingsParams = (function(_super) {
 	// Root will be `window` in browser or `global` on the server:
 }(this));
 
-},{}],15:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 //     Backbone.js 1.1.2
 
 //     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -3090,9 +3255,9 @@ module.exports = ListingsParams = (function(_super) {
 
 }));
 
-},{"underscore":27}],16:[function(require,module,exports){
+},{"underscore":30}],19:[function(require,module,exports){
 
-},{}],17:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 (function (global){
 /*! http://mths.be/punycode v1.2.4 by @mathias */
 ;(function(root) {
@@ -3603,7 +3768,7 @@ module.exports = ListingsParams = (function(_super) {
 }(this));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3689,7 +3854,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],19:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3776,13 +3941,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],20:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":18,"./encode":19}],21:[function(require,module,exports){
+},{"./decode":21,"./encode":22}],24:[function(require,module,exports){
 /*jshint strict:true node:true es5:true onevar:true laxcomma:true laxbreak:true eqeqeq:true immed:true latedef:true*/
 (function () {
   "use strict";
@@ -4415,7 +4580,7 @@ function parseHost(host) {
 
 }());
 
-},{"punycode":17,"querystring":20}],22:[function(require,module,exports){
+},{"punycode":20,"querystring":23}],25:[function(require,module,exports){
 /*!
  * GMaps.js v0.4.5
  * http://hpneo.github.com/gmaps/
@@ -6398,7 +6563,7 @@ if (!Array.prototype.indexOf) {
       return -1;
   }
 }
-},{}],23:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 (function (global){
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.jade=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -6611,7 +6776,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 (1)
 });
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"fs":16}],24:[function(require,module,exports){
+},{"fs":19}],27:[function(require,module,exports){
 //! moment.js
 //! version : 2.5.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -9013,7 +9178,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],25:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /*!
  * numeral.js
  * version : 1.5.3
@@ -9694,7 +9859,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],26:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 // Middleware that injects the shared data and sharify script
 module.exports = function(req, res, next) {
 
@@ -9739,7 +9904,7 @@ var bootstrapOnClient = module.exports.bootstrapOnClient = function() {
 };
 bootstrapOnClient();
 
-},{}],27:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 //     Underscore.js 1.6.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

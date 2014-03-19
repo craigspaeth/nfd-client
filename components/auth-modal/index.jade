@@ -1,6 +1,6 @@
-#auth-modal-container.modal-container
+#auth-modal-container.modal-container( data-state='signup' )
   #auth-modal.modal
-    #auth-modal-forms
+    #auth-modal-signup
       button.modal-close
       #auth-modal-logo
       h2 Save thousands on broker’s fees.
@@ -15,15 +15,32 @@
         #auth-modal-right
           //- h4 Sign up via email
           form#auth-modal-signup-form
-            input.box-input( placeholder='Email', type='email' )
-            input.box-input( placeholder='Password (minimum 6 characters)', type='password' )
+            input.box-input( placeholder='Name', name='name' )
+            input.box-input( placeholder='Email*', type='email', name='email' )
+            input.box-input( placeholder='Password* (minimum 6 characters)', type='password', name='password' )
+            small
+              em * Required
             button.rounded-button( type='submit' ) Sign up
           .auth-modal-error &nbsp;
-      small Already have an account?&nbsp;
+      small#auth-modal-login-link Already have an account?&nbsp;
         a Log in
+    #auth-modal-login
+      button.modal-close
+      #auth-modal-logo
+      h3 Log in to NoFeeDigs
+      br
+      form#auth-modal-login-form
+        input.box-input( placeholder='Email', type='email', name='email' )
+        input.box-input( placeholder='Password', type='password', name='password' )
+        button.rounded-button( type='submit' ) Log in
+      .auth-modal-error &nbsp;
+      small#auth-modal-signup-link Don't have an account?&nbsp;
+        a Sign up
     #auth-modal-thank-you
       button.modal-close
       header
-        h2 Thanks!
+        h2 Welcome&nbsp;
+          span#auth-modal-thank-you-name
+          | !
         h3 Look out for daily emails of new listings.
         button.rounded-button Okay

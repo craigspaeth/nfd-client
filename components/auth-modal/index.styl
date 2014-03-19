@@ -15,16 +15,17 @@
     margin-bottom 5px
     color #777
 
-#auth-modal-forms
+#auth-modal-signup, #auth-modal-login
   background white
   padding 30px
   border-radius default-border-radius
+  display none
 
 #auth-modal-form-container
-    clearfix()
-    margin 30px 0 20px 0
+  clearfix()
+  margin-top 30px
 
-#auth-modal small
+#auth-modal-login-link, #auth-modal-signup-link
   font-size 13px
 
 #auth-modal-logo
@@ -47,7 +48,13 @@
 
 #auth-modal-right
   float right
-  padding-left 20px
+  //  {padding-left 20px
+  small
+    font-size 12px
+    text-align left
+    margin-bottom 5px
+    float left
+    color #aaa
 
 #auth-modal-left, #auth-modal-right
   width 50%
@@ -91,9 +98,9 @@
 #auth-modal-thank-you
   z-index -1
   transform rotateY(-180deg)
-#auth-modal-forms
+#auth-modal-signup
   transform rotateY(0deg)
-#auth-modal-thank-you, #auth-modal-forms
+#auth-modal-thank-you, #auth-modal-signup
   transform-style preserve-3d
   transition 0.5s
   backface-visibility hidden
@@ -102,5 +109,14 @@
   #auth-modal-thank-you
     transform rotateY(0deg)
     z-index inherit
-  #auth-modal-forms
+  #auth-modal-signup
     transform rotateY(180deg)
+    display block
+
+#auth-modal-container[data-state='signup']
+  #auth-modal-signup
+    display block
+
+#auth-modal-container[data-state='login']
+  #auth-modal-login
+    display block

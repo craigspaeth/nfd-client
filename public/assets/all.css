@@ -1102,9 +1102,6 @@
   border-bottom: 1px solid #eee;
   background: #fff;
 }
-#home-page-filters.home-page-filters-fixed .filters-sort-label {
-  margin-right: 10px;
-}
 #home-page-filters.home-page-filters-fixed .filters-alerts-label {
   display: inline-block !important;
 }
@@ -1134,7 +1131,7 @@
   background: #fff;
 }
 #home-page-hero-unit-caption {
-  bottom: 80px;
+  bottom: 30px;
   right: 40px;
   color: rgba(255,255,255,0.7);
   z-index: 2;
@@ -1594,7 +1591,7 @@
 }
 .filters-max-rent,
 .filters-sort-select {
-  width: 119px;
+  width: 155px;
 }
 .filters-close {
   position: absolute;
@@ -1609,9 +1606,6 @@
 .filters-close:focus,
 .filters-close:active {
   background-color: transparent;
-}
-.filters-sort-label {
-  margin-right: 0;
 }
 .filters-alerts-label {
   display: none !important;
@@ -2610,15 +2604,17 @@ html.firefox .rounded-select {
   margin-bottom: 5px;
   color: #777;
 }
-#auth-modal-forms {
+#auth-modal-signup,
+#auth-modal-login {
   background: #fff;
   padding: 30px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
+  display: none;
 }
 #auth-modal-form-container {
   zoom: 1;
-  margin: 30px 0 20px 0;
+  margin-top: 30px;
 }
 #auth-modal-form-container:before,
 #auth-modal-form-container:after {
@@ -2628,7 +2624,8 @@ html.firefox .rounded-select {
 #auth-modal-form-container:after {
   clear: both;
 }
-#auth-modal small {
+#auth-modal-login-link,
+#auth-modal-signup-link {
   font-size: 13px;
 }
 #auth-modal-logo {
@@ -2655,7 +2652,13 @@ html.firefox .rounded-select {
 }
 #auth-modal-right {
   float: right;
-  padding-left: 20px;
+}
+#auth-modal-right small {
+  font-size: 12px;
+  text-align: left;
+  margin-bottom: 5px;
+  float: left;
+  color: #aaa;
 }
 #auth-modal-left,
 #auth-modal-right {
@@ -2709,7 +2712,7 @@ html.firefox .rounded-select {
   -ms-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
 }
-#auth-modal-forms {
+#auth-modal-signup {
   -webkit-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
   -o-transform: rotateY(0deg);
@@ -2717,7 +2720,7 @@ html.firefox .rounded-select {
   transform: rotateY(0deg);
 }
 #auth-modal-thank-you,
-#auth-modal-forms {
+#auth-modal-signup {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   -o-transform-style: preserve-3d;
@@ -2741,12 +2744,19 @@ html.firefox .rounded-select {
   transform: rotateY(0deg);
   z-index: inherit;
 }
-#auth-modal-container[data-state='thank-you'] #auth-modal-forms {
+#auth-modal-container[data-state='thank-you'] #auth-modal-signup {
   -webkit-transform: rotateY(180deg);
   -moz-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);
   -ms-transform: rotateY(180deg);
   transform: rotateY(180deg);
+  display: block;
+}
+#auth-modal-container[data-state='signup'] #auth-modal-signup {
+  display: block;
+}
+#auth-modal-container[data-state='login'] #auth-modal-login {
+  display: block;
 }
 #main-header.main-header-home #main-header-logo {
   background-image: url("/images/logo-mark-gr.svg");

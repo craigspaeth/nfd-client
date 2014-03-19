@@ -24,10 +24,7 @@ commit: assets
 	git commit -a -m 'deploying...'
 	git push git@github.com:craigspaeth/nfd-client.git master
 
-deploy-staging: commit
-	git push git@heroku.com:nfd-client-staging.git master
-
-deploy-production: commit
+deploy: commit
 	git push git@heroku.com:nfd-client-production.git master
 
 .PHONY: test assets

@@ -7,22 +7,7 @@ html( class=uaFamily )
     link( rel='icon', type='image/x-icon', href='/images/favicon.ico'  )
     block head
   body
-    header#main-header( class=(path == '/' ? ' main-header-home' : '') )
-      a#main-header-logo( class=(path == '/' ? ' main-header-active' : ''), href='/' )
-        | NoFeeDigs
-        small Beta
-      nav
-        a( class=(path == '/about' ? ' main-header-active' : ''), href='/about' ) About
-        a( href='feedback' ) Give Feedback
-      #main-header-social-media
-        a.main-header-social-media-facebook(
-          href='https://www.facebook.com/nofeedigs',
-          target='_blank'
-        )
-        a.main-header-social-media-twitter(
-          href='https://twitter.com/nofeedigs',
-          target='_blank'
-        )
+    include ../../main-header/index
     include ../../feedback-modal/index
     include ../../auth-modal/index
     block content

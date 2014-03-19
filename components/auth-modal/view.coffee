@@ -2,6 +2,7 @@ _ = require 'underscore'
 Backbone = require 'backbone'
 vent = require '../../lib/vent.coffee'
 User = require '../../models/user.coffee'
+qs = require 'querystring'
 
 module.exports = class AuthModal extends Backbone.View
 
@@ -10,21 +11,22 @@ module.exports = class AuthModal extends Backbone.View
   initialize: ->
     vent.on 'auth-modal:open', @onOpen
 
-  onOpen: =>
+  onOpen: (options = {}) =>
     @$el.show()
-    _.defer => @$('[type="email"]').focus()
+    @$el.attr 'data-state', options.state ? 'signup'
+    _.defer => @$('input:visible').first().focus()
 
   events:
     'submit #auth-modal-signup-form': 'signup'
     'click #auth-modal-thank-you .rounded-button': 'closeThankYou'
+    'click #auth-modal-signup-link': 'signupMode'
+    'click #auth-modal-login-link': 'loginMode'
 
   signup: (e) ->
     e.preventDefault()
-    new User(
-      email: @$('#auth-modal-signup-form [type="email"]').val()
-      password: @$('#auth-modal-signup-form [type="password"]').val()
-    ).save null,
-      success: =>
+    new User(qs.parse(@$('#auth-modal-signup-form').serialize())).save null,
+      success: (user) =>
+        @$('#auth-modal-thank-you-name').html user.get('name')
         @$el.attr('data-state', 'thank-you')
       error: (m, xhr) =>
         @$('#auth-modal-right .auth-modal-error').html xhr.responseJSON.error
@@ -37,3 +39,9 @@ module.exports = class AuthModal extends Backbone.View
   closeThankYou: ->
     @$el.hide()
     @$el.attr('data-state', '')
+
+  signupMode: ->
+    vent.trigger 'auth-modal:open', { state: 'signup' }
+
+  loginMode: ->
+    vent.trigger 'auth-modal:open', { state: 'login' }
