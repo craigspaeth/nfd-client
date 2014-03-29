@@ -14,9 +14,7 @@ $ ->
   # Start some static code
   require '../modal/client.coffee'
   require '../feedback-modal/client.coffee'
-  $('[href*=login]').click -> 
-    vent.trigger 'auth-modal:open', state: 'login'
-    false
+  require '../main-header/client.coffee'
 
   # Initialize code based on InitRouter
   new InitRouter

@@ -1,6 +1,7 @@
 _ = require 'underscore'
 Backbone = require 'backbone'
 template = -> require('./templates/index.jade') arguments...
+sd = require('sharify').data
 
 FIXED_FILTER_HEIGHT = 160
 MARGIN_SIZE = 20
@@ -39,7 +40,7 @@ module.exports = class ListingsView extends Backbone.View
     @collection.fetch data: { page: @page }, remove: false
   
   render: =>
-    @$el.html template(listings: @collection.models)
+    @$el.html template(listings: @collection.models, sd: sd)
     @renderMap()
     @onScroll()
     @$('img').error -> $(@).parent().hide()

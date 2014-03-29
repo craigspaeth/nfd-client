@@ -1,4 +1,4 @@
-header#main-header( class=(path == '/' ? ' main-header-home' : '') )
+header#main-header( class=(path == '/' ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '') )
   a#main-header-logo( class=(path == '/' ? ' main-header-active' : ''), href='/' )
     | NoFeeDigs
     small Beta
@@ -6,10 +6,10 @@ header#main-header( class=(path == '/' ? ' main-header-home' : '') )
     a( class=(path == '/about' ? ' main-header-active' : ''), href='/about' ) About
     a( href='feedback' ) Give Feedback
     if user
-      a( href='/settings' ) Settings
+      a( href='/settings' ) #{user.get('name')}'s Settings
       a( href='/logout' ) Logout
     else
-      //- a( href='/login' ) Log In
+      a( href='/login' ) Log In
   #main-header-social-media
     a.main-header-social-media-facebook(
       href='https://www.facebook.com/nofeedigs',

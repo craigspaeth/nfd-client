@@ -1591,7 +1591,7 @@
 }
 .filters-max-rent,
 .filters-sort-select {
-  width: 155px;
+  width: 119px;
 }
 .filters-close {
   position: absolute;
@@ -2585,7 +2585,7 @@ html.firefox .rounded-select {
   }
 }
 #auth-modal {
-  width: 600px;
+  width: 400px;
   -webkit-perspective: 1000;
   -moz-perspective: 1000;
   -ms-perspective: 1000;
@@ -2594,8 +2594,9 @@ html.firefox .rounded-select {
   padding: 0;
 }
 #auth-modal h2 {
-  font-size: 32px;
+  font-size: 28px;
   font-weight: normal;
+  line-height: 1em;
 }
 #auth-modal h4 {
   font-size: 11px;
@@ -2614,7 +2615,7 @@ html.firefox .rounded-select {
 }
 #auth-modal-form-container {
   zoom: 1;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 #auth-modal-form-container:before,
 #auth-modal-form-container:after {
@@ -2666,10 +2667,11 @@ html.firefox .rounded-select {
 }
 .auth-modal-error {
   color: #cc2b48;
-  margin-top: 10px;
+  margin: 5px;
   font-size: 13px;
 }
-#auth-modal-thank-you {
+#auth-modal-thank-you,
+#auth-modal-login-welcome {
   position: absolute;
   top: 0;
   left: 0;
@@ -2681,21 +2683,25 @@ html.firefox .rounded-select {
   -webkit-border-radius: 4px;
   border-radius: 4px;
 }
-#auth-modal-thank-you header {
+#auth-modal-thank-you header,
+#auth-modal-login-welcome header {
   position: absolute;
   top: 50%;
   margin-top: -80px;
   text-align: center;
   width: 100%;
 }
-#auth-modal-thank-you header h2 {
+#auth-modal-thank-you header h2,
+#auth-modal-login-welcome header h2 {
   font-weight: bold;
   margin-bottom: 25px;
 }
-#auth-modal-thank-you header h3 {
+#auth-modal-thank-you header h3,
+#auth-modal-login-welcome header h3 {
   font-size: 18px;
 }
-#auth-modal-thank-you header .rounded-button {
+#auth-modal-thank-you header .rounded-button,
+#auth-modal-login-welcome header .rounded-button {
   display: inline-block;
   background: #24a05a;
   width: auto;
@@ -2704,7 +2710,8 @@ html.firefox .rounded-select {
 #auth-modal-right {
   width: 100%;
 }
-#auth-modal-thank-you {
+#auth-modal-thank-you,
+#auth-modal-login-welcome {
   z-index: -1;
   -webkit-transform: rotateY(-180deg);
   -moz-transform: rotateY(-180deg);
@@ -2712,7 +2719,8 @@ html.firefox .rounded-select {
   -ms-transform: rotateY(-180deg);
   transform: rotateY(-180deg);
 }
-#auth-modal-signup {
+#auth-modal-signup,
+#auth-modal-login {
   -webkit-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
   -o-transform: rotateY(0deg);
@@ -2720,7 +2728,9 @@ html.firefox .rounded-select {
   transform: rotateY(0deg);
 }
 #auth-modal-thank-you,
-#auth-modal-signup {
+#auth-modal-signup,
+#auth-modal-login,
+#auth-modal-login-welcome {
   -webkit-transform-style: preserve-3d;
   -moz-transform-style: preserve-3d;
   -o-transform-style: preserve-3d;
@@ -2745,6 +2755,22 @@ html.firefox .rounded-select {
   z-index: inherit;
 }
 #auth-modal-container[data-state='thank-you'] #auth-modal-signup {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  display: block;
+}
+#auth-modal-container[data-state='welcome-login'] #auth-modal-login-welcome {
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  z-index: inherit;
+}
+#auth-modal-container[data-state='welcome-login'] #auth-modal-login {
   -webkit-transform: rotateY(180deg);
   -moz-transform: rotateY(180deg);
   -o-transform: rotateY(180deg);

@@ -4,7 +4,7 @@
   if listings.length
     .listings
       for listing, i in listings
-        if i % 3 == 0 && i != 0
+        if sd.ENABLE_ADS && i % 3 == 0 && i != 0
           - var end = true;
           include listing
           include ad

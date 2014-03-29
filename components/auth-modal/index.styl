@@ -1,13 +1,14 @@
 @import '../stylus-lib'
 
 #auth-modal
-  width 600px
+  width 400px
   perspective 1000
   background transparent
   padding 0
   h2
-    font-size 32px
+    font-size 28px
     font-weight normal
+    line-height 1em
   h4
     font-size 11px
     text-transform uppercase
@@ -23,7 +24,7 @@
 
 #auth-modal-form-container
   clearfix()
-  margin-top 30px
+  margin-top 20px
 
 #auth-modal-login-link, #auth-modal-signup-link
   font-size 13px
@@ -61,10 +62,10 @@
 
 .auth-modal-error
   color red-color
-  margin-top 10px
+  margin 5px
   font-size 13px
 
-#auth-modal-thank-you
+#auth-modal-thank-you, #auth-modal-login-welcome
   position absolute
   top 0
   left 0
@@ -95,12 +96,12 @@
   width 100%
 
 // State of modal and animation properties between them
-#auth-modal-thank-you
+#auth-modal-thank-you, #auth-modal-login-welcome
   z-index -1
   transform rotateY(-180deg)
-#auth-modal-signup
+#auth-modal-signup, #auth-modal-login
   transform rotateY(0deg)
-#auth-modal-thank-you, #auth-modal-signup
+#auth-modal-thank-you, #auth-modal-signup, #auth-modal-login, #auth-modal-login-welcome
   transform-style preserve-3d
   transition 0.5s
   backface-visibility hidden
@@ -110,6 +111,14 @@
     transform rotateY(0deg)
     z-index inherit
   #auth-modal-signup
+    transform rotateY(180deg)
+    display block
+
+#auth-modal-container[data-state='welcome-login']
+  #auth-modal-login-welcome
+    transform rotateY(0deg)
+    z-index inherit
+  #auth-modal-login
     transform rotateY(180deg)
     display block
 

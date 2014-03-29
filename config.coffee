@@ -3,6 +3,8 @@ module.exports =
   NODE_ENV: 'development'
   PORT: 3001
   API_URL: 'http://localhost:3000'
+  API_ID: 'ddc7384ce313772cfad415c1ed2afc30'
+  API_SECRET: '2acfd8a430c873ea7d03335b0644733a'
   PRICES: [800, 1000, 1200, 1400, 1600, 1800, 2000, 2200, 2400, 2600, 2800, 3000, 3500, 
            4000, 4500, 5000, 6000, 7000, 8000, 9000, 10000]
   MANDRILL_APIKEY: 'yFJt0L42xBWoJ-xGrE3XWw'
@@ -52,6 +54,8 @@ module.exports =
       pos: 'bottom'
     }
   ]
-  
+  SESSION_SECRET: 'n0f33digz'
+  ENABLE_ADS: false
+
 # Override any values with env variables if they exist
 module.exports[key] = (process.env[key] or val) for key, val of module.exports

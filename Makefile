@@ -19,6 +19,7 @@ assets:
 		$(BIN)/sqwish public/$(file).css -o public/$(file).min.css; \
 		gzip -f public/$(file).min.css; \
 	)
+
 commit: assets
 	git add .
 	git commit -a -m 'deploying...'
