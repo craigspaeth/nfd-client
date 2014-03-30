@@ -1,6 +1,7 @@
-section#alerts-modal.modal
-  button.modal-close
+#alerts-modal.modal.modal-flip-container
+  
   #alerts-modal-input.modal-front-flip
+    button.modal-close
     h1 Recieve emails of new
       if params.get('bed-min') == '0'
         |  studio (or bedroom)
@@ -19,15 +20,17 @@ section#alerts-modal.modal
           - locStrings.push('elsewhere') 
         = _.toSentence(locStrings)
       | .
-    label
-      | What should we call these alerts?
-      input.box-input(
-        value=(params.get('bed-min').length > 0 ? params.get('bed-min') + ' bedroom' : 'Studio') + ' apartments'
-      )
-      button.rounded-button Submit
+    form
+      label
+        | What should we call these alerts?
+        input.box-input(
+          value=(params.get('bed-min').length > 0 ? params.get('bed-min') + ' bedroom' : 'Studio') + ' apartments'
+        )
+        button.rounded-button( type='submit' ) Submit
+  
   #auth-modal-thank-you.modal-back-flip-green
-      button.modal-close
-      header
-        h2 Look out for daily emails of new listings.
-        button.rounded-button Okay
+    button.modal-close
+    header
+      h2 Look out for daily emails of new listings.
+      button.rounded-button Okay
  

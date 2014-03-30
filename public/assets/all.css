@@ -2417,6 +2417,13 @@ html.firefox .rounded-select {
   margin-top: 40px;
 }
 .modal-front-flip {
+  background: #fff;
+  padding: 30px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  display: none;
+}
+.modal-front-flip {
   -webkit-transform: rotateY(0deg);
   -moz-transform: rotateY(0deg);
   -o-transform: rotateY(0deg);
@@ -2669,14 +2676,6 @@ html.firefox .rounded-select {
   margin-bottom: 5px;
   color: #777;
 }
-#auth-modal-signup,
-#auth-modal-login {
-  background: #fff;
-  padding: 30px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  display: none;
-}
 #auth-modal-form-container {
   zoom: 1;
   margin-top: 20px;
@@ -2777,6 +2776,22 @@ html.firefox .rounded-select {
 }
 #alerts-modal label input {
   margin-top: 10px;
+}
+#alerts-modal-bg[data-state='thanks'] #alerts-modal-thank-you {
+  -webkit-transform: rotateY(0deg);
+  -moz-transform: rotateY(0deg);
+  -o-transform: rotateY(0deg);
+  -ms-transform: rotateY(0deg);
+  transform: rotateY(0deg);
+  z-index: inherit;
+}
+#alerts-modal-bg[data-state='thanks'] #alerts-modal-input {
+  -webkit-transform: rotateY(180deg);
+  -moz-transform: rotateY(180deg);
+  -o-transform: rotateY(180deg);
+  -ms-transform: rotateY(180deg);
+  transform: rotateY(180deg);
+  display: block;
 }
 #main-header.main-header-home #main-header-logo {
   background-image: url("/images/logo-mark-gr.svg");

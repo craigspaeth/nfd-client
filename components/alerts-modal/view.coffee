@@ -13,3 +13,12 @@ module.exports = class AlertsModal extends Backbone.View
 
   open: =>
     @$el.html(template params: @params, _: _).show().find('input').first().focus()
+
+  events:
+    'submit form': 'submit'
+
+  submit: (e) ->
+    e.preventDefault()
+    console.log 'submit!'
+    @$el.attr 'data-state', 'thanks'
+    false
