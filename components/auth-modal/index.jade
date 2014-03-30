@@ -1,6 +1,7 @@
 #auth-modal-container.modal-container( data-state='signup' )
-  #auth-modal.modal
-    #auth-modal-signup
+  #auth-modal.modal.modal-flip-container
+
+    #auth-modal-signup.modal-front-flip
       button.modal-close
       #auth-modal-logo
       h2 Save thousands on broker’s fees.
@@ -24,7 +25,8 @@
           .auth-modal-error &nbsp;
       small#auth-modal-login-link Already have an account?&nbsp;
         a Log in
-    #auth-modal-login
+
+    #auth-modal-login.modal-front-flip
       button.modal-close
       #auth-modal-logo
       h3 Log in to NoFeeDigs
@@ -36,15 +38,8 @@
       .auth-modal-error &nbsp;
       small#auth-modal-signup-link Don't have an account?&nbsp;
         a Sign up
-    #auth-modal-thank-you
-      button.modal-close
-      header
-        h2 Welcome&nbsp;
-          span.auth-modal-name
-          | !
-        h3 Look out for daily emails of new listings.
-        button.rounded-button Okay
-    #auth-modal-login-welcome
+
+    #auth-modal-login-welcome.modal-back-flip-green
       button.modal-close
       header
         h2 Welcome&nbsp;

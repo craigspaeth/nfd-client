@@ -1,0 +1,33 @@
+section#alerts-modal.modal
+  button.modal-close
+  #alerts-modal-input.modal-front-flip
+    h1 Recieve emails of new
+      if params.get('bed-min') == '0'
+        |  studio (or bedroom)
+      else
+        |  #{params.get('bed-min')} bedroom (or bigger)
+      |  apartments with #{params.get('bath-min')}
+      |  (or more)
+      if params.get('bath-min') == 1
+        |  bathroom(s)
+      else
+        |  bathrooms
+      if params.get('neighborhoods').length
+        |  in&nbsp;
+        - locStrings = params.get('neighborhoods').slice(0, 3) 
+        if params.get('neighborhoods').length > 3
+          - locStrings.push('elsewhere') 
+        = _.toSentence(locStrings)
+      | .
+    label
+      | What should we call these alerts?
+      input.box-input(
+        value=(params.get('bed-min').length > 0 ? params.get('bed-min') + ' bedroom' : 'Studio') + ' apartments'
+      )
+      button.rounded-button Submit
+  #auth-modal-thank-you.modal-back-flip-green
+      button.modal-close
+      header
+        h2 Look out for daily emails of new listings.
+        button.rounded-button Okay
+ 

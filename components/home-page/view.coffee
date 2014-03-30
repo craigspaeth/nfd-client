@@ -4,6 +4,7 @@ Listings = require '../../collections/listings.coffee'
 FiltersView = require '../filters/view.coffee'
 ListingsView = require '../listings/view.coffee'
 FiltersRouter = require './router.coffee'
+AlertsModal = require '../alerts-modal/view.coffee'
 sd = require('sharify').data
 
 BELOW_FOLD_PEAK = 0
@@ -24,6 +25,9 @@ module.exports = class HomepageView extends Backbone.View
       collection: @listings
       el: @$('#home-page-listings-container')
       GMaps: options?.GMaps or (require('gmaps'); GMaps)
+    @alertsModal = new AlertsModal
+      collection: @listings
+      el: '#alerts-modal-bg'
     @$window.on 'scroll.homepagefx', @onScroll
     @$window.on 'resize.homepagefx', @resizeHeroUnit
     @listings.params.on 'change', @navigate

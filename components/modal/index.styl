@@ -45,3 +45,41 @@
   &:focus, &:hover
     outline none
     opacity 1
+
+.modal-back-flip-green
+  position absolute
+  top 0
+  left 0
+  background red
+  width 100%
+  height 100%
+  background green-color
+  color white
+  border-radius default-border-radius
+  header
+    position absolute
+    top 50%
+    margin-top -80px
+    text-align center
+    width 100%
+    h2
+      font-weight bold
+      margin-bottom 25px
+    h3
+      font-size 18px
+    .rounded-button
+      display inline-block
+      background hover-green-color
+      width auto
+      margin-top 40px
+
+// State of modal and animation properties between them
+.modal-front-flip
+  transform rotateY(0deg)
+.modal-back-flip-green
+  z-index -1
+  transform rotateY(-180deg)
+.modal-front-flip, .modal-back-flip-green
+  transform-style preserve-3d
+  transition 0.5s
+  backface-visibility hidden

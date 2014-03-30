@@ -1,3 +1,10 @@
+vent = require '../../lib/vent.coffee'
+template = require './index.jade'
+
+vent.on 'login logout', (user) ->
+  $('#feedback-modal-bg').replaceWith $ template
+    user: user
+
 # Submitting the form sends an email
 $('#feedback-modal-bg form').on 'submit', ->
   $.ajax(
@@ -12,7 +19,10 @@ $('#feedback-modal-bg form').on 'submit', ->
   false
 
 # Clicking "Give Feedback opens the modal"
-$('[href=feedback]').click ->
+$(document).on 'click', '[href=feedback]', ->
   $('#feedback-modal-bg').show()
-  $('#feedback-modal-bg input').first().focus()
+  if currentUser?
+    $('#feedback-modal-bg textarea').first().focus()
+  else
+    $('#feedback-modal-bg input').first().focus()
   false

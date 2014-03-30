@@ -6,7 +6,7 @@ header#main-header( class=(path == '/' ? ' main-header-home' : '') + (belowHero 
     a( class=(path == '/about' ? ' main-header-active' : ''), href='/about' ) About
     a( href='feedback' ) Give Feedback
     if user
-      a( href='/settings' ) #{user.get('name')}'s Settings
+      //- a( href='/settings' ) #{user.get('name')}'s Settings
       a( href='/logout' ) Logout
     else
       a( href='/login' ) Log In

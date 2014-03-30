@@ -104,4 +104,7 @@ module.exports = class FiltersView extends Backbone.View
       .hide()
 
   onFilterAlerts: ->
-    vent.trigger 'auth-modal:open'
+    if currentUser?
+      vent.trigger 'alerts-modal:open'
+    else
+      vent.trigger 'auth-modal:open'

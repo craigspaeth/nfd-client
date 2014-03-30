@@ -10,6 +10,7 @@
 		"jade": "*",
 		"coffee-script": "*",
 		"underscore": "*",
+    "underscore.string": "*",
 		"backbone": "*",
 		"superagent": "*",
 		"accounting": "*",

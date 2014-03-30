@@ -10,15 +10,13 @@ html( class=uaFamily )
     include ../../main-header/index
     include ../../feedback-modal/index
     include ../../auth-modal/index
+    #alerts-modal-bg.modal-container
     block content
     #scripts
       != sharify.script()
-      include mixpanel.html
       include typekit.html
       script( src='http://maps.google.com/maps/api/js?sensor=true' )
       script( src='//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js' )
       script( src='//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js' )
       script( src='/assets/all.js' )
-      script.
-        mixpanel.init('!{sd.MIXPANEL_KEY}')
       block scripts

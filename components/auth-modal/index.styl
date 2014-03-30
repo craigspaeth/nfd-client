@@ -8,7 +8,7 @@
   h2
     font-size 28px
     font-weight normal
-    line-height 1em
+    line-height 1.2em
   h4
     font-size 11px
     text-transform uppercase
@@ -65,55 +65,10 @@
   margin 5px
   font-size 13px
 
-#auth-modal-thank-you, #auth-modal-login-welcome
-  position absolute
-  top 0
-  left 0
-  background red
-  width 100%
-  height 100%
-  background green-color
-  color white
-  border-radius default-border-radius
-  header
-    position absolute
-    top 50%
-    margin-top -80px
-    text-align center
-    width 100%
-    h2
-      font-weight bold
-      margin-bottom 25px
-    h3
-      font-size 18px
-    .rounded-button
-      display inline-block
-      background hover-green-color
-      width auto
-      margin-top 40px
-
 #auth-modal-right
   width 100%
 
 // State of modal and animation properties between them
-#auth-modal-thank-you, #auth-modal-login-welcome
-  z-index -1
-  transform rotateY(-180deg)
-#auth-modal-signup, #auth-modal-login
-  transform rotateY(0deg)
-#auth-modal-thank-you, #auth-modal-signup, #auth-modal-login, #auth-modal-login-welcome
-  transform-style preserve-3d
-  transition 0.5s
-  backface-visibility hidden
-
-#auth-modal-container[data-state='thank-you']
-  #auth-modal-thank-you
-    transform rotateY(0deg)
-    z-index inherit
-  #auth-modal-signup
-    transform rotateY(180deg)
-    display block
-
 #auth-modal-container[data-state='welcome-login']
   #auth-modal-login-welcome
     transform rotateY(0deg)

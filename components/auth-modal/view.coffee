@@ -14,7 +14,7 @@ module.exports = class AuthModal extends Backbone.View
 
   onOpen: (options = {}) =>
     @$el.show()
-    @$('.auth-modal-error').html ''
+    @$('.auth-modal-error').html '&nbsp;'
     @$el.attr 'data-state', options.state ? 'signup'
     _.defer => @$('input:visible').first().focus()
 
