@@ -29,8 +29,9 @@ class InitRouter extends Backbone.Router
 
   routes:
     '': 'home'
-    '/search*': 'home'
+    'search/*params': 'home'
 
   home: ->
+    console.log 'mooo'
     new AuthModal
     new HomepageView

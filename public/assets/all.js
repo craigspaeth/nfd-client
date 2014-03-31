@@ -714,10 +714,11 @@ InitRouter = (function(_super) {
 
   InitRouter.prototype.routes = {
     '': 'home',
-    '/search*': 'home'
+    'search/*params': 'home'
   };
 
   InitRouter.prototype.home = function() {
+    console.log('mooo');
     new AuthModal;
     return new HomepageView;
   };
@@ -1229,8 +1230,9 @@ module.exports = function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-;var locals_for_with = (locals || {});(function (path, belowHero, user) {
-buf.push("<header id=\"main-header\"" + (jade.cls([(path == '/' ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '')], [true])) + "><a id=\"main-header-logo\" href=\"/\"" + (jade.cls([(path == '/' ? ' main-header-active' : '')], [true])) + ">NoFeeDigs<small>Beta</small></a><nav><a href=\"/about\"" + (jade.cls([(path == '/about' ? ' main-header-active' : '')], [true])) + ">About</a><a href=\"feedback\">Give Feedback</a>");
+;var locals_for_with = (locals || {});(function (isHome, path, belowHero, user) {
+isHome = path.match('search') || path == '/'
+buf.push("<header id=\"main-header\"" + (jade.cls([(isHome ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '')], [true])) + "><a id=\"main-header-logo\" href=\"/\"" + (jade.cls([(isHome ? ' main-header-active' : '')], [true])) + ">NoFeeDigs<small>Beta</small></a><nav><a href=\"/about\"" + (jade.cls([(path == '/about' ? ' main-header-active' : '')], [true])) + ">About</a><a href=\"feedback\">Give Feedback</a>");
 if ( user)
 {
 buf.push("<a href=\"/logout\">Logout</a>");
@@ -1239,7 +1241,7 @@ else
 {
 buf.push("<a href=\"/login\">Log In</a>");
 }
-buf.push("</nav><div id=\"main-header-social-media\"><a href=\"https://www.facebook.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-facebook\"></a><a href=\"https://twitter.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-twitter\"></a></div></header>");}("path" in locals_for_with?locals_for_with.path:typeof path!=="undefined"?path:undefined,"belowHero" in locals_for_with?locals_for_with.belowHero:typeof belowHero!=="undefined"?belowHero:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
+buf.push("</nav><div id=\"main-header-social-media\"><a href=\"https://www.facebook.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-facebook\"></a><a href=\"https://twitter.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-twitter\"></a></div></header>");}("isHome" in locals_for_with?locals_for_with.isHome:typeof isHome!=="undefined"?isHome:undefined,"path" in locals_for_with?locals_for_with.path:typeof path!=="undefined"?path:undefined,"belowHero" in locals_for_with?locals_for_with.belowHero:typeof belowHero!=="undefined"?belowHero:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
 };
 },{"jade/runtime":31}],16:[function(require,module,exports){
 $(document).on('click', '.modal-container', function(e) {

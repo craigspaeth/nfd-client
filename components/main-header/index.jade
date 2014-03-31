@@ -1,5 +1,6 @@
-header#main-header( class=(path == '/' ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '') )
-  a#main-header-logo( class=(path == '/' ? ' main-header-active' : ''), href='/' )
+- isHome = path.match('search') || path == '/'
+header#main-header( class=(isHome ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '') )
+  a#main-header-logo( class=(isHome ? ' main-header-active' : ''), href='/' )
     | NoFeeDigs
     small Beta
   nav
