@@ -295,16 +295,13 @@ vent.on('login logout', function(user) {
   })));
 });
 
-$('#feedback-modal-bg form').on('submit', function() {
+$(document).on('submit', '#feedback-modal-bg form', function(e) {
   $.ajax({
     url: '/feedback',
     type: 'POST',
     data: {
       email: $('#feedback-modal-bg [type=email]').val(),
       body: $('#feedback-modal-bg textarea').val()
-    },
-    success: function() {
-      return console.log(arguments);
     }
   });
   $('#feedback-modal-bg').hide();

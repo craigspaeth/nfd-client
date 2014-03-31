@@ -6,14 +6,13 @@ vent.on 'login logout', (user) ->
     user: user
 
 # Submitting the form sends an email
-$('#feedback-modal-bg form').on 'submit', ->
+$(document).on 'submit', '#feedback-modal-bg form', (e) ->
   $.ajax(
     url: '/feedback'
     type: 'POST'
     data:
       email: $('#feedback-modal-bg [type=email]').val()
       body: $('#feedback-modal-bg textarea').val()
-    success: -> console.log arguments
   )
   $('#feedback-modal-bg').hide()
   false
