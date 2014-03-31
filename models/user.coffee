@@ -9,6 +9,11 @@ module.exports = class User extends Backbone.Model
   
   urlRoot: -> "#{API_URL}/users"
 
+  addAlert: (name, query) ->
+    @set alerts: [] unless @get('alerts')?.length
+    @get('alerts').push { name: name, query: query } 
+    @save()
+
   @login: (email, password, callback) ->
     request.post(API_URL + '/access-token').send(
       email: email

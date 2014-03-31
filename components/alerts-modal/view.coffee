@@ -12,6 +12,7 @@ module.exports = class AlertsModal extends Backbone.View
     vent.on 'alerts-modal:open', @open
 
   open: =>
+    @$el.attr 'data-state', ''
     @$el.html(template params: @params, _: _).show().find('input').first().focus()
 
   events:
@@ -19,6 +20,6 @@ module.exports = class AlertsModal extends Backbone.View
 
   submit: (e) ->
     e.preventDefault()
-    console.log 'submit!'
     @$el.attr 'data-state', 'thanks'
+    currentUser.addAlert @$('input').val(), @params.toJSON()
     false

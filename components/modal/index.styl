@@ -46,6 +46,11 @@
     outline none
     opacity 1
 
+.modal-flip-container
+  padding 0
+  background transparent
+  perspective 2000
+
 .modal-back-flip-green
   position absolute
   top 0
@@ -62,22 +67,25 @@
     margin-top -80px
     text-align center
     width 100%
+    h1
+      font-size 32px
+      font-weight normal
+      margin-bottom 30px
+      text-align center
     h2
       font-weight bold
-      margin-bottom 25px
     h3
       font-size 18px
     .rounded-button
       display inline-block
       background hover-green-color
       width auto
-      margin-top 40px
+      margin-top 20px
 
 .modal-front-flip
   background white
   padding 30px
   border-radius default-border-radius
-  display none
 
 // State of modal and animation properties between them
 .modal-front-flip

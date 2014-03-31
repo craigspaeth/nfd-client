@@ -12,7 +12,7 @@ section.listings-listing( class=end ? 'listings-listing-end' : '' )
       | bath
     if listing.get('location')
       h3= listing.get('location').neighborhood || listing.get('location').name
-      h4= listing.get('location').formatted_address
+      h4= listing.get('location').formattedAddress || listing.get('location').formatted_address
       h5( class=listing.listedAgoClass() ) Listed #{listing.listedAgo()}
     a.rounded-button( target='_blank', href=listing.get('url') )
       | See more on #{listing.sourceWebsiteName()}

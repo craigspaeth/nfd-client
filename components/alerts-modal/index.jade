@@ -19,18 +19,21 @@
         if params.get('neighborhoods').length > 3
           - locStrings.push('elsewhere') 
         = _.toSentence(locStrings)
+      if params.get('rent-max')
+        |  for under $#{params.get('rent-max')}
       | .
     form
       label
         | What should we call these alerts?
         input.box-input(
-          value=(params.get('bed-min').length > 0 ? params.get('bed-min') + ' bedroom' : 'Studio') + ' apartments'
+          value=(parseInt(params.get('bed-min')) > 0 ? params.get('bed-min') + ' bedroom' : 'Studio') + ' apartments'
         )
         button.rounded-button( type='submit' ) Submit
   
-  #auth-modal-thank-you.modal-back-flip-green
+  #alerts-modal-thank-you.modal-back-flip-green
     button.modal-close
     header
+      h1 Great!
       h2 Look out for daily emails of new listings.
-      button.rounded-button Okay
+      button.rounded-button.modal-okay Okay
  

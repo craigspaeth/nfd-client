@@ -13,7 +13,7 @@ module.exports = class AuthModal extends Backbone.View
     vent.on 'login', (user) => @$('.auth-modal-name').html user.get('name')
 
   onOpen: (options = {}) =>
-    @$el.show()
+    @$el.attr('data-state', '').show()
     @$('.auth-modal-error').html '&nbsp;'
     @$el.attr 'data-state', options.state ? 'signup'
     _.defer => @$('input:visible').first().focus()
@@ -33,7 +33,6 @@ module.exports = class AuthModal extends Backbone.View
   events:
     'submit #auth-modal-signup-form': 'onSignup'
     'submit #auth-modal-login-form': 'onLogin'
-    'click #auth-modal-thank-you .rounded-button, #auth-modal-login-welcome .rounded-button': 'close'
     'click #auth-modal-signup-link': 'signupMode'
     'click #auth-modal-login-link': 'loginMode'
 
@@ -55,10 +54,6 @@ module.exports = class AuthModal extends Backbone.View
     e.preventDefault()
     { email, password } = qs.parse @$('#auth-modal-login-form').serialize()
     @login email, password
-
-  close: =>
-    @$el.hide()
-    @$el.attr('data-state', '')
 
   signupMode: ->
     vent.trigger 'auth-modal:open', { state: 'signup' }

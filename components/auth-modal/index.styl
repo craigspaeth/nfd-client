@@ -2,9 +2,6 @@
 
 #auth-modal
   width 400px
-  perspective 1000
-  background transparent
-  padding 0
   h2
     font-size 28px
     font-weight normal
@@ -43,7 +40,6 @@
 
 #auth-modal-right
   float right
-  //  {padding-left 20px
   small
     font-size 12px
     text-align left
@@ -61,6 +57,10 @@
 
 #auth-modal-right
   width 100%
+
+
+#auth-modal-signup, #auth-modal-login
+  display none
 
 // State of modal and animation properties between them
 #auth-modal-container[data-state='welcome-login']
