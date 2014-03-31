@@ -2,7 +2,7 @@
 require('../components/layout/client.coffee');
 
 
-},{"../components/layout/client.coffee":8}],2:[function(require,module,exports){
+},{"../components/layout/client.coffee":11}],2:[function(require,module,exports){
 var Backbone, Listings, ListingsParams, sd, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -62,7 +62,105 @@ module.exports = Listings = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"../models/listing.coffee":14,"../models/listings-params.coffee":15,"backbone":18,"sharify":29,"underscore":30}],3:[function(require,module,exports){
+},{"../models/listing.coffee":19,"../models/listings-params.coffee":20,"backbone":23,"sharify":34,"underscore":39}],3:[function(require,module,exports){
+var jade = require("jade/runtime");
+
+module.exports = function template(locals) {
+var buf = [];
+var jade_mixins = {};
+var jade_interp;
+;var locals_for_with = (locals || {});(function (params, locStrings, _, parseInt) {
+buf.push("<div id=\"alerts-modal\" class=\"modal modal-flip-container\"><div id=\"alerts-modal-input\" class=\"modal-front-flip\"><button class=\"modal-close\"></button><h1>Recieve emails of new");
+if ( params.get('bed-min') == '0')
+{
+buf.push(" studio (or bedroom)");
+}
+else
+{
+buf.push(" " + (jade.escape((jade_interp = params.get('bed-min')) == null ? '' : jade_interp)) + " bedroom (or bigger)");
+}
+buf.push(" apartments with " + (jade.escape((jade_interp = params.get('bath-min')) == null ? '' : jade_interp)) + "\n (or more)");
+if ( params.get('bath-min') == 1)
+{
+buf.push(" bathroom(s)");
+}
+else
+{
+buf.push(" bathrooms");
+}
+if ( params.get('neighborhoods').length)
+{
+buf.push(" in&nbsp;");
+locStrings = params.get('neighborhoods').slice(0, 3) 
+if ( params.get('neighborhoods').length > 3)
+{
+locStrings.push('elsewhere') 
+}
+buf.push(jade.escape(null == (jade_interp = _.toSentence(locStrings)) ? "" : jade_interp));
+}
+if ( params.get('rent-max'))
+{
+buf.push(" for under $" + (jade.escape((jade_interp = params.get('rent-max')) == null ? '' : jade_interp)) + "");
+}
+buf.push(".</h1><form><label>What should we call these alerts?<input" + (jade.attr("value", (parseInt(params.get('bed-min')) > 0 ? params.get('bed-min') + ' bedroom' : 'Studio') + ' apartments', true, false)) + " class=\"box-input\"/><button type=\"submit\" class=\"rounded-button\">Submit</button></label></form></div><div id=\"alerts-modal-thank-you\" class=\"modal-back-flip-green\"><button class=\"modal-close\"></button><header><h1>Great!</h1><h2>Look out for daily emails of new listings.</h2><button class=\"rounded-button modal-okay\">Okay</button></header></div></div>");}("params" in locals_for_with?locals_for_with.params:typeof params!=="undefined"?params:undefined,"locStrings" in locals_for_with?locals_for_with.locStrings:typeof locStrings!=="undefined"?locStrings:undefined,"_" in locals_for_with?locals_for_with._:typeof _!=="undefined"?_:undefined,"parseInt" in locals_for_with?locals_for_with.parseInt:typeof parseInt!=="undefined"?parseInt:undefined));;return buf.join("");
+};
+},{"jade/runtime":31}],4:[function(require,module,exports){
+var AlertsModal, Backbone, User, template, vent, _, _ref,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('underscore');
+
+_.mixin(require('underscore.string'));
+
+Backbone = require('backbone');
+
+vent = require('../../lib/vent.coffee');
+
+User = require('../../models/user.coffee');
+
+template = require('./index.jade');
+
+module.exports = AlertsModal = (function(_super) {
+  __extends(AlertsModal, _super);
+
+  function AlertsModal() {
+    this.open = __bind(this.open, this);
+    _ref = AlertsModal.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  AlertsModal.prototype.initialize = function() {
+    this.params = this.collection.params;
+    return vent.on('alerts-modal:open', this.open);
+  };
+
+  AlertsModal.prototype.open = function() {
+    this.$el.attr('data-state', '');
+    return this.$el.html(template({
+      params: this.params,
+      _: _
+    })).show().find('input').first().focus();
+  };
+
+  AlertsModal.prototype.events = {
+    'submit form': 'submit'
+  };
+
+  AlertsModal.prototype.submit = function(e) {
+    e.preventDefault();
+    this.$el.attr('data-state', 'thanks');
+    currentUser.addAlert(this.$('input').val(), this.params.toJSON());
+    return false;
+  };
+
+  return AlertsModal;
+
+})(Backbone.View);
+
+
+},{"../../lib/vent.coffee":18,"../../models/user.coffee":21,"./index.jade":3,"backbone":23,"underscore":39,"underscore.string":38}],5:[function(require,module,exports){
 var AuthModal, Backbone, User, qs, vent, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -90,7 +188,11 @@ module.exports = AuthModal = (function(_super) {
   AuthModal.prototype.el = '#auth-modal-container';
 
   AuthModal.prototype.initialize = function() {
-    return vent.on('auth-modal:open', this.onOpen);
+    var _this = this;
+    vent.on('auth-modal:open', this.onOpen);
+    return vent.on('login', function(user) {
+      return _this.$('.auth-modal-name').html(user.get('name'));
+    });
   };
 
   AuthModal.prototype.onOpen = function(options) {
@@ -99,34 +201,55 @@ module.exports = AuthModal = (function(_super) {
     if (options == null) {
       options = {};
     }
-    this.$el.show();
+    this.$el.attr('data-state', '').show();
+    this.$('.auth-modal-error').html('&nbsp;');
     this.$el.attr('data-state', (_ref1 = options.state) != null ? _ref1 : 'signup');
     return _.defer(function() {
       return _this.$('input:visible').first().focus();
     });
   };
 
+  AuthModal.prototype.onError = function(err) {
+    var _this = this;
+    this.$('.auth-modal-error').html(err);
+    this.$('form button').addClass('rounded-button-error');
+    return setTimeout((function() {
+      return _this.$('form button').removeClass('rounded-button-error');
+    }), 1000);
+  };
+
+  AuthModal.prototype.login = function(email, password) {
+    var _this = this;
+    return User.login(email, password, function(res) {
+      if (res.error) {
+        return _this.onError(res.body.error);
+      }
+      vent.trigger('login', new User(res.body));
+      _this.$el.attr('data-state', 'welcome-login');
+      return setTimeout(_this.close, 1000);
+    });
+  };
+
   AuthModal.prototype.events = {
-    'submit #auth-modal-signup-form': 'signup',
-    'click #auth-modal-thank-you .rounded-button': 'closeThankYou',
+    'submit #auth-modal-signup-form': 'onSignup',
+    'submit #auth-modal-login-form': 'onLogin',
     'click #auth-modal-signup-link': 'signupMode',
     'click #auth-modal-login-link': 'loginMode'
   };
 
-  AuthModal.prototype.signup = function(e) {
+  AuthModal.prototype.onSignup = function(e) {
     var _this = this;
     e.preventDefault();
     new User(qs.parse(this.$('#auth-modal-signup-form').serialize())).save(null, {
       success: function(user) {
-        _this.$('#auth-modal-thank-you-name').html(user.get('name'));
-        return _this.$el.attr('data-state', 'thank-you');
+        var email, password, _ref1;
+        vent.trigger('login', user);
+        _this.$el.attr('data-state', 'thank-you');
+        _ref1 = qs.parse(_this.$('#auth-modal-signup-form').serialize()), email = _ref1.email, password = _ref1.password;
+        return _this.login(email, password);
       },
       error: function(m, xhr) {
-        _this.$('#auth-modal-right .auth-modal-error').html(xhr.responseJSON.error);
-        _this.$('#auth-modal-right button').addClass('rounded-button-error');
-        return setTimeout((function() {
-          return _this.$('#auth-modal-right button').removeClass('rounded-button-error');
-        }), 1000);
+        return _this.onError(xhr.responseJSON.error);
       },
       complete: function() {
         return _this.$('#auth-modal-signup-form button').removeClass('is-loading');
@@ -135,9 +258,11 @@ module.exports = AuthModal = (function(_super) {
     return this.$('#auth-modal-signup-form button').addClass('is-loading');
   };
 
-  AuthModal.prototype.closeThankYou = function() {
-    this.$el.hide();
-    return this.$el.attr('data-state', '');
+  AuthModal.prototype.onLogin = function(e) {
+    var email, password, _ref1;
+    e.preventDefault();
+    _ref1 = qs.parse(this.$('#auth-modal-login-form').serialize()), email = _ref1.email, password = _ref1.password;
+    return this.login(email, password);
   };
 
   AuthModal.prototype.signupMode = function() {
@@ -157,7 +282,19 @@ module.exports = AuthModal = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/vent.coffee":13,"../../models/user.coffee":16,"backbone":18,"querystring":23,"underscore":30}],4:[function(require,module,exports){
+},{"../../lib/vent.coffee":18,"../../models/user.coffee":21,"backbone":23,"querystring":28,"underscore":39}],6:[function(require,module,exports){
+var template, vent;
+
+vent = require('../../lib/vent.coffee');
+
+template = require('./index.jade');
+
+vent.on('login logout', function(user) {
+  return $('#feedback-modal-bg').replaceWith($(template({
+    user: user
+  })));
+});
+
 $('#feedback-modal-bg form').on('submit', function() {
   $.ajax({
     url: '/feedback',
@@ -174,14 +311,28 @@ $('#feedback-modal-bg form').on('submit', function() {
   return false;
 });
 
-$('[href=feedback]').click(function() {
+$(document).on('click', '[href=feedback]', function() {
   $('#feedback-modal-bg').show();
-  $('#feedback-modal-bg input').first().focus();
+  if (typeof currentUser !== "undefined" && currentUser !== null) {
+    $('#feedback-modal-bg textarea').first().focus();
+  } else {
+    $('#feedback-modal-bg input').first().focus();
+  }
   return false;
 });
 
 
-},{}],5:[function(require,module,exports){
+},{"../../lib/vent.coffee":18,"./index.jade":7}],7:[function(require,module,exports){
+var jade = require("jade/runtime");
+
+module.exports = function template(locals) {
+var buf = [];
+var jade_mixins = {};
+var jade_interp;
+;var locals_for_with = (locals || {});(function (user) {
+buf.push("<div id=\"feedback-modal-bg\" class=\"modal-container\"><div id=\"feedback-modal\" class=\"modal\"><button class=\"modal-close\"></button><h2>Give us your feedback</h2><form><input placeholder=\"Email (optional)\" type=\"email\"" + (jade.attr("value", (user && user.get('email')), true, false)) + " class=\"box-input\"/><textarea placeholder=\"Help us improve, leave your comments here.\" class=\"box-input\"></textarea><button type=\"submit\" class=\"rounded-button\">Send</button></form></div></div>");}("user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
+};
+},{"jade/runtime":31}],8:[function(require,module,exports){
 var Backbone, FiltersView, numeral, vent, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -325,7 +476,11 @@ module.exports = FiltersView = (function(_super) {
   };
 
   FiltersView.prototype.onFilterAlerts = function() {
-    return vent.trigger('auth-modal:open');
+    if (typeof currentUser !== "undefined" && currentUser !== null) {
+      return vent.trigger('alerts-modal:open');
+    } else {
+      return vent.trigger('auth-modal:open');
+    }
   };
 
   return FiltersView;
@@ -333,7 +488,7 @@ module.exports = FiltersView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/vent.coffee":13,"backbone":18,"numeral":28,"underscore":30}],6:[function(require,module,exports){
+},{"../../lib/vent.coffee":18,"backbone":23,"numeral":33,"underscore":39}],9:[function(require,module,exports){
 var Backbone, HomepageRouter, querystring, _, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -369,8 +524,8 @@ module.exports = HomepageRouter = (function(_super) {
 })(Backbone.Router);
 
 
-},{"backbone":18,"querystring":23,"underscore":30}],7:[function(require,module,exports){
-var BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
+},{"backbone":23,"querystring":28,"underscore":39}],10:[function(require,module,exports){
+var AlertsModal, BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -386,6 +541,8 @@ FiltersView = require('../filters/view.coffee');
 ListingsView = require('../listings/view.coffee');
 
 FiltersRouter = require('./router.coffee');
+
+AlertsModal = require('../alerts-modal/view.coffee');
 
 sd = require('sharify').data;
 
@@ -421,6 +578,10 @@ module.exports = HomepageView = (function(_super) {
       collection: this.listings,
       el: this.$('#home-page-listings-container'),
       GMaps: (options != null ? options.GMaps : void 0) || (require('gmaps'), GMaps)
+    });
+    this.alertsModal = new AlertsModal({
+      collection: this.listings,
+      el: '#alerts-modal-bg'
     });
     this.$window.on('scroll.homepagefx', this.onScroll);
     this.$window.on('resize.homepagefx', this.resizeHeroUnit);
@@ -504,8 +665,8 @@ module.exports = HomepageView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../collections/listings.coffee":2,"../filters/view.coffee":5,"../listings/view.coffee":10,"./router.coffee":6,"backbone":18,"gmaps":25,"sharify":29,"underscore":30}],8:[function(require,module,exports){
-var AuthModal, Backbone, HomepageView, InitRouter, sd, vent, _ref,
+},{"../../collections/listings.coffee":2,"../alerts-modal/view.coffee":4,"../filters/view.coffee":8,"../listings/view.coffee":13,"./router.coffee":9,"backbone":23,"gmaps":30,"sharify":34,"underscore":39}],11:[function(require,module,exports){
+var AuthModal, Backbone, HomepageView, InitRouter, User, sd, vent, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -519,21 +680,24 @@ AuthModal = require('../auth-modal/view.coffee');
 
 vent = require('../../lib/vent.coffee');
 
+User = require('../../models/user.coffee');
+
 require('../../lib/jquery.infinite-scroll.coffee');
 
 $(function() {
   Backbone.$ = $;
-  mixpanel.track('Viewed page', {
-    path: location.pathname
-  });
   require('../modal/client.coffee');
   require('../feedback-modal/client.coffee');
-  $('[href*=login]').click(function() {
-    vent.trigger('auth-modal:open', {
-      state: 'login'
-    });
-    return false;
+  require('../main-header/client.coffee');
+  vent.on('login', function(user) {
+    return window.currentUser = user;
   });
+  vent.on('logout', function(user) {
+    return delete window.currentUser;
+  });
+  if (sd.USER) {
+    vent.trigger('login', new User(sd.USER));
+  }
   new InitRouter;
   return Backbone.history.start({
     pushState: true
@@ -563,14 +727,14 @@ InitRouter = (function(_super) {
 })(Backbone.Router);
 
 
-},{"../../lib/jquery.infinite-scroll.coffee":12,"../../lib/vent.coffee":13,"../auth-modal/view.coffee":3,"../feedback-modal/client.coffee":4,"../home-page/view.coffee":7,"../modal/client.coffee":11,"backbone":18,"sharify":29}],9:[function(require,module,exports){
+},{"../../lib/jquery.infinite-scroll.coffee":17,"../../lib/vent.coffee":18,"../../models/user.coffee":21,"../auth-modal/view.coffee":5,"../feedback-modal/client.coffee":6,"../home-page/view.coffee":10,"../main-header/client.coffee":14,"../modal/client.coffee":16,"backbone":23,"sharify":34}],12:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
 var buf = [];
 var jade_mixins = {};
 var jade_interp;
-var locals_ = (locals || {}),listings = locals_.listings;
+;var locals_for_with = (locals || {});(function (listings, sd) {
 buf.push("<div class=\"listings-container\"><div class=\"listings-before-spinner loading-spinner\"><div class=\"loading-spinner-dot\"></div></div>");
 if ( listings.length)
 {
@@ -583,7 +747,7 @@ buf.push("<div class=\"listings\">");
     for (var i = 0, $$l = $$obj.length; i < $$l; i++) {
       var listing = $$obj[i];
 
-if ( i % 3 == 0 && i != 0)
+if ( sd.ENABLE_ADS && i % 3 == 0 && i != 0)
 {
 var end = true;
 buf.push("<section" + (jade.cls(['listings-listing',end ? 'listings-listing-end' : ''], [null,true])) + "><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade_interp = listing.formattedRent()) ? "" : jade_interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.bedsDisplay()) ? "" : jade_interp)) + "</div>");
@@ -598,7 +762,7 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.get('baths')  || '?') ? "" : jade_interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
 buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade_interp = listing.sourceWebsiteName()) == null ? '' : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
@@ -649,7 +813,7 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.get('baths')  || '?') ? "" : jade_interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
 buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade_interp = listing.sourceWebsiteName()) == null ? '' : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
@@ -692,7 +856,7 @@ buf.push("</div></section>");
     for (var i in $$obj) {
       $$l++;      var listing = $$obj[i];
 
-if ( i % 3 == 0 && i != 0)
+if ( sd.ENABLE_ADS && i % 3 == 0 && i != 0)
 {
 var end = true;
 buf.push("<section" + (jade.cls(['listings-listing',end ? 'listings-listing-end' : ''], [null,true])) + "><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade_interp = listing.formattedRent()) ? "" : jade_interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.bedsDisplay()) ? "" : jade_interp)) + "</div>");
@@ -707,7 +871,7 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.get('baths')  || '?') ? "" : jade_interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
 buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade_interp = listing.sourceWebsiteName()) == null ? '' : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
@@ -758,7 +922,7 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.get('baths')  || '?') ? "" : jade_interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
 buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade_interp = listing.sourceWebsiteName()) == null ? '' : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
@@ -805,10 +969,10 @@ else
 {
 buf.push("<div class=\"listings-no-results\">No results. Try loosening up your filters.</div>");
 }
-buf.push("</div>");;return buf.join("");
+buf.push("</div>");}("listings" in locals_for_with?locals_for_with.listings:typeof listings!=="undefined"?listings:undefined,"sd" in locals_for_with?locals_for_with.sd:typeof sd!=="undefined"?sd:undefined));;return buf.join("");
 };
-},{"jade/runtime":26}],10:[function(require,module,exports){
-var Backbone, FIXED_FILTER_HEIGHT, ListingsView, MARGIN_SIZE, template, _, _ref,
+},{"jade/runtime":31}],13:[function(require,module,exports){
+var Backbone, FIXED_FILTER_HEIGHT, ListingsView, MARGIN_SIZE, sd, template, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -820,6 +984,8 @@ Backbone = require('backbone');
 template = function() {
   return require('./templates/index.jade').apply(null, arguments);
 };
+
+sd = require('sharify').data;
 
 FIXED_FILTER_HEIGHT = 160;
 
@@ -893,7 +1059,8 @@ module.exports = ListingsView = (function(_super) {
 
   ListingsView.prototype.render = function() {
     this.$el.html(template({
-      listings: this.collection.models
+      listings: this.collection.models,
+      sd: sd
     }));
     this.renderMap();
     this.onScroll();
@@ -1024,16 +1191,66 @@ module.exports = ListingsView = (function(_super) {
 })(Backbone.View);
 
 
-},{"./templates/index.jade":9,"backbone":18,"gmaps":25,"underscore":30}],11:[function(require,module,exports){
+},{"./templates/index.jade":12,"backbone":23,"gmaps":30,"sharify":34,"underscore":39}],14:[function(require,module,exports){
+var User, template, vent;
+
+vent = require('../../lib/vent.coffee');
+
+template = require('./index.jade');
+
+User = require('../../models/user.coffee');
+
+vent.on('login logout', function(user) {
+  return $('#main-header').replaceWith($(template({
+    user: user,
+    path: location.pathname,
+    belowHero: $('.home-page-filters-fixed').length > 0
+  })));
+});
+
+$(document).on('click', '#main-header [href*=logout]', function(e) {
+  e.preventDefault();
+  vent.trigger('logout');
+  return User.logout();
+});
+
+$(document).on('click', '[href*=login]', function(e) {
+  vent.trigger('auth-modal:open', {
+    state: 'login'
+  });
+  return false;
+});
+
+
+},{"../../lib/vent.coffee":18,"../../models/user.coffee":21,"./index.jade":15}],15:[function(require,module,exports){
+var jade = require("jade/runtime");
+
+module.exports = function template(locals) {
+var buf = [];
+var jade_mixins = {};
+var jade_interp;
+;var locals_for_with = (locals || {});(function (path, belowHero, user) {
+buf.push("<header id=\"main-header\"" + (jade.cls([(path == '/' ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '')], [true])) + "><a id=\"main-header-logo\" href=\"/\"" + (jade.cls([(path == '/' ? ' main-header-active' : '')], [true])) + ">NoFeeDigs<small>Beta</small></a><nav><a href=\"/about\"" + (jade.cls([(path == '/about' ? ' main-header-active' : '')], [true])) + ">About</a><a href=\"feedback\">Give Feedback</a>");
+if ( user)
+{
+buf.push("<a href=\"/logout\">Logout</a>");
+}
+else
+{
+buf.push("<a href=\"/login\">Log In</a>");
+}
+buf.push("</nav><div id=\"main-header-social-media\"><a href=\"https://www.facebook.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-facebook\"></a><a href=\"https://twitter.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-twitter\"></a></div></header>");}("path" in locals_for_with?locals_for_with.path:typeof path!=="undefined"?path:undefined,"belowHero" in locals_for_with?locals_for_with.belowHero:typeof belowHero!=="undefined"?belowHero:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
+};
+},{"jade/runtime":31}],16:[function(require,module,exports){
 $(document).on('click', '.modal-container', function(e) {
-  if (!($(e.target).is('.modal-container') || $(e.target).is('.modal-close'))) {
+  if (!($(e.target).is('.modal-container') || $(e.target).is('.modal-close') || $(e.target).is('.modal-okay'))) {
     return;
   }
   return $(e.target).closest('.modal-container').hide();
 });
 
 
-},{}],12:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 var onScroll,
   _this = this;
 
@@ -1056,7 +1273,7 @@ onScroll = module.exports = function() {
 };
 
 
-},{}],13:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 var Backbone, _;
 
 _ = require('underscore');
@@ -1066,7 +1283,7 @@ Backbone = require('backbone');
 module.exports = _.extend({}, Backbone.Events);
 
 
-},{"backbone":18,"underscore":30}],14:[function(require,module,exports){
+},{"backbone":23,"underscore":39}],19:[function(require,module,exports){
 var Backbone, Listing, accounting, moment, parse, sd, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1166,7 +1383,7 @@ module.exports = Listing = (function(_super) {
 })(Backbone.Model);
 
 
-},{"accounting":17,"backbone":18,"moment":27,"sharify":29,"url":24}],15:[function(require,module,exports){
+},{"accounting":22,"backbone":23,"moment":32,"sharify":34,"url":29}],20:[function(require,module,exports){
 var Backbone, ListingsParams, querystring, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1200,8 +1417,8 @@ module.exports = ListingsParams = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":18,"querystring":23}],16:[function(require,module,exports){
-var API_URL, Backbone, User, accounting, moment, parse, _ref,
+},{"backbone":23,"querystring":28}],21:[function(require,module,exports){
+var API_ID, API_SECRET, API_URL, Backbone, User, accounting, moment, parse, request, _ref, _ref1,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -1213,18 +1430,50 @@ moment = require('moment');
 
 parse = require('url').parse;
 
-API_URL = require('sharify').data.API_URL;
+_ref = require('sharify').data, API_URL = _ref.API_URL, API_ID = _ref.API_ID, API_SECRET = _ref.API_SECRET;
+
+request = require('superagent');
 
 module.exports = User = (function(_super) {
   __extends(User, _super);
 
   function User() {
-    _ref = User.__super__.constructor.apply(this, arguments);
-    return _ref;
+    _ref1 = User.__super__.constructor.apply(this, arguments);
+    return _ref1;
   }
 
   User.prototype.urlRoot = function() {
     return "" + API_URL + "/users";
+  };
+
+  User.prototype.addAlert = function(name, query) {
+    var _ref2;
+    if (!((_ref2 = this.get('alerts')) != null ? _ref2.length : void 0)) {
+      this.set({
+        alerts: []
+      });
+    }
+    this.get('alerts').push({
+      name: name,
+      query: query
+    });
+    return this.save();
+  };
+
+  User.login = function(email, password, callback) {
+    return request.post(API_URL + '/access-token').send({
+      email: email,
+      password: password,
+      id: API_ID,
+      secret: API_SECRET
+    }).end(function(res) {
+      callback(res);
+      return request.post('/login').send(res.body).end();
+    });
+  };
+
+  User.logout = function(callback) {
+    return request.post('/logout').end(callback);
   };
 
   return User;
@@ -1232,7 +1481,7 @@ module.exports = User = (function(_super) {
 })(Backbone.Model);
 
 
-},{"accounting":17,"backbone":18,"moment":27,"sharify":29,"url":24}],17:[function(require,module,exports){
+},{"accounting":22,"backbone":23,"moment":32,"sharify":34,"superagent":35,"url":29}],22:[function(require,module,exports){
 /*!
  * accounting.js v0.3.2
  * Copyright 2011, Joss Crowcroft
@@ -1645,7 +1894,7 @@ module.exports = User = (function(_super) {
 	// Root will be `window` in browser or `global` on the server:
 }(this));
 
-},{}],18:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 //     Backbone.js 1.1.2
 
 //     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -3255,9 +3504,9 @@ module.exports = User = (function(_super) {
 
 }));
 
-},{"underscore":30}],19:[function(require,module,exports){
+},{"underscore":39}],24:[function(require,module,exports){
 
-},{}],20:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 (function (global){
 /*! http://mths.be/punycode v1.2.4 by @mathias */
 ;(function(root) {
@@ -3768,7 +4017,7 @@ module.exports = User = (function(_super) {
 }(this));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],21:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3854,7 +4103,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],22:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -3941,13 +4190,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],23:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":21,"./encode":22}],24:[function(require,module,exports){
+},{"./decode":26,"./encode":27}],29:[function(require,module,exports){
 /*jshint strict:true node:true es5:true onevar:true laxcomma:true laxbreak:true eqeqeq:true immed:true latedef:true*/
 (function () {
   "use strict";
@@ -4580,7 +4829,7 @@ function parseHost(host) {
 
 }());
 
-},{"punycode":20,"querystring":23}],25:[function(require,module,exports){
+},{"punycode":25,"querystring":28}],30:[function(require,module,exports){
 /*!
  * GMaps.js v0.4.5
  * http://hpneo.github.com/gmaps/
@@ -6563,7 +6812,7 @@ if (!Array.prototype.indexOf) {
       return -1;
   }
 }
-},{}],26:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 (function (global){
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.jade=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -6776,7 +7025,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 (1)
 });
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"fs":19}],27:[function(require,module,exports){
+},{"fs":24}],32:[function(require,module,exports){
 //! moment.js
 //! version : 2.5.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -9178,7 +9427,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],28:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /*!
  * numeral.js
  * version : 1.5.3
@@ -9859,7 +10108,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],29:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 // Middleware that injects the shared data and sharify script
 module.exports = function(req, res, next) {
 
@@ -9904,7 +10153,1871 @@ var bootstrapOnClient = module.exports.bootstrapOnClient = function() {
 };
 bootstrapOnClient();
 
-},{}],30:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
+/**
+ * Module dependencies.
+ */
+
+var Emitter = require('emitter');
+var reduce = require('reduce');
+
+/**
+ * Root reference for iframes.
+ */
+
+var root = 'undefined' == typeof window
+  ? this
+  : window;
+
+/**
+ * Noop.
+ */
+
+function noop(){};
+
+/**
+ * Check if `obj` is a host object,
+ * we don't want to serialize these :)
+ *
+ * TODO: future proof, move to compoent land
+ *
+ * @param {Object} obj
+ * @return {Boolean}
+ * @api private
+ */
+
+function isHost(obj) {
+  var str = {}.toString.call(obj);
+
+  switch (str) {
+    case '[object File]':
+    case '[object Blob]':
+    case '[object FormData]':
+      return true;
+    default:
+      return false;
+  }
+}
+
+/**
+ * Determine XHR.
+ */
+
+function getXHR() {
+  if (root.XMLHttpRequest
+    && ('file:' != root.location.protocol || !root.ActiveXObject)) {
+    return new XMLHttpRequest;
+  } else {
+    try { return new ActiveXObject('Microsoft.XMLHTTP'); } catch(e) {}
+    try { return new ActiveXObject('Msxml2.XMLHTTP.6.0'); } catch(e) {}
+    try { return new ActiveXObject('Msxml2.XMLHTTP.3.0'); } catch(e) {}
+    try { return new ActiveXObject('Msxml2.XMLHTTP'); } catch(e) {}
+  }
+  return false;
+}
+
+/**
+ * Removes leading and trailing whitespace, added to support IE.
+ *
+ * @param {String} s
+ * @return {String}
+ * @api private
+ */
+
+var trim = ''.trim
+  ? function(s) { return s.trim(); }
+  : function(s) { return s.replace(/(^\s*|\s*$)/g, ''); };
+
+/**
+ * Check if `obj` is an object.
+ *
+ * @param {Object} obj
+ * @return {Boolean}
+ * @api private
+ */
+
+function isObject(obj) {
+  return obj === Object(obj);
+}
+
+/**
+ * Serialize the given `obj`.
+ *
+ * @param {Object} obj
+ * @return {String}
+ * @api private
+ */
+
+function serialize(obj) {
+  if (!isObject(obj)) return obj;
+  var pairs = [];
+  for (var key in obj) {
+    if (null != obj[key]) {
+      pairs.push(encodeURIComponent(key)
+        + '=' + encodeURIComponent(obj[key]));
+    }
+  }
+  return pairs.join('&');
+}
+
+/**
+ * Expose serialization method.
+ */
+
+ request.serializeObject = serialize;
+
+ /**
+  * Parse the given x-www-form-urlencoded `str`.
+  *
+  * @param {String} str
+  * @return {Object}
+  * @api private
+  */
+
+function parseString(str) {
+  var obj = {};
+  var pairs = str.split('&');
+  var parts;
+  var pair;
+
+  for (var i = 0, len = pairs.length; i < len; ++i) {
+    pair = pairs[i];
+    parts = pair.split('=');
+    obj[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+  }
+
+  return obj;
+}
+
+/**
+ * Expose parser.
+ */
+
+request.parseString = parseString;
+
+/**
+ * Default MIME type map.
+ *
+ *     superagent.types.xml = 'application/xml';
+ *
+ */
+
+request.types = {
+  html: 'text/html',
+  json: 'application/json',
+  xml: 'application/xml',
+  urlencoded: 'application/x-www-form-urlencoded',
+  'form': 'application/x-www-form-urlencoded',
+  'form-data': 'application/x-www-form-urlencoded'
+};
+
+/**
+ * Default serialization map.
+ *
+ *     superagent.serialize['application/xml'] = function(obj){
+ *       return 'generated xml here';
+ *     };
+ *
+ */
+
+ request.serialize = {
+   'application/x-www-form-urlencoded': serialize,
+   'application/json': JSON.stringify
+ };
+
+ /**
+  * Default parsers.
+  *
+  *     superagent.parse['application/xml'] = function(str){
+  *       return { object parsed from str };
+  *     };
+  *
+  */
+
+request.parse = {
+  'application/x-www-form-urlencoded': parseString,
+  'application/json': JSON.parse
+};
+
+/**
+ * Parse the given header `str` into
+ * an object containing the mapped fields.
+ *
+ * @param {String} str
+ * @return {Object}
+ * @api private
+ */
+
+function parseHeader(str) {
+  var lines = str.split(/\r?\n/);
+  var fields = {};
+  var index;
+  var line;
+  var field;
+  var val;
+
+  lines.pop(); // trailing CRLF
+
+  for (var i = 0, len = lines.length; i < len; ++i) {
+    line = lines[i];
+    index = line.indexOf(':');
+    field = line.slice(0, index).toLowerCase();
+    val = trim(line.slice(index + 1));
+    fields[field] = val;
+  }
+
+  return fields;
+}
+
+/**
+ * Return the mime type for the given `str`.
+ *
+ * @param {String} str
+ * @return {String}
+ * @api private
+ */
+
+function type(str){
+  return str.split(/ *; */).shift();
+};
+
+/**
+ * Return header field parameters.
+ *
+ * @param {String} str
+ * @return {Object}
+ * @api private
+ */
+
+function params(str){
+  return reduce(str.split(/ *; */), function(obj, str){
+    var parts = str.split(/ *= */)
+      , key = parts.shift()
+      , val = parts.shift();
+
+    if (key && val) obj[key] = val;
+    return obj;
+  }, {});
+};
+
+/**
+ * Initialize a new `Response` with the given `xhr`.
+ *
+ *  - set flags (.ok, .error, etc)
+ *  - parse header
+ *
+ * Examples:
+ *
+ *  Aliasing `superagent` as `request` is nice:
+ *
+ *      request = superagent;
+ *
+ *  We can use the promise-like API, or pass callbacks:
+ *
+ *      request.get('/').end(function(res){});
+ *      request.get('/', function(res){});
+ *
+ *  Sending data can be chained:
+ *
+ *      request
+ *        .post('/user')
+ *        .send({ name: 'tj' })
+ *        .end(function(res){});
+ *
+ *  Or passed to `.send()`:
+ *
+ *      request
+ *        .post('/user')
+ *        .send({ name: 'tj' }, function(res){});
+ *
+ *  Or passed to `.post()`:
+ *
+ *      request
+ *        .post('/user', { name: 'tj' })
+ *        .end(function(res){});
+ *
+ * Or further reduced to a single call for simple cases:
+ *
+ *      request
+ *        .post('/user', { name: 'tj' }, function(res){});
+ *
+ * @param {XMLHTTPRequest} xhr
+ * @param {Object} options
+ * @api private
+ */
+
+function Response(req, options) {
+  options = options || {};
+  this.req = req;
+  this.xhr = this.req.xhr;
+  this.text = this.xhr.responseText;
+  this.setStatusProperties(this.xhr.status);
+  this.header = this.headers = parseHeader(this.xhr.getAllResponseHeaders());
+  // getAllResponseHeaders sometimes falsely returns "" for CORS requests, but
+  // getResponseHeader still works. so we get content-type even if getting
+  // other headers fails.
+  this.header['content-type'] = this.xhr.getResponseHeader('content-type');
+  this.setHeaderProperties(this.header);
+  this.body = this.req.method != 'HEAD'
+    ? this.parseBody(this.text)
+    : null;
+}
+
+/**
+ * Get case-insensitive `field` value.
+ *
+ * @param {String} field
+ * @return {String}
+ * @api public
+ */
+
+Response.prototype.get = function(field){
+  return this.header[field.toLowerCase()];
+};
+
+/**
+ * Set header related properties:
+ *
+ *   - `.type` the content type without params
+ *
+ * A response of "Content-Type: text/plain; charset=utf-8"
+ * will provide you with a `.type` of "text/plain".
+ *
+ * @param {Object} header
+ * @api private
+ */
+
+Response.prototype.setHeaderProperties = function(header){
+  // content-type
+  var ct = this.header['content-type'] || '';
+  this.type = type(ct);
+
+  // params
+  var obj = params(ct);
+  for (var key in obj) this[key] = obj[key];
+};
+
+/**
+ * Parse the given body `str`.
+ *
+ * Used for auto-parsing of bodies. Parsers
+ * are defined on the `superagent.parse` object.
+ *
+ * @param {String} str
+ * @return {Mixed}
+ * @api private
+ */
+
+Response.prototype.parseBody = function(str){
+  var parse = request.parse[this.type];
+  return parse
+    ? parse(str)
+    : null;
+};
+
+/**
+ * Set flags such as `.ok` based on `status`.
+ *
+ * For example a 2xx response will give you a `.ok` of __true__
+ * whereas 5xx will be __false__ and `.error` will be __true__. The
+ * `.clientError` and `.serverError` are also available to be more
+ * specific, and `.statusType` is the class of error ranging from 1..5
+ * sometimes useful for mapping respond colors etc.
+ *
+ * "sugar" properties are also defined for common cases. Currently providing:
+ *
+ *   - .noContent
+ *   - .badRequest
+ *   - .unauthorized
+ *   - .notAcceptable
+ *   - .notFound
+ *
+ * @param {Number} status
+ * @api private
+ */
+
+Response.prototype.setStatusProperties = function(status){
+  var type = status / 100 | 0;
+
+  // status / class
+  this.status = status;
+  this.statusType = type;
+
+  // basics
+  this.info = 1 == type;
+  this.ok = 2 == type;
+  this.clientError = 4 == type;
+  this.serverError = 5 == type;
+  this.error = (4 == type || 5 == type)
+    ? this.toError()
+    : false;
+
+  // sugar
+  this.accepted = 202 == status;
+  this.noContent = 204 == status || 1223 == status;
+  this.badRequest = 400 == status;
+  this.unauthorized = 401 == status;
+  this.notAcceptable = 406 == status;
+  this.notFound = 404 == status;
+  this.forbidden = 403 == status;
+};
+
+/**
+ * Return an `Error` representative of this response.
+ *
+ * @return {Error}
+ * @api public
+ */
+
+Response.prototype.toError = function(){
+  var req = this.req;
+  var method = req.method;
+  var path = req.path;
+
+  var msg = 'cannot ' + method + ' ' + path + ' (' + this.status + ')';
+  var err = new Error(msg);
+  err.status = this.status;
+  err.method = method;
+  err.path = path;
+
+  return err;
+};
+
+/**
+ * Expose `Response`.
+ */
+
+request.Response = Response;
+
+/**
+ * Initialize a new `Request` with the given `method` and `url`.
+ *
+ * @param {String} method
+ * @param {String} url
+ * @api public
+ */
+
+function Request(method, url) {
+  var self = this;
+  Emitter.call(this);
+  this._query = this._query || [];
+  this.method = method;
+  this.url = url;
+  this.header = {};
+  this._header = {};
+  this.on('end', function(){
+    var res = new Response(self);
+    if ('HEAD' == method) res.text = null;
+    self.callback(null, res);
+  });
+}
+
+/**
+ * Mixin `Emitter`.
+ */
+
+Emitter(Request.prototype);
+
+/**
+ * Allow for extension
+ */
+
+Request.prototype.use = function(fn) {
+  fn(this);
+  return this;
+}
+
+/**
+ * Set timeout to `ms`.
+ *
+ * @param {Number} ms
+ * @return {Request} for chaining
+ * @api public
+ */
+
+Request.prototype.timeout = function(ms){
+  this._timeout = ms;
+  return this;
+};
+
+/**
+ * Clear previous timeout.
+ *
+ * @return {Request} for chaining
+ * @api public
+ */
+
+Request.prototype.clearTimeout = function(){
+  this._timeout = 0;
+  clearTimeout(this._timer);
+  return this;
+};
+
+/**
+ * Abort the request, and clear potential timeout.
+ *
+ * @return {Request}
+ * @api public
+ */
+
+Request.prototype.abort = function(){
+  if (this.aborted) return;
+  this.aborted = true;
+  this.xhr.abort();
+  this.clearTimeout();
+  this.emit('abort');
+  return this;
+};
+
+/**
+ * Set header `field` to `val`, or multiple fields with one object.
+ *
+ * Examples:
+ *
+ *      req.get('/')
+ *        .set('Accept', 'application/json')
+ *        .set('X-API-Key', 'foobar')
+ *        .end(callback);
+ *
+ *      req.get('/')
+ *        .set({ Accept: 'application/json', 'X-API-Key': 'foobar' })
+ *        .end(callback);
+ *
+ * @param {String|Object} field
+ * @param {String} val
+ * @return {Request} for chaining
+ * @api public
+ */
+
+Request.prototype.set = function(field, val){
+  if (isObject(field)) {
+    for (var key in field) {
+      this.set(key, field[key]);
+    }
+    return this;
+  }
+  this._header[field.toLowerCase()] = val;
+  this.header[field] = val;
+  return this;
+};
+
+/**
+ * Get case-insensitive header `field` value.
+ *
+ * @param {String} field
+ * @return {String}
+ * @api private
+ */
+
+Request.prototype.getHeader = function(field){
+  return this._header[field.toLowerCase()];
+};
+
+/**
+ * Set Content-Type to `type`, mapping values from `request.types`.
+ *
+ * Examples:
+ *
+ *      superagent.types.xml = 'application/xml';
+ *
+ *      request.post('/')
+ *        .type('xml')
+ *        .send(xmlstring)
+ *        .end(callback);
+ *
+ *      request.post('/')
+ *        .type('application/xml')
+ *        .send(xmlstring)
+ *        .end(callback);
+ *
+ * @param {String} type
+ * @return {Request} for chaining
+ * @api public
+ */
+
+Request.prototype.type = function(type){
+  this.set('Content-Type', request.types[type] || type);
+  return this;
+};
+
+/**
+ * Set Accept to `type`, mapping values from `request.types`.
+ *
+ * Examples:
+ *
+ *      superagent.types.json = 'application/json';
+ *
+ *      request.get('/agent')
+ *        .accept('json')
+ *        .end(callback);
+ *
+ *      request.get('/agent')
+ *        .accept('application/json')
+ *        .end(callback);
+ *
+ * @param {String} accept
+ * @return {Request} for chaining
+ * @api public
+ */
+
+Request.prototype.accept = function(type){
+  this.set('Accept', request.types[type] || type);
+  return this;
+};
+
+/**
+ * Set Authorization field value with `user` and `pass`.
+ *
+ * @param {String} user
+ * @param {String} pass
+ * @return {Request} for chaining
+ * @api public
+ */
+
+Request.prototype.auth = function(user, pass){
+  var str = btoa(user + ':' + pass);
+  this.set('Authorization', 'Basic ' + str);
+  return this;
+};
+
+/**
+* Add query-string `val`.
+*
+* Examples:
+*
+*   request.get('/shoes')
+*     .query('size=10')
+*     .query({ color: 'blue' })
+*
+* @param {Object|String} val
+* @return {Request} for chaining
+* @api public
+*/
+
+Request.prototype.query = function(val){
+  if ('string' != typeof val) val = serialize(val);
+  if (val) this._query.push(val);
+  return this;
+};
+
+/**
+ * Send `data`, defaulting the `.type()` to "json" when
+ * an object is given.
+ *
+ * Examples:
+ *
+ *       // querystring
+ *       request.get('/search')
+ *         .end(callback)
+ *
+ *       // multiple data "writes"
+ *       request.get('/search')
+ *         .send({ search: 'query' })
+ *         .send({ range: '1..5' })
+ *         .send({ order: 'desc' })
+ *         .end(callback)
+ *
+ *       // manual json
+ *       request.post('/user')
+ *         .type('json')
+ *         .send('{"name":"tj"})
+ *         .end(callback)
+ *
+ *       // auto json
+ *       request.post('/user')
+ *         .send({ name: 'tj' })
+ *         .end(callback)
+ *
+ *       // manual x-www-form-urlencoded
+ *       request.post('/user')
+ *         .type('form')
+ *         .send('name=tj')
+ *         .end(callback)
+ *
+ *       // auto x-www-form-urlencoded
+ *       request.post('/user')
+ *         .type('form')
+ *         .send({ name: 'tj' })
+ *         .end(callback)
+ *
+ *       // defaults to x-www-form-urlencoded
+  *      request.post('/user')
+  *        .send('name=tobi')
+  *        .send('species=ferret')
+  *        .end(callback)
+ *
+ * @param {String|Object} data
+ * @return {Request} for chaining
+ * @api public
+ */
+
+Request.prototype.send = function(data){
+  var obj = isObject(data);
+  var type = this.getHeader('Content-Type');
+
+  // merge
+  if (obj && isObject(this._data)) {
+    for (var key in data) {
+      this._data[key] = data[key];
+    }
+  } else if ('string' == typeof data) {
+    if (!type) this.type('form');
+    type = this.getHeader('Content-Type');
+    if ('application/x-www-form-urlencoded' == type) {
+      this._data = this._data
+        ? this._data + '&' + data
+        : data;
+    } else {
+      this._data = (this._data || '') + data;
+    }
+  } else {
+    this._data = data;
+  }
+
+  if (!obj) return this;
+  if (!type) this.type('json');
+  return this;
+};
+
+/**
+ * Invoke the callback with `err` and `res`
+ * and handle arity check.
+ *
+ * @param {Error} err
+ * @param {Response} res
+ * @api private
+ */
+
+Request.prototype.callback = function(err, res){
+  var fn = this._callback;
+  if (2 == fn.length) return fn(err, res);
+  if (err) return this.emit('error', err);
+  fn(res);
+};
+
+/**
+ * Invoke callback with x-domain error.
+ *
+ * @api private
+ */
+
+Request.prototype.crossDomainError = function(){
+  var err = new Error('Origin is not allowed by Access-Control-Allow-Origin');
+  err.crossDomain = true;
+  this.callback(err);
+};
+
+/**
+ * Invoke callback with timeout error.
+ *
+ * @api private
+ */
+
+Request.prototype.timeoutError = function(){
+  var timeout = this._timeout;
+  var err = new Error('timeout of ' + timeout + 'ms exceeded');
+  err.timeout = timeout;
+  this.callback(err);
+};
+
+/**
+ * Enable transmission of cookies with x-domain requests.
+ *
+ * Note that for this to work the origin must not be
+ * using "Access-Control-Allow-Origin" with a wildcard,
+ * and also must set "Access-Control-Allow-Credentials"
+ * to "true".
+ *
+ * @api public
+ */
+
+Request.prototype.withCredentials = function(){
+  this._withCredentials = true;
+  return this;
+};
+
+/**
+ * Initiate request, invoking callback `fn(res)`
+ * with an instanceof `Response`.
+ *
+ * @param {Function} fn
+ * @return {Request} for chaining
+ * @api public
+ */
+
+Request.prototype.end = function(fn){
+  var self = this;
+  var xhr = this.xhr = getXHR();
+  var query = this._query.join('&');
+  var timeout = this._timeout;
+  var data = this._data;
+
+  // store callback
+  this._callback = fn || noop;
+
+  // state change
+  xhr.onreadystatechange = function(){
+    if (4 != xhr.readyState) return;
+    if (0 == xhr.status) {
+      if (self.aborted) return self.timeoutError();
+      return self.crossDomainError();
+    }
+    self.emit('end');
+  };
+
+  // progress
+  if (xhr.upload) {
+    xhr.upload.onprogress = function(e){
+      e.percent = e.loaded / e.total * 100;
+      self.emit('progress', e);
+    };
+  }
+
+  // timeout
+  if (timeout && !this._timer) {
+    this._timer = setTimeout(function(){
+      self.abort();
+    }, timeout);
+  }
+
+  // querystring
+  if (query) {
+    query = request.serializeObject(query);
+    this.url += ~this.url.indexOf('?')
+      ? '&' + query
+      : '?' + query;
+  }
+
+  // initiate request
+  xhr.open(this.method, this.url, true);
+
+  // CORS
+  if (this._withCredentials) xhr.withCredentials = true;
+
+  // body
+  if ('GET' != this.method && 'HEAD' != this.method && 'string' != typeof data && !isHost(data)) {
+    // serialize stuff
+    var serialize = request.serialize[this.getHeader('Content-Type')];
+    if (serialize) data = serialize(data);
+  }
+
+  // set header fields
+  for (var field in this.header) {
+    if (null == this.header[field]) continue;
+    xhr.setRequestHeader(field, this.header[field]);
+  }
+
+  // send stuff
+  this.emit('request', this);
+  xhr.send(data);
+  return this;
+};
+
+/**
+ * Expose `Request`.
+ */
+
+request.Request = Request;
+
+/**
+ * Issue a request:
+ *
+ * Examples:
+ *
+ *    request('GET', '/users').end(callback)
+ *    request('/users').end(callback)
+ *    request('/users', callback)
+ *
+ * @param {String} method
+ * @param {String|Function} url or callback
+ * @return {Request}
+ * @api public
+ */
+
+function request(method, url) {
+  // callback
+  if ('function' == typeof url) {
+    return new Request('GET', method).end(url);
+  }
+
+  // url first
+  if (1 == arguments.length) {
+    return new Request('GET', method);
+  }
+
+  return new Request(method, url);
+}
+
+/**
+ * GET `url` with optional callback `fn(res)`.
+ *
+ * @param {String} url
+ * @param {Mixed|Function} data or fn
+ * @param {Function} fn
+ * @return {Request}
+ * @api public
+ */
+
+request.get = function(url, data, fn){
+  var req = request('GET', url);
+  if ('function' == typeof data) fn = data, data = null;
+  if (data) req.query(data);
+  if (fn) req.end(fn);
+  return req;
+};
+
+/**
+ * HEAD `url` with optional callback `fn(res)`.
+ *
+ * @param {String} url
+ * @param {Mixed|Function} data or fn
+ * @param {Function} fn
+ * @return {Request}
+ * @api public
+ */
+
+request.head = function(url, data, fn){
+  var req = request('HEAD', url);
+  if ('function' == typeof data) fn = data, data = null;
+  if (data) req.send(data);
+  if (fn) req.end(fn);
+  return req;
+};
+
+/**
+ * DELETE `url` with optional callback `fn(res)`.
+ *
+ * @param {String} url
+ * @param {Function} fn
+ * @return {Request}
+ * @api public
+ */
+
+request.del = function(url, fn){
+  var req = request('DELETE', url);
+  if (fn) req.end(fn);
+  return req;
+};
+
+/**
+ * PATCH `url` with optional `data` and callback `fn(res)`.
+ *
+ * @param {String} url
+ * @param {Mixed} data
+ * @param {Function} fn
+ * @return {Request}
+ * @api public
+ */
+
+request.patch = function(url, data, fn){
+  var req = request('PATCH', url);
+  if ('function' == typeof data) fn = data, data = null;
+  if (data) req.send(data);
+  if (fn) req.end(fn);
+  return req;
+};
+
+/**
+ * POST `url` with optional `data` and callback `fn(res)`.
+ *
+ * @param {String} url
+ * @param {Mixed} data
+ * @param {Function} fn
+ * @return {Request}
+ * @api public
+ */
+
+request.post = function(url, data, fn){
+  var req = request('POST', url);
+  if ('function' == typeof data) fn = data, data = null;
+  if (data) req.send(data);
+  if (fn) req.end(fn);
+  return req;
+};
+
+/**
+ * PUT `url` with optional `data` and callback `fn(res)`.
+ *
+ * @param {String} url
+ * @param {Mixed|Function} data or fn
+ * @param {Function} fn
+ * @return {Request}
+ * @api public
+ */
+
+request.put = function(url, data, fn){
+  var req = request('PUT', url);
+  if ('function' == typeof data) fn = data, data = null;
+  if (data) req.send(data);
+  if (fn) req.end(fn);
+  return req;
+};
+
+/**
+ * Expose `request`.
+ */
+
+module.exports = request;
+
+},{"emitter":36,"reduce":37}],36:[function(require,module,exports){
+
+/**
+ * Expose `Emitter`.
+ */
+
+module.exports = Emitter;
+
+/**
+ * Initialize a new `Emitter`.
+ *
+ * @api public
+ */
+
+function Emitter(obj) {
+  if (obj) return mixin(obj);
+};
+
+/**
+ * Mixin the emitter properties.
+ *
+ * @param {Object} obj
+ * @return {Object}
+ * @api private
+ */
+
+function mixin(obj) {
+  for (var key in Emitter.prototype) {
+    obj[key] = Emitter.prototype[key];
+  }
+  return obj;
+}
+
+/**
+ * Listen on the given `event` with `fn`.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.on = function(event, fn){
+  this._callbacks = this._callbacks || {};
+  (this._callbacks[event] = this._callbacks[event] || [])
+    .push(fn);
+  return this;
+};
+
+/**
+ * Adds an `event` listener that will be invoked a single
+ * time then automatically removed.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.once = function(event, fn){
+  var self = this;
+  this._callbacks = this._callbacks || {};
+
+  function on() {
+    self.off(event, on);
+    fn.apply(this, arguments);
+  }
+
+  fn._off = on;
+  this.on(event, on);
+  return this;
+};
+
+/**
+ * Remove the given callback for `event` or all
+ * registered callbacks.
+ *
+ * @param {String} event
+ * @param {Function} fn
+ * @return {Emitter}
+ * @api public
+ */
+
+Emitter.prototype.off =
+Emitter.prototype.removeListener =
+Emitter.prototype.removeAllListeners = function(event, fn){
+  this._callbacks = this._callbacks || {};
+
+  // all
+  if (0 == arguments.length) {
+    this._callbacks = {};
+    return this;
+  }
+
+  // specific event
+  var callbacks = this._callbacks[event];
+  if (!callbacks) return this;
+
+  // remove all handlers
+  if (1 == arguments.length) {
+    delete this._callbacks[event];
+    return this;
+  }
+
+  // remove specific handler
+  var i = callbacks.indexOf(fn._off || fn);
+  if (~i) callbacks.splice(i, 1);
+  return this;
+};
+
+/**
+ * Emit `event` with the given args.
+ *
+ * @param {String} event
+ * @param {Mixed} ...
+ * @return {Emitter}
+ */
+
+Emitter.prototype.emit = function(event){
+  this._callbacks = this._callbacks || {};
+  var args = [].slice.call(arguments, 1)
+    , callbacks = this._callbacks[event];
+
+  if (callbacks) {
+    callbacks = callbacks.slice(0);
+    for (var i = 0, len = callbacks.length; i < len; ++i) {
+      callbacks[i].apply(this, args);
+    }
+  }
+
+  return this;
+};
+
+/**
+ * Return array of callbacks for `event`.
+ *
+ * @param {String} event
+ * @return {Array}
+ * @api public
+ */
+
+Emitter.prototype.listeners = function(event){
+  this._callbacks = this._callbacks || {};
+  return this._callbacks[event] || [];
+};
+
+/**
+ * Check if this emitter has `event` handlers.
+ *
+ * @param {String} event
+ * @return {Boolean}
+ * @api public
+ */
+
+Emitter.prototype.hasListeners = function(event){
+  return !! this.listeners(event).length;
+};
+
+},{}],37:[function(require,module,exports){
+
+/**
+ * Reduce `arr` with `fn`.
+ *
+ * @param {Array} arr
+ * @param {Function} fn
+ * @param {Mixed} initial
+ *
+ * TODO: combatible error handling?
+ */
+
+module.exports = function(arr, fn, initial){  
+  var idx = 0;
+  var len = arr.length;
+  var curr = arguments.length == 3
+    ? initial
+    : arr[idx++];
+
+  while (idx < len) {
+    curr = fn.call(null, curr, arr[idx], ++idx, arr);
+  }
+  
+  return curr;
+};
+},{}],38:[function(require,module,exports){
+//  Underscore.string
+//  (c) 2010 Esa-Matti Suuronen <esa-matti aet suuronen dot org>
+//  Underscore.string is freely distributable under the terms of the MIT license.
+//  Documentation: https://github.com/epeli/underscore.string
+//  Some code is borrowed from MooTools and Alexandru Marasteanu.
+//  Version '2.3.2'
+
+!function(root, String){
+  'use strict';
+
+  // Defining helper functions.
+
+  var nativeTrim = String.prototype.trim;
+  var nativeTrimRight = String.prototype.trimRight;
+  var nativeTrimLeft = String.prototype.trimLeft;
+
+  var parseNumber = function(source) { return source * 1 || 0; };
+
+  var strRepeat = function(str, qty){
+    if (qty < 1) return '';
+    var result = '';
+    while (qty > 0) {
+      if (qty & 1) result += str;
+      qty >>= 1, str += str;
+    }
+    return result;
+  };
+
+  var slice = [].slice;
+
+  var defaultToWhiteSpace = function(characters) {
+    if (characters == null)
+      return '\\s';
+    else if (characters.source)
+      return characters.source;
+    else
+      return '[' + _s.escapeRegExp(characters) + ']';
+  };
+
+  // Helper for toBoolean
+  function boolMatch(s, matchers) {
+    var i, matcher, down = s.toLowerCase();
+    matchers = [].concat(matchers);
+    for (i = 0; i < matchers.length; i += 1) {
+      matcher = matchers[i];
+      if (!matcher) continue;
+      if (matcher.test && matcher.test(s)) return true;
+      if (matcher.toLowerCase() === down) return true;
+    }
+  }
+
+  var escapeChars = {
+    lt: '<',
+    gt: '>',
+    quot: '"',
+    amp: '&',
+    apos: "'"
+  };
+
+  var reversedEscapeChars = {};
+  for(var key in escapeChars) reversedEscapeChars[escapeChars[key]] = key;
+  reversedEscapeChars["'"] = '#39';
+
+  // sprintf() for JavaScript 0.7-beta1
+  // http://www.diveintojavascript.com/projects/javascript-sprintf
+  //
+  // Copyright (c) Alexandru Marasteanu <alexaholic [at) gmail (dot] com>
+  // All rights reserved.
+
+  var sprintf = (function() {
+    function get_type(variable) {
+      return Object.prototype.toString.call(variable).slice(8, -1).toLowerCase();
+    }
+
+    var str_repeat = strRepeat;
+
+    var str_format = function() {
+      if (!str_format.cache.hasOwnProperty(arguments[0])) {
+        str_format.cache[arguments[0]] = str_format.parse(arguments[0]);
+      }
+      return str_format.format.call(null, str_format.cache[arguments[0]], arguments);
+    };
+
+    str_format.format = function(parse_tree, argv) {
+      var cursor = 1, tree_length = parse_tree.length, node_type = '', arg, output = [], i, k, match, pad, pad_character, pad_length;
+      for (i = 0; i < tree_length; i++) {
+        node_type = get_type(parse_tree[i]);
+        if (node_type === 'string') {
+          output.push(parse_tree[i]);
+        }
+        else if (node_type === 'array') {
+          match = parse_tree[i]; // convenience purposes only
+          if (match[2]) { // keyword argument
+            arg = argv[cursor];
+            for (k = 0; k < match[2].length; k++) {
+              if (!arg.hasOwnProperty(match[2][k])) {
+                throw new Error(sprintf('[_.sprintf] property "%s" does not exist', match[2][k]));
+              }
+              arg = arg[match[2][k]];
+            }
+          } else if (match[1]) { // positional argument (explicit)
+            arg = argv[match[1]];
+          }
+          else { // positional argument (implicit)
+            arg = argv[cursor++];
+          }
+
+          if (/[^s]/.test(match[8]) && (get_type(arg) != 'number')) {
+            throw new Error(sprintf('[_.sprintf] expecting number but found %s', get_type(arg)));
+          }
+          switch (match[8]) {
+            case 'b': arg = arg.toString(2); break;
+            case 'c': arg = String.fromCharCode(arg); break;
+            case 'd': arg = parseInt(arg, 10); break;
+            case 'e': arg = match[7] ? arg.toExponential(match[7]) : arg.toExponential(); break;
+            case 'f': arg = match[7] ? parseFloat(arg).toFixed(match[7]) : parseFloat(arg); break;
+            case 'o': arg = arg.toString(8); break;
+            case 's': arg = ((arg = String(arg)) && match[7] ? arg.substring(0, match[7]) : arg); break;
+            case 'u': arg = Math.abs(arg); break;
+            case 'x': arg = arg.toString(16); break;
+            case 'X': arg = arg.toString(16).toUpperCase(); break;
+          }
+          arg = (/[def]/.test(match[8]) && match[3] && arg >= 0 ? '+'+ arg : arg);
+          pad_character = match[4] ? match[4] == '0' ? '0' : match[4].charAt(1) : ' ';
+          pad_length = match[6] - String(arg).length;
+          pad = match[6] ? str_repeat(pad_character, pad_length) : '';
+          output.push(match[5] ? arg + pad : pad + arg);
+        }
+      }
+      return output.join('');
+    };
+
+    str_format.cache = {};
+
+    str_format.parse = function(fmt) {
+      var _fmt = fmt, match = [], parse_tree = [], arg_names = 0;
+      while (_fmt) {
+        if ((match = /^[^\x25]+/.exec(_fmt)) !== null) {
+          parse_tree.push(match[0]);
+        }
+        else if ((match = /^\x25{2}/.exec(_fmt)) !== null) {
+          parse_tree.push('%');
+        }
+        else if ((match = /^\x25(?:([1-9]\d*)\$|\(([^\)]+)\))?(\+)?(0|'[^$])?(-)?(\d+)?(?:\.(\d+))?([b-fosuxX])/.exec(_fmt)) !== null) {
+          if (match[2]) {
+            arg_names |= 1;
+            var field_list = [], replacement_field = match[2], field_match = [];
+            if ((field_match = /^([a-z_][a-z_\d]*)/i.exec(replacement_field)) !== null) {
+              field_list.push(field_match[1]);
+              while ((replacement_field = replacement_field.substring(field_match[0].length)) !== '') {
+                if ((field_match = /^\.([a-z_][a-z_\d]*)/i.exec(replacement_field)) !== null) {
+                  field_list.push(field_match[1]);
+                }
+                else if ((field_match = /^\[(\d+)\]/.exec(replacement_field)) !== null) {
+                  field_list.push(field_match[1]);
+                }
+                else {
+                  throw new Error('[_.sprintf] huh?');
+                }
+              }
+            }
+            else {
+              throw new Error('[_.sprintf] huh?');
+            }
+            match[2] = field_list;
+          }
+          else {
+            arg_names |= 2;
+          }
+          if (arg_names === 3) {
+            throw new Error('[_.sprintf] mixing positional and named placeholders is not (yet) supported');
+          }
+          parse_tree.push(match);
+        }
+        else {
+          throw new Error('[_.sprintf] huh?');
+        }
+        _fmt = _fmt.substring(match[0].length);
+      }
+      return parse_tree;
+    };
+
+    return str_format;
+  })();
+
+
+
+  // Defining underscore.string
+
+  var _s = {
+
+    VERSION: '2.3.0',
+
+    isBlank: function(str){
+      if (str == null) str = '';
+      return (/^\s*$/).test(str);
+    },
+
+    stripTags: function(str){
+      if (str == null) return '';
+      return String(str).replace(/<\/?[^>]+>/g, '');
+    },
+
+    capitalize : function(str){
+      str = str == null ? '' : String(str);
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+
+    chop: function(str, step){
+      if (str == null) return [];
+      str = String(str);
+      step = ~~step;
+      return step > 0 ? str.match(new RegExp('.{1,' + step + '}', 'g')) : [str];
+    },
+
+    clean: function(str){
+      return _s.strip(str).replace(/\s+/g, ' ');
+    },
+
+    count: function(str, substr){
+      if (str == null || substr == null) return 0;
+
+      str = String(str);
+      substr = String(substr);
+
+      var count = 0,
+        pos = 0,
+        length = substr.length;
+
+      while (true) {
+        pos = str.indexOf(substr, pos);
+        if (pos === -1) break;
+        count++;
+        pos += length;
+      }
+
+      return count;
+    },
+
+    chars: function(str) {
+      if (str == null) return [];
+      return String(str).split('');
+    },
+
+    swapCase: function(str) {
+      if (str == null) return '';
+      return String(str).replace(/\S/g, function(c){
+        return c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase();
+      });
+    },
+
+    escapeHTML: function(str) {
+      if (str == null) return '';
+      return String(str).replace(/[&<>"']/g, function(m){ return '&' + reversedEscapeChars[m] + ';'; });
+    },
+
+    unescapeHTML: function(str) {
+      if (str == null) return '';
+      return String(str).replace(/\&([^;]+);/g, function(entity, entityCode){
+        var match;
+
+        if (entityCode in escapeChars) {
+          return escapeChars[entityCode];
+        } else if (match = entityCode.match(/^#x([\da-fA-F]+)$/)) {
+          return String.fromCharCode(parseInt(match[1], 16));
+        } else if (match = entityCode.match(/^#(\d+)$/)) {
+          return String.fromCharCode(~~match[1]);
+        } else {
+          return entity;
+        }
+      });
+    },
+
+    escapeRegExp: function(str){
+      if (str == null) return '';
+      return String(str).replace(/([.*+?^=!:${}()|[\]\/\\])/g, '\\$1');
+    },
+
+    splice: function(str, i, howmany, substr){
+      var arr = _s.chars(str);
+      arr.splice(~~i, ~~howmany, substr);
+      return arr.join('');
+    },
+
+    insert: function(str, i, substr){
+      return _s.splice(str, i, 0, substr);
+    },
+
+    include: function(str, needle){
+      if (needle === '') return true;
+      if (str == null) return false;
+      return String(str).indexOf(needle) !== -1;
+    },
+
+    join: function() {
+      var args = slice.call(arguments),
+        separator = args.shift();
+
+      if (separator == null) separator = '';
+
+      return args.join(separator);
+    },
+
+    lines: function(str) {
+      if (str == null) return [];
+      return String(str).split("\n");
+    },
+
+    reverse: function(str){
+      return _s.chars(str).reverse().join('');
+    },
+
+    startsWith: function(str, starts){
+      if (starts === '') return true;
+      if (str == null || starts == null) return false;
+      str = String(str); starts = String(starts);
+      return str.length >= starts.length && str.slice(0, starts.length) === starts;
+    },
+
+    endsWith: function(str, ends){
+      if (ends === '') return true;
+      if (str == null || ends == null) return false;
+      str = String(str); ends = String(ends);
+      return str.length >= ends.length && str.slice(str.length - ends.length) === ends;
+    },
+
+    succ: function(str){
+      if (str == null) return '';
+      str = String(str);
+      return str.slice(0, -1) + String.fromCharCode(str.charCodeAt(str.length-1) + 1);
+    },
+
+    titleize: function(str){
+      if (str == null) return '';
+      str  = String(str).toLowerCase();
+      return str.replace(/(?:^|\s|-)\S/g, function(c){ return c.toUpperCase(); });
+    },
+
+    camelize: function(str){
+      return _s.trim(str).replace(/[-_\s]+(.)?/g, function(match, c){ return c ? c.toUpperCase() : ""; });
+    },
+
+    underscored: function(str){
+      return _s.trim(str).replace(/([a-z\d])([A-Z]+)/g, '$1_$2').replace(/[-\s]+/g, '_').toLowerCase();
+    },
+
+    dasherize: function(str){
+      return _s.trim(str).replace(/([A-Z])/g, '-$1').replace(/[-_\s]+/g, '-').toLowerCase();
+    },
+
+    classify: function(str){
+      return _s.titleize(String(str).replace(/[\W_]/g, ' ')).replace(/\s/g, '');
+    },
+
+    humanize: function(str){
+      return _s.capitalize(_s.underscored(str).replace(/_id$/,'').replace(/_/g, ' '));
+    },
+
+    trim: function(str, characters){
+      if (str == null) return '';
+      if (!characters && nativeTrim) return nativeTrim.call(str);
+      characters = defaultToWhiteSpace(characters);
+      return String(str).replace(new RegExp('\^' + characters + '+|' + characters + '+$', 'g'), '');
+    },
+
+    ltrim: function(str, characters){
+      if (str == null) return '';
+      if (!characters && nativeTrimLeft) return nativeTrimLeft.call(str);
+      characters = defaultToWhiteSpace(characters);
+      return String(str).replace(new RegExp('^' + characters + '+'), '');
+    },
+
+    rtrim: function(str, characters){
+      if (str == null) return '';
+      if (!characters && nativeTrimRight) return nativeTrimRight.call(str);
+      characters = defaultToWhiteSpace(characters);
+      return String(str).replace(new RegExp(characters + '+$'), '');
+    },
+
+    truncate: function(str, length, truncateStr){
+      if (str == null) return '';
+      str = String(str); truncateStr = truncateStr || '...';
+      length = ~~length;
+      return str.length > length ? str.slice(0, length) + truncateStr : str;
+    },
+
+    /**
+     * _s.prune: a more elegant version of truncate
+     * prune extra chars, never leaving a half-chopped word.
+     * @author github.com/rwz
+     */
+    prune: function(str, length, pruneStr){
+      if (str == null) return '';
+
+      str = String(str); length = ~~length;
+      pruneStr = pruneStr != null ? String(pruneStr) : '...';
+
+      if (str.length <= length) return str;
+
+      var tmpl = function(c){ return c.toUpperCase() !== c.toLowerCase() ? 'A' : ' '; },
+        template = str.slice(0, length+1).replace(/.(?=\W*\w*$)/g, tmpl); // 'Hello, world' -> 'HellAA AAAAA'
+
+      if (template.slice(template.length-2).match(/\w\w/))
+        template = template.replace(/\s*\S+$/, '');
+      else
+        template = _s.rtrim(template.slice(0, template.length-1));
+
+      return (template+pruneStr).length > str.length ? str : str.slice(0, template.length)+pruneStr;
+    },
+
+    words: function(str, delimiter) {
+      if (_s.isBlank(str)) return [];
+      return _s.trim(str, delimiter).split(delimiter || /\s+/);
+    },
+
+    pad: function(str, length, padStr, type) {
+      str = str == null ? '' : String(str);
+      length = ~~length;
+
+      var padlen  = 0;
+
+      if (!padStr)
+        padStr = ' ';
+      else if (padStr.length > 1)
+        padStr = padStr.charAt(0);
+
+      switch(type) {
+        case 'right':
+          padlen = length - str.length;
+          return str + strRepeat(padStr, padlen);
+        case 'both':
+          padlen = length - str.length;
+          return strRepeat(padStr, Math.ceil(padlen/2)) + str
+                  + strRepeat(padStr, Math.floor(padlen/2));
+        default: // 'left'
+          padlen = length - str.length;
+          return strRepeat(padStr, padlen) + str;
+        }
+    },
+
+    lpad: function(str, length, padStr) {
+      return _s.pad(str, length, padStr);
+    },
+
+    rpad: function(str, length, padStr) {
+      return _s.pad(str, length, padStr, 'right');
+    },
+
+    lrpad: function(str, length, padStr) {
+      return _s.pad(str, length, padStr, 'both');
+    },
+
+    sprintf: sprintf,
+
+    vsprintf: function(fmt, argv){
+      argv.unshift(fmt);
+      return sprintf.apply(null, argv);
+    },
+
+    toNumber: function(str, decimals) {
+      if (!str) return 0;
+      str = _s.trim(str);
+      if (!str.match(/^-?\d+(?:\.\d+)?$/)) return NaN;
+      return parseNumber(parseNumber(str).toFixed(~~decimals));
+    },
+
+    numberFormat : function(number, dec, dsep, tsep) {
+      if (isNaN(number) || number == null) return '';
+
+      number = number.toFixed(~~dec);
+      tsep = typeof tsep == 'string' ? tsep : ',';
+
+      var parts = number.split('.'), fnums = parts[0],
+        decimals = parts[1] ? (dsep || '.') + parts[1] : '';
+
+      return fnums.replace(/(\d)(?=(?:\d{3})+$)/g, '$1' + tsep) + decimals;
+    },
+
+    strRight: function(str, sep){
+      if (str == null) return '';
+      str = String(str); sep = sep != null ? String(sep) : sep;
+      var pos = !sep ? -1 : str.indexOf(sep);
+      return ~pos ? str.slice(pos+sep.length, str.length) : str;
+    },
+
+    strRightBack: function(str, sep){
+      if (str == null) return '';
+      str = String(str); sep = sep != null ? String(sep) : sep;
+      var pos = !sep ? -1 : str.lastIndexOf(sep);
+      return ~pos ? str.slice(pos+sep.length, str.length) : str;
+    },
+
+    strLeft: function(str, sep){
+      if (str == null) return '';
+      str = String(str); sep = sep != null ? String(sep) : sep;
+      var pos = !sep ? -1 : str.indexOf(sep);
+      return ~pos ? str.slice(0, pos) : str;
+    },
+
+    strLeftBack: function(str, sep){
+      if (str == null) return '';
+      str += ''; sep = sep != null ? ''+sep : sep;
+      var pos = str.lastIndexOf(sep);
+      return ~pos ? str.slice(0, pos) : str;
+    },
+
+    toSentence: function(array, separator, lastSeparator, serial) {
+      separator = separator || ', ';
+      lastSeparator = lastSeparator || ' and ';
+      var a = array.slice(), lastMember = a.pop();
+
+      if (array.length > 2 && serial) lastSeparator = _s.rtrim(separator) + lastSeparator;
+
+      return a.length ? a.join(separator) + lastSeparator + lastMember : lastMember;
+    },
+
+    toSentenceSerial: function() {
+      var args = slice.call(arguments);
+      args[3] = true;
+      return _s.toSentence.apply(_s, args);
+    },
+
+    slugify: function(str) {
+      if (str == null) return '';
+
+      var from  = "ąàáäâãåæăćęèéëêìíïîłńòóöôõøśșțùúüûñçżź",
+          to    = "aaaaaaaaaceeeeeiiiilnoooooosstuuuunczz",
+          regex = new RegExp(defaultToWhiteSpace(from), 'g');
+
+      str = String(str).toLowerCase().replace(regex, function(c){
+        var index = from.indexOf(c);
+        return to.charAt(index) || '-';
+      });
+
+      return _s.dasherize(str.replace(/[^\w\s-]/g, ''));
+    },
+
+    surround: function(str, wrapper) {
+      return [wrapper, str, wrapper].join('');
+    },
+
+    quote: function(str, quoteChar) {
+      return _s.surround(str, quoteChar || '"');
+    },
+
+    unquote: function(str, quoteChar) {
+      quoteChar = quoteChar || '"';
+      if (str[0] === quoteChar && str[str.length-1] === quoteChar)
+        return str.slice(1,str.length-1);
+      else return str;
+    },
+
+    exports: function() {
+      var result = {};
+
+      for (var prop in this) {
+        if (!this.hasOwnProperty(prop) || prop.match(/^(?:include|contains|reverse)$/)) continue;
+        result[prop] = this[prop];
+      }
+
+      return result;
+    },
+
+    repeat: function(str, qty, separator){
+      if (str == null) return '';
+
+      qty = ~~qty;
+
+      // using faster implementation if separator is not needed;
+      if (separator == null) return strRepeat(String(str), qty);
+
+      // this one is about 300x slower in Google Chrome
+      for (var repeat = []; qty > 0; repeat[--qty] = str) {}
+      return repeat.join(separator);
+    },
+
+    naturalCmp: function(str1, str2){
+      if (str1 == str2) return 0;
+      if (!str1) return -1;
+      if (!str2) return 1;
+
+      var cmpRegex = /(\.\d+)|(\d+)|(\D+)/g,
+        tokens1 = String(str1).toLowerCase().match(cmpRegex),
+        tokens2 = String(str2).toLowerCase().match(cmpRegex),
+        count = Math.min(tokens1.length, tokens2.length);
+
+      for(var i = 0; i < count; i++) {
+        var a = tokens1[i], b = tokens2[i];
+
+        if (a !== b){
+          var num1 = parseInt(a, 10);
+          if (!isNaN(num1)){
+            var num2 = parseInt(b, 10);
+            if (!isNaN(num2) && num1 - num2)
+              return num1 - num2;
+          }
+          return a < b ? -1 : 1;
+        }
+      }
+
+      if (tokens1.length === tokens2.length)
+        return tokens1.length - tokens2.length;
+
+      return str1 < str2 ? -1 : 1;
+    },
+
+    levenshtein: function(str1, str2) {
+      if (str1 == null && str2 == null) return 0;
+      if (str1 == null) return String(str2).length;
+      if (str2 == null) return String(str1).length;
+
+      str1 = String(str1); str2 = String(str2);
+
+      var current = [], prev, value;
+
+      for (var i = 0; i <= str2.length; i++)
+        for (var j = 0; j <= str1.length; j++) {
+          if (i && j)
+            if (str1.charAt(j - 1) === str2.charAt(i - 1))
+              value = prev;
+            else
+              value = Math.min(current[j], current[j - 1], prev) + 1;
+          else
+            value = i + j;
+
+          prev = current[j];
+          current[j] = value;
+        }
+
+      return current.pop();
+    },
+
+    toBoolean: function(str, trueValues, falseValues) {
+      if (typeof str === "number") str = "" + str;
+      if (typeof str !== "string") return !!str;
+      str = _s.trim(str);
+      if (boolMatch(str, trueValues || ["true", "1"])) return true;
+      if (boolMatch(str, falseValues || ["false", "0"])) return false;
+    }
+  };
+
+  // Aliases
+
+  _s.strip    = _s.trim;
+  _s.lstrip   = _s.ltrim;
+  _s.rstrip   = _s.rtrim;
+  _s.center   = _s.lrpad;
+  _s.rjust    = _s.lpad;
+  _s.ljust    = _s.rpad;
+  _s.contains = _s.include;
+  _s.q        = _s.quote;
+  _s.toBool   = _s.toBoolean;
+
+  // Exporting
+
+  // CommonJS module is defined
+  if (typeof exports !== 'undefined') {
+    if (typeof module !== 'undefined' && module.exports)
+      module.exports = _s;
+
+    exports._s = _s;
+  }
+
+  // Register as a named module with AMD.
+  if (typeof define === 'function' && define.amd)
+    define('underscore.string', [], function(){ return _s; });
+
+
+  // Integrate with Underscore.js if defined
+  // or create our own underscore object.
+  root._ = root._ || {};
+  root._.string = root._.str = _s;
+}(this, String);
+
+},{}],39:[function(require,module,exports){
 //     Underscore.js 1.6.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
