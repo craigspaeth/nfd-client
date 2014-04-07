@@ -15,7 +15,9 @@ section.listings-listing( class=end ? 'listings-listing-end' : '' )
       h4= listing.get('location').formattedAddress || listing.get('location').formatted_address
       h5( class=listing.listedAgoClass() ) Listed #{listing.listedAgo()}
     a.rounded-button( target='_blank', href=listing.get('url') )
-      | See more on #{listing.sourceWebsiteName()}
+      strong See more on
+      br
+      = listing.sourceWebsiteName()
   .listings-section-middle
     if listing.get('pictures').length
       ul.listings-pictures

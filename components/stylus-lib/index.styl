@@ -3,11 +3,10 @@
 light = 100
 default-font-size = 15px
 green-color = #3DB06F
-bath-color = #6CC5E7
-bed-color = #65A7E4
+dark-green-color = #344b4b
+blue-color = #50B8D3
 hover-green-color = #24A05A
-red-color = #CC2B48
-dark-gray-color = rgb(40, 40, 40)
+pink-color = #e65a80
 light-gray-border-color = #ddd
 gray-text-color = #aaa
 warn-orange-color = #A88A13
@@ -41,8 +40,14 @@ spinner(size, bwidth)
   animation spin 0.75s infinite
 
 
-museo()
-  font-family museo-sans, Helvetica, sans-serif
+campton(weight=300)
+  font-family Campton, Helvetica, sans-serif
+  font-smoothing antialiased
+  text-rendering optimizeLegibility
+  font-weight weight
+
+aleo()
+  font-family Aleo, Helvetica, sans-serif
   font-smoothing antialiased
   text-rendering optimizeLegibility
 

@@ -33,6 +33,7 @@ column-gap = 20px
   clearfix()
   margin-bottom li-bottom-margin
   position relative
+  aleo()
   &.listings-li-locked
     .listings-section-left
       position fixed
@@ -47,6 +48,14 @@ column-gap = 20px
 .listings-section-left
   position absolute
   top 0
+  .rounded-button
+    aleo()
+    strong
+      text-transform uppercase
+      campton()
+      font-weight 600
+      font-size 14px
+      letter-spacing 1px
 
 .listings-section-middle
   width middle-section-width
@@ -62,6 +71,7 @@ column-gap = 20px
   h1
     font-size 48px
     margin 12px 0 30px 0
+    campton(100)
   h2
     font-size 16px
     margin 5px 0
@@ -83,19 +93,23 @@ column-gap = 20px
   width 40px
   height @width
   border-radius @width
-  line-height @width - 3px
+  line-height @width
   text-align center
-  border 1px solid
+  border 3px solid #eee
   display inline-block
   font-size 17px
   margin-right 7px
+  font-weight 500
+  color blue-color
 
 .listings-bed-count
-  color bed-color
+  color dark-green-color
+  campton()
 
 .listings-bath-count
-  color bath-color
-  
+  color dark-green-color
+  campton()
+
 .listings-map
 .listings-map-no-geo-cover
   height map-height
@@ -113,13 +127,7 @@ column-gap = 20px
   line-height map-height
   background-color rgba(235,235,235,0.8)
   display none
-  
-.listings-listed-ago-good
-  color hover-green-color
-.listings-listed-ago-medium
-  color warn-orange-color
-.listings-listed-ago-bad
-  color red-color
+
   
 .listings-no-pictures
   background #eee
