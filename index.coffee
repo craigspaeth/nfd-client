@@ -1,6 +1,6 @@
 require 'newrelic'
+Backbone = require 'backbone'
 express = require 'express'
-{ PORT, NODE_ENV, API_URL, MANDRILL_APIKEY, SESSION_SECRET } = config = require './config'
 { exec } = require 'child_process'
 sd = require('sharify').data
 request = require 'superagent'
@@ -9,12 +9,9 @@ mandrill = require('node-mandrill')(MANDRILL_APIKEY)
 sharify = require 'sharify'
 _ = require 'underscore'
 path = require 'path'
-User = require './models/user'
+{ PORT, NODE_ENV, API_URL, MANDRILL_APIKEY, SESSION_SECRET, APP_URL } = config = require './config'
 
-# Create app
-app = module.exports = express()
-
-# Setup Sharify
+# Sharify data and the modules that use it
 sharify.data = _.pick config,
   'API_URL'
   'API_ID'
@@ -25,9 +22,16 @@ sharify.data = _.pick config,
   'MIXPANEL_KEY'
   'HERO_UNITS'
   'ENABLE_ADS'
-app.use sharify
+User = require './models/user'
+
+# Create app
+app = module.exports = express()
+
+# Override sync
+Backbone.sync = require 'backbone-super-sync'
 
 # General express middleware/settings
+app.use sharify
 app.set 'views', __dirname + '/components/'
 app.set 'view engine', 'jade'
 app.use express.bodyParser()
@@ -48,17 +52,37 @@ if "development" is NODE_ENV
 # Static middleware
 app.use express.static __dirname + "/public"
 
-# Auth middleware
-app.use (req, res, next) ->
+# Login middleware
+setUser = (req, res, next) ->
   return next() unless req.session.user?
   res.locals.user = req.user = new User req.session.user
-  res.locals.sharify.data.USER = req.user.toJSON()
+  res.locals.sd.USER = req.user?.toJSON()
   next()
 
+login = (req, res, next) ->
+  user = new User req.user?.toJSON() or if _.keys(req.body).length then req.body else req.query
+  return res.redirect '/' unless user.get('_id') and user.get('accessToken')
+  user.fetch
+    error: (m, res) ->
+      next res.error.toString()
+    success: ->
+      req.session.user = user.toJSON()
+      setUser req, res, next
+
 # Routes
-app.get '/', (req, res) -> res.render 'home-page', path: '/'
-app.get '/search*', (req, res) -> res.render 'home-page', path: '/'
-app.get '/about', (req, res) -> res.render 'about-page', path: '/about'
+app.use setUser
+app.get '/', (req, res) ->
+  res.render 'home-page', path: '/'
+app.get '/search*', (req, res) ->
+  res.render 'home-page', path: '/'
+app.get '/about', (req, res) ->
+  res.render 'about-page'
+app.get '/settings', (req, res) ->
+  res.redirect '/' unless req.user
+  res.render 'settings-page'
+app.get '/reset-password', login, (req, res) ->
+  res.redirect '/' unless req.user
+  res.render 'reset-password-page'
 app.post '/feedback', (req, res) ->
   mandrill '/messages/send',
     message:
@@ -69,8 +93,7 @@ app.post '/feedback', (req, res) ->
   , (err, resp) ->
     return req.next err if err
     res.send resp
-app.post '/login', (req, res) ->
-  req.session.user = _.pick req.body, 'name', 'email', 'accessToken'
+app.post '/login', login, (req, res, next) ->
   res.send { success: true }
 app.post '/logout', (req, res) ->
   req.session.user = null

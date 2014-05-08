@@ -20,7 +20,8 @@
 		"ua-parser": "*",
 		"node-mandrill": "*",
 		"sharify": "*",
-    "newrelic": "*"
+    "newrelic": "*",
+    "backbone-super-sync": "*"
   },
 	"devDependencies": {
 		"zombie": "*",

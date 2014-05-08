@@ -1,0 +1,13 @@
+extends ../layout/templates/index
+
+block content
+  form.rounded-form
+    h1 Reset password
+    label
+      | New Password
+      input.box-input( name='new-password', type='password' )
+    label
+      | Repeat New Password
+      input.box-input( name='repeat-new-password', type='password' )
+    .rounded-form-error
+    button.rounded-button Submit

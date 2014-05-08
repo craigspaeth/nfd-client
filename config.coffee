@@ -2,6 +2,7 @@ module.exports =
   
   NODE_ENV: 'development'
   PORT: 3001
+  APP_URL: 'http://localhost:3001'
   API_URL: 'http://localhost:3000'
   API_ID: 'ddc7384ce313772cfad415c1ed2afc30'
   API_SECRET: '2acfd8a430c873ea7d03335b0644733a'

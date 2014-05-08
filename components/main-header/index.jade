@@ -1,15 +1,10 @@
-- isHome = path.match('search') || path == '/'
-header#main-header( class=(isHome ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '') )
+- isHome = path && path.match('search') || path == '/'
+header#main-header( class=(isHome && !belowHero ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '') )
   a#main-header-logo( class=(isHome ? ' main-header-active' : ''), href='/' )
     small Beta
   nav
     a( class=(path == '/about' ? ' main-header-active' : ''), href='/about' ) About
     a( href='feedback' ) Give Feedback
-    if user
-      //- a( href='/settings' ) #{user.get('name')}'s Settings
-      a( href='/logout' ) Logout
-    else
-      a( href='/login' ) Log In
   #main-header-social-media
     a.main-header-social-media-facebook(
       href='https://www.facebook.com/nofeedigs',
@@ -19,3 +14,9 @@ header#main-header( class=(isHome ? ' main-header-home' : '') + (belowHero ? ' h
       href='https://twitter.com/nofeedigs',
       target='_blank'
     )
+  nav#main-header-right
+    if user
+      a( href='/settings' ) Settings
+      a( href='/logout' ) Logout
+    else
+      a( href='/login' ) Log In

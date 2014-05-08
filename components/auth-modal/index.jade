@@ -23,7 +23,7 @@
               em * Required
             button.rounded-button( type='submit' ) Sign up
           .auth-modal-error &nbsp;
-      small#auth-modal-login-link Already have an account?&nbsp;
+      small.auth-modal-login-link Already have an account?&nbsp;
         a Log in
 
     #auth-modal-login.modal-front-flip
@@ -36,8 +36,31 @@
         input.box-input( placeholder='Password', type='password', name='password' )
         button.rounded-button( type='submit' ) Log in
       .auth-modal-error &nbsp;
-      small#auth-modal-signup-link Don't have an account?&nbsp;
-        a Sign up
+      small.auth-modal-lower
+        a#auth-modal-forgot-password-link I forgot my password
+        | Don't have an account?&nbsp;
+        a.auth-modal-signup-link Sign up
+
+    #auth-modal-forgot-password.modal-front-flip
+      button.modal-close
+      #auth-modal-logo
+      h3 Recieve an email to reset your password.
+      br
+      form#auth-modal-forgot-password-form
+        input.box-input( placeholder='Your email address', type='email', name='email' )
+        button.rounded-button( type='submit' ) Reset password
+      .auth-modal-error &nbsp;
+      small.auth-modal-lower
+        a.auth-modal-login-link I remember it!
+        | Don't have an account?&nbsp;
+        a.auth-modal-signup-link Sign up
+
+    #auth-modal-forgot-password-thankyou.modal-back-flip-green
+      button.modal-close
+      header
+        h2 No problem.
+        h3 Check your email, we sent you a link to reset your password.
+        button.rounded-button.modal-okay Okay
 
     #auth-modal-login-welcome.modal-back-flip-green
       button.modal-close

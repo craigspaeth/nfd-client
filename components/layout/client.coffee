@@ -2,6 +2,8 @@ Backbone = require 'backbone'
 sd = require('sharify').data
 HomepageView = require '../home-page/view.coffee'
 AuthModal = require '../auth-modal/view.coffee'
+SettingsView = require '../settings-page/view.coffee'
+ResetPasswordView = require '../reset-password-page/view.coffee'
 vent = require '../../lib/vent.coffee'
 User = require '../../models/user.coffee'
 
@@ -25,13 +27,22 @@ $ ->
   new InitRouter
   Backbone.history.start pushState: true
 
+  # Project-wide views
+  new AuthModal
+
 class InitRouter extends Backbone.Router
 
   routes:
     '': 'home'
     'search/*params': 'home'
+    'settings': 'settings'
+    'reset-password': 'resetPassword'
 
   home: ->
-    console.log 'mooo'
-    new AuthModal
     new HomepageView
+
+  settings: ->
+    new SettingsView
+
+  resetPassword: ->
+    new ResetPasswordView 

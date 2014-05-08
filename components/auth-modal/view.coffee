@@ -33,8 +33,10 @@ module.exports = class AuthModal extends Backbone.View
   events:
     'submit #auth-modal-signup-form': 'onSignup'
     'submit #auth-modal-login-form': 'onLogin'
-    'click #auth-modal-signup-link': 'signupMode'
-    'click #auth-modal-login-link': 'loginMode'
+    'submit #auth-modal-forgot-password-form': 'onForgotPassword'
+    'click .auth-modal-signup-link': 'signupMode'
+    'click .auth-modal-login-link': 'loginMode'
+    'click #auth-modal-forgot-password-link': 'resetPasswordMode'
 
   onSignup: (e) ->
     e.preventDefault()
@@ -55,8 +57,20 @@ module.exports = class AuthModal extends Backbone.View
     { email, password } = qs.parse @$('#auth-modal-login-form').serialize()
     @login email, password
 
+  onForgotPassword: (e) ->
+    e.preventDefault()
+    { email } = qs.parse @$('#auth-modal-forgot-password-form').serialize()
+    User.resetPassword email, (res) =>
+      return @onError res.body.error if res.error
+      @$el.attr 'data-state', 'forgot-password-thankyou'
+      @$('#auth-modal-forgot-password-form button').removeClass('is-loading')
+    @$('#auth-modal-forgot-password-form button').addClass('is-loading')
+
   signupMode: ->
     vent.trigger 'auth-modal:open', { state: 'signup' }
 
   loginMode: ->
     vent.trigger 'auth-modal:open', { state: 'login' }
+
+  resetPasswordMode: ->
+    @$el.attr 'data-state', 'forgot-password'

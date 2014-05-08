@@ -6,6 +6,8 @@ moment = require 'moment'
 
 module.exports = class Listing extends Backbone.Model
   
+  idAttribute: "_id"
+
   urlRoot: -> "#{sd.API_URL}/listings"
   
   formattedRent: ->
