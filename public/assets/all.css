@@ -2168,6 +2168,14 @@ html.firefox .rounded-select {
   padding: 20px 0 14px 0;
 }
 .listings-advertisement-header {
+  font-family: campton, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-weight: 300;
   text-align: center;
   font-size: 10px;
   letter-spacing: 1px;

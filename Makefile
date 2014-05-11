@@ -4,7 +4,7 @@ s:
 	$(BIN)/coffee index.coffee
 
 ss:
-	API_URL=http://staging.api.nofeedigs.com $(BIN)/coffee index.coffee
+	API_URL=http://api.nofeedigs.com $(BIN)/coffee index.coffee
 
 assets:
 	rm -rf public/assets/
