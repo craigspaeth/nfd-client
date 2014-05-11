@@ -200,7 +200,7 @@
 }
 .rounded-tabs {
   font-size: 13px;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -212,7 +212,7 @@
 .rounded-tabs li {
   display: inline-block;
   border-right: 1px solid #344b4b;
-  padding: 6px 13px 2px 13px;
+  padding: 5px 13px 4px 13px;
   cursor: pointer;
   border-top: 1px solid #344b4b;
   border-bottom: 1px solid #344b4b;
@@ -232,7 +232,7 @@
 .rounded-button {
   background: #3db06f;
   padding: 10px 18px;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -240,7 +240,7 @@
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 15px;
   border: 0;
   -webkit-border-radius: 4px;
@@ -293,7 +293,7 @@
   background-color: #b35454;
 }
 .rounded-select {
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -310,7 +310,7 @@
   -o-appearance: none;
   -ms-appearance: none;
   appearance: none;
-  padding: 9px 30px 5px 8px;
+  padding: 8px 30px 7px 8px;
   margin: 0;
   border-color: #ddd;
   background: transparent no-repeat right center;
@@ -328,7 +328,7 @@
 .box-input {
   border: 1px solid #ddd;
   padding: 7px;
-  font-family: Aleo, Helvetica, sans-serif;
+  font-family: aleo, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -358,7 +358,7 @@
   margin: 20px auto;
 }
 .rounded-form h1 {
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -371,7 +371,7 @@
   margin-bottom: 10px;
 }
 .rounded-form label {
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -638,6 +638,72 @@
 .modal-close {
   background-image: url("/images/modal-close.svg") !important;
 }
+@font-face {
+  font-family: 'aleo';
+  font-weight: 100;
+  src: url("/fonts/aleo-100.woff") format("woff");
+}
+@font-face {
+  font-family: 'aleo';
+  font-weight: 100;
+  font-style: italic;
+  src: url("/fonts/aleo-100-italic.woff") format("woff");
+}
+@font-face {
+  font-family: 'aleo';
+  font-weight: 300;
+  src: url("/fonts/aleo-300.woff") format("woff");
+}
+@font-face {
+  font-family: 'aleo';
+  font-weight: 300;
+  font-style: italic;
+  src: url("/fonts/aleo-300-italic.woff") format("woff");
+}
+@font-face {
+  font-family: 'aleo';
+  font-weight: 600;
+  src: url("/fonts/aleo-600.woff") format("woff");
+}
+@font-face {
+  font-family: 'aleo';
+  font-weight: 600;
+  font-style: italic;
+  src: url("/fonts/aleo-600-italic.woff") format("woff");
+}
+@font-face {
+  font-family: 'campton';
+  font-weight: 100;
+  src: url("/fonts/campton-100.woff") format("woff");
+}
+@font-face {
+  font-family: 'campton';
+  font-weight: 100;
+  font-style: italic;
+  src: url("/fonts/campton-100-italic.woff") format("woff");
+}
+@font-face {
+  font-family: 'campton';
+  font-weight: 300;
+  src: url("/fonts/campton-300.woff") format("woff");
+}
+@font-face {
+  font-family: 'campton';
+  font-weight: 300;
+  font-style: italic;
+  src: url("/fonts/campton-300-italic.woff") format("woff");
+}
+@font-face {
+  font-family: 'campton';
+  font-weight: 600;
+  src: url("/fonts/campton-600.woff") format("woff");
+}
+@font-face {
+  font-family: 'campton';
+  font-weight: 600;
+  font-style: italic;
+  src: url("/fonts/campton-600-italic.woff") format("woff");
+}
 html,
 body,
 div,
@@ -732,7 +798,7 @@ a img {
 body {
   color: #344b4b;
   font-size: 15px;
-  font-family: Aleo, Helvetica, sans-serif;
+  font-family: aleo, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -760,7 +826,7 @@ a:hover {
   text-decoration: underline;
 }
 strong {
-  font-weight: bold;
+  font-weight: 600;
 }
 em {
   font-style: italic;
@@ -1014,7 +1080,7 @@ em {
   -ms-transition: background-color 0.3s;
   transition: background-color 0.3s;
   border-right: 1px solid #24a05a;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
@@ -1038,20 +1104,20 @@ em {
   margin: 14px 25px 0 10px;
   padding: 5px 0 5px 40px;
   color: #fff;
-  font-weight: bold;
+  font-weight: 600;
   text-decoration: none;
   float: left;
   width: 146px;
   color: #3db06f;
 }
 #main-header-logo small {
-  font-weight: normal;
+  font-weight: 300;
   text-transform: uppercase;
   position: relative;
   font-size: 10px;
   top: -10px;
   left: 85px;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
@@ -1312,7 +1378,7 @@ em {
   letter-spacing: 1px;
   margin-bottom: 10px;
   color: #344b4b;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -1325,7 +1391,7 @@ em {
   border-color: #ddd;
   color: #aaa;
   background-color: transparent;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -1356,7 +1422,7 @@ em {
   border-color: #ddd;
   color: #aaa;
   background-color: transparent;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -1387,7 +1453,7 @@ em {
   border-color: #ddd;
   color: #aaa;
   background-color: transparent;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -1441,7 +1507,7 @@ em {
   border-color: #ddd;
   color: #aaa;
   background-color: transparent;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -1472,7 +1538,7 @@ em {
   border-color: #ddd;
   color: #aaa;
   background-color: transparent;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -1509,9 +1575,9 @@ em {
 }
 .filters-location-button {
   font-size: 12px;
-  font-weight: normal;
+  font-weight: 300;
   width: 210px;
-  padding: 9px 14px 6px 14px;
+  padding: 8px 14px 7px 14px;
   border: 1px solid #ddd;
   color: #344b4b;
   background-color: transparent;
@@ -1525,7 +1591,7 @@ em {
 .filters-location-button .filters-location-arrow {
   padding: 5px 6px;
   display: inline-block;
-  margin-left: 10px;
+  margin-left: 6px;
   position: relative;
   top: 3px;
   float: right;
@@ -1570,13 +1636,13 @@ em {
 .filters-location-neighborhoods > ul lh {
   text-transform: uppercase;
   color: #777;
-  font-weight: bold;
+  font-weight: 600;
   letter-spacing: 2px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   margin-bottom: 10px;
   font-size: 11px;
   display: block;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -1599,7 +1665,7 @@ em {
   display: none;
 }
 .filters-count .filters-count-count {
-  font-weight: bold;
+  font-weight: 600;
 }
 .filters-max-rent,
 .filters-sort-select {
@@ -1916,7 +1982,7 @@ html.firefox .rounded-select {
   zoom: 1;
   margin-bottom: 80px;
   position: relative;
-  font-family: Aleo, Helvetica, sans-serif;
+  font-family: aleo, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -1948,17 +2014,18 @@ html.firefox .rounded-select {
   top: 0;
 }
 .listings-section-left .rounded-button {
-  font-family: Aleo, Helvetica, sans-serif;
+  font-family: aleo, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   -ms-font-smoothing: antialiased;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  font-weight: 300;
 }
 .listings-section-left .rounded-button strong {
   text-transform: uppercase;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -1986,7 +2053,7 @@ html.firefox .rounded-select {
 .listings-section-left h1 {
   font-size: 48px;
   margin: 12px 0 30px 0;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -2022,18 +2089,18 @@ html.firefox .rounded-select {
   height: 40px;
   -webkit-border-radius: 40px;
   border-radius: 40px;
-  line-height: 38px;
+  line-height: 35px;
   text-align: center;
   border: 3px solid #eee;
   display: inline-block;
   font-size: 17px;
   margin-right: 7px;
-  font-weight: 500;
+  font-weight: 600;
   color: #50b8d3;
 }
 .listings-bed-count {
   color: #344b4b;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -2044,7 +2111,7 @@ html.firefox .rounded-select {
 }
 .listings-bath-count {
   color: #344b4b;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -2351,7 +2418,7 @@ html.firefox .rounded-select {
 }
 .modal h2 {
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 600;
   margin-bottom: 15px;
 }
 .modal input,
@@ -2439,12 +2506,12 @@ html.firefox .rounded-select {
 }
 .modal-back-flip-green header h1 {
   font-size: 32px;
-  font-weight: normal;
+  font-weight: 300;
   margin-bottom: 30px;
   text-align: center;
 }
 .modal-back-flip-green header h2 {
-  font-weight: bold;
+  font-weight: 600;
 }
 .modal-back-flip-green header h3 {
   font-size: 18px;
@@ -2820,7 +2887,7 @@ html.firefox .rounded-select {
 }
 #alerts-modal-input h1 {
   font-size: 21px;
-  font-weight: normal;
+  font-weight: 300;
   line-height: 1.4em;
   margin: 20px 0;
   text-align: left;
@@ -3156,13 +3223,12 @@ html.firefox .rounded-select {
   margin: auto;
 }
 .about-page-copy h1 {
-  font-size: 32px;
-  font-weight: 300;
+  font-size: 24px;
   margin: 2em 0 1em 0;
 }
 .about-page-copy p {
   margin-bottom: 1em;
-  line-height: 1.6em;
+  line-height: 1.8em;
   font-size: 16px;
 }
 #about-page-faq {
@@ -3396,7 +3462,7 @@ html.firefox .rounded-select {
 }
 .settings-page-remove-alert {
   float: right;
-  font-family: Campton, Helvetica, sans-serif;
+  font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;

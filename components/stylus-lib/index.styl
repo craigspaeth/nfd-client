@@ -1,6 +1,5 @@
 @import '../../node_modules/nib'
 
-light = 100
 default-font-size = 15px
 green-color = #3DB06F
 dark-green-color = #344b4b
@@ -42,13 +41,13 @@ spinner(size, bwidth)
 
 
 campton(weight=300)
-  font-family Campton, Helvetica, sans-serif
+  font-family campton, Helvetica, sans-serif
   font-smoothing antialiased
   text-rendering optimizeLegibility
   font-weight weight
 
 aleo()
-  font-family Aleo, Helvetica, sans-serif
+  font-family aleo, Helvetica, sans-serif
   font-smoothing antialiased
   text-rendering optimizeLegibility
 
@@ -69,10 +68,3 @@ font-smoothing()
 
 filter()
   vendor('filter', arguments)
-
-font-face(family, filename, style = normal, weight = normal)
-  @font-face
-    font-family family
-    font-weight weight
-    font-style style
-    src url("/fonts/" + filename + ".woff") format("woff")

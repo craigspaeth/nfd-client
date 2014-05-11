@@ -62,7 +62,7 @@ module.exports = Listings = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"../models/listing.coffee":19,"../models/listings-params.coffee":20,"backbone":23,"sharify":34,"underscore":39}],3:[function(require,module,exports){
+},{"../models/listing.coffee":22,"../models/listings-params.coffee":23,"backbone":26,"sharify":37,"underscore":42}],3:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -104,7 +104,7 @@ buf.push(" for under $" + (jade.escape((jade_interp = params.get('rent-max')) ==
 }
 buf.push(".</h1><form><label>What should we call these alerts?<input" + (jade.attr("value", (parseInt(params.get('bed-min')) > 0 ? params.get('bed-min') + ' bedroom' : 'Studio') + ' apartments', true, false)) + " class=\"box-input\"/><button type=\"submit\" class=\"rounded-button\">Submit</button></label></form></div><div id=\"alerts-modal-thank-you\" class=\"modal-back-flip-green\"><button class=\"modal-close\"></button><header><h1>Great!</h1><h2>Look out for daily emails of new listings.</h2><button class=\"rounded-button modal-okay\">Okay</button></header></div></div>");}("params" in locals_for_with?locals_for_with.params:typeof params!=="undefined"?params:undefined,"locStrings" in locals_for_with?locals_for_with.locStrings:typeof locStrings!=="undefined"?locStrings:undefined,"_" in locals_for_with?locals_for_with._:typeof _!=="undefined"?_:undefined,"parseInt" in locals_for_with?locals_for_with.parseInt:typeof parseInt!=="undefined"?parseInt:undefined));;return buf.join("");
 };
-},{"jade/runtime":31}],4:[function(require,module,exports){
+},{"jade/runtime":34}],4:[function(require,module,exports){
 var AlertsModal, Backbone, User, template, vent, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -160,7 +160,7 @@ module.exports = AlertsModal = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/vent.coffee":18,"../../models/user.coffee":21,"./index.jade":3,"backbone":23,"underscore":39,"underscore.string":38}],5:[function(require,module,exports){
+},{"../../lib/vent.coffee":21,"../../models/user.coffee":24,"./index.jade":3,"backbone":26,"underscore":42,"underscore.string":41}],5:[function(require,module,exports){
 var AuthModal, Backbone, User, qs, vent, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -226,15 +226,19 @@ module.exports = AuthModal = (function(_super) {
       }
       vent.trigger('login', new User(res.body));
       _this.$el.attr('data-state', 'welcome-login');
-      return setTimeout(_this.close, 1000);
+      return setTimeout((function() {
+        return _this.$el.hide();
+      }), 1300);
     });
   };
 
   AuthModal.prototype.events = {
     'submit #auth-modal-signup-form': 'onSignup',
     'submit #auth-modal-login-form': 'onLogin',
-    'click #auth-modal-signup-link': 'signupMode',
-    'click #auth-modal-login-link': 'loginMode'
+    'submit #auth-modal-forgot-password-form': 'onForgotPassword',
+    'click .auth-modal-signup-link': 'signupMode',
+    'click .auth-modal-login-link': 'loginMode',
+    'click #auth-modal-forgot-password-link': 'resetPasswordMode'
   };
 
   AuthModal.prototype.onSignup = function(e) {
@@ -265,6 +269,21 @@ module.exports = AuthModal = (function(_super) {
     return this.login(email, password);
   };
 
+  AuthModal.prototype.onForgotPassword = function(e) {
+    var email,
+      _this = this;
+    e.preventDefault();
+    email = qs.parse(this.$('#auth-modal-forgot-password-form').serialize()).email;
+    User.resetPassword(email, function(res) {
+      if (res.error) {
+        return _this.onError(res.body.error);
+      }
+      _this.$el.attr('data-state', 'forgot-password-thankyou');
+      return _this.$('#auth-modal-forgot-password-form button').removeClass('is-loading');
+    });
+    return this.$('#auth-modal-forgot-password-form button').addClass('is-loading');
+  };
+
   AuthModal.prototype.signupMode = function() {
     return vent.trigger('auth-modal:open', {
       state: 'signup'
@@ -277,12 +296,16 @@ module.exports = AuthModal = (function(_super) {
     });
   };
 
+  AuthModal.prototype.resetPasswordMode = function() {
+    return this.$el.attr('data-state', 'forgot-password');
+  };
+
   return AuthModal;
 
 })(Backbone.View);
 
 
-},{"../../lib/vent.coffee":18,"../../models/user.coffee":21,"backbone":23,"querystring":28,"underscore":39}],6:[function(require,module,exports){
+},{"../../lib/vent.coffee":21,"../../models/user.coffee":24,"backbone":26,"querystring":31,"underscore":42}],6:[function(require,module,exports){
 var template, vent;
 
 vent = require('../../lib/vent.coffee');
@@ -319,7 +342,7 @@ $(document).on('click', '[href=feedback]', function() {
 });
 
 
-},{"../../lib/vent.coffee":18,"./index.jade":7}],7:[function(require,module,exports){
+},{"../../lib/vent.coffee":21,"./index.jade":7}],7:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -329,7 +352,7 @@ var jade_interp;
 ;var locals_for_with = (locals || {});(function (user) {
 buf.push("<div id=\"feedback-modal-bg\" class=\"modal-container\"><div id=\"feedback-modal\" class=\"modal\"><button class=\"modal-close\"></button><h2>Give us your feedback</h2><form><input placeholder=\"Email (optional)\" type=\"email\"" + (jade.attr("value", (user && user.get('email')), true, false)) + " class=\"box-input\"/><textarea placeholder=\"Help us improve, leave your comments here.\" class=\"box-input\"></textarea><button type=\"submit\" class=\"rounded-button\">Send</button></form></div></div>");}("user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
 };
-},{"jade/runtime":31}],8:[function(require,module,exports){
+},{"jade/runtime":34}],8:[function(require,module,exports){
 var Backbone, FiltersView, numeral, vent, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -485,7 +508,7 @@ module.exports = FiltersView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/vent.coffee":18,"backbone":23,"numeral":33,"underscore":39}],9:[function(require,module,exports){
+},{"../../lib/vent.coffee":21,"backbone":26,"numeral":36,"underscore":42}],9:[function(require,module,exports){
 var Backbone, HomepageRouter, querystring, _, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -521,7 +544,7 @@ module.exports = HomepageRouter = (function(_super) {
 })(Backbone.Router);
 
 
-},{"backbone":23,"querystring":28,"underscore":39}],10:[function(require,module,exports){
+},{"backbone":26,"querystring":31,"underscore":42}],10:[function(require,module,exports){
 var AlertsModal, BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -631,11 +654,11 @@ module.exports = HomepageView = (function(_super) {
   };
 
   HomepageView.prototype.popLockFilters = function() {
-    this.$('#home-page-filters, #main-header').removeClass('home-page-filters-fixed');
+    this.$('#home-page-filters, #main-header').removeClass('home-page-filters-fixed').addClass('main-header-home');
     if (!(this.$window.scrollTop() > this.$('#home-page-filters').offset().top)) {
       return;
     }
-    return this.$('#home-page-filters, #main-header').addClass('home-page-filters-fixed');
+    return this.$('#home-page-filters, #main-header').addClass('home-page-filters-fixed').removeClass('main-header-home');
   };
 
   HomepageView.prototype.transitionHeroUnitOpacity = function() {
@@ -662,8 +685,8 @@ module.exports = HomepageView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../collections/listings.coffee":2,"../alerts-modal/view.coffee":4,"../filters/view.coffee":8,"../listings/view.coffee":13,"./router.coffee":9,"backbone":23,"gmaps":30,"sharify":34,"underscore":39}],11:[function(require,module,exports){
-var AuthModal, Backbone, HomepageView, InitRouter, User, sd, vent, _ref,
+},{"../../collections/listings.coffee":2,"../alerts-modal/view.coffee":4,"../filters/view.coffee":8,"../listings/view.coffee":13,"./router.coffee":9,"backbone":26,"gmaps":33,"sharify":37,"underscore":42}],11:[function(require,module,exports){
+var AuthModal, Backbone, HomepageView, InitRouter, ResetPasswordView, SettingsView, User, sd, vent, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -674,6 +697,10 @@ sd = require('sharify').data;
 HomepageView = require('../home-page/view.coffee');
 
 AuthModal = require('../auth-modal/view.coffee');
+
+SettingsView = require('../settings-page/view.coffee');
+
+ResetPasswordView = require('../reset-password-page/view.coffee');
 
 vent = require('../../lib/vent.coffee');
 
@@ -696,9 +723,10 @@ $(function() {
     vent.trigger('login', new User(sd.USER));
   }
   new InitRouter;
-  return Backbone.history.start({
+  Backbone.history.start({
     pushState: true
   });
+  return new AuthModal;
 });
 
 InitRouter = (function(_super) {
@@ -711,13 +739,21 @@ InitRouter = (function(_super) {
 
   InitRouter.prototype.routes = {
     '': 'home',
-    'search/*params': 'home'
+    'search/*params': 'home',
+    'settings': 'settings',
+    'reset-password': 'resetPassword'
   };
 
   InitRouter.prototype.home = function() {
-    console.log('mooo');
-    new AuthModal;
     return new HomepageView;
+  };
+
+  InitRouter.prototype.settings = function() {
+    return new SettingsView;
+  };
+
+  InitRouter.prototype.resetPassword = function() {
+    return new ResetPasswordView;
   };
 
   return InitRouter;
@@ -725,7 +761,7 @@ InitRouter = (function(_super) {
 })(Backbone.Router);
 
 
-},{"../../lib/jquery.infinite-scroll.coffee":17,"../../lib/vent.coffee":18,"../../models/user.coffee":21,"../auth-modal/view.coffee":5,"../feedback-modal/client.coffee":6,"../home-page/view.coffee":10,"../main-header/client.coffee":14,"../modal/client.coffee":16,"backbone":23,"sharify":34}],12:[function(require,module,exports){
+},{"../../lib/jquery.infinite-scroll.coffee":19,"../../lib/vent.coffee":21,"../../models/user.coffee":24,"../auth-modal/view.coffee":5,"../feedback-modal/client.coffee":6,"../home-page/view.coffee":10,"../main-header/client.coffee":14,"../modal/client.coffee":16,"../reset-password-page/view.coffee":17,"../settings-page/view.coffee":18,"backbone":26,"sharify":37}],12:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -745,7 +781,7 @@ buf.push("<div class=\"listings\">");
     for (var i = 0, $$l = $$obj.length; i < $$l; i++) {
       var listing = $$obj[i];
 
-if ( sd.ENABLE_ADS && i % 3 == 0 && i != 0)
+if ( sd.ENABLE_ADS && i % 4 == 0 && i != 0 && i <= 12)
 {
 var end = true;
 buf.push("<section" + (jade.cls(['listings-listing',end ? 'listings-listing-end' : ''], [null,true])) + "><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade_interp = listing.formattedRent()) ? "" : jade_interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.bedsDisplay()) ? "" : jade_interp)) + "</div>");
@@ -762,7 +798,7 @@ if ( listing.get('location'))
 {
 buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
-buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade_interp = listing.sourceWebsiteName()) == null ? '' : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
+buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\"><strong>See more on</strong><br/>" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
 {
 buf.push("<ul class=\"listings-pictures\">");
@@ -813,7 +849,7 @@ if ( listing.get('location'))
 {
 buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
-buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade_interp = listing.sourceWebsiteName()) == null ? '' : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
+buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\"><strong>See more on</strong><br/>" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
 {
 buf.push("<ul class=\"listings-pictures\">");
@@ -854,7 +890,7 @@ buf.push("</div></section>");
     for (var i in $$obj) {
       $$l++;      var listing = $$obj[i];
 
-if ( sd.ENABLE_ADS && i % 3 == 0 && i != 0)
+if ( sd.ENABLE_ADS && i % 4 == 0 && i != 0 && i <= 12)
 {
 var end = true;
 buf.push("<section" + (jade.cls(['listings-listing',end ? 'listings-listing-end' : ''], [null,true])) + "><div class=\"listings-section-left\"><h1>" + (jade.escape(null == (jade_interp = listing.formattedRent()) ? "" : jade_interp)) + "</h1><h2 class=\"listings-bed-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.bedsDisplay()) ? "" : jade_interp)) + "</div>");
@@ -871,7 +907,7 @@ if ( listing.get('location'))
 {
 buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
-buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade_interp = listing.sourceWebsiteName()) == null ? '' : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
+buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\"><strong>See more on</strong><br/>" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
 {
 buf.push("<ul class=\"listings-pictures\">");
@@ -922,7 +958,7 @@ if ( listing.get('location'))
 {
 buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h5" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
-buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\">See more on " + (jade.escape((jade_interp = listing.sourceWebsiteName()) == null ? '' : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
+buf.push("<a target=\"_blank\"" + (jade.attr("href", listing.get('url'), true, false)) + " class=\"rounded-button\"><strong>See more on</strong><br/>" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
 {
 buf.push("<ul class=\"listings-pictures\">");
@@ -969,7 +1005,7 @@ buf.push("<div class=\"listings-no-results\">No results. Try loosening up your f
 }
 buf.push("</div>");}("listings" in locals_for_with?locals_for_with.listings:typeof listings!=="undefined"?listings:undefined,"sd" in locals_for_with?locals_for_with.sd:typeof sd!=="undefined"?sd:undefined));;return buf.join("");
 };
-},{"jade/runtime":31}],13:[function(require,module,exports){
+},{"jade/runtime":34}],13:[function(require,module,exports){
 var Backbone, FIXED_FILTER_HEIGHT, ListingsView, MARGIN_SIZE, sd, template, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -1189,7 +1225,7 @@ module.exports = ListingsView = (function(_super) {
 })(Backbone.View);
 
 
-},{"./templates/index.jade":12,"backbone":23,"gmaps":30,"sharify":34,"underscore":39}],14:[function(require,module,exports){
+},{"./templates/index.jade":12,"backbone":26,"gmaps":33,"sharify":37,"underscore":42}],14:[function(require,module,exports){
 var User, template, vent;
 
 vent = require('../../lib/vent.coffee');
@@ -1220,7 +1256,7 @@ $(document).on('click', '[href*=login]', function(e) {
 });
 
 
-},{"../../lib/vent.coffee":18,"../../models/user.coffee":21,"./index.jade":15}],15:[function(require,module,exports){
+},{"../../lib/vent.coffee":21,"../../models/user.coffee":24,"./index.jade":15}],15:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -1228,19 +1264,19 @@ var buf = [];
 var jade_mixins = {};
 var jade_interp;
 ;var locals_for_with = (locals || {});(function (isHome, path, belowHero, user) {
-isHome = path.match('search') || path == '/'
-buf.push("<header id=\"main-header\"" + (jade.cls([(isHome ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '')], [true])) + "><a id=\"main-header-logo\" href=\"/\"" + (jade.cls([(isHome ? ' main-header-active' : '')], [true])) + ">NoFeeDigs<small>Beta</small></a><nav><a href=\"/about\"" + (jade.cls([(path == '/about' ? ' main-header-active' : '')], [true])) + ">About</a><a href=\"feedback\">Give Feedback</a>");
+isHome = path && path.match('search') || path == '/'
+buf.push("<header id=\"main-header\"" + (jade.cls([(isHome && !belowHero ? ' main-header-home' : '') + (belowHero ? ' home-page-filters-fixed' : '')], [true])) + "><a id=\"main-header-logo\" href=\"/\"" + (jade.cls([(isHome ? ' main-header-active' : '')], [true])) + "><small>Beta</small></a><nav><a href=\"/about\"" + (jade.cls([(path == '/about' ? ' main-header-active' : '')], [true])) + ">About</a><a href=\"feedback\">Give Feedback</a></nav><div id=\"main-header-social-media\"><a href=\"https://www.facebook.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-facebook\"></a><a href=\"https://twitter.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-twitter\"></a></div><nav id=\"main-header-right\">");
 if ( user)
 {
-buf.push("<a href=\"/logout\">Logout</a>");
+buf.push("<a href=\"/settings\">Settings</a><a href=\"/logout\">Logout</a>");
 }
 else
 {
 buf.push("<a href=\"/login\">Log In</a>");
 }
-buf.push("</nav><div id=\"main-header-social-media\"><a href=\"https://www.facebook.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-facebook\"></a><a href=\"https://twitter.com/nofeedigs\" target=\"_blank\" class=\"main-header-social-media-twitter\"></a></div></header>");}("isHome" in locals_for_with?locals_for_with.isHome:typeof isHome!=="undefined"?isHome:undefined,"path" in locals_for_with?locals_for_with.path:typeof path!=="undefined"?path:undefined,"belowHero" in locals_for_with?locals_for_with.belowHero:typeof belowHero!=="undefined"?belowHero:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
+buf.push("</nav></header>");}("isHome" in locals_for_with?locals_for_with.isHome:typeof isHome!=="undefined"?isHome:undefined,"path" in locals_for_with?locals_for_with.path:typeof path!=="undefined"?path:undefined,"belowHero" in locals_for_with?locals_for_with.belowHero:typeof belowHero!=="undefined"?belowHero:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
 };
-},{"jade/runtime":31}],16:[function(require,module,exports){
+},{"jade/runtime":34}],16:[function(require,module,exports){
 $(document).on('click', '.modal-container', function(e) {
   if (!($(e.target).is('.modal-container') || $(e.target).is('.modal-close') || $(e.target).is('.modal-okay'))) {
     return;
@@ -1250,6 +1286,100 @@ $(document).on('click', '.modal-container', function(e) {
 
 
 },{}],17:[function(require,module,exports){
+var Backbone, PasswordForm, ResetPasswordView, numeral, qs, vent, _, _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('underscore');
+
+Backbone = require('backbone');
+
+numeral = require('numeral');
+
+vent = require('../../lib/vent.coffee');
+
+qs = require('querystring');
+
+PasswordForm = require('../../lib/password-form.coffee');
+
+module.exports = ResetPasswordView = (function(_super) {
+  __extends(ResetPasswordView, _super);
+
+  function ResetPasswordView() {
+    _ref = ResetPasswordView.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  _.extend(ResetPasswordView.prototype, PasswordForm);
+
+  ResetPasswordView.prototype.el = 'body';
+
+  ResetPasswordView.prototype.initialize = function() {
+    return this.$(':input').first().focus();
+  };
+
+  ResetPasswordView.prototype.events = {
+    'submit form': 'submit'
+  };
+
+  return ResetPasswordView;
+
+})(Backbone.View);
+
+
+},{"../../lib/password-form.coffee":20,"../../lib/vent.coffee":21,"backbone":26,"numeral":36,"querystring":31,"underscore":42}],18:[function(require,module,exports){
+var Backbone, PasswordForm, SettingsView, numeral, vent, _, _ref,
+  __hasProp = {}.hasOwnProperty,
+  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+_ = require('underscore');
+
+Backbone = require('backbone');
+
+numeral = require('numeral');
+
+vent = require('../../lib/vent.coffee');
+
+PasswordForm = require('../../lib/password-form.coffee');
+
+module.exports = SettingsView = (function(_super) {
+  __extends(SettingsView, _super);
+
+  function SettingsView() {
+    _ref = SettingsView.__super__.constructor.apply(this, arguments);
+    return _ref;
+  }
+
+  SettingsView.prototype.el = 'body';
+
+  _.extend(SettingsView.prototype, PasswordForm);
+
+  SettingsView.prototype.events = {
+    'click .settings-page-remove-alert': 'removeAlert',
+    'submit #settings-page-basic': 'submit'
+  };
+
+  SettingsView.prototype.removeAlert = function(e) {
+    var $li, alert, alerts;
+    $li = $(e.currentTarget).parent();
+    alert = currentUser.get('alerts')[$li.index()];
+    if (!confirm("Are you sure you want to remove " + alert.name)) {
+      return;
+    }
+    alerts = currentUser.get('alerts');
+    alerts.splice($li.index(), 1);
+    currentUser.save({
+      alerts: alerts
+    });
+    return $li.remove();
+  };
+
+  return SettingsView;
+
+})(Backbone.View);
+
+
+},{"../../lib/password-form.coffee":20,"../../lib/vent.coffee":21,"backbone":26,"numeral":36,"underscore":42}],19:[function(require,module,exports){
 var onScroll,
   _this = this;
 
@@ -1272,7 +1402,57 @@ onScroll = module.exports = function() {
 };
 
 
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
+var qs, _;
+
+qs = require('querystring');
+
+_ = require('underscore');
+
+module.exports = {
+  serialize: function() {
+    var data, key, val;
+    data = qs.parse($(".rounded-form").serialize());
+    if (data['repeat-new-password'] && data['new-password'] !== data['repeat-new-password']) {
+      this.renderError("Passwords don't match");
+      return null;
+    }
+    if (data['new-password']) {
+      data.password = data['new-password'];
+    }
+    data = _.pick(data, 'name', 'email', 'password');
+    for (key in data) {
+      val = data[key];
+      if (!val) {
+        delete data[key];
+      }
+    }
+    return data;
+  },
+  submit: function(e) {
+    var $btn,
+      _this = this;
+    e.preventDefault();
+    $btn = this.$('.rounded-form button');
+    $btn.first().addClass('is-loading');
+    this.$('.rounded-form-error').html('');
+    currentUser.save(this.serialize(), {
+      error: function(m, err) {
+        return _this.renderError(err);
+      },
+      complete: function() {
+        return $btn.removeClass('is-loading');
+      }
+    });
+    return false;
+  },
+  renderError: function(err) {
+    return this.$('.rounded-form-error').html(err);
+  }
+};
+
+
+},{"querystring":31,"underscore":42}],21:[function(require,module,exports){
 var Backbone, _;
 
 _ = require('underscore');
@@ -1282,7 +1462,7 @@ Backbone = require('backbone');
 module.exports = _.extend({}, Backbone.Events);
 
 
-},{"backbone":23,"underscore":39}],19:[function(require,module,exports){
+},{"backbone":26,"underscore":42}],22:[function(require,module,exports){
 var Backbone, Listing, accounting, moment, parse, sd, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1304,6 +1484,8 @@ module.exports = Listing = (function(_super) {
     _ref = Listing.__super__.constructor.apply(this, arguments);
     return _ref;
   }
+
+  Listing.prototype.idAttribute = "_id";
 
   Listing.prototype.urlRoot = function() {
     return "" + sd.API_URL + "/listings";
@@ -1382,7 +1564,7 @@ module.exports = Listing = (function(_super) {
 })(Backbone.Model);
 
 
-},{"accounting":22,"backbone":23,"moment":32,"sharify":34,"url":29}],20:[function(require,module,exports){
+},{"accounting":25,"backbone":26,"moment":35,"sharify":37,"url":32}],23:[function(require,module,exports){
 var Backbone, ListingsParams, querystring, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1416,7 +1598,7 @@ module.exports = ListingsParams = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":23,"querystring":28}],21:[function(require,module,exports){
+},{"backbone":26,"querystring":31}],24:[function(require,module,exports){
 var API_ID, API_SECRET, API_URL, Backbone, User, accounting, moment, parse, request, _ref, _ref1,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1441,6 +1623,8 @@ module.exports = User = (function(_super) {
     return _ref1;
   }
 
+  User.prototype.idAttribute = "_id";
+
   User.prototype.urlRoot = function() {
     return "" + API_URL + "/users";
   };
@@ -1456,7 +1640,30 @@ module.exports = User = (function(_super) {
       name: name,
       query: query
     });
-    return this.save();
+    this.save();
+    return this.refreshSession();
+  };
+
+  User.prototype.sync = function(method, model, options) {
+    var _this = this;
+    if (method === 'read') {
+      if (options.data == null) {
+        options.data = {};
+      }
+    }
+    if (method === 'read') {
+      options.data.accessToken = this.get('accessToken');
+    }
+    this.once('sync', function() {
+      if (method === 'update') {
+        return _this.refreshSession();
+      }
+    });
+    return User.__super__.sync.apply(this, arguments);
+  };
+
+  User.prototype.refreshSession = function() {
+    return request.post('/login').end();
   };
 
   User.login = function(email, password, callback) {
@@ -1475,12 +1682,16 @@ module.exports = User = (function(_super) {
     return request.post('/logout').end(callback);
   };
 
+  User.resetPassword = function(email, callback) {
+    return request.post("" + API_URL + "/users/reset-password?email=" + email).end(callback);
+  };
+
   return User;
 
 })(Backbone.Model);
 
 
-},{"accounting":22,"backbone":23,"moment":32,"sharify":34,"superagent":35,"url":29}],22:[function(require,module,exports){
+},{"accounting":25,"backbone":26,"moment":35,"sharify":37,"superagent":38,"url":32}],25:[function(require,module,exports){
 /*!
  * accounting.js v0.3.2
  * Copyright 2011, Joss Crowcroft
@@ -1893,7 +2104,7 @@ module.exports = User = (function(_super) {
 	// Root will be `window` in browser or `global` on the server:
 }(this));
 
-},{}],23:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 //     Backbone.js 1.1.2
 
 //     (c) 2010-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -3503,9 +3714,9 @@ module.exports = User = (function(_super) {
 
 }));
 
-},{"underscore":39}],24:[function(require,module,exports){
+},{"underscore":42}],27:[function(require,module,exports){
 
-},{}],25:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 (function (global){
 /*! http://mths.be/punycode v1.2.4 by @mathias */
 ;(function(root) {
@@ -4016,7 +4227,7 @@ module.exports = User = (function(_super) {
 }(this));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],26:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4102,7 +4313,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],27:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4189,13 +4400,13 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],28:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":26,"./encode":27}],29:[function(require,module,exports){
+},{"./decode":29,"./encode":30}],32:[function(require,module,exports){
 /*jshint strict:true node:true es5:true onevar:true laxcomma:true laxbreak:true eqeqeq:true immed:true latedef:true*/
 (function () {
   "use strict";
@@ -4828,7 +5039,7 @@ function parseHost(host) {
 
 }());
 
-},{"punycode":25,"querystring":28}],30:[function(require,module,exports){
+},{"punycode":28,"querystring":31}],33:[function(require,module,exports){
 /*!
  * GMaps.js v0.4.5
  * http://hpneo.github.com/gmaps/
@@ -6811,7 +7022,7 @@ if (!Array.prototype.indexOf) {
       return -1;
   }
 }
-},{}],31:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 (function (global){
 !function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.jade=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
@@ -7024,7 +7235,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 (1)
 });
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"fs":24}],32:[function(require,module,exports){
+},{"fs":27}],35:[function(require,module,exports){
 //! moment.js
 //! version : 2.5.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -9426,7 +9637,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],33:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /*!
  * numeral.js
  * version : 1.5.3
@@ -10107,7 +10318,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],34:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 // Middleware that injects the shared data and sharify script
 module.exports = function(req, res, next) {
 
@@ -10152,7 +10363,7 @@ var bootstrapOnClient = module.exports.bootstrapOnClient = function() {
 };
 bootstrapOnClient();
 
-},{}],35:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -11158,7 +11369,7 @@ request.put = function(url, data, fn){
 
 module.exports = request;
 
-},{"emitter":36,"reduce":37}],36:[function(require,module,exports){
+},{"emitter":39,"reduce":40}],39:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -11316,7 +11527,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],37:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 
 /**
  * Reduce `arr` with `fn`.
@@ -11341,7 +11552,7 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}],38:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 //  Underscore.string
 //  (c) 2010 Esa-Matti Suuronen <esa-matti aet suuronen dot org>
 //  Underscore.string is freely distributable under the terms of the MIT license.
@@ -12016,7 +12227,7 @@ module.exports = function(arr, fn, initial){
   root._.string = root._.str = _s;
 }(this, String);
 
-},{}],39:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 //     Underscore.js 1.6.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

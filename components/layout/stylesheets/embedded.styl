@@ -39,3 +39,15 @@
 // Close modal
 .modal-close
   background-image url('/images/modal-close.svg') !important
+
+for typeface in 'aleo' 'campton'
+  for weight in 100 300 600
+    @font-face
+      font-family typeface
+      font-weight weight
+      src url("/fonts/" + typeface + "-" + weight + ".woff") format("woff")
+    @font-face
+      font-family typeface
+      font-weight weight
+      font-style italic
+      src url("/fonts/" + typeface + "-" + weight + "-italic.woff") format("woff")

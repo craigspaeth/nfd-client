@@ -28,7 +28,7 @@ module.exports = class AuthModal extends Backbone.View
       return @onError res.body.error if res.error
       vent.trigger 'login', new User(res.body)
       @$el.attr('data-state', 'welcome-login')
-      setTimeout @close, 1000
+      setTimeout (=> @$el.hide()), 1300
 
   events:
     'submit #auth-modal-signup-form': 'onSignup'
