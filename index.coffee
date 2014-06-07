@@ -9,6 +9,10 @@ mandrill = require('node-mandrill')(MANDRILL_APIKEY)
 sharify = require 'sharify'
 _ = require 'underscore'
 path = require 'path'
+bodyParser = require 'body-parser'
+cookieParser = require 'cookie-parser'
+cookieSession = require 'cookie-session'
+errorHandler = require 'errorhandler'
 { PORT, NODE_ENV, API_URL, MANDRILL_APIKEY, SESSION_SECRET, APP_URL } = config = require './config'
 
 # Sharify data and the modules that use it
@@ -34,14 +38,14 @@ Backbone.sync = require 'backbone-super-sync'
 app.use sharify
 app.set 'views', __dirname + '/components/'
 app.set 'view engine', 'jade'
-app.use express.bodyParser()
-app.use express.cookieParser()
-app.use express.cookieSession secret: SESSION_SECRET
+app.use bodyParser()
+app.use cookieParser()
+app.use cookieSession secret: SESSION_SECRET
 app.locals.accounting = accounting
 
 # Development only
 if "development" is NODE_ENV
-  app.use express.errorHandler()
+  app.use errorHandler()
   app.use require("stylus").middleware
     src: __dirname
     dest: __dirname + "/public"

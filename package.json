@@ -1,38 +1,42 @@
 {
-  "name": "nfd-client",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "make s"
-  },
-  "dependencies": {
-    "express": "*",
-		"jade": "*",
-		"coffee-script": "*",
-		"underscore": "*",
-    "underscore.string": "*",
-		"backbone": "*",
-		"superagent": "*",
-		"accounting": "*",
-		"numeral": "*",
-		"moment": "*",
-		"marked": "*",
-		"ua-parser": "*",
-		"node-mandrill": "*",
-		"sharify": "*",
-    "newrelic": "*",
-    "backbone-super-sync": "*"
-  },
-	"devDependencies": {
-		"zombie": "*",
-		"nib": "*",
-		"browserify": "*",
-		"jadeify": "*",
-		"caching-coffeeify": "*",
-		"stylus": "git://github.com/craigspaeth/stylus.git",
-		"gmaps": "git://github.com/craigspaeth/gmaps.git",
-    "browserify-dev-middleware": "*",
-    "sqwish": "*",
-    "uglify-js": "*"
+	"name":"nfd-client",
+	"version":"0.0.1",
+	"private":true,
+	"scripts":{
+		"start":"make s"
+	},
+	"dependencies":{
+		"express":"*",
+		"jade":"*",
+		"coffee-script":"*",
+		"underscore":"*",
+		"underscore.string":"*",
+		"backbone":"*",
+		"superagent":"*",
+		"accounting":"*",
+		"numeral":"*",
+		"moment":"*",
+		"marked":"*",
+		"ua-parser":"*",
+		"node-mandrill":"*",
+		"sharify":"*",
+		"newrelic":"*",
+		"backbone-super-sync":"*",
+		"body-parser": "*",
+		"cookie-parser": "*",
+		"cookie-session": "*",
+		"errorhandler": "*"
+	},
+	"devDependencies":{
+		"zombie":"*",
+		"nib":"*",
+		"browserify":"*",
+		"jadeify":"*",
+		"caching-coffeeify":"*",
+		"stylus":"git://github.com/craigspaeth/stylus.git",
+		"gmaps":"git://github.com/craigspaeth/gmaps.git",
+		"browserify-dev-middleware":"*",
+		"sqwish":"*",
+		"uglify-js":"*"
 	}
 }
