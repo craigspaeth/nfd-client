@@ -27,6 +27,7 @@ sharify.data = _.pick config,
   'HERO_UNITS'
   'ENABLE_ADS'
 User = require './models/user'
+Listing = require './models/listing'
 
 # Create app
 app = module.exports = express()
@@ -87,6 +88,12 @@ app.get '/settings', (req, res) ->
 app.get '/reset-password', login, (req, res) ->
   res.redirect '/' unless req.user
   res.render 'reset-password-page'
+app.get '/listings/:id', (req, res) ->
+  new Listing(id: req.params.id).fetch
+    error: (err) -> res.send err.toString()
+    success: (listing) ->
+      console.log listing.toJSON()
+      res.render 'listing-page', listing: listing
 app.post '/feedback', (req, res) ->
   mandrill '/messages/send',
     message:

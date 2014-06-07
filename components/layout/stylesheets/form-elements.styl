@@ -23,7 +23,7 @@
       
 .rounded-button
   background green-color
-  padding 10px 18px
+  padding 12px 18px 9px 18px
   campton()
   font-weight 600
   font-size default-font-size
@@ -37,6 +37,9 @@
   text-decoration none
   text-align center
   position relative
+  text-transform uppercase
+  letter-spacing 1px
+  font-size default-font-size - 1
   &:hover, &:active, &:focus
     background-color hover-green-color
     outline none
@@ -88,12 +91,15 @@
   margin 20px auto
   h1
     campton()
-    font-weight 300
+    font-weight 100
     font-size 18px
     margin-bottom 10px
   label
     campton()
-    font-weight 300
+    text-transform uppercase
+    font-size default-font-size - 3
+    font-weight 600
+    letter-spacing 1px
     margin-top 20px
     display block
     input

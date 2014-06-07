@@ -231,7 +231,7 @@
 }
 .rounded-button {
   background: #3db06f;
-  padding: 10px 18px;
+  padding: 12px 18px 9px 18px;
   font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -257,6 +257,9 @@
   text-decoration: none;
   text-align: center;
   position: relative;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 14px;
 }
 .rounded-button:hover,
 .rounded-button:active,
@@ -328,7 +331,7 @@
 .box-input {
   border: 1px solid #ddd;
   padding: 7px;
-  font-family: aleo, Helvetica, sans-serif;
+  font-family: aleo, Georgia, serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -366,7 +369,7 @@
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
-  font-weight: 300;
+  font-weight: 100;
   font-size: 18px;
   margin-bottom: 10px;
 }
@@ -379,7 +382,10 @@
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
-  font-weight: 300;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
   margin-top: 20px;
   display: block;
 }
@@ -798,7 +804,7 @@ a img {
 body {
   color: #344b4b;
   font-size: 15px;
-  font-family: aleo, Helvetica, sans-serif;
+  font-family: aleo, Georgia, serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -850,6 +856,12 @@ em {
   animation: spin 0.5s infinite;
   content: '.';
   color: transparent;
+}
+.page-container {
+  min-width: 900px;
+  max-width: 1400px;
+  padding: 0 20px;
+  margin: auto;
 }
 @-moz-keyframes spin {
   0% {
@@ -1084,7 +1096,6 @@ em {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
-  font-weight: 100;
   border-right: 1px solid #ddd;
 }
 #main-header nav a:first-child {
@@ -1574,10 +1585,12 @@ em {
   border-color: #ddd !important;
 }
 .filters-location-button {
-  font-size: 12px;
+  text-transform: initial;
   font-weight: 300;
-  width: 210px;
-  padding: 8px 14px 7px 14px;
+  letter-spacing: 0;
+  font-size: 12px;
+  width: 207px;
+  padding: 8px 14px 7px 12px;
   border: 1px solid #ddd;
   color: #344b4b;
   background-color: transparent;
@@ -1675,7 +1688,7 @@ em {
   position: absolute;
   right: 15px;
   bottom: 15px;
-  padding: 5px 25px;
+  padding: 5px 25px 3px 25px;
   font-size: 13px;
   background-color: transparent;
   border: 1px solid #ccc;
@@ -1982,7 +1995,7 @@ html.firefox .rounded-select {
   zoom: 1;
   margin-bottom: 80px;
   position: relative;
-  font-family: aleo, Helvetica, sans-serif;
+  font-family: aleo, Georgia, serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -2014,7 +2027,7 @@ html.firefox .rounded-select {
   top: 0;
 }
 .listings-section-left .rounded-button {
-  font-family: aleo, Helvetica, sans-serif;
+  font-family: aleo, Georgia, serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
@@ -2022,9 +2035,13 @@ html.firefox .rounded-select {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
+  font-size: 15px;
+  letter-spacing: 0;
+  text-transform: inherit;
+  padding-top: 9px;
+  padding-bottom: 11px;
 }
 .listings-section-left .rounded-button strong {
-  text-transform: uppercase;
   font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -2035,6 +2052,7 @@ html.firefox .rounded-select {
   font-weight: 300;
   font-weight: 600;
   font-size: 14px;
+  text-transform: uppercase;
   letter-spacing: 1px;
 }
 .listings-section-middle {
@@ -2063,7 +2081,7 @@ html.firefox .rounded-select {
   font-weight: 100;
 }
 .listings-section-left h2 {
-  font-size: 16px;
+  font-size: 13px;
   margin: 5px 0;
 }
 .listings-section-left h3 {
@@ -2089,26 +2107,16 @@ html.firefox .rounded-select {
   height: 40px;
   -webkit-border-radius: 40px;
   border-radius: 40px;
-  line-height: 35px;
+  line-height: 40px;
   text-align: center;
-  border: 3px solid #eee;
+  border: 2px solid #eee;
   display: inline-block;
   font-size: 17px;
   margin-right: 7px;
   font-weight: 600;
   color: #50b8d3;
 }
-.listings-bed-count {
-  color: #344b4b;
-  font-family: campton, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-font-smoothing: antialiased;
-  -o-font-smoothing: antialiased;
-  -ms-font-smoothing: antialiased;
-  font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  font-weight: 300;
-}
+.listings-bed-count,
 .listings-bath-count {
   color: #344b4b;
   font-family: campton, Helvetica, sans-serif;
@@ -2119,6 +2127,8 @@ html.firefox .rounded-select {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 .listings-map,
 .listings-map-no-geo-cover {
@@ -2425,8 +2435,16 @@ html.firefox .rounded-select {
   border-radius: 4px;
 }
 .modal h2 {
+  font-family: campton, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-weight: 300;
   font-size: 18px;
-  font-weight: 600;
+  font-weight: 100;
   margin-bottom: 15px;
 }
 .modal input,
@@ -3206,7 +3224,6 @@ html.firefox .rounded-select {
   width: 100%;
   margin-top: 13px;
   background-color: #3db06f;
-  padding: 13px 0;
 }
 #home-page-filters-search-button:hover,
 #home-page-filters-search-button:active {
@@ -3231,7 +3248,16 @@ html.firefox .rounded-select {
   margin: auto;
 }
 .about-page-copy h1 {
+  font-family: campton, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-weight: 300;
   font-size: 24px;
+  font-weight: 100;
   margin: 2em 0 1em 0;
 }
 .about-page-copy p {
@@ -3478,8 +3504,258 @@ html.firefox .rounded-select {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
+  font-weight: 100;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 11px;
   color: #344b4b;
+}
+@-moz-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+}
+@-webkit-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+}
+@-o-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+}
+@-ms-keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+}
+@keyframes spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    transform: rotate(0deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  50% {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    transform: rotate(180deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    -ms-animation-timing-function: linear;
+    animation-timing-function: linear;
+  }
+}
+#listing-page-header {
+  font-family: campton, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-weight: 300;
+  zoom: 1;
+  margin: 40px 0;
+}
+#listing-page-header:before,
+#listing-page-header:after {
+  content: "";
+  display: table;
+}
+#listing-page-header:after {
+  clear: both;
+}
+#listing-page-header h1 {
+  float: left;
+  font-size: 32px;
+  line-height: 36px;
+}
+#listing-page-header h1 small {
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0 25px 0 5px;
+}
+#listing-page-header button {
+  float: right;
+}
+#listing-page-slideshow-container {
+  width: 70%;
+  overflow: hidden;
+}
+#listing-page-slideshow {
+  width: 9999px;
+}
+#listing-page-slideshow li {
+  float: left;
+  margin-right: 20px;
+}
+#listing-page-slideshow-thumbnails img {
+  height: 100px;
+  width: 100px;
 }

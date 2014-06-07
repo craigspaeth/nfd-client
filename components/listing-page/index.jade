@@ -1,0 +1,28 @@
+extends ../layout/templates/index
+
+block content
+  .page-container
+    header#listing-page-header
+      h1
+        span#listing-page-bed= listing.get('beds')
+        small Bed
+        span#listing-page-bath= listing.get('baths')
+        small Bed
+        span#listing-page-rent= listing.formattedRent()
+        small Listed #{listing.listedAgo()}
+      button.rounded-button See More on #{listing.sourceWebsiteName()}
+    #listing-page-left
+      #listing-page-slideshow-container
+        ul#listing-page-slideshow
+          for url in listing.get('pictures')
+            li
+              img( src=url )
+      ul#listing-page-slideshow-thumbnails
+        for url in listing.get('pictures').slice(1)
+          li
+            img( src=url )
+    #listing-page-right
+      #listing-page-map
+      h3= listing.get('location').name
+      button.rounded-button Street View
+      #listing-page-ad

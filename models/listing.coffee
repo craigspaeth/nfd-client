@@ -8,7 +8,7 @@ module.exports = class Listing extends Backbone.Model
   
   idAttribute: "_id"
 
-  urlRoot: -> "#{sd.API_URL}/listings"
+  url: -> "#{sd.API_URL}/listings/#{@get 'id'}"
   
   formattedRent: ->
     accounting.formatMoney @get('rent'), '$', 0
