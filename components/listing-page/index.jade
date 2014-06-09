@@ -7,22 +7,26 @@ block content
         span#listing-page-bed= listing.get('beds')
         small Bed
         span#listing-page-bath= listing.get('baths')
-        small Bed
+        small Bath
         span#listing-page-rent= listing.formattedRent()
-        small Listed #{listing.listedAgo()}
-      button.rounded-button See More on #{listing.sourceWebsiteName()}
+        br
+        small#listing-page-location= listing.get('location').neighborhood || listing.get('location').name
+        span#listing-page-listed-ago Listed #{listing.listedAgo()}
+      a.rounded-button( href=listing.get('url') )
+        | See More on #{listing.sourceWebsiteName()}
     #listing-page-left
-      #listing-page-slideshow-container
-        ul#listing-page-slideshow
+      #listing-page-pictures-container
+        ul#listing-page-pictures
           for url in listing.get('pictures')
             li
               img( src=url )
-      ul#listing-page-slideshow-thumbnails
-        for url in listing.get('pictures').slice(1)
-          li
-            img( src=url )
     #listing-page-right
-      #listing-page-map
-      h3= listing.get('location').name
-      button.rounded-button Street View
+      if listing.get('location').lat
+        #listing-page-map
+      #listing-page-map-details
+        h3= listing.get('location').name
+      if listing.get('location').at
+        button.rounded-button Street View
       #listing-page-ad
+        h5 Advertisement
+        include ad

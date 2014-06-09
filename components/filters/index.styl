@@ -1,12 +1,12 @@
 @import '../stylus-lib'
 
 rounded-tabs-default()
-  border-color light-gray-border-color
+  border-color light-gray-color
   color #aaa
   background-color transparent
   campton()
   li
-    border-color light-gray-border-color
+    border-color light-gray-color
 
 previous-rounded-tabs(color, selector)
   &{selector}
@@ -34,11 +34,11 @@ previous-rounded-tabs-important(color, selector)
         background-color color !important
         color white !important
         & ~ li
-          border-color light-gray-border-color !important
+          border-color light-gray-color !important
           color #aaa !important
           background-color transparent !important
           li
-            border-color light-gray-border-color !important
+            border-color light-gray-color !important
 
 tabs-slider-widget(color)
   previous-rounded-tabs(color, ':hover')
@@ -78,7 +78,7 @@ tabs-slider-widget(color)
   font-size 12px
   width 207px
   padding 8px 14px 7px 12px
-  border 1px solid light-gray-border-color
+  border 1px solid light-gray-color
   color dark-green-color
   background-color transparent
   &:hover, &:focus, &:active

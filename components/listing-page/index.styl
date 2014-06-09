@@ -1,33 +1,80 @@
 @import '../stylus-lib'
+gutter-width = 20px
+ad-width = 336px
 
 #listing-page-header
   campton()
   clearfix()
-  margin 40px 0
+  margin 40px 0 20px 0
   h1
     float left
-    font-size 32px
-    line-height 36px
+    font-size 42px
+    font-weight 100
+    #listing-page-rent, > small
+      margin-right 15px
     small
       font-size 14px
+      font-weight 300
       text-transform uppercase
       letter-spacing 1px
-      margin 0 25px 0 5px
-  button
+      margin-left 8px
+  a
     float right
 
+#listing-page-location
+  margin-left 0
 
-#listing-page-slideshow-container
-  width 70%
+#listing-page-listed-ago
+  aleo()
+  font-size 14px
+  font-weight 300
+  font-style italic
+
+#listing-page-pictures-container
   overflow hidden
+  padding-right gutter-width
 
-#listing-page-slideshow
-  width 9999px
+#listing-page-pictures
+  column-count 2
+  column-gap gutter-width
+  img
+    width 100%
+    display block
   li
-    float left
-    margin-right 20px
+    margin-bottom gutter-width
 
-#listing-page-slideshow-thumbnails
+#listing-page-pictures-thumbnails
   img
     height 100px
     width @height
+
+#listing-page-left
+  float left
+  width calc(100% \- ad-width)
+
+#listing-page-right
+  float right
+  width ad-width
+
+#listing-page-map
+  margin-bottom 10px
+
+#listing-page-map-details
+  clearfix()
+  h3
+    float left
+    width 50%
+  .rounded-button
+    width 50%
+
+#listing-page-ad
+  campton()
+  font-size 10px
+  text-transform uppercase
+  letter-spacing 1px
+  margin 20px 0
+  padding-top 10px
+  text-align center
+  border-top 1px solid light-gray-color
+  clear both
+  color gray-color

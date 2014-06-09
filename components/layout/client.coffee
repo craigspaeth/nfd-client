@@ -4,6 +4,7 @@ HomepageView = require '../home-page/view.coffee'
 AuthModal = require '../auth-modal/view.coffee'
 SettingsView = require '../settings-page/view.coffee'
 ResetPasswordView = require '../reset-password-page/view.coffee'
+ListingPageView = require '../listing-page/view.coffee'
 vent = require '../../lib/vent.coffee'
 User = require '../../models/user.coffee'
 
@@ -45,4 +46,7 @@ class InitRouter extends Backbone.Router
     new SettingsView
 
   resetPassword: ->
-    new ResetPasswordView 
+    new ResetPasswordView
+
+  listingPage: ->
+    new ListingPageView

@@ -92,7 +92,7 @@ app.get '/listings/:id', (req, res) ->
   new Listing(id: req.params.id).fetch
     error: (err) -> res.send err.toString()
     success: (listing) ->
-      console.log listing.toJSON()
+      res.locals.sharify.data.LISTING = listing.toJSON()
       res.render 'listing-page', listing: listing
 app.post '/feedback', (req, res) ->
   mandrill '/messages/send',
