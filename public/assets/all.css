@@ -3252,7 +3252,7 @@ html.firefox .rounded-select {
   position: absolute;
 }
 .about-page-copy {
-  width: 800px;
+  width: 540px;
   margin: auto;
 }
 .about-page-copy h1 {
@@ -3264,14 +3264,14 @@ html.firefox .rounded-select {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
-  font-size: 20px;
+  font-size: 25px;
   font-weight: 100;
   margin: 41px 0 18px 0;
 }
 .about-page-copy p {
   margin-bottom: 1em;
   line-height: 1.8em;
-  font-size: 16px;
+  font-size: 17px;
 }
 #about-page-faq {
   margin-bottom: 80px;
