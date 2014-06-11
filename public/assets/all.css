@@ -3264,9 +3264,9 @@ html.firefox .rounded-select {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
-  font-size: 25px;
-  font-weight: 100;
-  margin: 41px 0 18px 0;
+  font-size: 24px;
+  font-weight: 500;
+  margin: 41px 0 6px 0;
 }
 .about-page-copy p {
   margin-bottom: 1em;
