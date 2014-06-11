@@ -13,11 +13,12 @@ section.listings-listing( class=end ? 'listings-listing-end' : '' )
     if listing.get('location')
       h3= listing.get('location').neighborhood || listing.get('location').name
       h4= listing.get('location').formattedAddress || listing.get('location').formatted_address
-      h5( class=listing.listedAgoClass() ) Listed #{listing.listedAgo()}
-    a.rounded-button( target='_blank', href=listing.get('url') )
-      strong See more on
-      br
-      = listing.sourceWebsiteName()
+      h6 From&nbsp;
+        a.listings-listing-src( href=listing.get('url') target='_blank' )
+          = listing.sourceWebsiteName()
+      h5( class=listing.listedAgoClass() target='_blank' ) Listed #{listing.listedAgo()}
+    a.rounded-button( target='_blank' href='/listings/' + listing.get('_id') )
+      strong See more
   .listings-section-middle
     if listing.get('pictures').length
       ul.listings-pictures

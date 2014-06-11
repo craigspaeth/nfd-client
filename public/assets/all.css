@@ -1992,8 +1992,6 @@ html.firefox .rounded-select {
 }
 .listings-listing {
   zoom: 1;
-  margin-bottom: 80px;
-  position: relative;
   font-family: aleo, Georgia, serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -2001,6 +1999,8 @@ html.firefox .rounded-select {
   -ms-font-smoothing: antialiased;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  margin-bottom: 80px;
+  position: relative;
 }
 .listings-listing:before,
 .listings-listing:after {
@@ -2068,8 +2068,6 @@ html.firefox .rounded-select {
   width: 200px;
 }
 .listings-section-left h1 {
-  font-size: 48px;
-  margin: 12px 0 30px 0;
   font-family: campton, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;
@@ -2078,6 +2076,8 @@ html.firefox .rounded-select {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 100;
+  font-size: 48px;
+  margin: 12px 0 25px 0;
 }
 .listings-section-left h2 {
   font-size: 13px;
@@ -2086,20 +2086,29 @@ html.firefox .rounded-select {
 .listings-section-left h3 {
   font-size: 13px;
   line-height: 1.4em;
-  margin: 20px 0 5px 0;
+  margin-top: 15px;
 }
 .listings-section-left h4,
-.listings-section-left h5 {
+.listings-section-left h5,
+.listings-section-left h6 {
   font-size: 13px;
 }
 .listings-section-left h5 {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
+}
+.listings-section-left h6 a {
+  color: #344b4b;
+  text-decoration: underline;
 }
 .listings-section-left button {
   display: block;
   padding: 15px 0;
   margin: 5px 0;
   width: 100%;
+}
+.listings-listing-src {
+  font-size: 13px;
+  margin: 5px 0;
 }
 .listings-count-num {
   width: 40px;
@@ -3255,9 +3264,9 @@ html.firefox .rounded-select {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 100;
-  margin: 2em 0 1em 0;
+  margin: 41px 0 18px 0;
 }
 .about-page-copy p {
   margin-bottom: 1em;
@@ -3745,8 +3754,12 @@ html.firefox .rounded-select {
   letter-spacing: 1px;
   margin-left: 8px;
 }
+#listing-page-header h1 br + small {
+  margin-left: 0;
+}
 #listing-page-header a {
   float: right;
+  width: 336px;
 }
 #listing-page-location {
   margin-left: 0;

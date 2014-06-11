@@ -26,6 +26,7 @@ commit: assets
 	git push git@github.com:craigspaeth/nfd-client.git master
 
 deploy: commit
+	git push git@github.com:craigspaeth/nfd-client.git master
 	git push git@heroku.com:nfd-client.git master
 	open http://nofeedigs.com/
 

@@ -12,7 +12,7 @@ block content
         br
         small#listing-page-location= listing.get('location').neighborhood || listing.get('location').name
         span#listing-page-listed-ago Listed #{listing.listedAgo()}
-      a.rounded-button( href=listing.get('url') )
+      a.rounded-button( href=listing.get('url') target='_blank' )
         | See More on #{listing.sourceWebsiteName()}
     #listing-page-left
       #listing-page-pictures-container
