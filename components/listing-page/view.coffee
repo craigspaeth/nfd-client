@@ -1,7 +1,7 @@
 Backbone = require 'backbone'
-GMaps = require 'gmaps'
 Listing = require '../../models/listing.coffee'
 { LISTING } = require('sharify').data
+gmap = require '../../lib/gmap.coffee'
 
 module.exports = class ListingPageView extends Backbone.View
 
@@ -13,7 +13,4 @@ module.exports = class ListingPageView extends Backbone.View
 
   renderMap: ->
     return unless @listing.get('location').lat?
-    new GMaps
-      div: '#listing-page-map'
-      lat: @listing.get('location').lat
-      lng: @listing.get('location').lng
+    gmap @listing, '#listing-page-map'

@@ -2,7 +2,7 @@
 require('../components/layout/client.coffee');
 
 
-},{"../components/layout/client.coffee":11}],2:[function(require,module,exports){
+},{"../components/layout/client.coffee":10}],2:[function(require,module,exports){
 var Backbone, Listings, ListingsParams, sd, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -151,6 +151,8 @@ module.exports = AlertsModal = (function(_super) {
   AlertsModal.prototype.submit = function(e) {
     e.preventDefault();
     this.$el.attr('data-state', 'thanks');
+    window.params = this.params;
+    console.log(this.params.toJSON());
     currentUser.addAlert(this.$('input').val(), this.params.toJSON());
     return false;
   };
@@ -509,43 +511,7 @@ module.exports = FiltersView = (function(_super) {
 
 
 },{"../../lib/vent.coffee":22,"backbone":27,"numeral":36,"underscore":42}],9:[function(require,module,exports){
-var Backbone, HomepageRouter, querystring, _, _ref,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-_ = require('underscore');
-
-Backbone = require('backbone');
-
-querystring = require('querystring');
-
-module.exports = HomepageRouter = (function(_super) {
-  __extends(HomepageRouter, _super);
-
-  function HomepageRouter() {
-    _ref = HomepageRouter.__super__.constructor.apply(this, arguments);
-    return _ref;
-  }
-
-  HomepageRouter.prototype.initialize = function(opts) {
-    return this.listings = opts.listings, opts;
-  };
-
-  HomepageRouter.prototype.routes = {
-    'search/*queryString': 'search'
-  };
-
-  HomepageRouter.prototype.search = function(queryString) {
-    return this.listings.params.set(querystring.parse(queryString));
-  };
-
-  return HomepageRouter;
-
-})(Backbone.Router);
-
-
-},{"backbone":27,"querystring":31,"underscore":42}],10:[function(require,module,exports){
-var AlertsModal, BELOW_FOLD_PEAK, Backbone, FiltersRouter, FiltersView, HomepageView, Listings, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
+var AlertsModal, BELOW_FOLD_PEAK, Backbone, FiltersView, HomepageView, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -554,13 +520,9 @@ _ = require('underscore');
 
 Backbone = require('backbone');
 
-Listings = require('../../collections/listings.coffee');
-
 FiltersView = require('../filters/view.coffee');
 
 ListingsView = require('../listings/view.coffee');
-
-FiltersRouter = require('./router.coffee');
 
 AlertsModal = require('../alerts-modal/view.coffee');
 
@@ -576,20 +538,15 @@ module.exports = HomepageView = (function(_super) {
   function HomepageView() {
     this.onScroll = __bind(this.onScroll, this);
     this.resizeHeroUnit = __bind(this.resizeHeroUnit, this);
-    this.navigate = __bind(this.navigate, this);
     _ref = HomepageView.__super__.constructor.apply(this, arguments);
     return _ref;
   }
 
   HomepageView.prototype.el = 'body';
 
-  HomepageView.prototype.initialize = function(options) {
+  HomepageView.prototype.initialize = function(opts) {
+    this.listings = opts.listings;
     this.$window = $(window);
-    this.listings = new Listings;
-    this.router = new FiltersRouter({
-      pushState: true,
-      listings: this.listings
-    });
     this.filtersView = new FiltersView({
       collection: this.listings,
       el: this.$('#home-page-filters')
@@ -597,7 +554,7 @@ module.exports = HomepageView = (function(_super) {
     this.listingsView = new ListingsView({
       collection: this.listings,
       el: this.$('#home-page-listings-container'),
-      GMaps: (options != null ? options.GMaps : void 0) || (require('gmaps'), GMaps)
+      GMaps: (typeof options !== "undefined" && options !== null ? options.GMaps : void 0) || (require('gmaps'), GMaps)
     });
     this.alertsModal = new AlertsModal({
       collection: this.listings,
@@ -605,14 +562,9 @@ module.exports = HomepageView = (function(_super) {
     });
     this.$window.on('scroll.homepagefx', this.onScroll);
     this.$window.on('resize.homepagefx', this.resizeHeroUnit);
-    this.listings.params.on('change', this.navigate);
     this.resizeHeroUnit();
     this.onScroll();
     return this.loadHeroUnit();
-  };
-
-  HomepageView.prototype.navigate = function() {
-    return this.router.navigate("/search/" + (this.listings.params.toQuerystring()));
   };
 
   HomepageView.prototype.loadHeroUnit = function() {
@@ -685,8 +637,8 @@ module.exports = HomepageView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../collections/listings.coffee":2,"../alerts-modal/view.coffee":4,"../filters/view.coffee":8,"../listings/view.coffee":14,"./router.coffee":9,"backbone":27,"gmaps":33,"sharify":37,"underscore":42}],11:[function(require,module,exports){
-var AuthModal, Backbone, HomepageView, InitRouter, ListingPageView, ResetPasswordView, SettingsView, User, sd, vent, _ref,
+},{"../alerts-modal/view.coffee":4,"../filters/view.coffee":8,"../listings/view.coffee":13,"backbone":27,"gmaps":33,"sharify":37,"underscore":42}],10:[function(require,module,exports){
+var AuthModal, Backbone, HomepageView, InitRouter, ListingPageView, Listings, ResetPasswordView, SettingsView, User, qs, sd, vent, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -704,9 +656,13 @@ ResetPasswordView = require('../reset-password-page/view.coffee');
 
 ListingPageView = require('../listing-page/view.coffee');
 
+Listings = require('../../collections/listings.coffee');
+
 vent = require('../../lib/vent.coffee');
 
 User = require('../../models/user.coffee');
+
+qs = require('querystring');
 
 require('../../lib/jquery.infinite-scroll.coffee');
 
@@ -741,13 +697,26 @@ InitRouter = (function(_super) {
 
   InitRouter.prototype.routes = {
     '': 'home',
-    'search/*params': 'home',
+    'search/*queryString': 'home',
     'settings': 'settings',
-    'reset-password': 'resetPassword'
+    'reset-password': 'resetPassword',
+    'listings/:id': 'listingPage'
   };
 
-  InitRouter.prototype.home = function() {
-    return new HomepageView;
+  InitRouter.prototype.home = function(queryString) {
+    var listings, view,
+      _this = this;
+    console.log('home');
+    listings = new Listings;
+    view = new HomepageView({
+      listings: listings
+    });
+    listings.params.on('change', function() {
+      return _this.navigate("/search/" + (listings.params.toQuerystring()));
+    });
+    if (queryString) {
+      return listings.params.set(qs.parse(queryString));
+    }
   };
 
   InitRouter.prototype.settings = function() {
@@ -767,18 +736,18 @@ InitRouter = (function(_super) {
 })(Backbone.Router);
 
 
-},{"../../lib/jquery.infinite-scroll.coffee":20,"../../lib/vent.coffee":22,"../../models/user.coffee":25,"../auth-modal/view.coffee":5,"../feedback-modal/client.coffee":6,"../home-page/view.coffee":10,"../listing-page/view.coffee":12,"../main-header/client.coffee":15,"../modal/client.coffee":17,"../reset-password-page/view.coffee":18,"../settings-page/view.coffee":19,"backbone":27,"sharify":37}],12:[function(require,module,exports){
-var Backbone, GMaps, LISTING, Listing, ListingPageView, _ref,
+},{"../../collections/listings.coffee":2,"../../lib/jquery.infinite-scroll.coffee":20,"../../lib/vent.coffee":22,"../../models/user.coffee":25,"../auth-modal/view.coffee":5,"../feedback-modal/client.coffee":6,"../home-page/view.coffee":9,"../listing-page/view.coffee":11,"../main-header/client.coffee":14,"../modal/client.coffee":16,"../reset-password-page/view.coffee":17,"../settings-page/view.coffee":18,"backbone":27,"querystring":31,"sharify":37}],11:[function(require,module,exports){
+var Backbone, LISTING, Listing, ListingPageView, gmap, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Backbone = require('backbone');
 
-GMaps = require('gmaps');
-
 Listing = require('../../models/listing.coffee');
 
 LISTING = require('sharify').data.LISTING;
+
+gmap = require('../../lib/gmap.coffee');
 
 module.exports = ListingPageView = (function(_super) {
   __extends(ListingPageView, _super);
@@ -799,11 +768,7 @@ module.exports = ListingPageView = (function(_super) {
     if (this.listing.get('location').lat == null) {
       return;
     }
-    return new GMaps({
-      div: '#listing-page-map',
-      lat: this.listing.get('location').lat,
-      lng: this.listing.get('location').lng
-    });
+    return gmap(this.listing, '#listing-page-map');
   };
 
   return ListingPageView;
@@ -811,7 +776,7 @@ module.exports = ListingPageView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../models/listing.coffee":23,"backbone":27,"gmaps":33,"sharify":37}],13:[function(require,module,exports){
+},{"../../lib/gmap.coffee":19,"../../models/listing.coffee":23,"backbone":27,"sharify":37}],12:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -1055,7 +1020,7 @@ buf.push("<div class=\"listings-no-results\">No results. Try loosening up your f
 }
 buf.push("</div>");}("listings" in locals_for_with?locals_for_with.listings:typeof listings!=="undefined"?listings:undefined,"sd" in locals_for_with?locals_for_with.sd:typeof sd!=="undefined"?sd:undefined));;return buf.join("");
 };
-},{"jade/runtime":34}],14:[function(require,module,exports){
+},{"jade/runtime":34}],13:[function(require,module,exports){
 var Backbone, FIXED_FILTER_HEIGHT, ListingsView, MARGIN_SIZE, sd, template, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -1275,7 +1240,7 @@ module.exports = ListingsView = (function(_super) {
 })(Backbone.View);
 
 
-},{"./templates/index.jade":13,"backbone":27,"gmaps":33,"sharify":37,"underscore":42}],15:[function(require,module,exports){
+},{"./templates/index.jade":12,"backbone":27,"gmaps":33,"sharify":37,"underscore":42}],14:[function(require,module,exports){
 var User, template, vent;
 
 vent = require('../../lib/vent.coffee');
@@ -1306,7 +1271,7 @@ $(document).on('click', '[href*=login]', function(e) {
 });
 
 
-},{"../../lib/vent.coffee":22,"../../models/user.coffee":25,"./index.jade":16}],16:[function(require,module,exports){
+},{"../../lib/vent.coffee":22,"../../models/user.coffee":25,"./index.jade":15}],15:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -1326,7 +1291,7 @@ buf.push("<a href=\"/login\">Log In</a>");
 }
 buf.push("</nav></header>");}("isHome" in locals_for_with?locals_for_with.isHome:typeof isHome!=="undefined"?isHome:undefined,"path" in locals_for_with?locals_for_with.path:typeof path!=="undefined"?path:undefined,"belowHero" in locals_for_with?locals_for_with.belowHero:typeof belowHero!=="undefined"?belowHero:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
 };
-},{"jade/runtime":34}],17:[function(require,module,exports){
+},{"jade/runtime":34}],16:[function(require,module,exports){
 $(document).on('click', '.modal-container', function(e) {
   if (!($(e.target).is('.modal-container') || $(e.target).is('.modal-close') || $(e.target).is('.modal-okay'))) {
     return;
@@ -1335,7 +1300,7 @@ $(document).on('click', '.modal-container', function(e) {
 });
 
 
-},{}],18:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 var Backbone, PasswordForm, ResetPasswordView, numeral, qs, vent, _, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1377,7 +1342,7 @@ module.exports = ResetPasswordView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/password-form.coffee":21,"../../lib/vent.coffee":22,"backbone":27,"numeral":36,"querystring":31,"underscore":42}],19:[function(require,module,exports){
+},{"../../lib/password-form.coffee":21,"../../lib/vent.coffee":22,"backbone":27,"numeral":36,"querystring":31,"underscore":42}],18:[function(require,module,exports){
 var Backbone, PasswordForm, SettingsView, numeral, vent, _, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1429,7 +1394,49 @@ module.exports = SettingsView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/password-form.coffee":21,"../../lib/vent.coffee":22,"backbone":27,"numeral":36,"underscore":42}],20:[function(require,module,exports){
+},{"../../lib/password-form.coffee":21,"../../lib/vent.coffee":22,"backbone":27,"numeral":36,"underscore":42}],19:[function(require,module,exports){
+require('gmaps');
+
+module.exports = function(listing, div) {
+  var gmap, _ref, _ref1;
+  gmap = new GMaps({
+    div: div,
+    lat: listing.get('location').lat,
+    lng: listing.get('location').lng
+  });
+  gmap.addStyle({
+    mapTypeId: 'map_style',
+    styledMapName: 'Styled Map',
+    styles: [
+      {
+        stylers: [
+          {
+            saturation: -70
+          }, {
+            lightness: 30
+          }
+        ]
+      }, {
+        featureType: 'road',
+        stylers: [
+          {
+            lightness: 30
+          }
+        ]
+      }
+    ]
+  });
+  gmap.setStyle('map_style');
+  return gmap.addMarker({
+    lat: (_ref = listing.get('location')) != null ? _ref.lat : void 0,
+    lng: (_ref1 = listing.get('location')) != null ? _ref1.lng : void 0,
+    title: listing.get('location').name,
+    icon: '/images/map-marker.png'
+  });
+};
+
+
+},{"gmaps":33}],20:[function(require,module,exports){
 var onScroll,
   _this = this;
 
@@ -1615,13 +1622,15 @@ module.exports = Listing = (function(_super) {
 
 
 },{"accounting":26,"backbone":27,"moment":35,"sharify":37,"url":32}],24:[function(require,module,exports){
-var Backbone, ListingsParams, querystring, _ref,
+var Backbone, ListingsParams, qs, _, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
+_ = require('underscore');
+
 Backbone = require('backbone');
 
-querystring = require('querystring');
+qs = require('querystring');
 
 module.exports = ListingsParams = (function(_super) {
   __extends(ListingsParams, _super);
@@ -1640,7 +1649,7 @@ module.exports = ListingsParams = (function(_super) {
   };
 
   ListingsParams.prototype.toQuerystring = function() {
-    return querystring.stringify(this.toJSON());
+    return qs.stringify(this.toJSON());
   };
 
   return ListingsParams;
@@ -1648,7 +1657,7 @@ module.exports = ListingsParams = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":27,"querystring":31}],25:[function(require,module,exports){
+},{"backbone":27,"querystring":31,"underscore":42}],25:[function(require,module,exports){
 var API_ID, API_SECRET, API_URL, Backbone, User, accounting, moment, parse, request, _ref, _ref1,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };

@@ -1,5 +1,6 @@
+_ = require 'underscore'
 Backbone = require 'backbone'
-querystring = require 'querystring'
+qs = require 'querystring'
 
 module.exports = class ListingsParams extends Backbone.Model
   
@@ -11,4 +12,4 @@ module.exports = class ListingsParams extends Backbone.Model
     'bath-min': 1
   
   toQuerystring: ->
-    querystring.stringify @toJSON()
+  	qs.stringify @toJSON()

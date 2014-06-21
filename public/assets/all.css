@@ -3517,6 +3517,7 @@ html.firefox .rounded-select {
   letter-spacing: 1px;
   font-size: 11px;
   color: #344b4b;
+  margin-top: 3px;
 }
 @-moz-keyframes spin {
   0% {
@@ -3809,6 +3810,7 @@ html.firefox .rounded-select {
 }
 #listing-page-map {
   margin-bottom: 10px;
+  height: 336px;
 }
 #listing-page-map-details {
   zoom: 1;

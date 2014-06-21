@@ -21,5 +21,7 @@ module.exports = class AlertsModal extends Backbone.View
   submit: (e) ->
     e.preventDefault()
     @$el.attr 'data-state', 'thanks'
+    window.params = @params
+    console.log @params.toJSON()
     currentUser.addAlert @$('input').val(), @params.toJSON()
     false

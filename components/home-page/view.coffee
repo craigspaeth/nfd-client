@@ -1,12 +1,9 @@
 _ = require 'underscore'
 Backbone = require 'backbone'
-Listings = require '../../collections/listings.coffee'
 FiltersView = require '../filters/view.coffee'
 ListingsView = require '../listings/view.coffee'
-FiltersRouter = require './router.coffee'
 AlertsModal = require '../alerts-modal/view.coffee'
 sd = require('sharify').data
-
 BELOW_FOLD_PEAK = 0
 START_HERO_UNIT_OPACITY = 0.4
 
@@ -14,10 +11,9 @@ module.exports = class HomepageView extends Backbone.View
   
   el: 'body'
   
-  initialize: (options) ->
+  initialize: (opts) ->
+    { @listings } = opts
     @$window = $ window
-    @listings = new Listings
-    @router = new FiltersRouter pushState: true, listings: @listings
     @filtersView = new FiltersView
       collection: @listings
       el: @$('#home-page-filters')
@@ -30,13 +26,9 @@ module.exports = class HomepageView extends Backbone.View
       el: '#alerts-modal-bg'
     @$window.on 'scroll.homepagefx', @onScroll
     @$window.on 'resize.homepagefx', @resizeHeroUnit
-    @listings.params.on 'change', @navigate
     @resizeHeroUnit()
     @onScroll()
     @loadHeroUnit()
-  
-  navigate: =>
-    @router.navigate "/search/#{@listings.params.toQuerystring()}"
   
   loadHeroUnit: ->
     heroUnit = sd.HERO_UNITS[_.random(0, sd.HERO_UNITS.length - 1)]
