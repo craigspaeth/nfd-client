@@ -42,15 +42,16 @@ mixin neighborhood-group(group)
       span.filters-location-text Select some neighborhoods
       .filters-location-arrow
   .filters-location-neighborhoods
-    mixin neighborhood-group('Downtown')
-    mixin neighborhood-group('Uptown')
-    mixin neighborhood-group('Midtown')
-    mixin neighborhood-group('North Brooklyn')
-    mixin neighborhood-group('South Brooklyn')
-    mixin neighborhood-group('Queens')
-    mixin neighborhood-group('Bronx')
-    mixin neighborhood-group('Staten Island')
-    button.rounded-button.filters-close Done
+    .filters-location-neighborhoods-inner
+      mixin neighborhood-group('Downtown')
+      mixin neighborhood-group('Uptown')
+      mixin neighborhood-group('Midtown')
+      mixin neighborhood-group('North Brooklyn')
+      mixin neighborhood-group('South Brooklyn')
+      mixin neighborhood-group('Queens')
+      mixin neighborhood-group('Bronx')
+      mixin neighborhood-group('Staten Island')
+    button.rounded-button.filters-more More
   label.filters-sort-label
     h3 Sort
     select.rounded-select.filters-sort-select

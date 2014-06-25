@@ -1623,6 +1623,8 @@ em {
   font-size: 12px;
   z-index: 2;
   text-align: left;
+  padding-bottom: 60px;
+  overflow: hidden;
 }
 .filters-location-neighborhoods::after {
   content: '.';
@@ -1639,16 +1641,21 @@ em {
 .filters-location-neighborhoods input[type=checkbox] {
   margin-right: 11px;
 }
-.filters-location-neighborhoods > ul {
+.filters-location-neighborhoods .filters-location-neighborhoods-inner {
+  width: 2000px;
+}
+.filters-location-neighborhoods .filters-location-neighborhoods-inner.is-over {
+  margin-left: -980px;
+}
+.filters-location-neighborhoods .filters-location-neighborhoods-inner > ul {
   display: inline-block;
   vertical-align: top;
-  width: 20%;
-  padding: 15px;
+  width: 196px;
+  padding: 10px;
 }
-.filters-location-neighborhoods > ul lh {
+.filters-location-neighborhoods .filters-location-neighborhoods-inner > ul lh {
   text-transform: uppercase;
   color: #777;
-  font-weight: 600;
   letter-spacing: 2px;
   border-bottom: 1px solid rgba(255,255,255,0.1);
   margin-bottom: 10px;
@@ -1662,14 +1669,16 @@ em {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
+  font-weight: 600;
 }
 .filters-location-neighborhoods [type=checkbox] {
   margin: 0;
 }
 .filters-location-neighborhoods .filter-location-neighborhoods-group {
   overflow: scroll;
-  height: 157px;
-  font-size: 13px;
+  height: 340px;
+  font-size: 12px;
+  line-height: 1.6em;
 }
 .filters-count {
   margin-top: 5px;
@@ -1683,7 +1692,7 @@ em {
 .filters-sort-select {
   width: 119px;
 }
-.filters-close {
+.filters-more {
   position: absolute;
   right: 15px;
   bottom: 15px;
@@ -1692,9 +1701,13 @@ em {
   background-color: transparent;
   border: 1px solid #ccc;
 }
-.filters-close:hover,
-.filters-close:focus,
-.filters-close:active {
+.filters-more::after {
+  content: "\00bb";
+  font-size: 16px;
+}
+.filters-more:hover,
+.filters-more:focus,
+.filters-more:active {
   background-color: transparent;
 }
 .filters-alerts-label {
@@ -3848,4 +3861,7 @@ html.firefox .rounded-select {
   border-top: 1px solid #ddd;
   clear: both;
   color: #aaa;
+}
+#listing-page-ad h5 {
+  margin-bottom: 8px;
 }

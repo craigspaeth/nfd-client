@@ -3,7 +3,7 @@ BIN = node_modules/.bin
 s:
 	$(BIN)/coffee index.coffee
 
-ss:
+sp:
 	API_URL=http://api.nofeedigs.com $(BIN)/coffee index.coffee
 
 assets:
