@@ -43,7 +43,6 @@ class InitRouter extends Backbone.Router
     'listings/:id': 'listingPage'
 
   home: (queryString) ->
-    console.log 'home'
     listings = new Listings
     view = new HomepageView listings: listings 
     listings.params.on 'change', =>

@@ -59,6 +59,7 @@ module.exports = class FiltersView extends Backbone.View
     'mouseover .filters-alerts': 'bounceAlertsPopover'
     'mouseout .filters-alerts': 'hideAlertsPopover'
     'click .filters-alerts': 'onFilterAlerts'
+    'click .filters-next, .filters-prev': 'togglePage'
   
   setRent: (e) ->
     @params.set 'rent-max', $(e.target).val()
@@ -108,3 +109,6 @@ module.exports = class FiltersView extends Backbone.View
       vent.trigger 'alerts-modal:open'
     else
       vent.trigger 'auth-modal:open'
+
+  togglePage: ->
+    @$('.filters-location-neighborhoods').toggleClass('is-over')

@@ -52,7 +52,7 @@ module.exports = class HomepageView extends Backbone.View
     @$('#home-page-listings-container').css "min-height": height
   
   onScroll: =>
-    return if @$window.scrollTop() < 0
+    return if @$window.scrollTop() < 0 or @$window.scrollTop() > @$window.height()
     @transitionHeroUnitOpacity()
     @popLockFilters()
   

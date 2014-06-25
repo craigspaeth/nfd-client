@@ -13,6 +13,7 @@ module.exports = class AuthModal extends Backbone.View
     vent.on 'login', (user) => @$('.auth-modal-name').html user.get('name')
 
   onOpen: (options = {}) =>
+    @$('button').removeClass('is-loading')
     @$el.attr('data-state', '').show()
     @$('.auth-modal-error').html '&nbsp;'
     @$el.attr 'data-state', options.state ? 'signup'
@@ -20,7 +21,7 @@ module.exports = class AuthModal extends Backbone.View
 
   onError: (err) ->
     @$('.auth-modal-error').html err
-    @$('form button').addClass('rounded-button-error')
+    @$('#auth-modal-signup-form button').addClass('rounded-button-error')
     setTimeout (=> @$('form button').removeClass 'rounded-button-error'), 1000
 
   login: (email, password) ->
@@ -40,6 +41,7 @@ module.exports = class AuthModal extends Backbone.View
 
   onSignup: (e) ->
     e.preventDefault()
+    @$('#auth-modal-signup-form button').addClass('is-loading')
     new User(qs.parse(@$('#auth-modal-signup-form').serialize())).save null,
       success: (user) =>
         vent.trigger 'login', user
@@ -48,12 +50,10 @@ module.exports = class AuthModal extends Backbone.View
         @login email, password
       error: (m, xhr) =>
         @onError xhr.responseJSON.error
-      complete: =>
-        @$('#auth-modal-signup-form button').removeClass('is-loading')
-    @$('#auth-modal-signup-form button').addClass('is-loading')
 
   onLogin: (e) ->
     e.preventDefault()
+    @$('#auth-modal-login-form button').addClass('is-loading')
     { email, password } = qs.parse @$('#auth-modal-login-form').serialize()
     @login email, password
 

@@ -1,19 +1,19 @@
 @import '../stylus-lib'
 
 rounded-tabs-default()
-  border-color light-gray-color
-  color #aaa
+  border-color gray-color
+  color dark-green-color
   background-color transparent
   campton()
   li
-    border-color light-gray-color
+    border-color gray-color
 
 previous-rounded-tabs(color, selector)
   &{selector}
     li
       border-color color 
       background-color color
-      color rgba(255,255,255,0.2)
+      color dark-gray-color
       transition background-color 0.3s
       &{selector}
         border-color color
@@ -21,24 +21,24 @@ previous-rounded-tabs(color, selector)
         color white
         & ~ li
           rounded-tabs-default()
+          color dark-gray-color
           
 previous-rounded-tabs-important(color, selector)
   &{selector}
     li
       border-color color !important
       background-color color !important
-      color rgba(255,255,255,0.2) !important
       transition background-color 0.3s
       &{selector}
         border-color color !important
         background-color color !important
         color white !important
         & ~ li
-          border-color light-gray-color !important
-          color #aaa !important
+          border-color gray-color !important
+          color dark-gray-color !important
           background-color transparent !important
           li
-            border-color light-gray-color !important
+            border-color gray-color !important
 
 tabs-slider-widget(color)
   previous-rounded-tabs(color, ':hover')
@@ -60,10 +60,11 @@ tabs-slider-widget(color)
     font-size 11px
     text-transform uppercase
     letter-spacing 1px
-    margin-bottom 10px
+    margin-bottom 5px
     color dark-green-color
     campton()
   .rounded-tabs
+    font-size 12px
     rounded-tabs-default()
 
 .filters-bedroom-tabs
@@ -76,9 +77,9 @@ tabs-slider-widget(color)
   font-weight 300
   letter-spacing 0
   font-size 12px
-  width 202px
+  width 210px
   padding 8px 11px 7px 10px
-  border 1px solid light-gray-color
+  border 1px solid gray-color
   color dark-green-color
   background-color transparent
   &:hover, &:focus, &:active
@@ -96,9 +97,9 @@ tabs-slider-widget(color)
   display none
   line-height 2em
   padding 4px 10px
-  background rgba(60,60,60,0.99)
+  background dark-green-color
   color white
-  top 60px
+  top 58px
   left 0
   position absolute
   width 100%
@@ -106,7 +107,7 @@ tabs-slider-widget(color)
   font-size 12px
   z-index 2
   text-align left
-  padding-bottom 60px
+  padding-bottom 48px
   overflow hidden
   &::after
     content '.'
@@ -117,12 +118,14 @@ tabs-slider-widget(color)
     position absolute
     top -15px
     right 220px
+  li
+    overflow ellipsis
   input[type=checkbox]
     margin-right 11px
   .filters-location-neighborhoods-inner
     width 2000px
     transition margin-left 0.4s
-    &.is-over
+  &.is-over .filters-location-neighborhoods-inner
       margin-left -980px
   .filters-location-neighborhoods-inner > ul
     display inline-block
@@ -131,9 +134,9 @@ tabs-slider-widget(color)
     padding 10px
     lh
       text-transform uppercase
-      color #777
+      color gray-color
       letter-spacing 2px
-      border-bottom 1px solid rgba(255,255,255,0.1)
+      border-bottom 1px solid gray-green-color
       margin-bottom 10px
       font-size 11px
       display block
@@ -142,8 +145,8 @@ tabs-slider-widget(color)
   [type=checkbox]
     margin 0    
   .filter-location-neighborhoods-group
-    overflow scroll
-    height 340px
+    overflow-y scroll
+    height 210px
     font-size 12px
     line-height 1.6em
 
@@ -158,23 +161,47 @@ tabs-slider-widget(color)
 .filters-sort-select
   width 119px
 
-.filters-more
+.filters-next, .filters-prev
   position absolute
-  right 15px
-  bottom @right
-  padding 5px 38px 3px 25px
-  font-size 13px
+  font-size 12px
   background-color transparent
-  border 1px solid #ccc
+  border 1px solid gray-color
+  bottom 20px
+  &:hover, &:focus, &:active
+    background-color transparent
+
+.filters-next
+  right 20px
+  padding 5px 34px 4px 20px
+  &::before
+    content "Next"
   &::after
     content "\00bb"
     font-size 29px
     position absolute
-    top -5px
-    right 21px
+    margin-top -10px
+    margin-left 3px
     font-weight 100
-  &:hover, &:focus, &:active
-    background-color transparent
+
+.filters-prev
+  left 20px
+  padding 5px 20px 4px 34px
+  display none
+  &::after
+    content "Previous"
+  &::before
+    content "\00ab"
+    font-size 29px
+    position absolute
+    margin-top -10px
+    margin-left -18px
+    font-weight 100
+
+.filters-location-neighborhoods.is-over 
+  .filters-prev
+    display block
+  .filters-next
+    display none
 
 .filters-alerts-label
   display none !important
@@ -182,7 +209,7 @@ tabs-slider-widget(color)
 .filters-alerts
   background url('/images/alert-bell.svg') center center no-repeat
   background-size 40%
-  border 1px solid #ddd
+  border 1px solid gray-color
   padding 15px 26px 16px 26px
   &:hover, &:active
     background-color transparent

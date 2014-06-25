@@ -6,7 +6,7 @@
   li
     display inline-block
     border-right 1px solid dark-green-color
-    padding 5px 13px 4px 13px
+    padding 6px 13px 4px 13px
     cursor pointer
     border-top 1px solid dark-green-color
     border-bottom @border-top
@@ -63,7 +63,7 @@
   appearance none
   padding 8px 30px 7px 8px
   margin 0
-  border-color light-gray-color
+  border-color gray-color
   background transparent no-repeat right center
   background-size 20px
   cursor pointer
@@ -72,7 +72,7 @@
     outline none
     
 .box-input
-  border 1px solid light-gray-color
+  border 1px solid gray-color
   padding 7px
   aleo()
   margin 0
@@ -82,11 +82,13 @@
   &:active, &:focus
     outline none
     border-color green-color
+  &::-webkit-input-placeholder
+    color gray-green-color
 
 .rounded-form
   padding 30px
   border-radius default-border-radius
-  border 1px solid light-gray-color
+  border 1px solid gray-color
   width 400px
   margin 20px auto
   h1
