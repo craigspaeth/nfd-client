@@ -76,8 +76,8 @@ tabs-slider-widget(color)
   font-weight 300
   letter-spacing 0
   font-size 12px
-  width 207px
-  padding 8px 14px 7px 12px
+  width 202px
+  padding 8px 11px 7px 10px
   border 1px solid light-gray-color
   color dark-green-color
   background-color transparent
@@ -98,7 +98,7 @@ tabs-slider-widget(color)
   padding 4px 10px
   background rgba(60,60,60,0.99)
   color white
-  top 72px
+  top 60px
   left 0
   position absolute
   width 100%
@@ -121,6 +121,7 @@ tabs-slider-widget(color)
     margin-right 11px
   .filters-location-neighborhoods-inner
     width 2000px
+    transition margin-left 0.4s
     &.is-over
       margin-left -980px
   .filters-location-neighborhoods-inner > ul
@@ -161,13 +162,17 @@ tabs-slider-widget(color)
   position absolute
   right 15px
   bottom @right
-  padding 5px 25px 3px 25px
+  padding 5px 38px 3px 25px
   font-size 13px
   background-color transparent
   border 1px solid #ccc
   &::after
     content "\00bb"
-    font-size 16px
+    font-size 29px
+    position absolute
+    top -5px
+    right 21px
+    font-weight 100
   &:hover, &:focus, &:active
     background-color transparent
 
@@ -178,9 +183,7 @@ tabs-slider-widget(color)
   background url('/images/alert-bell.svg') center center no-repeat
   background-size 40%
   border 1px solid #ddd
-  padding 14px 26px
-  bottom 1px
-  position absolute
+  padding 15px 26px 16px 26px
   &:hover, &:active
     background-color transparent
 
@@ -212,7 +215,7 @@ html.firefox
   .filters-location-arrow
     top 4px
   .rounded-tabs li
-    padding 5px 13px 5px
+    padding 5px 13px
   .rounded-select
     background-image none !important
     padding 7px 8px 7px 8px
