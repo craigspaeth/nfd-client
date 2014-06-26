@@ -5,7 +5,7 @@
 global-reset()
 
 body
-  color dark-green-color
+  color darkest-gray-color
   font-size default-font-size
   aleo()
   line-height 1.4em
@@ -16,7 +16,7 @@ a
   transition background-color 0.3s
   cursor pointer
   &:hover
-    color hover-green-color
+    color dark-green-color
     text-decoration underline
 
 strong
@@ -24,22 +24,11 @@ strong
 em
   font-style italic
 
-.loading-spinner
-  width 40px
-  height @width
-  border-radius @width
-  border 3px solid green-color
-  .loading-spinner-dot
-    width 10px
-    height 42px
-    border-top 5px solid white
-    margin -3px auto 0 auto
-    animation spin 0.5s infinite
-    content '.'
-    color transparent
-
 .page-container
   min-width 900px
   max-width 1400px
   padding 0 45px
   margin auto
+
+.loading-spinner
+  spinner(40px, 4px, green-color)

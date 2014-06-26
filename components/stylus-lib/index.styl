@@ -4,10 +4,9 @@ default-font-size = 15px
 
 // Colors
 green-color = #3DB06F
-gray-green-color = #587474
-dark-green-color = #344b4b
-blue-color = #50B8D3
-hover-green-color = #24A05A
+dark-green-color = #24A05A
+blue-color = #6FC6F3
+transparent-dark-blue-color = rgba(9, 12, 14, 0.75)
 pink-color = #e65a80
 warn-orange-color = #A88A13
 red-color = rgb(179, 84, 84)
@@ -16,6 +15,11 @@ red-color = rgb(179, 84, 84)
 light-gray-color = #eee
 gray-color = #ccc
 dark-gray-color = #a2a2a2
+darker-gray-color = #555
+darkest-gray-color = #2f2f2f
+
+// Easings
+ease-in-out-cubic = cubic-bezier(0.645, 0.045, 0.355, 1.000)
 
 // Others
 default-border-radius = 4px
@@ -33,19 +37,18 @@ container-width = 1000px
     transform rotate(360deg)
     animation-timing-function linear
 
-spinner(size, bwidth)
+spinner(size, width, color=white)
   width size
   height size
   border-radius size
-  border bwidth solid white
+  border width solid color
   border-left-color transparent
   position absolute
   left 50%
   top 50%
-  margin-top ((-(size / 2)) - bwidth)
-  margin-left ((-(size / 2)) - bwidth)
+  margin-top ((-(size / 2)) - width)
+  margin-left ((-(size / 2)) - width)
   animation spin 0.75s infinite
-
 
 campton(weight=300)
   font-family campton, Helvetica, sans-serif

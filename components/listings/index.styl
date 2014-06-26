@@ -15,15 +15,8 @@ column-gap = 20px
   &.listings-loading
     ul, .listings-map, .listings-map-no-geo-cover
       opacity 0
-    .listings-before-spinner
-      display block
     .listings-no-results
       display none
-  .listings-before-spinner
-    margin 100px auto 0 auto
-    display none
-  .listings-after-spinner
-    margin 400px auto
     
 .listings
   position relative
@@ -91,7 +84,7 @@ column-gap = 20px
   h5
     margin-bottom 15px
   h6 a
-    color dark-green-color
+    color darkest-gray-color
     text-decoration underline
   button
     display block
@@ -118,7 +111,7 @@ column-gap = 20px
 
 .listings-bed-count
 .listings-bath-count
-  color dark-green-color
+  color darkest-gray-color
   campton()
   text-transform uppercase
   letter-spacing 1px
@@ -192,6 +185,10 @@ column-gap = 20px
 .listings-listed-ago-good
   color green-color
 .listings-listed-ago-medium
-  color dark-green-color
+  color darkest-gray-color
 .listings-listed-ago-bad
   color red-color
+
+.listings-spinner
+  position relative
+  padding 200px 0

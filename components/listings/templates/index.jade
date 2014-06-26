@@ -1,6 +1,4 @@
 .listings-container
-  .listings-before-spinner.loading-spinner
-    .loading-spinner-dot
   if listings.length
     .listings
       for listing, i in listings
@@ -11,12 +9,9 @@
         else
           - var end = false;
           include listing
-
-    //- Listings map
     .listings-map
     .listings-map-no-geo-cover Missing coordinates
-    .listings-after-spinner.loading-spinner
-      .loading-spinner-dot
-
+    .listings-spinner
+      .loading-spinner
   else
     .listings-no-results No results. Try loosening up your filters.

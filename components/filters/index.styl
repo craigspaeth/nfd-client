@@ -2,7 +2,7 @@
 
 rounded-tabs-default()
   border-color gray-color
-  color dark-green-color
+  color darkest-gray-color
   background-color transparent
   campton()
   li
@@ -61,7 +61,7 @@ tabs-slider-widget(color)
     text-transform uppercase
     letter-spacing 1px
     margin-bottom 5px
-    color dark-green-color
+    color darkest-gray-color
     campton()
   .rounded-tabs
     font-size 12px
@@ -80,11 +80,11 @@ tabs-slider-widget(color)
   width 210px
   padding 8px 11px 7px 10px
   border 1px solid gray-color
-  color dark-green-color
+  color darkest-gray-color
   background-color transparent
   &:hover, &:focus, &:active
     background-color transparent
-    color dark-green-color
+    color darkest-gray-color
   .filters-location-arrow
     padding 5px 6px
     display inline-block
@@ -96,37 +96,35 @@ tabs-slider-widget(color)
 .filters-location-neighborhoods
   display none
   line-height 2em
-  padding 4px 10px
-  background dark-green-color
   color white
-  top 58px
+  top 70px
   left 0
   position absolute
   width 100%
-  border-radius default-border-radius
-  font-size 12px
   z-index 2
   text-align left
-  padding-bottom 48px
-  overflow hidden
-  &::after
-    content '.'
-    color transparent
-    background no-repeat center center
-    background-size 100%
-    width 15px
+  &::before
+    content '\25B2'
     position absolute
-    top -15px
-    right 220px
+    top -18px
+    right 204px
+    color darkest-gray-color
+    -webkit-transform scaleY(0.6)
+    font-size 20px
+  &.is-over .filters-location-neighborhoods-inner
+    margin-left -980px
   li
     overflow ellipsis
   input[type=checkbox]
     margin-right 11px
   .filters-location-neighborhoods-inner
     width 2000px
-    transition margin-left 0.4s
-  &.is-over .filters-location-neighborhoods-inner
-      margin-left -980px
+    transition margin-left 0.5s ease-in-out-cubic
+  .filters-location-neighborhoods-container
+    border-radius default-border-radius
+    background darkest-gray-color
+    padding 2px 10px 50px 10px
+    overflow hidden
   .filters-location-neighborhoods-inner > ul
     display inline-block
     vertical-align top
@@ -136,7 +134,7 @@ tabs-slider-widget(color)
       text-transform uppercase
       color gray-color
       letter-spacing 2px
-      border-bottom 1px solid gray-green-color
+      border-bottom 1px solid darker-gray-color
       margin-bottom 10px
       font-size 11px
       display block
@@ -146,9 +144,9 @@ tabs-slider-widget(color)
     margin 0    
   .filter-location-neighborhoods-group
     overflow-y scroll
-    height 210px
-    font-size 12px
-    line-height 1.6em
+    height 220px
+    font-size 13px
+    line-height 20px
 
 .filters-count
   margin-top 5px
@@ -163,9 +161,9 @@ tabs-slider-widget(color)
 
 .filters-next, .filters-prev
   position absolute
-  font-size 12px
+  font-size 10px
   background-color transparent
-  border 1px solid gray-color
+  border 1px solid dark-gray-color
   bottom 20px
   &:hover, &:focus, &:active
     background-color transparent
@@ -174,12 +172,12 @@ tabs-slider-widget(color)
   right 20px
   padding 5px 34px 4px 20px
   &::before
-    content "Next"
+    content "More listings"
   &::after
     content "\00bb"
-    font-size 29px
+    font-size 23px
     position absolute
-    margin-top -10px
+    margin-top -7px
     margin-left 3px
     font-weight 100
 
@@ -188,12 +186,12 @@ tabs-slider-widget(color)
   padding 5px 20px 4px 34px
   display none
   &::after
-    content "Previous"
+    content "Previous listings"
   &::before
     content "\00ab"
-    font-size 29px
+    font-size 23px
     position absolute
-    margin-top -10px
+    margin-top -7px
     margin-left -18px
     font-weight 100
 

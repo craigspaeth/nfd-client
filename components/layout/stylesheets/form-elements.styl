@@ -5,10 +5,10 @@
   campton()
   li
     display inline-block
-    border-right 1px solid dark-green-color
+    border-right 1px solid darkest-gray-color
     padding 6px 13px 4px 13px
     cursor pointer
-    border-top 1px solid dark-green-color
+    border-top 1px solid darkest-gray-color
     border-bottom @border-top
     &:first-child
       border-top-left-radius default-border-radius
@@ -41,7 +41,7 @@
   letter-spacing 1px
   font-size default-font-size - 1
   &:hover, &:active, &:focus
-    background-color hover-green-color
+    background-color dark-green-color
     outline none
     color white
     text-decoration none
@@ -57,7 +57,7 @@
     
 .rounded-select
   campton()
-  border 1px solid dark-green-color
+  border 1px solid darkest-gray-color
   border-radius default-border-radius
   font-size 12px
   appearance none
@@ -67,7 +67,7 @@
   background transparent no-repeat right center
   background-size 20px
   cursor pointer
-  color dark-green-color
+  color darkest-gray-color
   &:hover, &:active, &:focus
     outline none
     
@@ -78,12 +78,14 @@
   margin 0
   font-size default-font-size
   transition border-color 0.3s
-  color dark-green-color
+  color darkest-gray-color
   &:active, &:focus
     outline none
     border-color green-color
   &::-webkit-input-placeholder
-    color gray-green-color
+  &::-moz-input-placeholder
+  &::-ms-input-placeholder
+    color gray-color
 
 .rounded-form
   padding 30px

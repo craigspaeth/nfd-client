@@ -34,8 +34,8 @@ module.exports = class ListingsView extends Backbone.View
     @$el.offset().top - (FIXED_FILTER_HEIGHT + @$('#main-header').height()) + MARGIN_SIZE + 5
   
   nextPage: =>
-    return @$('.listings-after-spinner').hide() if @finishedPaging
-    @$('.listings-after-spinner').show()
+    return @$('.listings-spinner .loading-spinner').hide() if @finishedPaging
+    @$('.listings-spinner .loading-spinner').show()
     @page++
     @collection.fetch data: { page: @page }, remove: false
   
