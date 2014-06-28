@@ -47,17 +47,18 @@ block content
       #listing-page-ad
         h5 Advertisement
         include ad.html
-    #listing-page-similar
-      h2
-        | Similar Listings
-        a( href=listing.similarUrl() ) Search all similar listings
-      ul
-        for listing in similarListings
-          li
-            a( href="/listings/" + listing.get('_id') )
-              .listing-page-img-container( style="background-image: url(#{(listing.get('pictures') && listing.get('pictures')[0])})" )
-              h3= listing.formattedRent()
-              h4 #{listing.get('beds')} bed #{listing.get('baths')}
-              h5 #{listing.locationName()}
-                br
-                em= listing.listedAgo()
+    if similarListings.length
+      #listing-page-similar
+        h2
+          | Similar Listings
+          a( href=listing.similarUrl() ) Search all similar listings
+        ul
+          for listing in similarListings
+            li
+              a( href="/listings/" + listing.get('_id') )
+                .listing-page-img-container( style="background-image: url(#{(listing.get('pictures') && listing.get('pictures')[0])})" )
+                h3= listing.formattedRent()
+                h4 #{listing.get('beds')} bed #{listing.get('baths')}
+                h5 #{listing.locationName()}
+                  br
+                  em= listing.listedAgo()
