@@ -14,3 +14,10 @@ module.exports = class ListingPageView extends Backbone.View
   renderMap: ->
     return unless @listing.get('location').lat?
     gmap @listing, '#listing-page-map'
+
+  events:
+    'click #listing-page-social a': 'share'
+
+  share: (e) ->
+    e.preventDefault()
+    window.open $(e.currentTarget).attr('href'), '', "width=500, height=300"

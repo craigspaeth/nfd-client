@@ -89,7 +89,7 @@ module.exports = class ListingsView extends Backbone.View
   renderMap: ->
     opts = { div: @$('.listings-map')[0] }
     opts = _.extend(opts,
-      if @collection.first().hasGeoPoints()
+      if @collection.first()?.hasGeoPoints()
         lat: @collection.first().get('location')?.lat
         lng: @collection.first().get('location')?.lng
       else { lat: 0, lng: 0 }

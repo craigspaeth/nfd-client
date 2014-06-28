@@ -1,35 +1,71 @@
 @import '../stylus-lib'
+
 gutter-width = 20px
 ad-width = 336px
+small-header-font-size = 20px
+large-header-font-size = 48px
 
 #listing-page-header
   campton()
+  font-weight 100
   clearfix()
-  margin 40px 0 20px 0
+  margin 40px 0 gutter-width 0
+  border-bottom 1px solid gray-color
   h1
     float left
-    font-size 42px
-    font-weight 100
+    font-size large-header-font-size
+    margin-top 5px
+    line-height 30px
     #listing-page-rent, > small
       margin-right 15px
     small
-      font-size 14px
+      font-size small-header-font-size
       font-weight 300
       text-transform uppercase
       letter-spacing 1px
       margin-left 8px
     br + small
       margin-left 0
-  a
+
+#listing-page-header-right
+  float right
+  width ad-width
+  h3
+    font-weight bold
+    font-size default-font-size - 1
+    text-transform uppercase
+    letter-spacing 1px
+    color green-color
+    margin-top 16px
+    float left
+  #listing-page-twitter, #listing-page-facebook
+    border 2px solid green-color
+    width 45px
+    height @width
+    display inline-block
+    border-radius @width
     float right
-    width ad-width
+    text-align center
+    line-height 52px
+    icon-container(45%, green-color)
+    margin-left 8px
+    transition transform 0.2s ease-in-out-back, background 0.2s
+    &:hover
+      transform scale(1.1)
+      background green-color
+      svg *
+        fill white
+  #listing-page-social
+    clearfix()
+    position relative
+    padding 10px 0
 
 #listing-page-location
   margin-left 0
 
 #listing-page-listed-ago
   aleo()
-  font-size 14px
+  font-size small-header-font-size
   font-weight 300
   font-style italic
 
@@ -54,6 +90,7 @@ ad-width = 336px
 #listing-page-left
   float left
   width calc(100% \- ad-width)
+  margin-bottom 40px
 
 #listing-page-right
   float right
@@ -76,11 +113,57 @@ ad-width = 336px
   font-size 10px
   text-transform uppercase
   letter-spacing 1px
-  margin 20px 0
+  margin gutter-width 0
   padding-top 10px
   text-align center
-  border-top 1px solid light-gray-color
+  border-top 1px solid gray-color
   clear both
-  color gray-color
+  color dark-gray-color
   h5
     margin-bottom 8px
+
+#listing-page-similar
+  campton()
+  clear both
+  border-top 1px solid gray-color
+  font-size 36px
+  padding-bottom 160px
+  h2
+    padding 40px 0 30px 0
+    font-weight 100
+    a
+      float right
+      font-size default-font-size - 1
+      font-weight bold
+      text-transform uppercase
+      letter-spacing 1px
+      text-decoration none
+      &:hover
+        border-bottom 2px solid
+  ul li
+    width 25%
+    display inline-block
+    vertical-align top
+    padding-right gutter-width
+    line-height 20px
+    &:nth-child(4n)
+      padding-right 0
+    img
+      width 100%
+      margin-bottom 10px
+    h3
+      font-size 24px
+      margin-bottom 3px
+    h4
+      font-size default-font-size - 1
+    h5
+      font-size default-font-size
+    a
+      color darkest-gray-color
+      text-decoration none
+
+.listing-page-img-container
+  height 200px
+  overflow hidden
+  margin-bottom 15px 
+  background-size cover

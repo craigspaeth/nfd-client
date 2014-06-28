@@ -18,6 +18,7 @@ errorHandler = require 'errorhandler'
 # Sharify data and the modules that use it
 sharify.data = _.pick config,
   'API_URL'
+  'APP_URL'
   'API_ID'
   'API_SECRET'
   'NODE_ENV'
@@ -28,6 +29,7 @@ sharify.data = _.pick config,
   'ENABLE_ADS'
 User = require './models/user'
 Listing = require './models/listing'
+Listings = require './collections/listings'
 
 # Create app
 app = module.exports = express()
@@ -74,6 +76,11 @@ login = (req, res, next) ->
       req.session.user = user.toJSON()
       setUser req, res, next
 
+# Locals middleware
+app.use (req, res, next) ->
+  res.locals.sharify.data.PATH = req.url
+  next()
+
 # Routes
 app.use setUser
 app.get '/', (req, res) ->
@@ -88,12 +95,15 @@ app.get '/settings', (req, res) ->
 app.get '/reset-password', login, (req, res) ->
   res.redirect '/' unless req.user
   res.render 'reset-password-page'
-app.get '/listings/:id', (req, res) ->
+app.get '/listings/:id', (req, res, next) ->
   new Listing(id: req.params.id).fetch
-    error: (err) -> res.send err.toString()
+    error: next
     success: (listing) ->
-      res.locals.sharify.data.LISTING = listing.toJSON()
-      res.render 'listing-page', listing: listing
+      new Listings(null, params: listing.similarParams()).fetch
+        error: next
+        success: (similarListings) ->
+          res.locals.sharify.data.LISTING = listing.toJSON()
+          res.render 'listing-page', listing: listing, similarListings: similarListings.models
 app.post '/feedback', (req, res) ->
   mandrill '/messages/send',
     message:

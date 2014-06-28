@@ -1,5 +1,10 @@
 extends ../layout/templates/index
 
+block head
+  meta( property='og:title' content="No fee #{listing.get('beds')} bedroom apartment at #{listing.locationName()}." )
+  meta( property='og:url' content="#{sd.APP_URL}/#{sd.PATH}" )
+  meta( property='og:image' content=listing.get('pictures')[0] )
+
 block content
   .page-container
     header#listing-page-header
@@ -10,10 +15,22 @@ block content
         small Bath
         span#listing-page-rent= listing.formattedRent()
         br
-        small#listing-page-location= listing.get('location').neighborhood || listing.get('location').name
+        if listing.locationName()
+          small#listing-page-location= listing.locationName()
         span#listing-page-listed-ago Listed #{listing.listedAgo()}
-      a.rounded-button( href=listing.get('url') target='_blank' )
-        | See More on #{listing.sourceWebsiteName()}
+      #listing-page-header-right
+        a.rounded-button( href=listing.get('url') target='_blank' )
+          | See More on #{listing.sourceWebsiteName()}
+        #listing-page-social
+          h3 Share listing:
+          a#listing-page-twitter(
+            href="https://twitter.com/intent/tweet?original_referer=#{sd.APP_URL}#{sd.PATH}&text=Check out this NO FEE apartment on NoFeeDigs: #{sd.APP_URL}#{sd.PATH}"
+          )
+            include ../../public/images/twitter.svg
+          a#listing-page-facebook(
+            href="https://www.facebook.com/sharer/sharer.php?u=#{sd.APP_URL}#{sd.PATH}"
+          )
+            include ../../public/images/facebook.svg
     #listing-page-left
       #listing-page-pictures-container
         ul#listing-page-pictures
@@ -30,3 +47,17 @@ block content
       #listing-page-ad
         h5 Advertisement
         include ad.html
+    #listing-page-similar
+      h2
+        | Similar Listings
+        a( href=listing.similarUrl() ) Search all similar listings
+      ul
+        for listing in similarListings
+          li
+            a( href="/listings/" + listing.get('_id') )
+              .listing-page-img-container( style="background-image: url(#{(listing.get('pictures') && listing.get('pictures')[0])})" )
+              h3= listing.formattedRent()
+              h4 #{listing.get('beds')} bed #{listing.get('baths')}
+              h5 #{listing.locationName()}
+                br
+                em= listing.listedAgo()

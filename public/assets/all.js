@@ -29,10 +29,10 @@ module.exports = Listings = (function(_super) {
     return "" + sd.API_URL + "/listings";
   };
 
-  Listings.prototype.initialize = function() {
+  Listings.prototype.initialize = function(attrs, options) {
     var _this = this;
     this.model = require('../models/listing.coffee');
-    this.params = new ListingsParams;
+    this.params = new ListingsParams(options != null ? options.params : void 0);
     return this.params.on('change', function() {
       _this.trigger('requestReset');
       return _this.fetch({
@@ -532,7 +532,7 @@ sd = require('sharify').data;
 
 BELOW_FOLD_PEAK = 0;
 
-START_HERO_UNIT_OPACITY = 0.4;
+START_HERO_UNIT_OPACITY = 0.6;
 
 module.exports = HomepageView = (function(_super) {
   __extends(HomepageView, _super);
@@ -770,6 +770,15 @@ module.exports = ListingPageView = (function(_super) {
       return;
     }
     return gmap(this.listing, '#listing-page-map');
+  };
+
+  ListingPageView.prototype.events = {
+    'click #listing-page-social a': 'share'
+  };
+
+  ListingPageView.prototype.share = function(e) {
+    e.preventDefault();
+    return window.open($(e.currentTarget).attr('href'), '', "width=500, height=300");
   };
 
   return ListingPageView;
@@ -1177,14 +1186,14 @@ module.exports = ListingsView = (function(_super) {
   };
 
   ListingsView.prototype.renderMap = function() {
-    var opts, _ref1, _ref2,
+    var opts, _ref1, _ref2, _ref3,
       _this = this;
     opts = {
       div: this.$('.listings-map')[0]
     };
-    opts = _.extend(opts, this.collection.first().hasGeoPoints() ? {
-      lat: (_ref1 = this.collection.first().get('location')) != null ? _ref1.lat : void 0,
-      lng: (_ref2 = this.collection.first().get('location')) != null ? _ref2.lng : void 0
+    opts = _.extend(opts, ((_ref1 = this.collection.first()) != null ? _ref1.hasGeoPoints() : void 0) ? {
+      lat: (_ref2 = this.collection.first().get('location')) != null ? _ref2.lat : void 0,
+      lng: (_ref3 = this.collection.first().get('location')) != null ? _ref3.lng : void 0
     } : {
       lat: 0,
       lng: 0
@@ -1214,13 +1223,13 @@ module.exports = ListingsView = (function(_super) {
     });
     this.gmap.setStyle('map_style');
     return this.collection.each(function(listing) {
-      var _ref3, _ref4;
+      var _ref4, _ref5;
       if (!(listing != null ? listing.hasGeoPoints() : void 0)) {
         return;
       }
       return _this.gmap.addMarker({
-        lat: (_ref3 = listing.get('location')) != null ? _ref3.lat : void 0,
-        lng: (_ref4 = listing.get('location')) != null ? _ref4.lng : void 0,
+        lat: (_ref4 = listing.get('location')) != null ? _ref4.lat : void 0,
+        lng: (_ref5 = listing.get('location')) != null ? _ref5.lng : void 0,
         title: listing.get('location').name,
         icon: '/images/map-marker.png'
       });
@@ -1521,19 +1530,21 @@ module.exports = _.extend({}, Backbone.Events);
 
 
 },{"backbone":27,"underscore":43}],23:[function(require,module,exports){
-var Backbone, Listing, accounting, moment, parse, sd, _ref,
+var API_URL, Backbone, Listing, accounting, moment, parse, qs, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
 Backbone = require('backbone');
 
-sd = require('sharify').data;
-
 accounting = require('accounting');
+
+moment = require('moment');
+
+qs = require('querystring');
 
 parse = require('url').parse;
 
-moment = require('moment');
+API_URL = require('sharify').data.API_URL;
 
 module.exports = Listing = (function(_super) {
   __extends(Listing, _super);
@@ -1546,7 +1557,7 @@ module.exports = Listing = (function(_super) {
   Listing.prototype.idAttribute = "_id";
 
   Listing.prototype.url = function() {
-    return "" + sd.API_URL + "/listings/" + (this.get('id'));
+    return "" + API_URL + "/listings/" + (this.get('id'));
   };
 
   Listing.prototype.formattedRent = function() {
@@ -1617,12 +1628,30 @@ module.exports = Listing = (function(_super) {
     }
   };
 
+  Listing.prototype.locationName = function() {
+    return this.get('location').neighborhood || this.get('location').name;
+  };
+
+  Listing.prototype.similarParams = function() {
+    return {
+      'neighborhoods[]': this.get('location').neighborhood,
+      'bed-min': this.get('beds'),
+      'bath-min': this.get('baths'),
+      'rent-max': this.get('rent') + (this.get('rent') / 10),
+      'size': 20
+    };
+  };
+
+  Listing.prototype.similarUrl = function() {
+    return '/search/' + qs.stringify(this.similarParams());
+  };
+
   return Listing;
 
 })(Backbone.Model);
 
 
-},{"accounting":26,"backbone":27,"moment":36,"sharify":38,"url":33}],24:[function(require,module,exports){
+},{"accounting":26,"backbone":27,"moment":36,"querystring":32,"sharify":38,"url":33}],24:[function(require,module,exports){
 var Backbone, ListingsParams, qs, _, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };

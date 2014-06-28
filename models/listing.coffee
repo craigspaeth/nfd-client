@@ -1,14 +1,15 @@
 Backbone = require 'backbone'
-sd = require('sharify').data
 accounting = require 'accounting'
-{ parse } = require 'url'
 moment = require 'moment'
+qs = require 'querystring'
+{ parse } = require 'url'
+{ API_URL } = require('sharify').data
 
 module.exports = class Listing extends Backbone.Model
   
   idAttribute: "_id"
 
-  url: -> "#{sd.API_URL}/listings/#{@get 'id'}"
+  url: -> "#{API_URL}/listings/#{@get 'id'}"
   
   formattedRent: ->
     accounting.formatMoney @get('rent'), '$', 0
@@ -48,3 +49,16 @@ module.exports = class Listing extends Backbone.Model
       'listings-listed-ago-medium'
     else
       'listings-listed-ago-bad'
+
+  locationName: ->
+    @get('location').neighborhood or @get('location').name
+
+  similarParams: ->
+    'neighborhoods[]': @get('location').neighborhood
+    'bed-min': @get('beds')
+    'bath-min': @get('baths')
+    'rent-max': @get('rent') + (@get('rent') / 10)
+    'size': 20
+
+  similarUrl: ->
+    '/search/' + qs.stringify @similarParams()

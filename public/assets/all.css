@@ -1599,6 +1599,7 @@ em {
   border: 1px solid #ccc;
   color: #2f2f2f;
   background-color: transparent;
+  text-align: left;
 }
 .filters-location-button:hover,
 .filters-location-button:focus,
@@ -1607,12 +1608,12 @@ em {
   color: #2f2f2f;
 }
 .filters-location-button .filters-location-arrow {
-  padding: 5px 6px;
+  padding: 4px 6px;
   display: inline-block;
-  margin-left: 6px;
   position: relative;
   top: 3px;
   float: right;
+  background: no-repeat center center;
 }
 .filters-location-neighborhoods {
   display: none;
@@ -3802,8 +3803,10 @@ html.firefox .rounded-select {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
+  font-weight: 100;
   zoom: 1;
   margin: 40px 0 20px 0;
+  border-bottom: 1px solid #ccc;
 }
 #listing-page-header:before,
 #listing-page-header:after {
@@ -3815,15 +3818,16 @@ html.firefox .rounded-select {
 }
 #listing-page-header h1 {
   float: left;
-  font-size: 42px;
-  font-weight: 100;
+  font-size: 48px;
+  margin-top: 5px;
+  line-height: 30px;
 }
 #listing-page-header h1 #listing-page-rent,
 #listing-page-header h1 > small {
   margin-right: 15px;
 }
 #listing-page-header h1 small {
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 300;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -3832,9 +3836,77 @@ html.firefox .rounded-select {
 #listing-page-header h1 br + small {
   margin-left: 0;
 }
-#listing-page-header a {
+#listing-page-header-right {
   float: right;
   width: 336px;
+}
+#listing-page-header-right h3 {
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #3db06f;
+  margin-top: 16px;
+  float: left;
+}
+#listing-page-header-right #listing-page-twitter,
+#listing-page-header-right #listing-page-facebook {
+  border: 2px solid #3db06f;
+  width: 45px;
+  height: 45px;
+  display: inline-block;
+  -webkit-border-radius: 45px;
+  border-radius: 45px;
+  float: right;
+  text-align: center;
+  line-height: 52px;
+  margin-left: 8px;
+  -webkit-transition: -webkit-transform 0.2s cubic-bezier(0.52, -0.6, 0.53, 1.65), background 0.2s;
+  -moz-transition: -moz-transform 0.2s cubic-bezier(0.52, -0.6, 0.53, 1.65), background 0.2s;
+  -o-transition: -o-transform 0.2s cubic-bezier(0.52, -0.6, 0.53, 1.65), background 0.2s;
+  -ms-transition: -ms-transform 0.2s cubic-bezier(0.52, -0.6, 0.53, 1.65), background 0.2s;
+  transition: transform 0.2s cubic-bezier(0.52, -0.6, 0.53, 1.65), background 0.2s;
+}
+#listing-page-header-right #listing-page-twitter svg,
+#listing-page-header-right #listing-page-facebook svg {
+  width: 45%;
+  height: 45%;
+  display: inline-block;
+}
+#listing-page-header-right #listing-page-twitter svg *,
+#listing-page-header-right #listing-page-facebook svg * {
+  fill: #3db06f;
+  -webkit-transition: fill 0.3s;
+  -moz-transition: fill 0.3s;
+  -o-transition: fill 0.3s;
+  -ms-transition: fill 0.3s;
+  transition: fill 0.3s;
+}
+#listing-page-header-right #listing-page-twitter:hover,
+#listing-page-header-right #listing-page-facebook:hover {
+  -webkit-transform: scale(1.1);
+  -moz-transform: scale(1.1);
+  -o-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+  background: #3db06f;
+}
+#listing-page-header-right #listing-page-twitter:hover svg *,
+#listing-page-header-right #listing-page-facebook:hover svg * {
+  fill: #fff;
+}
+#listing-page-header-right #listing-page-social {
+  zoom: 1;
+  position: relative;
+  padding: 10px 0;
+}
+#listing-page-header-right #listing-page-social:before,
+#listing-page-header-right #listing-page-social:after {
+  content: "";
+  display: table;
+}
+#listing-page-header-right #listing-page-social:after {
+  clear: both;
 }
 #listing-page-location {
   margin-left: 0;
@@ -3847,7 +3919,7 @@ html.firefox .rounded-select {
   -ms-font-smoothing: antialiased;
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  font-size: 14px;
+  font-size: 20px;
   font-weight: 300;
   font-style: italic;
 }
@@ -3877,6 +3949,7 @@ html.firefox .rounded-select {
 #listing-page-left {
   float: left;
   width: calc(100% - 336px);
+  margin-bottom: 40px;
 }
 #listing-page-right {
   float: right;
@@ -3919,10 +3992,75 @@ html.firefox .rounded-select {
   margin: 20px 0;
   padding-top: 10px;
   text-align: center;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #ccc;
   clear: both;
-  color: #ccc;
+  color: #a2a2a2;
 }
 #listing-page-ad h5 {
   margin-bottom: 8px;
+}
+#listing-page-similar {
+  font-family: campton, Helvetica, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-weight: 300;
+  clear: both;
+  border-top: 1px solid #ccc;
+  font-size: 36px;
+  padding-bottom: 160px;
+}
+#listing-page-similar h2 {
+  padding: 40px 0 30px 0;
+  font-weight: 100;
+}
+#listing-page-similar h2 a {
+  float: right;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-decoration: none;
+}
+#listing-page-similar h2 a:hover {
+  border-bottom: 2px solid;
+}
+#listing-page-similar ul li {
+  width: 25%;
+  display: inline-block;
+  vertical-align: top;
+  padding-right: 20px;
+  line-height: 20px;
+}
+#listing-page-similar ul li:nth-child(4n) {
+  padding-right: 0;
+}
+#listing-page-similar ul li img {
+  width: 100%;
+  margin-bottom: 10px;
+}
+#listing-page-similar ul li h3 {
+  font-size: 24px;
+  margin-bottom: 3px;
+}
+#listing-page-similar ul li h4 {
+  font-size: 14px;
+}
+#listing-page-similar ul li h5 {
+  font-size: 15px;
+}
+#listing-page-similar ul li a {
+  color: #2f2f2f;
+  text-decoration: none;
+}
+.listing-page-img-container {
+  height: 200px;
+  overflow: hidden;
+  margin-bottom: 15px;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
 }

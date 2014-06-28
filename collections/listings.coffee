@@ -7,9 +7,9 @@ module.exports = class Listings extends Backbone.Collection
   
   url: -> "#{sd.API_URL}/listings"
   
-  initialize: ->
+  initialize: (attrs, options) ->
     @model = require '../models/listing.coffee'
-    @params = new ListingsParams
+    @params = new ListingsParams options?.params
     @params.on 'change', =>
       @trigger 'requestReset'
       @fetch(reset: true)
