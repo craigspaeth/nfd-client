@@ -103,7 +103,9 @@ app.get '/listings/:id', (req, res, next) ->
         error: next
         success: (similarListings) ->
           res.locals.sharify.data.LISTING = listing.toJSON()
-          res.render 'listing-page', listing: listing, similarListings: similarListings.models
+          res.render 'listing-page',
+            listing: listing
+            similarListings: similarListings.reject((l) -> l.get('_id') is listing.get('id'))
 app.post '/feedback', (req, res) ->
   mandrill '/messages/send',
     message:
