@@ -4028,6 +4028,9 @@ html.firefox .rounded-select {
 #listing-page-similar h2 a:hover {
   border-bottom: 2px solid;
 }
+#listing-page-similar ul {
+  margin-bottom: 20px;
+}
 #listing-page-similar ul li {
   width: 25%;
   display: inline-block;
