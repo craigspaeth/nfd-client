@@ -1691,7 +1691,7 @@ em {
 }
 .filters-location-neighborhoods .filter-location-neighborhoods-group {
   overflow-y: scroll;
-  height: 220px;
+  height: 240px;
   font-size: 13px;
   line-height: 20px;
 }
@@ -2600,7 +2600,7 @@ html.firefox .rounded-select {
   text-align: center;
 }
 .modal-back-flip-green header h2 {
-  font-weight: 600;
+  font-weight: 300;
 }
 .modal-back-flip-green header h3 {
   font-size: 18px;
