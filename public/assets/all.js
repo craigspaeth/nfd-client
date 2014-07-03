@@ -62,7 +62,7 @@ module.exports = Listings = (function(_super) {
 })(Backbone.Collection);
 
 
-},{"../models/listing.coffee":23,"../models/listings-params.coffee":24,"backbone":27,"sharify":37,"underscore":42}],3:[function(require,module,exports){
+},{"../models/listing.coffee":23,"../models/listings-params.coffee":24,"backbone":27,"sharify":38,"underscore":43}],3:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -104,7 +104,7 @@ buf.push(" for under $" + (jade.escape((jade_interp = params.get('rent-max')) ==
 }
 buf.push(".</h1><form><label>What should we call these alerts?<input" + (jade.attr("value", (parseInt(params.get('bed-min')) > 0 ? params.get('bed-min') + ' bedroom' : 'Studio') + ' apartments', true, false)) + " class=\"box-input\"/><button type=\"submit\" class=\"rounded-button\">Submit</button></label></form></div><div id=\"alerts-modal-thank-you\" class=\"modal-back-flip-green\"><button class=\"modal-close\"></button><header><h1>Great!</h1><h2>Look out for daily emails of new listings.</h2><button class=\"rounded-button modal-okay\">Okay</button></header></div></div>");}("params" in locals_for_with?locals_for_with.params:typeof params!=="undefined"?params:undefined,"locStrings" in locals_for_with?locals_for_with.locStrings:typeof locStrings!=="undefined"?locStrings:undefined,"_" in locals_for_with?locals_for_with._:typeof _!=="undefined"?_:undefined,"parseInt" in locals_for_with?locals_for_with.parseInt:typeof parseInt!=="undefined"?parseInt:undefined));;return buf.join("");
 };
-},{"jade/runtime":34}],4:[function(require,module,exports){
+},{"jade/runtime":35}],4:[function(require,module,exports){
 var AlertsModal, Backbone, User, template, vent, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -160,7 +160,7 @@ module.exports = AlertsModal = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/vent.coffee":22,"../../models/user.coffee":25,"./index.jade":3,"backbone":27,"underscore":42,"underscore.string":41}],5:[function(require,module,exports){
+},{"../../lib/vent.coffee":22,"../../models/user.coffee":25,"./index.jade":3,"backbone":27,"underscore":43,"underscore.string":42}],5:[function(require,module,exports){
 var AuthModal, Backbone, User, qs, vent, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -305,7 +305,7 @@ module.exports = AuthModal = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/vent.coffee":22,"../../models/user.coffee":25,"backbone":27,"querystring":31,"underscore":42}],6:[function(require,module,exports){
+},{"../../lib/vent.coffee":22,"../../models/user.coffee":25,"backbone":27,"querystring":32,"underscore":43}],6:[function(require,module,exports){
 var template, vent;
 
 vent = require('../../lib/vent.coffee');
@@ -352,7 +352,7 @@ var jade_interp;
 ;var locals_for_with = (locals || {});(function (user) {
 buf.push("<div id=\"feedback-modal-bg\" class=\"modal-container\"><div id=\"feedback-modal\" class=\"modal\"><button class=\"modal-close\"></button><h2>Give us your feedback</h2><form><input placeholder=\"Email (optional)\" type=\"email\"" + (jade.attr("value", (user && user.get('email')), true, false)) + " class=\"box-input\"/><textarea placeholder=\"Help us improve, leave your comments here.\" class=\"box-input\"></textarea><button type=\"submit\" class=\"rounded-button\">Send</button></form></div></div>");}("user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
 };
-},{"jade/runtime":34}],8:[function(require,module,exports){
+},{"jade/runtime":35}],8:[function(require,module,exports){
 var Backbone, FiltersView, numeral, vent, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -513,7 +513,7 @@ module.exports = FiltersView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/vent.coffee":22,"backbone":27,"numeral":36,"underscore":42}],9:[function(require,module,exports){
+},{"../../lib/vent.coffee":22,"backbone":27,"numeral":37,"underscore":43}],9:[function(require,module,exports){
 var AlertsModal, BELOW_FOLD_PEAK, Backbone, FiltersView, HomepageView, ListingsView, START_HERO_UNIT_OPACITY, sd, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -640,7 +640,7 @@ module.exports = HomepageView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../alerts-modal/view.coffee":4,"../filters/view.coffee":8,"../listings/view.coffee":13,"backbone":27,"gmaps":33,"sharify":37,"underscore":42}],10:[function(require,module,exports){
+},{"../alerts-modal/view.coffee":4,"../filters/view.coffee":8,"../listings/view.coffee":13,"backbone":27,"gmaps":34,"sharify":38,"underscore":43}],10:[function(require,module,exports){
 var AuthModal, Backbone, HomepageView, InitRouter, ListingPageView, Listings, ResetPasswordView, SettingsView, User, qs, sd, vent, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -738,7 +738,7 @@ InitRouter = (function(_super) {
 })(Backbone.Router);
 
 
-},{"../../collections/listings.coffee":2,"../../lib/jquery.infinite-scroll.coffee":20,"../../lib/vent.coffee":22,"../../models/user.coffee":25,"../auth-modal/view.coffee":5,"../feedback-modal/client.coffee":6,"../home-page/view.coffee":9,"../listing-page/view.coffee":11,"../main-header/client.coffee":14,"../modal/client.coffee":16,"../reset-password-page/view.coffee":17,"../settings-page/view.coffee":18,"backbone":27,"querystring":31,"sharify":37}],11:[function(require,module,exports){
+},{"../../collections/listings.coffee":2,"../../lib/jquery.infinite-scroll.coffee":20,"../../lib/vent.coffee":22,"../../models/user.coffee":25,"../auth-modal/view.coffee":5,"../feedback-modal/client.coffee":6,"../home-page/view.coffee":9,"../listing-page/view.coffee":11,"../main-header/client.coffee":14,"../modal/client.coffee":16,"../reset-password-page/view.coffee":17,"../settings-page/view.coffee":18,"backbone":27,"querystring":32,"sharify":38}],11:[function(require,module,exports){
 var Backbone, LISTING, Listing, ListingPageView, gmap, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -787,7 +787,7 @@ module.exports = ListingPageView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/gmap.coffee":19,"../../models/listing.coffee":23,"backbone":27,"sharify":37}],12:[function(require,module,exports){
+},{"../../lib/gmap.coffee":19,"../../models/listing.coffee":23,"backbone":27,"sharify":38}],12:[function(require,module,exports){
 var jade = require("jade/runtime");
 
 module.exports = function template(locals) {
@@ -1031,7 +1031,7 @@ buf.push("<div class=\"listings-no-results\">No results. Try loosening up your f
 }
 buf.push("</div>");}("listings" in locals_for_with?locals_for_with.listings:typeof listings!=="undefined"?listings:undefined,"sd" in locals_for_with?locals_for_with.sd:typeof sd!=="undefined"?sd:undefined));;return buf.join("");
 };
-},{"jade/runtime":34}],13:[function(require,module,exports){
+},{"jade/runtime":35}],13:[function(require,module,exports){
 var Backbone, FIXED_FILTER_HEIGHT, ListingsView, MARGIN_SIZE, sd, template, _, _ref,
   __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
   __hasProp = {}.hasOwnProperty,
@@ -1251,7 +1251,7 @@ module.exports = ListingsView = (function(_super) {
 })(Backbone.View);
 
 
-},{"./templates/index.jade":12,"backbone":27,"gmaps":33,"sharify":37,"underscore":42}],14:[function(require,module,exports){
+},{"./templates/index.jade":12,"backbone":27,"gmaps":34,"sharify":38,"underscore":43}],14:[function(require,module,exports){
 var User, template, vent;
 
 vent = require('../../lib/vent.coffee');
@@ -1302,7 +1302,7 @@ buf.push("<a href=\"/login\">Log In</a>");
 }
 buf.push("</nav></header>");}("isHome" in locals_for_with?locals_for_with.isHome:typeof isHome!=="undefined"?isHome:undefined,"path" in locals_for_with?locals_for_with.path:typeof path!=="undefined"?path:undefined,"belowHero" in locals_for_with?locals_for_with.belowHero:typeof belowHero!=="undefined"?belowHero:undefined,"user" in locals_for_with?locals_for_with.user:typeof user!=="undefined"?user:undefined));;return buf.join("");
 };
-},{"jade/runtime":34}],16:[function(require,module,exports){
+},{"jade/runtime":35}],16:[function(require,module,exports){
 $(document).on('click', '.modal-container', function(e) {
   if (!($(e.target).is('.modal-container') || $(e.target).is('.modal-close') || $(e.target).is('.modal-okay'))) {
     return;
@@ -1353,7 +1353,7 @@ module.exports = ResetPasswordView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/password-form.coffee":21,"../../lib/vent.coffee":22,"backbone":27,"numeral":36,"querystring":31,"underscore":42}],18:[function(require,module,exports){
+},{"../../lib/password-form.coffee":21,"../../lib/vent.coffee":22,"backbone":27,"numeral":37,"querystring":32,"underscore":43}],18:[function(require,module,exports){
 var Backbone, PasswordForm, SettingsView, numeral, vent, _, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1405,7 +1405,7 @@ module.exports = SettingsView = (function(_super) {
 })(Backbone.View);
 
 
-},{"../../lib/password-form.coffee":21,"../../lib/vent.coffee":22,"backbone":27,"numeral":36,"underscore":42}],19:[function(require,module,exports){
+},{"../../lib/password-form.coffee":21,"../../lib/vent.coffee":22,"backbone":27,"numeral":37,"underscore":43}],19:[function(require,module,exports){
 require('gmaps');
 
 module.exports = function(listing, div) {
@@ -1447,7 +1447,7 @@ module.exports = function(listing, div) {
 };
 
 
-},{"gmaps":33}],20:[function(require,module,exports){
+},{"gmaps":34}],20:[function(require,module,exports){
 var onScroll,
   _this = this;
 
@@ -1520,7 +1520,7 @@ module.exports = {
 };
 
 
-},{"querystring":31,"underscore":42}],22:[function(require,module,exports){
+},{"querystring":32,"underscore":43}],22:[function(require,module,exports){
 var Backbone, _;
 
 _ = require('underscore');
@@ -1530,7 +1530,7 @@ Backbone = require('backbone');
 module.exports = _.extend({}, Backbone.Events);
 
 
-},{"backbone":27,"underscore":42}],23:[function(require,module,exports){
+},{"backbone":27,"underscore":43}],23:[function(require,module,exports){
 var API_URL, Backbone, Listing, accounting, moment, parse, qs, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1652,7 +1652,7 @@ module.exports = Listing = (function(_super) {
 })(Backbone.Model);
 
 
-},{"accounting":26,"backbone":27,"moment":35,"querystring":31,"sharify":37,"url":32}],24:[function(require,module,exports){
+},{"accounting":26,"backbone":27,"moment":36,"querystring":32,"sharify":38,"url":33}],24:[function(require,module,exports){
 var Backbone, ListingsParams, qs, _, _ref,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1688,7 +1688,7 @@ module.exports = ListingsParams = (function(_super) {
 })(Backbone.Model);
 
 
-},{"backbone":27,"querystring":31,"underscore":42}],25:[function(require,module,exports){
+},{"backbone":27,"querystring":32,"underscore":43}],25:[function(require,module,exports){
 var API_ID, API_SECRET, API_URL, Backbone, User, accounting, moment, parse, request, _ref, _ref1,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
@@ -1782,7 +1782,7 @@ module.exports = User = (function(_super) {
 })(Backbone.Model);
 
 
-},{"accounting":26,"backbone":27,"moment":35,"sharify":37,"superagent":38,"url":32}],26:[function(require,module,exports){
+},{"accounting":26,"backbone":27,"moment":36,"sharify":38,"superagent":39,"url":33}],26:[function(require,module,exports){
 /*!
  * accounting.js v0.3.2
  * Copyright 2011, Joss Crowcroft
@@ -3805,7 +3805,9 @@ module.exports = User = (function(_super) {
 
 }));
 
-},{"underscore":42}],28:[function(require,module,exports){
+},{"underscore":43}],28:[function(require,module,exports){
+
+},{}],29:[function(require,module,exports){
 (function (global){
 /*! http://mths.be/punycode v1.2.4 by @mathias */
 ;(function(root) {
@@ -4316,7 +4318,7 @@ module.exports = User = (function(_super) {
 }(this));
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4402,7 +4404,7 @@ var isArray = Array.isArray || function (xs) {
   return Object.prototype.toString.call(xs) === '[object Array]';
 };
 
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4453,7 +4455,7 @@ module.exports = function(obj, sep, eq, name) {
     return map(objectKeys(obj), function(k) {
       var ks = encodeURIComponent(stringifyPrimitive(k)) + eq;
       if (isArray(obj[k])) {
-        return map(obj[k], function(v) {
+        return obj[k].map(function(v) {
           return ks + encodeURIComponent(stringifyPrimitive(v));
         }).join(sep);
       } else {
@@ -4489,13 +4491,17 @@ var objectKeys = Object.keys || function (obj) {
   return res;
 };
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 'use strict';
 
 exports.decode = exports.parse = require('./decode');
 exports.encode = exports.stringify = require('./encode');
 
-},{"./decode":29,"./encode":30}],32:[function(require,module,exports){
+},{"./decode":30,"./encode":31}],33:[function(require,module,exports){
+/*jshint strict:true node:true es5:true onevar:true laxcomma:true laxbreak:true eqeqeq:true immed:true latedef:true*/
+(function () {
+  "use strict";
+
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -4524,23 +4530,6 @@ exports.resolve = urlResolve;
 exports.resolveObject = urlResolveObject;
 exports.format = urlFormat;
 
-exports.Url = Url;
-
-function Url() {
-  this.protocol = null;
-  this.slashes = null;
-  this.auth = null;
-  this.host = null;
-  this.port = null;
-  this.hostname = null;
-  this.hash = null;
-  this.search = null;
-  this.query = null;
-  this.pathname = null;
-  this.path = null;
-  this.href = null;
-}
-
 // Reference: RFC 3986, RFC 1808, RFC 2396
 
 // define these here so at least they only have to be
@@ -4553,19 +4542,20 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
     delims = ['<', '>', '"', '`', ' ', '\r', '\n', '\t'],
 
     // RFC 2396: characters not allowed for various reasons.
-    unwise = ['{', '}', '|', '\\', '^', '`'].concat(delims),
+    unwise = ['{', '}', '|', '\\', '^', '~', '`'].concat(delims),
 
     // Allowed by RFCs, but cause of XSS attacks.  Always escape these.
-    autoEscape = ['\''].concat(unwise),
+    autoEscape = ['\''].concat(delims),
     // Characters that are never ever allowed in a hostname.
     // Note that any invalid chars are also handled, but these
     // are the ones that are *expected* to be seen, so we fast-path
     // them.
-    nonHostChars = ['%', '/', '?', ';', '#'].concat(autoEscape),
-    hostEndingChars = ['/', '?', '#'],
+    nonHostChars = ['%', '/', '?', ';', '#']
+      .concat(unwise).concat(autoEscape),
+    nonAuthChars = ['/', '@', '?', '#'].concat(delims),
     hostnameMaxLen = 255,
-    hostnamePartPattern = /^[a-z0-9A-Z_-]{0,63}$/,
-    hostnamePartStart = /^([a-z0-9A-Z_-]{0,63})(.*)$/,
+    hostnamePartPattern = /^[a-zA-Z0-9][a-z0-9A-Z_-]{0,62}$/,
+    hostnamePartStart = /^([a-zA-Z0-9][a-z0-9A-Z_-]{0,62})(.*)$/,
     // protocols that can allow "unsafe" and "unwise" chars.
     unsafeProtocol = {
       'javascript': true,
@@ -4575,6 +4565,18 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
     hostlessProtocol = {
       'javascript': true,
       'javascript:': true
+    },
+    // protocols that always have a path component.
+    pathedProtocol = {
+      'http': true,
+      'https': true,
+      'ftp': true,
+      'gopher': true,
+      'file': true,
+      'http:': true,
+      'ftp:': true,
+      'gopher:': true,
+      'file:': true
     },
     // protocols that always contain a // bit.
     slashedProtocol = {
@@ -4592,19 +4594,14 @@ var protocolPattern = /^([a-z0-9.+-]+:)/i,
     querystring = require('querystring');
 
 function urlParse(url, parseQueryString, slashesDenoteHost) {
-  if (url && isObject(url) && url instanceof Url) return url;
+  if (url && typeof(url) === 'object' && url.href) return url;
 
-  var u = new Url;
-  u.parse(url, parseQueryString, slashesDenoteHost);
-  return u;
-}
-
-Url.prototype.parse = function(url, parseQueryString, slashesDenoteHost) {
-  if (!isString(url)) {
+  if (typeof url !== 'string') {
     throw new TypeError("Parameter 'url' must be a string, not " + typeof url);
   }
 
-  var rest = url;
+  var out = {},
+      rest = url;
 
   // trim before proceeding.
   // This is to support parse stuff like "  http://foo.com  \n"
@@ -4614,7 +4611,7 @@ Url.prototype.parse = function(url, parseQueryString, slashesDenoteHost) {
   if (proto) {
     proto = proto[0];
     var lowerProto = proto.toLowerCase();
-    this.protocol = lowerProto;
+    out.protocol = lowerProto;
     rest = rest.substr(proto.length);
   }
 
@@ -4626,85 +4623,78 @@ Url.prototype.parse = function(url, parseQueryString, slashesDenoteHost) {
     var slashes = rest.substr(0, 2) === '//';
     if (slashes && !(proto && hostlessProtocol[proto])) {
       rest = rest.substr(2);
-      this.slashes = true;
+      out.slashes = true;
     }
   }
 
   if (!hostlessProtocol[proto] &&
       (slashes || (proto && !slashedProtocol[proto]))) {
-
     // there's a hostname.
     // the first instance of /, ?, ;, or # ends the host.
-    //
+    // don't enforce full RFC correctness, just be unstupid about it.
+
     // If there is an @ in the hostname, then non-host chars *are* allowed
-    // to the left of the last @ sign, unless some host-ending character
+    // to the left of the first @ sign, unless some non-auth character
     // comes *before* the @-sign.
     // URLs are obnoxious.
-    //
-    // ex:
-    // http://a@b@c/ => user:a@b host:c
-    // http://a@b?@c => user:a host:c path:/?@c
-
-    // v0.12 TODO(isaacs): This is not quite how Chrome does things.
-    // Review our test case against browsers more comprehensively.
-
-    // find the first instance of any hostEndingChars
-    var hostEnd = -1;
-    for (var i = 0; i < hostEndingChars.length; i++) {
-      var hec = rest.indexOf(hostEndingChars[i]);
-      if (hec !== -1 && (hostEnd === -1 || hec < hostEnd))
-        hostEnd = hec;
-    }
-
-    // at this point, either we have an explicit point where the
-    // auth portion cannot go past, or the last @ char is the decider.
-    var auth, atSign;
-    if (hostEnd === -1) {
-      // atSign can be anywhere.
-      atSign = rest.lastIndexOf('@');
-    } else {
-      // atSign must be in auth portion.
-      // http://a@b/c@d => host:b auth:a path:/c@d
-      atSign = rest.lastIndexOf('@', hostEnd);
-    }
-
-    // Now we have a portion which is definitely the auth.
-    // Pull that off.
+    var atSign = rest.indexOf('@');
     if (atSign !== -1) {
-      auth = rest.slice(0, atSign);
-      rest = rest.slice(atSign + 1);
-      this.auth = decodeURIComponent(auth);
+      var auth = rest.slice(0, atSign);
+
+      // there *may be* an auth
+      var hasAuth = true;
+      for (var i = 0, l = nonAuthChars.length; i < l; i++) {
+        if (auth.indexOf(nonAuthChars[i]) !== -1) {
+          // not a valid auth.  Something like http://foo.com/bar@baz/
+          hasAuth = false;
+          break;
+        }
+      }
+
+      if (hasAuth) {
+        // pluck off the auth portion.
+        out.auth = decodeURIComponent(auth);
+        rest = rest.substr(atSign + 1);
+      }
     }
 
-    // the host is the remaining to the left of the first non-host char
-    hostEnd = -1;
-    for (var i = 0; i < nonHostChars.length; i++) {
-      var hec = rest.indexOf(nonHostChars[i]);
-      if (hec !== -1 && (hostEnd === -1 || hec < hostEnd))
-        hostEnd = hec;
+    var firstNonHost = -1;
+    for (var i = 0, l = nonHostChars.length; i < l; i++) {
+      var index = rest.indexOf(nonHostChars[i]);
+      if (index !== -1 &&
+          (firstNonHost < 0 || index < firstNonHost)) firstNonHost = index;
     }
-    // if we still have not hit it, then the entire thing is a host.
-    if (hostEnd === -1)
-      hostEnd = rest.length;
 
-    this.host = rest.slice(0, hostEnd);
-    rest = rest.slice(hostEnd);
+    if (firstNonHost !== -1) {
+      out.host = rest.substr(0, firstNonHost);
+      rest = rest.substr(firstNonHost);
+    } else {
+      out.host = rest;
+      rest = '';
+    }
 
     // pull out port.
-    this.parseHost();
+    var p = parseHost(out.host);
+    var keys = Object.keys(p);
+    for (var i = 0, l = keys.length; i < l; i++) {
+      var key = keys[i];
+      out[key] = p[key];
+    }
 
     // we've indicated that there is a hostname,
     // so even if it's empty, it has to be present.
-    this.hostname = this.hostname || '';
+    out.hostname = out.hostname || '';
 
     // if hostname begins with [ and ends with ]
     // assume that it's an IPv6 address.
-    var ipv6Hostname = this.hostname[0] === '[' &&
-        this.hostname[this.hostname.length - 1] === ']';
+    var ipv6Hostname = out.hostname[0] === '[' &&
+        out.hostname[out.hostname.length - 1] === ']';
 
     // validate a little.
-    if (!ipv6Hostname) {
-      var hostparts = this.hostname.split(/\./);
+    if (out.hostname.length > hostnameMaxLen) {
+      out.hostname = '';
+    } else if (!ipv6Hostname) {
+      var hostparts = out.hostname.split(/\./);
       for (var i = 0, l = hostparts.length; i < l; i++) {
         var part = hostparts[i];
         if (!part) continue;
@@ -4732,44 +4722,38 @@ Url.prototype.parse = function(url, parseQueryString, slashesDenoteHost) {
             if (notHost.length) {
               rest = '/' + notHost.join('.') + rest;
             }
-            this.hostname = validParts.join('.');
+            out.hostname = validParts.join('.');
             break;
           }
         }
       }
     }
 
-    if (this.hostname.length > hostnameMaxLen) {
-      this.hostname = '';
-    } else {
-      // hostnames are always lower case.
-      this.hostname = this.hostname.toLowerCase();
-    }
+    // hostnames are always lower case.
+    out.hostname = out.hostname.toLowerCase();
 
     if (!ipv6Hostname) {
       // IDNA Support: Returns a puny coded representation of "domain".
       // It only converts the part of the domain name that
       // has non ASCII characters. I.e. it dosent matter if
       // you call it with a domain that already is in ASCII.
-      var domainArray = this.hostname.split('.');
+      var domainArray = out.hostname.split('.');
       var newOut = [];
       for (var i = 0; i < domainArray.length; ++i) {
         var s = domainArray[i];
         newOut.push(s.match(/[^A-Za-z0-9_-]/) ?
             'xn--' + punycode.encode(s) : s);
       }
-      this.hostname = newOut.join('.');
+      out.hostname = newOut.join('.');
     }
 
-    var p = this.port ? ':' + this.port : '';
-    var h = this.hostname || '';
-    this.host = h + p;
-    this.href += this.host;
+    out.host = (out.hostname || '') +
+        ((out.port) ? ':' + out.port : '');
+    out.href += out.host;
 
     // strip [ and ] from the hostname
-    // the host field still retains them, though
     if (ipv6Hostname) {
-      this.hostname = this.hostname.substr(1, this.hostname.length - 2);
+      out.hostname = out.hostname.substr(1, out.hostname.length - 2);
       if (rest[0] !== '/') {
         rest = '/' + rest;
       }
@@ -4798,39 +4782,38 @@ Url.prototype.parse = function(url, parseQueryString, slashesDenoteHost) {
   var hash = rest.indexOf('#');
   if (hash !== -1) {
     // got a fragment string.
-    this.hash = rest.substr(hash);
+    out.hash = rest.substr(hash);
     rest = rest.slice(0, hash);
   }
   var qm = rest.indexOf('?');
   if (qm !== -1) {
-    this.search = rest.substr(qm);
-    this.query = rest.substr(qm + 1);
+    out.search = rest.substr(qm);
+    out.query = rest.substr(qm + 1);
     if (parseQueryString) {
-      this.query = querystring.parse(this.query);
+      out.query = querystring.parse(out.query);
     }
     rest = rest.slice(0, qm);
   } else if (parseQueryString) {
     // no query string, but parseQueryString still requested
-    this.search = '';
-    this.query = {};
+    out.search = '';
+    out.query = {};
   }
-  if (rest) this.pathname = rest;
-  if (slashedProtocol[lowerProto] &&
-      this.hostname && !this.pathname) {
-    this.pathname = '/';
+  if (rest) out.pathname = rest;
+  if (slashedProtocol[proto] &&
+      out.hostname && !out.pathname) {
+    out.pathname = '/';
   }
 
   //to support http.request
-  if (this.pathname || this.search) {
-    var p = this.pathname || '';
-    var s = this.search || '';
-    this.path = p + s;
+  if (out.pathname || out.search) {
+    out.path = (out.pathname ? out.pathname : '') +
+               (out.search ? out.search : '');
   }
 
   // finally, reconstruct the href based on what has been validated.
-  this.href = this.format();
-  return this;
-};
+  out.href = urlFormat(out);
+  return out;
+}
 
 // format a parsed object into a url string
 function urlFormat(obj) {
@@ -4838,49 +4821,44 @@ function urlFormat(obj) {
   // If it's an obj, this is a no-op.
   // this way, you can call url_format() on strings
   // to clean up potentially wonky urls.
-  if (isString(obj)) obj = urlParse(obj);
-  if (!(obj instanceof Url)) return Url.prototype.format.call(obj);
-  return obj.format();
-}
+  if (typeof(obj) === 'string') obj = urlParse(obj);
 
-Url.prototype.format = function() {
-  var auth = this.auth || '';
+  var auth = obj.auth || '';
   if (auth) {
     auth = encodeURIComponent(auth);
     auth = auth.replace(/%3A/i, ':');
     auth += '@';
   }
 
-  var protocol = this.protocol || '',
-      pathname = this.pathname || '',
-      hash = this.hash || '',
+  var protocol = obj.protocol || '',
+      pathname = obj.pathname || '',
+      hash = obj.hash || '',
       host = false,
       query = '';
 
-  if (this.host) {
-    host = auth + this.host;
-  } else if (this.hostname) {
-    host = auth + (this.hostname.indexOf(':') === -1 ?
-        this.hostname :
-        '[' + this.hostname + ']');
-    if (this.port) {
-      host += ':' + this.port;
+  if (obj.host !== undefined) {
+    host = auth + obj.host;
+  } else if (obj.hostname !== undefined) {
+    host = auth + (obj.hostname.indexOf(':') === -1 ?
+        obj.hostname :
+        '[' + obj.hostname + ']');
+    if (obj.port) {
+      host += ':' + obj.port;
     }
   }
 
-  if (this.query &&
-      isObject(this.query) &&
-      Object.keys(this.query).length) {
-    query = querystring.stringify(this.query);
+  if (obj.query && typeof obj.query === 'object' &&
+      Object.keys(obj.query).length) {
+    query = querystring.stringify(obj.query);
   }
 
-  var search = this.search || (query && ('?' + query)) || '';
+  var search = obj.search || (query && ('?' + query)) || '';
 
   if (protocol && protocol.substr(-1) !== ':') protocol += ':';
 
   // only the slashedProtocols get the //.  Not mailto:, xmpp:, etc.
   // unless they had them to begin with.
-  if (this.slashes ||
+  if (obj.slashes ||
       (!protocol || slashedProtocol[protocol]) && host !== false) {
     host = '//' + (host || '');
     if (pathname && pathname.charAt(0) !== '/') pathname = '/' + pathname;
@@ -4891,68 +4869,40 @@ Url.prototype.format = function() {
   if (hash && hash.charAt(0) !== '#') hash = '#' + hash;
   if (search && search.charAt(0) !== '?') search = '?' + search;
 
-  pathname = pathname.replace(/[?#]/g, function(match) {
-    return encodeURIComponent(match);
-  });
-  search = search.replace('#', '%23');
-
   return protocol + host + pathname + search + hash;
-};
-
-function urlResolve(source, relative) {
-  return urlParse(source, false, true).resolve(relative);
 }
 
-Url.prototype.resolve = function(relative) {
-  return this.resolveObject(urlParse(relative, false, true)).format();
-};
+function urlResolve(source, relative) {
+  return urlFormat(urlResolveObject(source, relative));
+}
 
 function urlResolveObject(source, relative) {
   if (!source) return relative;
-  return urlParse(source, false, true).resolveObject(relative);
-}
 
-Url.prototype.resolveObject = function(relative) {
-  if (isString(relative)) {
-    var rel = new Url();
-    rel.parse(relative, false, true);
-    relative = rel;
-  }
-
-  var result = new Url();
-  Object.keys(this).forEach(function(k) {
-    result[k] = this[k];
-  }, this);
+  source = urlParse(urlFormat(source), false, true);
+  relative = urlParse(urlFormat(relative), false, true);
 
   // hash is always overridden, no matter what.
-  // even href="" will remove it.
-  result.hash = relative.hash;
+  source.hash = relative.hash;
 
-  // if the relative url is empty, then there's nothing left to do here.
   if (relative.href === '') {
-    result.href = result.format();
-    return result;
+    source.href = urlFormat(source);
+    return source;
   }
 
   // hrefs like //foo/bar always cut to the protocol.
   if (relative.slashes && !relative.protocol) {
-    // take everything except the protocol from relative
-    Object.keys(relative).forEach(function(k) {
-      if (k !== 'protocol')
-        result[k] = relative[k];
-    });
-
+    relative.protocol = source.protocol;
     //urlParse appends trailing / to urls like http://www.example.com
-    if (slashedProtocol[result.protocol] &&
-        result.hostname && !result.pathname) {
-      result.path = result.pathname = '/';
+    if (slashedProtocol[relative.protocol] &&
+        relative.hostname && !relative.pathname) {
+      relative.path = relative.pathname = '/';
     }
-
-    result.href = result.format();
-    return result;
+    relative.href = urlFormat(relative);
+    return relative;
   }
 
-  if (relative.protocol && relative.protocol !== result.protocol) {
+  if (relative.protocol && relative.protocol !== source.protocol) {
     // if it's a known url protocol, then changing
     // the protocol does weird things
     // first, if it's not file:, then we MUST have a host,
@@ -4962,14 +4912,10 @@ Url.prototype.resolveObject = function(relative) {
     // because that's known to be hostless.
     // anything else is assumed to be absolute.
     if (!slashedProtocol[relative.protocol]) {
-      Object.keys(relative).forEach(function(k) {
-        result[k] = relative[k];
-      });
-      result.href = result.format();
-      return result;
+      relative.href = urlFormat(relative);
+      return relative;
     }
-
-    result.protocol = relative.protocol;
+    source.protocol = relative.protocol;
     if (!relative.host && !hostlessProtocol[relative.protocol]) {
       var relPath = (relative.pathname || '').split('/');
       while (relPath.length && !(relative.host = relPath.shift()));
@@ -4977,72 +4923,72 @@ Url.prototype.resolveObject = function(relative) {
       if (!relative.hostname) relative.hostname = '';
       if (relPath[0] !== '') relPath.unshift('');
       if (relPath.length < 2) relPath.unshift('');
-      result.pathname = relPath.join('/');
-    } else {
-      result.pathname = relative.pathname;
+      relative.pathname = relPath.join('/');
     }
-    result.search = relative.search;
-    result.query = relative.query;
-    result.host = relative.host || '';
-    result.auth = relative.auth;
-    result.hostname = relative.hostname || relative.host;
-    result.port = relative.port;
-    // to support http.request
-    if (result.pathname || result.search) {
-      var p = result.pathname || '';
-      var s = result.search || '';
-      result.path = p + s;
+    source.pathname = relative.pathname;
+    source.search = relative.search;
+    source.query = relative.query;
+    source.host = relative.host || '';
+    source.auth = relative.auth;
+    source.hostname = relative.hostname || relative.host;
+    source.port = relative.port;
+    //to support http.request
+    if (source.pathname !== undefined || source.search !== undefined) {
+      source.path = (source.pathname ? source.pathname : '') +
+                    (source.search ? source.search : '');
     }
-    result.slashes = result.slashes || relative.slashes;
-    result.href = result.format();
-    return result;
+    source.slashes = source.slashes || relative.slashes;
+    source.href = urlFormat(source);
+    return source;
   }
 
-  var isSourceAbs = (result.pathname && result.pathname.charAt(0) === '/'),
+  var isSourceAbs = (source.pathname && source.pathname.charAt(0) === '/'),
       isRelAbs = (
-          relative.host ||
+          relative.host !== undefined ||
           relative.pathname && relative.pathname.charAt(0) === '/'
       ),
       mustEndAbs = (isRelAbs || isSourceAbs ||
-                    (result.host && relative.pathname)),
+                    (source.host && relative.pathname)),
       removeAllDots = mustEndAbs,
-      srcPath = result.pathname && result.pathname.split('/') || [],
+      srcPath = source.pathname && source.pathname.split('/') || [],
       relPath = relative.pathname && relative.pathname.split('/') || [],
-      psychotic = result.protocol && !slashedProtocol[result.protocol];
+      psychotic = source.protocol &&
+          !slashedProtocol[source.protocol];
 
   // if the url is a non-slashed url, then relative
   // links like ../.. should be able
   // to crawl up to the hostname, as well.  This is strange.
-  // result.protocol has already been set by now.
+  // source.protocol has already been set by now.
   // Later on, put the first path part into the host field.
   if (psychotic) {
-    result.hostname = '';
-    result.port = null;
-    if (result.host) {
-      if (srcPath[0] === '') srcPath[0] = result.host;
-      else srcPath.unshift(result.host);
+
+    delete source.hostname;
+    delete source.port;
+    if (source.host) {
+      if (srcPath[0] === '') srcPath[0] = source.host;
+      else srcPath.unshift(source.host);
     }
-    result.host = '';
+    delete source.host;
     if (relative.protocol) {
-      relative.hostname = null;
-      relative.port = null;
+      delete relative.hostname;
+      delete relative.port;
       if (relative.host) {
         if (relPath[0] === '') relPath[0] = relative.host;
         else relPath.unshift(relative.host);
       }
-      relative.host = null;
+      delete relative.host;
     }
     mustEndAbs = mustEndAbs && (relPath[0] === '' || srcPath[0] === '');
   }
 
   if (isRelAbs) {
     // it's absolute.
-    result.host = (relative.host || relative.host === '') ?
-                  relative.host : result.host;
-    result.hostname = (relative.hostname || relative.hostname === '') ?
-                      relative.hostname : result.hostname;
-    result.search = relative.search;
-    result.query = relative.query;
+    source.host = (relative.host || relative.host === '') ?
+                      relative.host : source.host;
+    source.hostname = (relative.hostname || relative.hostname === '') ?
+                      relative.hostname : source.hostname;
+    source.search = relative.search;
+    source.query = relative.query;
     srcPath = relPath;
     // fall through to the dot-handling below.
   } else if (relPath.length) {
@@ -5051,55 +4997,53 @@ Url.prototype.resolveObject = function(relative) {
     if (!srcPath) srcPath = [];
     srcPath.pop();
     srcPath = srcPath.concat(relPath);
-    result.search = relative.search;
-    result.query = relative.query;
-  } else if (!isNullOrUndefined(relative.search)) {
+    source.search = relative.search;
+    source.query = relative.query;
+  } else if ('search' in relative) {
     // just pull out the search.
     // like href='?foo'.
     // Put this after the other two cases because it simplifies the booleans
     if (psychotic) {
-      result.hostname = result.host = srcPath.shift();
+      source.hostname = source.host = srcPath.shift();
       //occationaly the auth can get stuck only in host
       //this especialy happens in cases like
       //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
-      var authInHost = result.host && result.host.indexOf('@') > 0 ?
-                       result.host.split('@') : false;
+      var authInHost = source.host && source.host.indexOf('@') > 0 ?
+                       source.host.split('@') : false;
       if (authInHost) {
-        result.auth = authInHost.shift();
-        result.host = result.hostname = authInHost.shift();
+        source.auth = authInHost.shift();
+        source.host = source.hostname = authInHost.shift();
       }
     }
-    result.search = relative.search;
-    result.query = relative.query;
+    source.search = relative.search;
+    source.query = relative.query;
     //to support http.request
-    if (!isNull(result.pathname) || !isNull(result.search)) {
-      result.path = (result.pathname ? result.pathname : '') +
-                    (result.search ? result.search : '');
+    if (source.pathname !== undefined || source.search !== undefined) {
+      source.path = (source.pathname ? source.pathname : '') +
+                    (source.search ? source.search : '');
     }
-    result.href = result.format();
-    return result;
+    source.href = urlFormat(source);
+    return source;
   }
-
   if (!srcPath.length) {
     // no path at all.  easy.
     // we've already handled the other stuff above.
-    result.pathname = null;
+    delete source.pathname;
     //to support http.request
-    if (result.search) {
-      result.path = '/' + result.search;
+    if (!source.search) {
+      source.path = '/' + source.search;
     } else {
-      result.path = null;
+      delete source.path;
     }
-    result.href = result.format();
-    return result;
+    source.href = urlFormat(source);
+    return source;
   }
-
   // if a url ENDs in . or .., then it must get a trailing slash.
   // however, if it ends in anything else non-slashy,
   // then it must NOT get a trailing slash.
   var last = srcPath.slice(-1)[0];
   var hasTrailingSlash = (
-      (result.host || relative.host) && (last === '.' || last === '..') ||
+      (source.host || relative.host) && (last === '.' || last === '..') ||
       last === '');
 
   // strip single dots, resolve double dots to parent dir
@@ -5139,72 +5083,54 @@ Url.prototype.resolveObject = function(relative) {
 
   // put the host back
   if (psychotic) {
-    result.hostname = result.host = isAbsolute ? '' :
+    source.hostname = source.host = isAbsolute ? '' :
                                     srcPath.length ? srcPath.shift() : '';
     //occationaly the auth can get stuck only in host
     //this especialy happens in cases like
     //url.resolveObject('mailto:local1@domain1', 'local2@domain2')
-    var authInHost = result.host && result.host.indexOf('@') > 0 ?
-                     result.host.split('@') : false;
+    var authInHost = source.host && source.host.indexOf('@') > 0 ?
+                     source.host.split('@') : false;
     if (authInHost) {
-      result.auth = authInHost.shift();
-      result.host = result.hostname = authInHost.shift();
+      source.auth = authInHost.shift();
+      source.host = source.hostname = authInHost.shift();
     }
   }
 
-  mustEndAbs = mustEndAbs || (result.host && srcPath.length);
+  mustEndAbs = mustEndAbs || (source.host && srcPath.length);
 
   if (mustEndAbs && !isAbsolute) {
     srcPath.unshift('');
   }
 
-  if (!srcPath.length) {
-    result.pathname = null;
-    result.path = null;
-  } else {
-    result.pathname = srcPath.join('/');
-  }
-
+  source.pathname = srcPath.join('/');
   //to support request.http
-  if (!isNull(result.pathname) || !isNull(result.search)) {
-    result.path = (result.pathname ? result.pathname : '') +
-                  (result.search ? result.search : '');
+  if (source.pathname !== undefined || source.search !== undefined) {
+    source.path = (source.pathname ? source.pathname : '') +
+                  (source.search ? source.search : '');
   }
-  result.auth = relative.auth || result.auth;
-  result.slashes = result.slashes || relative.slashes;
-  result.href = result.format();
-  return result;
-};
+  source.auth = relative.auth || source.auth;
+  source.slashes = source.slashes || relative.slashes;
+  source.href = urlFormat(source);
+  return source;
+}
 
-Url.prototype.parseHost = function() {
-  var host = this.host;
+function parseHost(host) {
+  var out = {};
   var port = portPattern.exec(host);
   if (port) {
     port = port[0];
     if (port !== ':') {
-      this.port = port.substr(1);
+      out.port = port.substr(1);
     }
     host = host.substr(0, host.length - port.length);
   }
-  if (host) this.hostname = host;
-};
-
-function isString(arg) {
-  return typeof arg === "string";
+  if (host) out.hostname = host;
+  return out;
 }
 
-function isObject(arg) {
-  return typeof arg === 'object' && arg !== null;
-}
+}());
 
-function isNull(arg) {
-  return arg === null;
-}
-function isNullOrUndefined(arg) {
-  return  arg == null;
-}
-
-},{"punycode":28,"querystring":31}],33:[function(require,module,exports){
+},{"punycode":29,"querystring":32}],34:[function(require,module,exports){
 /*!
  * GMaps.js v0.4.5
  * http://hpneo.github.com/gmaps/
@@ -7187,9 +7113,9 @@ if (!Array.prototype.indexOf) {
       return -1;
   }
 }
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 (function (global){
-!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.jade=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(_dereq_,module,exports){
+!function(e){if("object"==typeof exports)module.exports=e();else if("function"==typeof define&&define.amd)define(e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.jade=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
 /**
@@ -7369,7 +7295,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     throw err;
   }
   try {
-    str =  str || _dereq_('fs').readFileSync(filename, 'utf8')
+    str =  str || require('fs').readFileSync(filename, 'utf8')
   } catch (ex) {
     rethrow(err, null, lineno)
   }
@@ -7394,16 +7320,15 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
   throw err;
 };
 
-},{"fs":2}],2:[function(_dereq_,module,exports){
+},{"fs":2}],2:[function(require,module,exports){
 
 },{}]},{},[1])
 (1)
 });
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],35:[function(require,module,exports){
-(function (global){
+},{"fs":28}],36:[function(require,module,exports){
 //! moment.js
-//! version : 2.6.0
+//! version : 2.5.1
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
 //! license : MIT
 //! momentjs.com
@@ -7415,10 +7340,8 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     ************************************/
 
     var moment,
-        VERSION = "2.6.0",
-        // the global-scope this is NOT the global object in Node.js
-        globalScope = typeof global !== 'undefined' ? global : this,
-        oldGlobalMoment,
+        VERSION = "2.5.1",
+        global = this,
         round = Math.round,
         i,
 
@@ -7447,7 +7370,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         },
 
         // check for nodeJS
-        hasModule = (typeof module !== 'undefined' && module.exports),
+        hasModule = (typeof module !== 'undefined' && module.exports && typeof require !== 'undefined'),
 
         // ASP.NET json date format regex
         aspNetJsonRegex = /^\/?Date\((\-?\d+)/i,
@@ -7458,7 +7381,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         isoDurationRegex = /^(-)?P(?:(?:([0-9,.]*)Y)?(?:([0-9,.]*)M)?(?:([0-9,.]*)D)?(?:T(?:([0-9,.]*)H)?(?:([0-9,.]*)M)?(?:([0-9,.]*)S)?)?|([0-9,.]*)W)$/,
 
         // format tokens
-        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|Q|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
+        formattingTokens = /(\[[^\[]*\])|(\\)?(Mo|MM?M?M?|Do|DDDo|DD?D?D?|ddd?d?|do?|w[o|w]?|W[o|W]?|YYYYYY|YYYYY|YYYY|YY|gg(ggg?)?|GG(GGG?)?|e|E|a|A|hh?|HH?|mm?|ss?|S{1,4}|X|zz?|ZZ?|.)/g,
         localFormattingTokens = /(\[[^\[]*\])|(\\)?(LT|LL?L?L?|l{1,4})/g,
 
         // parsing token regexes
@@ -7471,7 +7394,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         parseTokenTimezone = /Z|[\+\-]\d\d:?\d\d/gi, // +00:00 -00:00 +0000 -0000 or Z
         parseTokenT = /T/i, // T (ISO separator)
         parseTokenTimestampMs = /[\+\-]?\d+(\.\d{1,3})?/, // 123456789 123456789.123
-        parseTokenOrdinal = /\d{1,2}/,
 
         //strict parsing regexes
         parseTokenOneDigit = /\d/, // 0 - 9
@@ -7497,7 +7419,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
         // iso time formats and regexes
         isoTimes = [
-            ['HH:mm:ss.SSSS', /(T| )\d\d:\d\d:\d\d\.\d+/],
+            ['HH:mm:ss.SSSS', /(T| )\d\d:\d\d:\d\d\.\d{1,3}/],
             ['HH:mm:ss', /(T| )\d\d:\d\d:\d\d/],
             ['HH:mm', /(T| )\d\d:\d\d/],
             ['HH', /(T| )\d\d/]
@@ -7528,7 +7450,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             w : 'week',
             W : 'isoWeek',
             M : 'month',
-            Q : 'quarter',
             y : 'year',
             DDD : 'dayOfYear',
             e : 'weekday',
@@ -7704,23 +7625,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         };
     }
 
-    function deprecate(msg, fn) {
-        var firstTime = true;
-        function printMsg() {
-            if (moment.suppressDeprecationWarnings === false &&
-                    typeof console !== 'undefined' && console.warn) {
-                console.warn("Deprecation warning: " + msg);
-            }
-        }
-        return extend(function () {
-            if (firstTime) {
-                printMsg();
-                firstTime = false;
-            }
-            return fn.apply(this, arguments);
-        }, fn);
-    }
-
     function padToken(func, count) {
         return function (a) {
             return leftZeroFill(func.call(this, a), count);
@@ -7761,7 +7665,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     function Duration(duration) {
         var normalizedInput = normalizeObjectUnits(duration),
             years = normalizedInput.year || 0,
-            quarters = normalizedInput.quarter || 0,
             months = normalizedInput.month || 0,
             weeks = normalizedInput.week || 0,
             days = normalizedInput.day || 0,
@@ -7783,7 +7686,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         // which months you are are talking about, so we have to store
         // it separately.
         this._months = +months +
-            quarters * 3 +
             years * 12;
 
         this._data = {};
@@ -7846,23 +7748,34 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 
     // helper function for _.addTime and _.subtractTime
-    function addOrSubtractDurationFromMoment(mom, duration, isAdding, updateOffset) {
+    function addOrSubtractDurationFromMoment(mom, duration, isAdding, ignoreUpdateOffset) {
         var milliseconds = duration._milliseconds,
             days = duration._days,
-            months = duration._months;
-        updateOffset = updateOffset == null ? true : updateOffset;
+            months = duration._months,
+            minutes,
+            hours;
 
         if (milliseconds) {
             mom._d.setTime(+mom._d + milliseconds * isAdding);
         }
+        // store the minutes and hours so we can restore them
+        if (days || months) {
+            minutes = mom.minute();
+            hours = mom.hour();
+        }
         if (days) {
-            rawSetter(mom, 'Date', rawGetter(mom, 'Date') + days * isAdding);
+            mom.date(mom.date() + days * isAdding);
         }
         if (months) {
-            rawMonthSetter(mom, rawGetter(mom, 'Month') + months * isAdding);
+            mom.month(mom.month() + months * isAdding);
         }
-        if (updateOffset) {
-            moment.updateOffset(mom, days || months);
+        if (milliseconds && !ignoreUpdateOffset) {
+            moment.updateOffset(mom);
+        }
+        // restore the minutes and hours after possibly changing dst
+        if (days || months) {
+            mom.minute(minutes);
+            mom.hour(hours);
         }
     }
 
@@ -7975,10 +7888,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
     function daysInMonth(year, month) {
         return new Date(Date.UTC(year, month + 1, 0)).getUTCDate();
-    }
-
-    function weeksInYear(year, dow, doy) {
-        return weekOfYear(moment([year, 11, 31 + dow - doy]), dow, doy).week;
     }
 
     function daysInYear(year) {
@@ -8371,8 +8280,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     function getParseRegexForToken(token, config) {
         var a, strict = config._strict;
         switch (token) {
-        case 'Q':
-            return parseTokenOneDigit;
         case 'DDDD':
             return parseTokenThreeDigits;
         case 'YYYY':
@@ -8441,8 +8348,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         case 'e':
         case 'E':
             return parseTokenOneOrTwoDigits;
-        case 'Do':
-            return parseTokenOrdinal;
         default :
             a = new RegExp(regexpEscape(unescapeFormat(token.replace('\\', '')), "i"));
             return a;
@@ -8464,12 +8369,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         var a, datePartArray = config._a;
 
         switch (token) {
-        // QUARTER
-        case 'Q':
-            if (input != null) {
-                datePartArray[MONTH] = (toInt(input) - 1) * 3;
-            }
-            break;
         // MONTH
         case 'M' : // fall through to MM
         case 'MM' :
@@ -8494,11 +8393,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                 datePartArray[DATE] = toInt(input);
             }
             break;
-        case 'Do' :
-            if (input != null) {
-                datePartArray[DATE] = toInt(parseInt(input, 10));
-            }
-            break;
         // DAY OF YEAR
         case 'DDD' : // fall through to DDDD
         case 'DDDD' :
@@ -8509,7 +8403,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             break;
         // YEAR
         case 'YY' :
-            datePartArray[YEAR] = moment.parseTwoDigitYear(input);
+            datePartArray[YEAR] = toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
             break;
         case 'YYYY' :
         case 'YYYYY' :
@@ -8598,9 +8492,9 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         //compute day of the year from weeks and weekdays
         if (config._w && config._a[DATE] == null && config._a[MONTH] == null) {
             fixYear = function (val) {
-                var intVal = parseInt(val, 10);
+                var int_val = parseInt(val, 10);
                 return val ?
-                  (val.length < 3 ? (intVal > 68 ? 1900 + intVal : 2000 + intVal) : intVal) :
+                  (val.length < 3 ? (int_val > 68 ? 1900 + int_val : 2000 + int_val) : int_val) :
                   (config._a[YEAR] == null ? moment().weekYear() : config._a[YEAR]);
             };
 
@@ -8836,7 +8730,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             makeDateFromStringAndFormat(config);
         }
         else {
-            moment.createFromInputFallback(config);
+            config._d = new Date(string);
         }
     }
 
@@ -8857,11 +8751,8 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             config._d = new Date(+input);
         } else if (typeof(input) === 'object') {
             dateFromObject(config);
-        } else if (typeof(input) === 'number') {
-            // from milliseconds
-            config._d = new Date(input);
         } else {
-            moment.createFromInputFallback(config);
+            config._d = new Date(input);
         }
     }
 
@@ -8988,7 +8879,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         var input = config._i,
             format = config._f;
 
-        if (input === null || (format === undefined && input === '')) {
+        if (input === null) {
             return moment.invalid({nullInput: true});
         }
 
@@ -9033,17 +8924,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
 
         return makeMoment(c);
     };
-
-    moment.suppressDeprecationWarnings = false;
-
-    moment.createFromInputFallback = deprecate(
-            "moment construction falls back to js Date. This is " +
-            "discouraged and will be removed in upcoming major " +
-            "release. Please refer to " +
-            "https://github.com/moment/moment/issues/1407 for more info.",
-            function (config) {
-        config._d = new Date(config._i);
-    });
 
     // creating with utc
     moment.utc = function (input, format, lang, strict) {
@@ -9141,10 +9021,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     // default format
     moment.defaultFormat = isoFormat;
 
-    // Plugins that add properties should also add the key here (null value),
-    // so we can properly clone ourselves.
-    moment.momentProperties = momentProperties;
-
     // This function will be called whenever a moment is mutated.
     // It is intended to keep the offset in sync with the timezone.
     moment.updateOffset = function () {};
@@ -9208,12 +9084,8 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         return m;
     };
 
-    moment.parseZone = function () {
-        return moment.apply(null, arguments).parseZone();
-    };
-
-    moment.parseTwoDigitYear = function (input) {
-        return toInt(input) + (toInt(input) > 68 ? 1900 : 2000);
+    moment.parseZone = function (input) {
+        return moment(input).parseZone();
     };
 
     /************************************
@@ -9400,7 +9272,29 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             }
         },
 
-        month : makeAccessor('Month', true),
+        month : function (input) {
+            var utc = this._isUTC ? 'UTC' : '',
+                dayOfMonth;
+
+            if (input != null) {
+                if (typeof input === 'string') {
+                    input = this.lang().monthsParse(input);
+                    if (typeof input !== 'number') {
+                        return this;
+                    }
+                }
+
+                dayOfMonth = this.date();
+                this.date(1);
+                this._d['set' + utc + 'Month'](input);
+                this.date(Math.min(dayOfMonth, this.daysInMonth()));
+
+                moment.updateOffset(this);
+                return this;
+            } else {
+                return this._d['get' + utc + 'Month']();
+            }
+        },
 
         startOf: function (units) {
             units = normalizeUnits(units);
@@ -9410,7 +9304,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             case 'year':
                 this.month(0);
                 /* falls through */
-            case 'quarter':
             case 'month':
                 this.date(1);
                 /* falls through */
@@ -9435,11 +9328,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                 this.weekday(0);
             } else if (units === 'isoWeek') {
                 this.isoWeekday(1);
-            }
-
-            // quarters are also special
-            if (units === 'quarter') {
-                this.month(Math.floor(this.month() / 3) * 3);
             }
 
             return this;
@@ -9475,17 +9363,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             return other > this ? this : other;
         },
 
-        // keepTime = true means only change the timezone, without affecting
-        // the local hour. So 5:31:26 +0300 --[zone(2, true)]--> 5:31:26 +0200
-        // It is possible that 5:31:26 doesn't exist int zone +0200, so we
-        // adjust the time as needed, to be valid.
-        //
-        // Keeping the time actually adds/subtracts (one hour)
-        // from the actual represented time. That is why we call updateOffset
-        // a second time. In case it wants us to change the offset again
-        // _changeInProgress == true case, then we have to adjust, because
-        // there is no such time in the given timezone.
-        zone : function (input, keepTime) {
+        zone : function (input) {
             var offset = this._offset || 0;
             if (input != null) {
                 if (typeof input === "string") {
@@ -9497,14 +9375,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
                 this._offset = input;
                 this._isUTC = true;
                 if (offset !== input) {
-                    if (!keepTime || this._changeInProgress) {
-                        addOrSubtractDurationFromMoment(this,
-                                moment.duration(offset - input, 'm'), 1, false);
-                    } else if (!this._changeInProgress) {
-                        this._changeInProgress = true;
-                        moment.updateOffset(this, true);
-                        this._changeInProgress = null;
-                    }
+                    addOrSubtractDurationFromMoment(this, moment.duration(offset - input, 'm'), 1, true);
                 }
             } else {
                 return this._isUTC ? offset : this._d.getTimezoneOffset();
@@ -9549,8 +9420,8 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             return input == null ? dayOfYear : this.add("d", (input - dayOfYear));
         },
 
-        quarter : function (input) {
-            return input == null ? Math.ceil((this.month() + 1) / 3) : this.month((input - 1) * 3 + this.month() % 3);
+        quarter : function () {
+            return Math.ceil((this.month() + 1.0) / 3.0);
         },
 
         weekYear : function (input) {
@@ -9585,15 +9456,6 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
             return input == null ? this.day() || 7 : this.day(this.day() % 7 ? input : input - 7);
         },
 
-        isoWeeksInYear : function () {
-            return weeksInYear(this.year(), 1, 4);
-        },
-
-        weeksInYear : function () {
-            var weekInfo = this._lang._week;
-            return weeksInYear(this.year(), weekInfo.dow, weekInfo.doy);
-        },
-
         get : function (units) {
             units = normalizeUnits(units);
             return this[units]();
@@ -9620,68 +9482,33 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         }
     });
 
-    function rawMonthSetter(mom, value) {
-        var dayOfMonth;
-
-        // TODO: Move this out of here!
-        if (typeof value === 'string') {
-            value = mom.lang().monthsParse(value);
-            // TODO: Another silent failure?
-            if (typeof value !== 'number') {
-                return mom;
-            }
-        }
-
-        dayOfMonth = Math.min(mom.date(),
-                daysInMonth(mom.year(), value));
-        mom._d['set' + (mom._isUTC ? 'UTC' : '') + 'Month'](value, dayOfMonth);
-        return mom;
-    }
-
-    function rawGetter(mom, unit) {
-        return mom._d['get' + (mom._isUTC ? 'UTC' : '') + unit]();
-    }
-
-    function rawSetter(mom, unit, value) {
-        if (unit === 'Month') {
-            return rawMonthSetter(mom, value);
-        } else {
-            return mom._d['set' + (mom._isUTC ? 'UTC' : '') + unit](value);
-        }
-    }
-
-    function makeAccessor(unit, keepTime) {
-        return function (value) {
-            if (value != null) {
-                rawSetter(this, unit, value);
-                moment.updateOffset(this, keepTime);
+    // helper for adding shortcuts
+    function makeGetterAndSetter(name, key) {
+        moment.fn[name] = moment.fn[name + 's'] = function (input) {
+            var utc = this._isUTC ? 'UTC' : '';
+            if (input != null) {
+                this._d['set' + utc + key](input);
+                moment.updateOffset(this);
                 return this;
             } else {
-                return rawGetter(this, unit);
+                return this._d['get' + utc + key]();
             }
         };
     }
 
-    moment.fn.millisecond = moment.fn.milliseconds = makeAccessor('Milliseconds', false);
-    moment.fn.second = moment.fn.seconds = makeAccessor('Seconds', false);
-    moment.fn.minute = moment.fn.minutes = makeAccessor('Minutes', false);
-    // Setting the hour should keep the time, because the user explicitly
-    // specified which hour he wants. So trying to maintain the same hour (in
-    // a new timezone) makes sense. Adding/subtracting hours does not follow
-    // this rule.
-    moment.fn.hour = moment.fn.hours = makeAccessor('Hours', true);
-    // moment.fn.month is defined separately
-    moment.fn.date = makeAccessor('Date', true);
-    moment.fn.dates = deprecate("dates accessor is deprecated. Use date instead.", makeAccessor('Date', true));
-    moment.fn.year = makeAccessor('FullYear', true);
-    moment.fn.years = deprecate("years accessor is deprecated. Use year instead.", makeAccessor('FullYear', true));
+    // loop through and add shortcuts (Month, Date, Hours, Minutes, Seconds, Milliseconds)
+    for (i = 0; i < proxyGettersAndSetters.length; i ++) {
+        makeGetterAndSetter(proxyGettersAndSetters[i].toLowerCase().replace(/s$/, ''), proxyGettersAndSetters[i]);
+    }
+
+    // add shortcut for year (uses different syntax than the getter/setter 'year' == 'FullYear')
+    makeGetterAndSetter('year', 'FullYear');
 
     // add plural methods
     moment.fn.days = moment.fn.day;
     moment.fn.months = moment.fn.month;
     moment.fn.weeks = moment.fn.week;
     moment.fn.isoWeeks = moment.fn.isoWeek;
-    moment.fn.quarters = moment.fn.quarter;
 
     // add aliased format methods
     moment.fn.toJSON = moment.fn.toISOString;
@@ -9857,43 +9684,51 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
         Exposing Moment
     ************************************/
 
-    function makeGlobal(shouldDeprecate) {
+    function makeGlobal(deprecate) {
+        var warned = false, local_moment = moment;
         /*global ender:false */
         if (typeof ender !== 'undefined') {
             return;
         }
-        oldGlobalMoment = globalScope.moment;
-        if (shouldDeprecate) {
-            globalScope.moment = deprecate(
-                    "Accessing Moment through the global scope is " +
-                    "deprecated, and will be removed in an upcoming " +
-                    "release.",
-                    moment);
+        // here, `this` means `window` in the browser, or `global` on the server
+        // add `moment` as a global object via a string identifier,
+        // for Closure Compiler "advanced" mode
+        if (deprecate) {
+            global.moment = function () {
+                if (!warned && console && console.warn) {
+                    warned = true;
+                    console.warn(
+                            "Accessing Moment through the global scope is " +
+                            "deprecated, and will be removed in an upcoming " +
+                            "release.");
+                }
+                return local_moment.apply(null, arguments);
+            };
+            extend(global.moment, local_moment);
         } else {
-            globalScope.moment = moment;
+            global['moment'] = moment;
         }
     }
 
     // CommonJS module is defined
     if (hasModule) {
         module.exports = moment;
+        makeGlobal(true);
     } else if (typeof define === "function" && define.amd) {
         define("moment", function (require, exports, module) {
-            if (module.config && module.config() && module.config().noGlobal === true) {
-                // release the global variable
-                globalScope.moment = oldGlobalMoment;
+            if (module.config && module.config() && module.config().noGlobal !== true) {
+                // If user provided noGlobal, he is aware of global
+                makeGlobal(module.config().noGlobal === undefined);
             }
 
             return moment;
         });
-        makeGlobal(true);
     } else {
         makeGlobal();
     }
 }).call(this);
 
-}).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 /*!
  * numeral.js
  * version : 1.5.3
@@ -10574,7 +10409,7 @@ exports.rethrow = function rethrow(err, filename, lineno, str){
     }
 }).call(this);
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 // Middleware that injects the shared data and sharify script
 module.exports = function(req, res, next) {
 
@@ -10615,15 +10450,11 @@ module.exports.data = {};
 var bootstrapOnClient = module.exports.bootstrapOnClient = function() {
   if (typeof window != 'undefined' && window.__sharifyData) {
     module.exports.data = window.__sharifyData;
-    // Conveniently expose globals so client-side templates can access
-    // the `sd` and `sharify.data` just like the server.
-    if (!window.sharify) window.sharify = module.exports;
-    if (!window.sd) window.sd = window.__sharifyData;
   }
 };
 bootstrapOnClient();
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /**
  * Module dependencies.
  */
@@ -11042,13 +10873,13 @@ Response.prototype.setStatusProperties = function(status){
 Response.prototype.toError = function(){
   var req = this.req;
   var method = req.method;
-  var url = req.url;
+  var path = req.path;
 
-  var msg = 'cannot ' + method + ' ' + url + ' (' + this.status + ')';
+  var msg = 'cannot ' + method + ' ' + path + ' (' + this.status + ')';
   var err = new Error(msg);
   err.status = this.status;
   err.method = method;
-  err.url = url;
+  err.path = path;
 
   return err;
 };
@@ -11271,51 +11102,6 @@ Request.prototype.query = function(val){
 };
 
 /**
- * Write the field `name` and `val` for "multipart/form-data"
- * request bodies.
- *
- * ``` js
- * request.post('/upload')
- *   .field('foo', 'bar')
- *   .end(callback);
- * ```
- *
- * @param {String} name
- * @param {String|Blob|File} val
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.field = function(name, val){
-  if (!this._formData) this._formData = new FormData();
-  this._formData.append(name, val);
-  return this;
-};
-
-/**
- * Queue the given `file` as an attachment to the specified `field`,
- * with optional `filename`.
- *
- * ``` js
- * request.post('/upload')
- *   .attach(new Blob(['<a id="a"><b id="b">hey!</b></a>'], { type: "text/html"}))
- *   .end(callback);
- * ```
- *
- * @param {String} field
- * @param {Blob|File} file
- * @param {String} filename
- * @return {Request} for chaining
- * @api public
- */
-
-Request.prototype.attach = function(field, file, filename){
-  if (!this._formData) this._formData = new FormData();
-  this._formData.append(field, file, filename);
-  return this;
-};
-
-/**
  * Send `data`, defaulting the `.type()` to "json" when
  * an object is given.
  *
@@ -11465,7 +11251,7 @@ Request.prototype.end = function(fn){
   var xhr = this.xhr = getXHR();
   var query = this._query.join('&');
   var timeout = this._timeout;
-  var data = this._formData || this._data;
+  var data = this._data;
 
   // store callback
   this._callback = fn || noop;
@@ -11674,7 +11460,7 @@ request.put = function(url, data, fn){
 
 module.exports = request;
 
-},{"emitter":39,"reduce":40}],39:[function(require,module,exports){
+},{"emitter":40,"reduce":41}],40:[function(require,module,exports){
 
 /**
  * Expose `Emitter`.
@@ -11716,8 +11502,7 @@ function mixin(obj) {
  * @api public
  */
 
-Emitter.prototype.on =
-Emitter.prototype.addEventListener = function(event, fn){
+Emitter.prototype.on = function(event, fn){
   this._callbacks = this._callbacks || {};
   (this._callbacks[event] = this._callbacks[event] || [])
     .push(fn);
@@ -11743,7 +11528,7 @@ Emitter.prototype.once = function(event, fn){
     fn.apply(this, arguments);
   }
 
-  on.fn = fn;
+  fn._off = on;
   this.on(event, on);
   return this;
 };
@@ -11760,8 +11545,7 @@ Emitter.prototype.once = function(event, fn){
 
 Emitter.prototype.off =
 Emitter.prototype.removeListener =
-Emitter.prototype.removeAllListeners =
-Emitter.prototype.removeEventListener = function(event, fn){
+Emitter.prototype.removeAllListeners = function(event, fn){
   this._callbacks = this._callbacks || {};
 
   // all
@@ -11781,14 +11565,8 @@ Emitter.prototype.removeEventListener = function(event, fn){
   }
 
   // remove specific handler
-  var cb;
-  for (var i = 0; i < callbacks.length; i++) {
-    cb = callbacks[i];
-    if (cb === fn || cb.fn === fn) {
-      callbacks.splice(i, 1);
-      break;
-    }
-  }
+  var i = callbacks.indexOf(fn._off || fn);
+  if (~i) callbacks.splice(i, 1);
   return this;
 };
 
@@ -11840,7 +11618,7 @@ Emitter.prototype.hasListeners = function(event){
   return !! this.listeners(event).length;
 };
 
-},{}],40:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 
 /**
  * Reduce `arr` with `fn`.
@@ -11865,7 +11643,7 @@ module.exports = function(arr, fn, initial){
   
   return curr;
 };
-},{}],41:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 //  Underscore.string
 //  (c) 2010 Esa-Matti Suuronen <esa-matti aet suuronen dot org>
 //  Underscore.string is freely distributable under the terms of the MIT license.
@@ -12540,7 +12318,7 @@ module.exports = function(arr, fn, initial){
   root._.string = root._.str = _s;
 }(this, String);
 
-},{}],42:[function(require,module,exports){
+},{}],43:[function(require,module,exports){
 //     Underscore.js 1.6.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

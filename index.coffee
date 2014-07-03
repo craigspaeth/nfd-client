@@ -13,6 +13,7 @@ bodyParser = require 'body-parser'
 cookieParser = require 'cookie-parser'
 cookieSession = require 'cookie-session'
 errorHandler = require 'errorhandler'
+qs = require 'querystring'
 { PORT, NODE_ENV, API_URL, MANDRILL_APIKEY, SESSION_SECRET, 
   APP_URL } = config = require './config'
 
@@ -46,6 +47,7 @@ app.use bodyParser()
 app.use cookieParser()
 app.use cookieSession secret: SESSION_SECRET
 app.locals.accounting = accounting
+app.locals.qs = qs
 
 # Development only
 if "development" is NODE_ENV

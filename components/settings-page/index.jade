@@ -23,7 +23,7 @@ block content
       ul
         for alert in user.get('alerts')
           li
-            = alert.name
+            a( href='/search/' + qs.stringify(alert.query) )= alert.name
             a.settings-page-remove-alert Remove
     else
       em You have no alerts.&nbsp;
