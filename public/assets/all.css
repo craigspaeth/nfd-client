@@ -3243,6 +3243,7 @@ html.firefox .rounded-select {
   text-align: center;
   color: #fff;
   margin-bottom: 40px;
+  text-shadow: 0px 0px 8px #000;
 }
 #home-page-hero-unit-img-container {
   opacity: 0;
@@ -3587,12 +3588,21 @@ html.firefox .rounded-select {
   font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
   font-weight: 300;
-  font-weight: 100;
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-size: 11px;
-  color: #2f2f2f;
+  color: #555;
   margin-top: 3px;
+  -webkit-transition: color 0.3s;
+  -moz-transition: color 0.3s;
+  -o-transition: color 0.3s;
+  -ms-transition: color 0.3s;
+  transition: color 0.3s;
+}
+.settings-page-remove-alert:hover {
+  color: #b35454;
+  text-decoration: none;
 }
 @-moz-keyframes spin {
   0% {
