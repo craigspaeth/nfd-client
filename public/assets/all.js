@@ -533,7 +533,7 @@ sd = require('sharify').data;
 
 BELOW_FOLD_PEAK = 0;
 
-START_HERO_UNIT_OPACITY = 0.75;
+START_HERO_UNIT_OPACITY = 0.65;
 
 module.exports = HomepageView = (function(_super) {
   __extends(HomepageView, _super);
