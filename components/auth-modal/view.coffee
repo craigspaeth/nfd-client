@@ -20,6 +20,7 @@ module.exports = class AuthModal extends Backbone.View
     _.defer => @$('input:visible').first().focus()
 
   onError: (err) ->
+    @$('button').removeClass('is-loading')
     @$('.auth-modal-error').html err
     @$('#auth-modal-signup-form button').addClass('rounded-button-error')
     setTimeout (=> @$('form button').removeClass 'rounded-button-error'), 1000

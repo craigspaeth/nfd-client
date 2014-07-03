@@ -13,7 +13,8 @@ bodyParser = require 'body-parser'
 cookieParser = require 'cookie-parser'
 cookieSession = require 'cookie-session'
 errorHandler = require 'errorhandler'
-{ PORT, NODE_ENV, API_URL, MANDRILL_APIKEY, SESSION_SECRET, APP_URL } = config = require './config'
+{ PORT, NODE_ENV, API_URL, MANDRILL_APIKEY, SESSION_SECRET, 
+  APP_URL } = config = require './config'
 
 # Sharify data and the modules that use it
 sharify.data = _.pick config,
@@ -60,6 +61,14 @@ if "development" is NODE_ENV
 app.use express.static __dirname + "/public"
 
 # Login middleware
+tokenLogin = (req, res, next) ->
+  return next() unless (token = req.query['access-token']) and (id = req.query._id)
+  new User(accessToken: token, _id: id).fetch
+    error: (m, res) -> next res.error.toString()
+    success: (user) ->
+      req.session.user = user.toJSON()
+      setUser req, res, next
+
 setUser = (req, res, next) ->
   return next() unless req.session.user?
   res.locals.user = req.user = new User req.session.user
@@ -67,11 +76,10 @@ setUser = (req, res, next) ->
   next()
 
 login = (req, res, next) ->
-  user = new User req.user?.toJSON() or if _.keys(req.body).length then req.body else req.query
+  user = new User req.user?.toJSON() or req.body
   return res.redirect '/' unless user.get('_id') and user.get('accessToken')
   user.fetch
-    error: (m, res) ->
-      next res.error.toString()
+    error: (m, res) -> next res.error.toString()
     success: ->
       req.session.user = user.toJSON()
       setUser req, res, next
@@ -82,6 +90,7 @@ app.use (req, res, next) ->
   next()
 
 # Routes
+app.use tokenLogin
 app.use setUser
 app.get '/', (req, res) ->
   res.render 'home-page', path: '/'
