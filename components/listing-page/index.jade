@@ -32,11 +32,14 @@ block content
           )
             include ../../public/images/facebook.svg
     #listing-page-left
-      #listing-page-pictures-container
-        ul#listing-page-pictures
-          for url in listing.get('pictures')
-            li
-              img( src=url )
+      if listing.hasPictures()
+        #listing-page-pictures-container
+          ul#listing-page-pictures
+            for url in listing.get('pictures')
+              li
+                img( src=url )
+      else
+        #listing-page-no-pictures No pictures
     #listing-page-right
       if listing.get('location').lat
         #listing-page-map

@@ -59,6 +59,10 @@ module.exports = class Listing extends Backbone.Model
     'bath-min': @get('baths')
     'rent-max': @get('rent') + (@get('rent') / 10)
     'size': 20
+    'sort': 'newest'
 
   similarUrl: ->
     '/search/' + qs.stringify @similarParams()
+
+  hasPictures: ->
+    @get('pictures')?.length > 0

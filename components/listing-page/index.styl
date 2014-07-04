@@ -163,8 +163,19 @@ large-header-font-size = 48px
       color darkest-gray-color
       text-decoration none
 
-.listing-page-img-container
+.listing-page-img-container, .listing-page-no-pics
   height 200px
   overflow hidden
-  margin-bottom 15px 
+  margin-bottom 15px
+  background-color light-gray-color
   background-size cover
+
+#listing-page-no-pictures
+  background light-gray-color
+  aleo()
+  width calc(100% \- gutter-width)
+  height 200px
+  line-height @height
+  text-align center
+  color gray-color 
+  font-size 18px
