@@ -11,7 +11,7 @@ section.listings-listing( class=end ? 'listings-listing-end' : '' )
       .listings-count-num= listing.get('baths')  || '?'
       | bath
     if listing.get('location')
-      h3= listing.get('location').neighborhood || listing.get('location').name
+      h3= listing.locationName()
       h4= listing.get('location').formattedAddress || listing.get('location').formatted_address
       h6 From&nbsp;
         a.listings-listing-src( href=listing.get('url') target='_blank' )

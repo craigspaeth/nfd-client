@@ -1075,7 +1075,7 @@ em {
   left: 0;
   z-index: 3;
   height: 57px;
-  background: #eee;
+  background: #f0f0f0;
 }
 #main-header nav {
   display: inline-block;
@@ -1106,7 +1106,7 @@ em {
 #main-header nav a:hover,
 #main-header nav a:active,
 #main-header nav a.main-header-active {
-  background-color: #ccc;
+  color: #3db06f;
 }
 #main-header-logo {
   background: no-repeat;
@@ -1777,7 +1777,7 @@ em {
 }
 .filters-alerts-popover {
   position: absolute;
-  background: #eee;
+  background: #f0f0f0;
   padding: 20px;
   right: 0;
   background: #3db06f;
@@ -2168,7 +2168,7 @@ html.firefox .rounded-select {
   border-radius: 40px;
   line-height: 40px;
   text-align: center;
-  border: 2px solid #eee;
+  border: 2px solid #f0f0f0;
   display: inline-block;
   font-size: 17px;
   margin-right: 7px;
@@ -2200,23 +2200,24 @@ html.firefox .rounded-select {
   top: 177px;
 }
 .listings-map {
-  background: #eee;
+  background: #f0f0f0;
 }
 .listings-map-no-geo-cover {
   text-align: center;
-  color: #999;
   line-height: 400px;
-  background-color: #eee;
   display: none;
 }
 .listings-no-pictures {
-  background: #eee;
-  color: #ccc;
   height: 500px;
   width: 100%;
   line-height: 500px;
   font-size: 18px;
   text-align: center;
+}
+.listings-map-no-geo-cover,
+.listings-no-pictures {
+  background-color: #f0f0f0;
+  color: #a2a2a2;
 }
 .listings-no-results {
   text-align: center;
@@ -2232,8 +2233,8 @@ html.firefox .rounded-select {
 }
 .listings-advertisement {
   text-align: center;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
+  border-top: 1px solid #f0f0f0;
+  border-bottom: 1px solid #f0f0f0;
   padding: 20px 0 14px 0;
 }
 .listings-advertisement-header {
@@ -2893,7 +2894,7 @@ html.firefox .rounded-select {
 }
 #auth-modal-left {
   float: left;
-  border-right: 1px solid #eee;
+  border-right: 1px solid #f0f0f0;
   padding-right: 20px;
 }
 #auth-modal-left button {
@@ -2930,7 +2931,7 @@ html.firefox .rounded-select {
   display: none;
 }
 .auth-modal-lower a:first-child {
-  border-right: 1px solid #eee;
+  border-right: 1px solid #f0f0f0;
   padding-right: 10px;
   margin-right: 10px;
 }
@@ -3243,7 +3244,7 @@ html.firefox .rounded-select {
   text-align: center;
   color: #fff;
   margin-bottom: 40px;
-  text-shadow: 0px 0px 8px #000;
+  text-shadow: 0px 0px 8px rgba(100,100,100,0.4), 1px 1px 1px #000;
 }
 #home-page-hero-unit-img-container {
   opacity: 0;
@@ -3322,7 +3323,7 @@ html.firefox .rounded-select {
 #home-page-hero-unit-caption {
   bottom: 30px;
   right: 40px;
-  color: #eee;
+  color: #f0f0f0;
   z-index: 1;
   font-size: 12px;
   text-decoration: none;
@@ -3370,7 +3371,7 @@ html.firefox .rounded-select {
   position: relative;
 }
 #about-page-small-header-caption {
-  color: #eee;
+  color: #f0f0f0;
   z-index: 2;
   font-size: 12px;
   text-decoration: none;
@@ -3830,7 +3831,8 @@ html.firefox .rounded-select {
   float: left;
   font-size: 48px;
   margin-top: 5px;
-  line-height: 30px;
+  line-height: 40px;
+  width: calc(100% - 356px);
 }
 #listing-page-header h1 #listing-page-rent,
 #listing-page-header h1 > small {
@@ -3849,6 +3851,7 @@ html.firefox .rounded-select {
 #listing-page-header-right {
   float: right;
   width: 336px;
+  margin-top: -5px;
 }
 #listing-page-header-right h3 {
   font-weight: bold;
@@ -3920,6 +3923,12 @@ html.firefox .rounded-select {
 }
 #listing-page-location {
   margin-left: 0;
+  max-width: 50%;
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  display: inline-block;
 }
 #listing-page-listed-ago {
   font-family: aleo, Georgia, serif;
@@ -3932,6 +3941,8 @@ html.firefox .rounded-select {
   font-size: 20px;
   font-weight: 300;
   font-style: italic;
+  position: relative;
+  top: -15px;
 }
 #listing-page-pictures-container {
   overflow: hidden;
@@ -3968,24 +3979,6 @@ html.firefox .rounded-select {
 #listing-page-map {
   margin-bottom: 10px;
   height: 336px;
-}
-#listing-page-map-details {
-  zoom: 1;
-}
-#listing-page-map-details:before,
-#listing-page-map-details:after {
-  content: "";
-  display: table;
-}
-#listing-page-map-details:after {
-  clear: both;
-}
-#listing-page-map-details h3 {
-  float: left;
-  width: 50%;
-}
-#listing-page-map-details .rounded-button {
-  width: 50%;
 }
 #listing-page-ad {
   font-family: campton, Helvetica, sans-serif;
@@ -4072,13 +4065,13 @@ html.firefox .rounded-select {
   height: 200px;
   overflow: hidden;
   margin-bottom: 15px;
-  background-color: #eee;
+  background-color: #f0f0f0;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
 }
 #listing-page-no-pictures {
-  background: #eee;
+  background: #f0f0f0;
   font-family: aleo, Georgia, serif;
   -webkit-font-smoothing: antialiased;
   -moz-font-smoothing: antialiased;

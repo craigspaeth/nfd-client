@@ -51,6 +51,7 @@ module.exports = class Listing extends Backbone.Model
       'listings-listed-ago-bad'
 
   locationName: ->
+    return '' unless @get('location')
     @get('location').neighborhood or @get('location').name
 
   similarParams: ->

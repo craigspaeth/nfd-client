@@ -822,7 +822,7 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.get('baths')  || '?') ? "" : jade_interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h6>From&nbsp;<a" + (jade.attr("href", listing.get('url'), true, false)) + " target=\"_blank\" class=\"listings-listing-src\">" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></h6><h5 target=\"_blank\"" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.locationName()) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h6>From&nbsp;<a" + (jade.attr("href", listing.get('url'), true, false)) + " target=\"_blank\" class=\"listings-listing-src\">" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></h6><h5 target=\"_blank\"" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
 buf.push("<a target=\"_blank\"" + (jade.attr("href", '/listings/' + listing.get('_id'), true, false)) + " class=\"rounded-button\"><strong>See more</strong></a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
@@ -873,7 +873,7 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.get('baths')  || '?') ? "" : jade_interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h6>From&nbsp;<a" + (jade.attr("href", listing.get('url'), true, false)) + " target=\"_blank\" class=\"listings-listing-src\">" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></h6><h5 target=\"_blank\"" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.locationName()) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h6>From&nbsp;<a" + (jade.attr("href", listing.get('url'), true, false)) + " target=\"_blank\" class=\"listings-listing-src\">" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></h6><h5 target=\"_blank\"" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
 buf.push("<a target=\"_blank\"" + (jade.attr("href", '/listings/' + listing.get('_id'), true, false)) + " class=\"rounded-button\"><strong>See more</strong></a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
@@ -931,7 +931,7 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.get('baths')  || '?') ? "" : jade_interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h6>From&nbsp;<a" + (jade.attr("href", listing.get('url'), true, false)) + " target=\"_blank\" class=\"listings-listing-src\">" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></h6><h5 target=\"_blank\"" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.locationName()) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h6>From&nbsp;<a" + (jade.attr("href", listing.get('url'), true, false)) + " target=\"_blank\" class=\"listings-listing-src\">" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></h6><h5 target=\"_blank\"" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
 buf.push("<a target=\"_blank\"" + (jade.attr("href", '/listings/' + listing.get('_id'), true, false)) + " class=\"rounded-button\"><strong>See more</strong></a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
@@ -982,7 +982,7 @@ buf.push("bed");
 buf.push("</h2><h2 class=\"listings-bath-count\"><div class=\"listings-count-num\">" + (jade.escape(null == (jade_interp = listing.get('baths')  || '?') ? "" : jade_interp)) + "</div>bath</h2>");
 if ( listing.get('location'))
 {
-buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.get('location').neighborhood || listing.get('location').name) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h6>From&nbsp;<a" + (jade.attr("href", listing.get('url'), true, false)) + " target=\"_blank\" class=\"listings-listing-src\">" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></h6><h5 target=\"_blank\"" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
+buf.push("<h3>" + (jade.escape(null == (jade_interp = listing.locationName()) ? "" : jade_interp)) + "</h3><h4>" + (jade.escape(null == (jade_interp = listing.get('location').formattedAddress || listing.get('location').formatted_address) ? "" : jade_interp)) + "</h4><h6>From&nbsp;<a" + (jade.attr("href", listing.get('url'), true, false)) + " target=\"_blank\" class=\"listings-listing-src\">" + (jade.escape(null == (jade_interp = listing.sourceWebsiteName()) ? "" : jade_interp)) + "</a></h6><h5 target=\"_blank\"" + (jade.cls([listing.listedAgoClass()], [true])) + ">Listed " + (jade.escape((jade_interp = listing.listedAgo()) == null ? '' : jade_interp)) + "</h5>");
 }
 buf.push("<a target=\"_blank\"" + (jade.attr("href", '/listings/' + listing.get('_id'), true, false)) + " class=\"rounded-button\"><strong>See more</strong></a></div><div class=\"listings-section-middle\">");
 if ( listing.get('pictures').length)
@@ -1630,6 +1630,9 @@ module.exports = Listing = (function(_super) {
   };
 
   Listing.prototype.locationName = function() {
+    if (!this.get('location')) {
+      return '';
+    }
     return this.get('location').neighborhood || this.get('location').name;
   };
 
@@ -1759,7 +1762,6 @@ module.exports = User = (function(_super) {
   };
 
   User.prototype.refreshSession = function() {
-    return;
     return request.post('/login').end();
   };
 

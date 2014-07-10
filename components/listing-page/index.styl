@@ -15,7 +15,8 @@ large-header-font-size = 48px
     float left
     font-size large-header-font-size
     margin-top 5px
-    line-height 30px
+    line-height 40px
+    width calc(100% \- (ad-width + gutter-width))
     #listing-page-rent, > small
       margin-right 15px
     small
@@ -30,6 +31,7 @@ large-header-font-size = 48px
 #listing-page-header-right
   float right
   width ad-width
+  margin-top -5px
   h3
     font-weight bold
     font-size default-font-size - 1
@@ -62,12 +64,17 @@ large-header-font-size = 48px
 
 #listing-page-location
   margin-left 0
+  max-width 50%
+  overflow ellipsis
+  display inline-block
 
 #listing-page-listed-ago
   aleo()
   font-size small-header-font-size
   font-weight 300
   font-style italic
+  position relative
+  top -15px
 
 #listing-page-pictures-container
   overflow hidden
@@ -99,14 +106,6 @@ large-header-font-size = 48px
 #listing-page-map
   margin-bottom 10px
   height ad-width
-
-#listing-page-map-details
-  clearfix()
-  h3
-    float left
-    width 50%
-  .rounded-button
-    width 50%
 
 #listing-page-ad
   campton()

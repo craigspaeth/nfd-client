@@ -24,7 +24,6 @@ module.exports = class User extends Backbone.Model
     super
 
   refreshSession: ->
-    return
     request.post('/login').end()
 
   @login: (email, password, callback) ->
